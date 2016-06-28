@@ -137,6 +137,8 @@ App_Data/*.ldf
 
 # Code Files
 
+# Databases
+Database/*.db
 
 #############
 ## Windows detritus

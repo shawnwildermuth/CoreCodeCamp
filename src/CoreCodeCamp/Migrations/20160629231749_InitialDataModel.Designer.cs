@@ -5,17 +5,18 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using CoreCodeCamp.Data;
 
-namespace CoreCodeCamp.Data.Migrations
+namespace CoreCodeCamp.Migrations
 {
     [DbContext(typeof(CodeCampContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20160629231749_InitialDataModel")]
+    partial class InitialDataModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431");
 
-            modelBuilder.Entity("CoreCodeCamp.Data.Category", b =>
+            modelBuilder.Entity("CoreCodeCamp.Data.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -31,111 +32,7 @@ namespace CoreCodeCamp.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("CoreCodeCamp.Data.Room", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Rooms");
-                });
-
-            modelBuilder.Entity("CoreCodeCamp.Data.Speaker", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Bio");
-
-                    b.Property<string>("Blog");
-
-                    b.Property<string>("CompanyName");
-
-                    b.Property<string>("CompanyUrl");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Title");
-
-                    b.Property<string>("TwitterHandle");
-
-                    b.Property<string>("UserName");
-
-                    b.Property<string>("Website");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Speakers");
-                });
-
-            modelBuilder.Entity("CoreCodeCamp.Data.Talk", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Abstract");
-
-                    b.Property<bool>("Approved");
-
-                    b.Property<string>("CodeCampUserId");
-
-                    b.Property<string>("Level");
-
-                    b.Property<int?>("RoomId");
-
-                    b.Property<int?>("SpeakerId");
-
-                    b.Property<int?>("TalkTimeId");
-
-                    b.Property<string>("Title");
-
-                    b.Property<int?>("TrackId");
-
-                    b.Property<int>("Votes");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CodeCampUserId");
-
-                    b.HasIndex("RoomId");
-
-                    b.HasIndex("SpeakerId");
-
-                    b.HasIndex("TalkTimeId");
-
-                    b.HasIndex("TrackId");
-
-                    b.ToTable("Talks");
-                });
-
-            modelBuilder.Entity("CoreCodeCamp.Data.TalkTime", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TalkTimes");
-                });
-
-            modelBuilder.Entity("CoreCodeCamp.Data.Track", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tracks");
-                });
-
-            modelBuilder.Entity("CoreCodeCamp.Models.CodeCampUser", b =>
+            modelBuilder.Entity("CoreCodeCamp.Data.Entities.CodeCampUser", b =>
                 {
                     b.Property<string>("Id");
 
@@ -182,6 +79,110 @@ namespace CoreCodeCamp.Data.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("CoreCodeCamp.Data.Entities.Room", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("CoreCodeCamp.Data.Entities.Speaker", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Bio");
+
+                    b.Property<string>("Blog");
+
+                    b.Property<string>("CompanyName");
+
+                    b.Property<string>("CompanyUrl");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Title");
+
+                    b.Property<string>("TwitterHandle");
+
+                    b.Property<string>("UserName");
+
+                    b.Property<string>("Website");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Speakers");
+                });
+
+            modelBuilder.Entity("CoreCodeCamp.Data.Entities.Talk", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Abstract");
+
+                    b.Property<bool>("Approved");
+
+                    b.Property<string>("CodeCampUserId");
+
+                    b.Property<string>("Level");
+
+                    b.Property<int?>("RoomId");
+
+                    b.Property<int?>("SpeakerId");
+
+                    b.Property<int?>("TalkTimeId");
+
+                    b.Property<string>("Title");
+
+                    b.Property<int?>("TrackId");
+
+                    b.Property<int>("Votes");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CodeCampUserId");
+
+                    b.HasIndex("RoomId");
+
+                    b.HasIndex("SpeakerId");
+
+                    b.HasIndex("TalkTimeId");
+
+                    b.HasIndex("TrackId");
+
+                    b.ToTable("Talks");
+                });
+
+            modelBuilder.Entity("CoreCodeCamp.Data.Entities.TalkTime", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TalkTimes");
+                });
+
+            modelBuilder.Entity("CoreCodeCamp.Data.Entities.Track", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tracks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
@@ -291,32 +292,32 @@ namespace CoreCodeCamp.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("CoreCodeCamp.Data.Category", b =>
+            modelBuilder.Entity("CoreCodeCamp.Data.Entities.Category", b =>
                 {
-                    b.HasOne("CoreCodeCamp.Data.Talk")
+                    b.HasOne("CoreCodeCamp.Data.Entities.Talk")
                         .WithMany("Categories")
                         .HasForeignKey("TalkId");
                 });
 
-            modelBuilder.Entity("CoreCodeCamp.Data.Talk", b =>
+            modelBuilder.Entity("CoreCodeCamp.Data.Entities.Talk", b =>
                 {
-                    b.HasOne("CoreCodeCamp.Models.CodeCampUser")
+                    b.HasOne("CoreCodeCamp.Data.Entities.CodeCampUser")
                         .WithMany("Talks")
                         .HasForeignKey("CodeCampUserId");
 
-                    b.HasOne("CoreCodeCamp.Data.Room", "Room")
+                    b.HasOne("CoreCodeCamp.Data.Entities.Room", "Room")
                         .WithMany()
                         .HasForeignKey("RoomId");
 
-                    b.HasOne("CoreCodeCamp.Data.Speaker")
+                    b.HasOne("CoreCodeCamp.Data.Entities.Speaker")
                         .WithMany("Talks")
                         .HasForeignKey("SpeakerId");
 
-                    b.HasOne("CoreCodeCamp.Data.TalkTime", "TalkTime")
+                    b.HasOne("CoreCodeCamp.Data.Entities.TalkTime", "TalkTime")
                         .WithMany()
                         .HasForeignKey("TalkTimeId");
 
-                    b.HasOne("CoreCodeCamp.Data.Track", "Track")
+                    b.HasOne("CoreCodeCamp.Data.Entities.Track", "Track")
                         .WithMany()
                         .HasForeignKey("TrackId");
                 });
@@ -331,7 +332,7 @@ namespace CoreCodeCamp.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("CoreCodeCamp.Models.CodeCampUser")
+                    b.HasOne("CoreCodeCamp.Data.Entities.CodeCampUser")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -339,7 +340,7 @@ namespace CoreCodeCamp.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("CoreCodeCamp.Models.CodeCampUser")
+                    b.HasOne("CoreCodeCamp.Data.Entities.CodeCampUser")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -352,7 +353,7 @@ namespace CoreCodeCamp.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("CoreCodeCamp.Models.CodeCampUser")
+                    b.HasOne("CoreCodeCamp.Data.Entities.CodeCampUser")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

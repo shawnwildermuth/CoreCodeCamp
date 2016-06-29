@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CoreCodeCamp.Data;
+using CoreCodeCamp.Data.Entities;
+using CoreCodeCamp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using CoreCodeCamp.Data;
-using CoreCodeCamp.Models;
-using CoreCodeCamp.Data.Entities;
-using CoreCodeCamp.Services;
 
 namespace CoreCodeCamp
 {

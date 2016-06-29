@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using CoreCodeCamp.Data;
 using CoreCodeCamp.Models;
 using CoreCodeCamp.Data.Entities;
+using CoreCodeCamp.Services;
 
 namespace CoreCodeCamp
 {
@@ -38,13 +39,27 @@ namespace CoreCodeCamp
     {
       services.AddSingleton(f => _config);
 
+      if (_env.IsProduction())
+        {
+        services.AddScoped<IMailService, SendGridMailService>();
+      }
+      else
+      {
+        services.AddScoped<IMailService, DebugMailService>();
+      }
+
       // Add framework services.
       services.AddDbContext<CodeCampContext>();
       services.AddScoped<ICodeCampRepository, CodeCampRepository>();
       services.AddTransient<CodeCampSeeder>();
 
       // Configure Identity (Security)
-      services.AddIdentity<CodeCampUser, IdentityRole>()
+      services.AddIdentity<CodeCampUser, IdentityRole>(config =>
+      {
+        config.User.RequireUniqueEmail = true;
+        config.SignIn.RequireConfirmedEmail = true;
+        config.Lockout.MaxFailedAccessAttempts = 10;
+      })
           .AddEntityFrameworkStores<CodeCampContext>()
           .AddDefaultTokenProviders();
 
@@ -56,10 +71,10 @@ namespace CoreCodeCamp
     {
       loggerFactory.AddConsole(_config.GetSection("Logging"));
 
-      loggerFactory.AddDebug();
 
       if (_env.IsDevelopment())
       {
+        loggerFactory.AddDebug(LogLevel.Information);
         app.UseDeveloperExceptionPage();
         app.UseDatabaseErrorPage();
       }

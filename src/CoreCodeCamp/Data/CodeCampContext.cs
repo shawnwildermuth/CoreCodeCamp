@@ -29,7 +29,8 @@ namespace CoreCodeCamp.Data
     public DbSet<TalkTime> TalkTimes { get; set; }
     public DbSet<Room> Rooms { get; set; }
     public DbSet<Category> Categories { get; set; }
-
+    public DbSet<Sponsor> Sponsors { get; set; }
+ 
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

@@ -145,7 +145,6 @@ namespace CoreCodeCamp.Controllers
     {
       if (ModelState.IsValid)
       {
-        // TODO
         var user = await _userManager.FindByEmailAsync(email);
 
         if (user != null)
@@ -164,6 +163,11 @@ namespace CoreCodeCamp.Controllers
 
             return View("ResendConfirmEmailSent");
           }
+        }
+        else
+        {
+          ModelState.AddModelError("", "No such email, please register.");
+          return View();
         }
       }
 
@@ -211,7 +215,7 @@ namespace CoreCodeCamp.Controllers
         if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
         {
           // Don't reveal that the user does not exist or is not confirmed
-          return View("ForgotPasswordConfirmation");
+          return View("ResendConfirmEmail");
         }
 
         // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713

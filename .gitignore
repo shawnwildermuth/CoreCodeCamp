@@ -140,6 +140,16 @@ App_Data/*.ldf
 # Databases
 [Dd]atabase/
 
+#ASPNETCore
+project.lock.json
+bower_components/
+node_modules/
+**/wwwroot/lib/
+**/wwwroot/img/media/
+.settings
+**/PublishProfiles/
+**/PublishScripts/
+
 #############
 ## Windows detritus
 #############

@@ -14,5 +14,8 @@ namespace CoreCodeCamp.Data.Entities
     public string Link { get; set; }
     public string SponsorLevel { get; set; }
     public bool Paid { get; set; }
+
+    public EventInfo Event { get; set; }
+
   }
 }

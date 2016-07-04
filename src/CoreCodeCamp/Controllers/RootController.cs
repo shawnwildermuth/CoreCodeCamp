@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CoreCodeCamp.Data;
+using CoreCodeCamp.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreCodeCamp.Controllers
@@ -16,28 +17,36 @@ namespace CoreCodeCamp.Controllers
       _repo = repo;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(string moniker)
     {
-      return View();
+      return View(EnsureEvent(moniker));
     }
 
-    public IActionResult About()
+    private EventInfo EnsureEvent(string moniker)
     {
-      ViewData["Message"] = "Your application description page.";
+      var eventInfo = _repo.GetEventInfo(moniker);
 
-      return View();
+      if (eventInfo == null)
+      {
+        eventInfo = _repo.GetCurrentEvent();
+      }
+
+      return eventInfo;
     }
 
-    public IActionResult Contact()
+    public IActionResult About(string moniker)
+    {
+      ViewData["Message"] = "About this Site";
+
+      return View(EnsureEvent(moniker));
+    }
+
+    public IActionResult Contact(string moniker)
     {
       ViewData["Message"] = "Your contact page.";
 
-      return View();
+      return View(EnsureEvent(moniker));
     }
 
-    public IActionResult Error()
-    {
-      return View();
-    }
   }
 }

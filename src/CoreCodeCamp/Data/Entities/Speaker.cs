@@ -21,5 +21,7 @@ namespace CoreCodeCamp.Data.Entities
 
     public ICollection<Talk> Talks { get; set; }
 
+    public EventInfo Event { get; set; }
+
   }
 }

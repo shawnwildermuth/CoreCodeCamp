@@ -8,9 +8,10 @@ using CoreCodeCamp.Data;
 namespace CoreCodeCamp.Migrations
 {
     [DbContext(typeof(CodeCampContext))]
-    partial class CodeCampContextModelSnapshot : ModelSnapshot
+    [Migration("20160704082613_InitialDatabase")]
+    partial class InitialDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431");
@@ -80,6 +81,34 @@ namespace CoreCodeCamp.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("CoreCodeCamp.Data.Entities.EventInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime>("EventDate");
+
+                    b.Property<short>("EventLength");
+
+                    b.Property<bool>("IsDefault");
+
+                    b.Property<bool>("IsPublic");
+
+                    b.Property<int?>("LocationId");
+
+                    b.Property<string>("Moniker");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("CodeCampEvents");
+                });
+
             modelBuilder.Entity("CoreCodeCamp.Data.Entities.Room", b =>
                 {
                     b.Property<int>("Id")
@@ -105,6 +134,8 @@ namespace CoreCodeCamp.Migrations
 
                     b.Property<string>("CompanyUrl");
 
+                    b.Property<int?>("EventId");
+
                     b.Property<string>("Name");
 
                     b.Property<string>("Title");
@@ -117,6 +148,8 @@ namespace CoreCodeCamp.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EventId");
+
                     b.ToTable("Speakers");
                 });
 
@@ -124,6 +157,8 @@ namespace CoreCodeCamp.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("EventId");
 
                     b.Property<string>("ImageUrl");
 
@@ -136,6 +171,8 @@ namespace CoreCodeCamp.Migrations
                     b.Property<string>("SponsorLevel");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EventId");
 
                     b.ToTable("Sponsors");
                 });
@@ -197,11 +234,41 @@ namespace CoreCodeCamp.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("EventId");
+
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EventId");
+
                     b.ToTable("Tracks");
+                });
+
+            modelBuilder.Entity("CoreCodeCamp.Data.EventLocation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address1");
+
+                    b.Property<string>("Address2");
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("Country");
+
+                    b.Property<string>("Facility");
+
+                    b.Property<string>("Link");
+
+                    b.Property<string>("PostalCode");
+
+                    b.Property<string>("StateProvince");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EventLocation");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
@@ -318,6 +385,27 @@ namespace CoreCodeCamp.Migrations
                         .HasForeignKey("TalkId");
                 });
 
+            modelBuilder.Entity("CoreCodeCamp.Data.Entities.EventInfo", b =>
+                {
+                    b.HasOne("CoreCodeCamp.Data.EventLocation", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId");
+                });
+
+            modelBuilder.Entity("CoreCodeCamp.Data.Entities.Speaker", b =>
+                {
+                    b.HasOne("CoreCodeCamp.Data.Entities.EventInfo", "Event")
+                        .WithMany()
+                        .HasForeignKey("EventId");
+                });
+
+            modelBuilder.Entity("CoreCodeCamp.Data.Entities.Sponsor", b =>
+                {
+                    b.HasOne("CoreCodeCamp.Data.Entities.EventInfo", "Event")
+                        .WithMany()
+                        .HasForeignKey("EventId");
+                });
+
             modelBuilder.Entity("CoreCodeCamp.Data.Entities.Talk", b =>
                 {
                     b.HasOne("CoreCodeCamp.Data.Entities.CodeCampUser")
@@ -339,6 +427,13 @@ namespace CoreCodeCamp.Migrations
                     b.HasOne("CoreCodeCamp.Data.Entities.Track", "Track")
                         .WithMany()
                         .HasForeignKey("TrackId");
+                });
+
+            modelBuilder.Entity("CoreCodeCamp.Data.Entities.Track", b =>
+                {
+                    b.HasOne("CoreCodeCamp.Data.Entities.EventInfo", "Event")
+                        .WithMany()
+                        .HasForeignKey("EventId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

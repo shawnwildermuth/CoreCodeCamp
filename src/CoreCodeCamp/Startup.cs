@@ -4,6 +4,7 @@ using CoreCodeCamp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -61,10 +62,9 @@ namespace CoreCodeCamp
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory, CodeCampSeeder seeder)
+    public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory, CodeCampSeeder seeder, ICodeCampRepository repo)
     {
       loggerFactory.AddConsole(_config.GetSection("Logging"));
-
 
       if (_env.IsDevelopment())
       {
@@ -74,21 +74,45 @@ namespace CoreCodeCamp
       }
       else
       {
-        app.UseExceptionHandler("/Home/Error");
+        app.UseStatusCodePagesWithRedirects("~/Error/{0}");
+        app.UseExceptionHandler("/Error/Exception");
       }
 
       app.UseStaticFiles();
 
       app.UseIdentity();
 
-      app.UseMvc(routes =>
-      {
-        routes.MapRoute(
-                  name: "default",
-                  template: "{controller=Root}/{action=Index}/{id?}");
-      });
-
+      // Need seed data before we create the routes!
       seeder.SeedAsync().Wait();
+
+      app.UseMvc(CreateRoutes);
+
+    }
+
+    void CreateRoutes(IRouteBuilder routes)
+    {
+      routes.MapRoute(
+        name: "areas",
+        template: "{area:exists}/{controller=Root}/{action=Index}/{id?}");
+
+      //var repo = routes.ServiceProvider.GetService<ICodeCampRepository>();
+
+      //var events = repo.GetAllEventInfo();
+
+      //foreach (var e in events)
+      //{
+      //  routes.MapRoute(
+      //    name: string.Concat("Event-", e.Moniker),
+      //    template: string.Concat(e.Moniker, "/{controller=Root}/{action=Index}/{id?}")
+      //    );
+      //}
+
+      routes.MapRoute(
+        name: string.Concat("Events"),
+        template: string.Concat("{moniker}/{controller=Root}/{action=Index}/{id?}")
+        );
+
+
     }
   }
 }

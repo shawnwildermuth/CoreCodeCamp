@@ -59,6 +59,56 @@ namespace CoreCodeCamp.Data
           throw new InvalidOperationException("Failed to update Super User Role");
         }
       }
+
+      if (!_ctx.CodeCampEvents.Any())
+      {
+        var codeCamps = new EventInfo[] {
+          new EventInfo()
+          {
+            Moniker = "2016",
+            Name = "Atlanta Code Camp 2016",
+            EventDate = new DateTime(2016, 10, 15),
+            EventLength = 1,
+            Description = "The Atlanta Code Camp is awesome",
+            IsDefault = true,
+            Location = new EventLocation()
+            {
+              Facility = "TDB",
+              Address1 = "123 Main Street",
+              Address2 = "First Floor",
+              City = "Atlanta",
+              StateProvince = "GA",
+              PostalCode = "30307",
+              Country = "USA",
+              Link = ""
+            }
+          },
+          new EventInfo()
+          {
+            Moniker = "2015",
+            Name = "Atlanta Code Camp 2015",
+            EventDate = new DateTime(2015, 10, 12),
+            EventLength = 1,
+            Description = "The Atlanta Code Camp is awesome",
+            IsDefault = false,
+            Location = new EventLocation()
+            {
+              Facility = "TDB",
+              Address1 = "123 Main Street",
+              Address2 = "First Floor",
+              City = "Atlanta",
+              StateProvince = "GA",
+              PostalCode = "30307",
+              Country = "USA",
+              Link = ""
+            }
+          }
+        };
+
+        _ctx.AddRange(codeCamps);
+
+        await _ctx.SaveChangesAsync();
+      }
     }
   }
 }

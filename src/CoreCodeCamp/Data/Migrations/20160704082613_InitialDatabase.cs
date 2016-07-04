@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CoreCodeCamp.Migrations
 {
-    public partial class InitialDataModel : Migration
+    public partial class InitialDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,27 +47,6 @@ namespace CoreCodeCamp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Speakers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Autoincrement", true),
-                    Bio = table.Column<string>(nullable: true),
-                    Blog = table.Column<string>(nullable: true),
-                    CompanyName = table.Column<string>(nullable: true),
-                    CompanyUrl = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
-                    TwitterHandle = table.Column<string>(nullable: true),
-                    UserName = table.Column<string>(nullable: true),
-                    Website = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Speakers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TalkTimes",
                 columns: table => new
                 {
@@ -81,16 +60,23 @@ namespace CoreCodeCamp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tracks",
+                name: "EventLocation",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Autoincrement", true),
-                    Name = table.Column<string>(nullable: true)
+                    Address1 = table.Column<string>(nullable: true),
+                    Address2 = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    Country = table.Column<string>(nullable: true),
+                    Facility = table.Column<string>(nullable: true),
+                    Link = table.Column<string>(nullable: true),
+                    PostalCode = table.Column<string>(nullable: true),
+                    StateProvince = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tracks", x => x.Id);
+                    table.PrimaryKey("PK_EventLocation", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -163,6 +149,149 @@ namespace CoreCodeCamp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CodeCampEvents",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    Description = table.Column<string>(nullable: true),
+                    EventDate = table.Column<DateTime>(nullable: false),
+                    EventLength = table.Column<short>(nullable: false),
+                    IsDefault = table.Column<bool>(nullable: false),
+                    IsPublic = table.Column<bool>(nullable: false),
+                    LocationId = table.Column<int>(nullable: true),
+                    Moniker = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CodeCampEvents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CodeCampEvents_EventLocation_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "EventLocation",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetRoleClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    ClaimType = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true),
+                    RoleId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(nullable: false),
+                    RoleId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Speakers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    Bio = table.Column<string>(nullable: true),
+                    Blog = table.Column<string>(nullable: true),
+                    CompanyName = table.Column<string>(nullable: true),
+                    CompanyUrl = table.Column<string>(nullable: true),
+                    EventId = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    TwitterHandle = table.Column<string>(nullable: true),
+                    UserName = table.Column<string>(nullable: true),
+                    Website = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Speakers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Speakers_CodeCampEvents_EventId",
+                        column: x => x.EventId,
+                        principalTable: "CodeCampEvents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sponsors",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    EventId = table.Column<int>(nullable: true),
+                    ImageUrl = table.Column<string>(nullable: true),
+                    Link = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Paid = table.Column<bool>(nullable: false),
+                    SponsorLevel = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sponsors", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sponsors_CodeCampEvents_EventId",
+                        column: x => x.EventId,
+                        principalTable: "CodeCampEvents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tracks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    EventId = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tracks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tracks_CodeCampEvents_EventId",
+                        column: x => x.EventId,
+                        principalTable: "CodeCampEvents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Talks",
                 columns: table => new
                 {
@@ -215,51 +344,6 @@ namespace CoreCodeCamp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetRoleClaims",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Autoincrement", true),
-                    ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true),
-                    RoleId = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUserRoles",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(nullable: false),
-                    RoleId = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
-                    table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
                 {
@@ -296,6 +380,21 @@ namespace CoreCodeCamp.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_CodeCampEvents_LocationId",
+                table: "CodeCampEvents",
+                column: "LocationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Speakers_EventId",
+                table: "Speakers",
+                column: "EventId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sponsors_EventId",
+                table: "Sponsors",
+                column: "EventId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Talks_CodeCampUserId",
                 table: "Talks",
                 column: "CodeCampUserId");
@@ -319,6 +418,11 @@ namespace CoreCodeCamp.Migrations
                 name: "IX_Talks_TrackId",
                 table: "Talks",
                 column: "TrackId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tracks_EventId",
+                table: "Tracks",
+                column: "EventId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
@@ -357,6 +461,9 @@ namespace CoreCodeCamp.Migrations
                 name: "Categories");
 
             migrationBuilder.DropTable(
+                name: "Sponsors");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -391,6 +498,12 @@ namespace CoreCodeCamp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tracks");
+
+            migrationBuilder.DropTable(
+                name: "CodeCampEvents");
+
+            migrationBuilder.DropTable(
+                name: "EventLocation");
         }
     }
 }

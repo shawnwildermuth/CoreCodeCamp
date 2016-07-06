@@ -37,6 +37,11 @@
     <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/lib/typeicons/src/font/typicons.min.css" rel="stylesheet" />
 
+    <link href="~/template/css/animate.css" rel="stylesheet">
+    <link href="~/template/css/form-elements.css" rel="stylesheet">
+    <link href="~/template/css/style.css" rel="stylesheet">
+    <link href="~/template/css/media-queries.css" rel="stylesheet">
+
     <link rel="stylesheet" href="~/lib/site.min.css" asp-append-version="true" />
   </environment>
 
@@ -74,7 +79,7 @@
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           @Html.Partial("_MenuItems")
-       </ul>
+        </ul>
         @await Html.PartialAsync("_LoginPartial")
       </div>
     </div>
@@ -183,6 +188,12 @@
     <script src="~/lib/wow/dist/wow.min.js"></script>
     <script src="~/lib/retina.js/src/retina.js"></script>
     <script src="~/lib/waypoints/waypoints.min.js"></script>
+
+    <script src="~/template/js/scripts.js"></script>
+
+    <!--[if lt IE 10]>
+        <script src="~/template/js/placeholder.js"></script>
+    <![endif]-->
 
     <script src="~/lib/site.min.js" asp-append-version="true"></script>
   </environment>

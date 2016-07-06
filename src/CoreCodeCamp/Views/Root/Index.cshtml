@@ -1,110 +1,76 @@
-﻿@model EventInfo
+﻿@model IEnumerable<Sponsor>
 @{
-    ViewData["Title"] = "Welcome";
+  ViewData["Title"] = "Welcome";
 }
-
-<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-        <li data-target="#myCarousel" data-slide-to="3"></li>
-    </ol>
-    <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <h3>@Model.Name</h3>
-            <div class="carousel-caption" role="option">
-                <p>
-                    Learn how to build ASP.NET apps that can run anywhere.
-                    <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="~/images/banner2.svg" alt="Visual Studio" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    There are powerful new features in Visual Studio for building modern web apps.
-                    <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkID=525030&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="~/images/banner3.svg" alt="Package Management" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    Bring in libraries from NuGet, Bower, and npm, and automate tasks using Grunt or Gulp.
-                    <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkID=525029&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="~/images/banner4.svg" alt="Microsoft Azure" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    Learn how Microsoft's Azure cloud platform allows you to build, deploy, and scale web apps.
-                    <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkID=525027&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
-            </div>
-        </div>
+@section topSection {
+  <div class="col-sm-8 col-sm-offset-2 text">
+    <h1 class="wow fadeInLeftBig"><strong>@ViewBag.EventInfo.Name</strong> is coming @ViewBag.EventInfo.EventDate.ToString("D")</h1>
+    <div class="description wow fadeInLeftBig">
+      <p class="lead">
+        The @ViewBag.EventInfo.Name is your opportunity to join your other Atlanta developer and design community members in a day of training.
+      </p>
+      <a asp-controller="Root" asp-action="Register" asp-route-moniker="@ViewBag.EventInfo.Moniker" class="btn btn-lg btn-success disabled">Coming Soon</a>
     </div>
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
+  </div>
 
+}
 <div class="row">
-    <div class="col-md-3">
-        <h2>Application uses</h2>
-        <ul>
-            <li>Sample pages using ASP.NET Core MVC</li>
-            <li><a href="http://go.microsoft.com/fwlink/?LinkId=518004">Bower</a> for managing client-side libraries</li>
-            <li>Theming using <a href="http://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>How to</h2>
-        <ul>
-            <li><a href="http://go.microsoft.com/fwlink/?LinkID=398600">Add a Controller and View</a></li>
-            <li><a href="http://go.microsoft.com/fwlink/?LinkID=699562">Add an appsetting in config and access it in app.</a></li>
-            <li><a href="http://go.microsoft.com/fwlink/?LinkId=699315">Manage User Secrets using Secret Manager.</a></li>
-            <li><a href="http://go.microsoft.com/fwlink/?LinkId=699316">Use logging to log a message.</a></li>
-            <li><a href="http://go.microsoft.com/fwlink/?LinkId=699317">Add packages using NuGet.</a></li>
-            <li><a href="http://go.microsoft.com/fwlink/?LinkId=699318">Add client packages using Bower.</a></li>
-            <li><a href="http://go.microsoft.com/fwlink/?LinkId=699319">Target development, staging or production environment.</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>Overview</h2>
-        <ul>
-            <li><a href="http://go.microsoft.com/fwlink/?LinkId=518008">Conceptual overview of what is ASP.NET Core</a></li>
-            <li><a href="http://go.microsoft.com/fwlink/?LinkId=699320">Fundamentals of ASP.NET Core such as Startup and middleware.</a></li>
-            <li><a href="http://go.microsoft.com/fwlink/?LinkId=398602">Working with Data</a></li>
-            <li><a href="http://go.microsoft.com/fwlink/?LinkId=398603">Security</a></li>
-            <li><a href="http://go.microsoft.com/fwlink/?LinkID=699321">Client side development</a></li>
-            <li><a href="http://go.microsoft.com/fwlink/?LinkID=699322">Develop on different platforms</a></li>
-            <li><a href="http://go.microsoft.com/fwlink/?LinkID=699323">Read more on the documentation site</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>Run & Deploy</h2>
-        <ul>
-            <li><a href="http://go.microsoft.com/fwlink/?LinkID=517851">Run your app</a></li>
-            <li><a href="http://go.microsoft.com/fwlink/?LinkID=517853">Run tools such as EF migrations and more</a></li>
-            <li><a href="http://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
-        </ul>
-    </div>
+  <div class="col-sm-12 features section-description wow fadeIn">
+    <h2>Why Attend the Code Camp?</h2>
+    <div class="divider-1 wow fadeInUp"><span></span></div>
+  </div>
 </div>
+<div class="row">
+  <div class="col-sm-4 features-box wow fadeInUp">
+    <div class="features-box-icon"><i class="fa fa-group"></i></div>
+    <h3>Learn From The Best</h3>
+    <p>Come hear from the best national and local speakers, including Microsoft MVPs, RDs, and open source advocates!</p>
+  </div>
+  <div class="col-sm-4 features-box wow fadeInDown">
+    <div class="features-box-icon"><i class="fa fa-bolt"></i></div>
+    <h3>Improve Your Skillset</h3>
+    <p>Become a better developer by learning from our six tracks of talks.</p>
+  </div>
+  <div class="col-sm-4 features-box wow fadeInUp">
+    <div class="features-box-icon"><i class="fa fa-cloud"></i></div>
+    <h3>Network</h3>
+    <p>With developers, designers, and companies all attending, it is your chance to meet the best people in the community all at once.</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-4 features-box wow fadeInUp">
+    <div class="features-box-icon"><i class="fa fa-laptop"></i></div>
+    <h3>Jobs</h3>
+    <p>Some of the best local companies come to this event looking to fill their most important roles. </p>
+  </div>
+  <div class="col-sm-4 features-box wow fadeInDown">
+    <div class="features-box-icon"><i class="fa fa-code"></i></div>
+    <h3>Hacking Lab</h3>
+    <p>For the first time this year, we'll have an open space for hacking code with other developers and speakers.</p>
+  </div>
+  <div class="col-sm-4 features-box wow fadeInUp">
+    <div class="features-box-icon"><i class="fa fa-tag"></i></div>
+    <h3>Prizes</h3>
+    <p>Like our past ten code camps, we'll have great prizes for our 'end of event' spectacular.</p>
+  </div>
+</div>
+@section moreSections {
+  <div class="more-features-2-container section-container section-container-gray-bg">
+    <div class="container">
+      <div class="row">
+        @foreach (var s in Model.Where(s => s.Paid))
+        {
+          <div class="col-md-4 sponsor-box">
+            <div><a href="@s.Link" target="_blank"><img src="@s.ImageUrl" alt="@s.Name" /></a></div>
+            <div class="sponsor-box-level">@s.SponsorLevel Sponsor</div>
+          </div>
+        }
+      </div>
+      <div class="row">
+        <h3>Want to Sponsor the <strong>@ViewBag.EventInfo.Name</strong>?</h3>
+        <p class="lead">Interested in helping us bring this event to the Atlanta Metro Area? Become a sponsor today:</p>
+        <a asp-controller="Root" asp-action="Sponsor" asp-route-moniker="@ViewBag.EventInfo.Moniker" class="btn btn-lg btn-success">Become a Sponsor</a>
+      </div>
+    </div>
+  </div>
+}

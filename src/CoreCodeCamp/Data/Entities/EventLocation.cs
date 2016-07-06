@@ -11,5 +11,11 @@
     public string Link { get; set; }
     public string PostalCode { get; set; }
     public string StateProvince { get; set; }
+
+
+    public string GetOneLineAddress()
+    {
+      return $"{Address1} {Address2}, {City},{StateProvince}  {PostalCode} {Country}";
+    }
   }
 }

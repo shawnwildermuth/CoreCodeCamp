@@ -10,5 +10,6 @@ namespace CoreCodeCamp.Data
     IEnumerable<EventInfo> GetAllEventInfo();
     EventInfo GetEventInfo(string moniker);
     EventInfo GetCurrentEvent();
+    IEnumerable<Sponsor> GetSponsors(string moniker);
   }
 }

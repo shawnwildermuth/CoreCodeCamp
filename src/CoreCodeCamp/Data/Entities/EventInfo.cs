@@ -16,7 +16,11 @@ namespace CoreCodeCamp.Data.Entities
     public DateTime EventDate { get; set; }
     public bool IsPublic { get; set; }
     public short EventLength { get; set; }
-    
+    public string ContactEmail { get; set; }
+    public string FacebookLink { get; set; }
+    public string TwitterLink { get; set; }
+    public string InstagramLink { get; set; }
+
     public EventLocation Location { get; set; }
   }
 }

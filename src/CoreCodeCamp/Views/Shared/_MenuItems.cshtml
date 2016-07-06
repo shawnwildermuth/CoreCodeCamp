@@ -1,0 +1,6 @@
+@{
+  var moniker = ViewContext.RouteData.Values["moniker"] as string;
+}
+<li><a asp-area="" asp-controller="Root" asp-action="Index" asp-route-moniker="@moniker">Home</a></li>
+<li><a asp-area="" asp-controller="Root" asp-action="Contact" asp-route-moniker="@moniker">Contact</a></li>
+<li><a asp-area="" asp-controller="Root" asp-action="Sponsor" asp-route-moniker="@moniker">Sponsor</a></li>

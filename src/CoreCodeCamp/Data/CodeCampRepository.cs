@@ -42,8 +42,15 @@ namespace CoreCodeCamp.Data
     {
       return _ctx.CodeCampEvents
         .Include(e => e.Location)
-        .Where(e => e.Moniker == moniker)
         .FirstOrDefault();
+    }
+
+    public IEnumerable<Sponsor> GetSponsors(string moniker)
+    {
+      return _ctx.Sponsors
+        .Where(e => e.Event.Moniker == moniker)
+        .OrderBy(s => Guid.NewGuid())
+        .ToList();
     }
   }
 }

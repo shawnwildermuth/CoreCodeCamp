@@ -19,7 +19,8 @@ namespace CoreCodeCamp.Controllers
 
     public IActionResult Index(string moniker)
     {
-      return View(EnsureEvent(moniker));
+      var sponsors = _repo.GetSponsors(moniker);
+      return View(sponsors);
     }
 
     private EventInfo EnsureEvent(string moniker)

@@ -1,50 +1,49 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+  padding-top: 50px;
+  padding-bottom: 20px;
 }
-
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
-
-/* Set widths on the form inputs since otherwise they're 100% wide */
-input,
-select,
-textarea {
-    max-width: 280px;
+.navbar {
+  background-color: rgba(255, 255, 255, 0.75);
 }
-
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
+a,
+a:hover,
+a:focus {
+  color: #222;
 }
-
-/* buttons and links extension to use brackets: [ click me ] */
-.btn-bracketed::before {
-    display:inline-block;
-    content: "[";
-    padding-right: 0.5em;
+.navbar-brand {
+  background-image: url(../img/logo.png);
+  width: 325px;
 }
-.btn-bracketed::after {
-    display:inline-block;
-    content: "]";
-    padding-left: 0.5em;
+.features-box .features-box-icon {
+  color: #ce0000;
 }
-
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"]
-{
-    width: 100%;
+.sponsor-box img {
+  border: 1px solid #eee;
+  margin: 0 auto;
 }
-
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-  /* Hide captions */
-  .carousel-caption {
-    display: none
-  }
+.sponsor-box .sponsor-box-level {
+  background: #eee;
+  text-align: center;
+  font-weight: bold;
+}
+.footer-contact-info a:hover,
+.footer-about a:hover,
+.footer-contact-info a:focus,
+.footer-about a:focus {
+  border-bottom-color: #ce0000;
+}
+footer a:hover,
+footer a:focus {
+  color: #ce0000;
+}
+.footer-contact-info a,
+.footer-about a,
+.footer-social a {
+  color: #ff4f4f;
 }

@@ -95,18 +95,6 @@ namespace CoreCodeCamp
         name: "areas",
         template: "{area:exists}/{controller=Root}/{action=Index}/{id?}");
 
-      //var repo = routes.ServiceProvider.GetService<ICodeCampRepository>();
-
-      //var events = repo.GetAllEventInfo();
-
-      //foreach (var e in events)
-      //{
-      //  routes.MapRoute(
-      //    name: string.Concat("Event-", e.Moniker),
-      //    template: string.Concat(e.Moniker, "/{controller=Root}/{action=Index}/{id?}")
-      //    );
-      //}
-
       routes.MapRoute(
         name: string.Concat("Events"),
         template: string.Concat("{moniker}/{controller=Root}/{action=Index}/{id?}")

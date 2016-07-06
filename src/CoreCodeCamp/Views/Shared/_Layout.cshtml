@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@inject CoreCodeCamp.Data.ICodeCampRepository repo
+@{
+  var moniker = ViewContext.RouteData.Values["moniker"] as string;
+  var eventInfo = repo.GetEventInfo(moniker);
+  ViewBag.EventInfo = eventInfo;
+
+}
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -6,7 +13,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>@ViewData["Title"] - @config["Site:Name"]</title>
+  <title>@ViewData["Title"] - @eventInfo.Name</title>
 
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
 
@@ -40,11 +47,11 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
   <!-- Favicon and touch icons -->
-  <link rel="shortcut icon" href="~/template/ico/favicon.png">
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/template/ico/apple-touch-icon-144-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/template/ico/apple-touch-icon-114-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/template/ico/apple-touch-icon-72-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" href="~/template/ico/apple-touch-icon-57-precomposed.png">
+  <link rel="shortcut icon" href="~/img/favicon.png">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/img/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/img/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/img/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="~/img/apple-touch-icon-57-precomposed.png">
 
 </head>
 <body>
@@ -53,7 +60,7 @@
     <div class="loader-img"></div>
   </div>
 
-  <div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -62,25 +69,87 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">@config["Site:Name"]</a>
+        <a asp-area="" asp-controller="Root" asp-action="Index" asp-route-moniker="@moniker" class="navbar-brand">@eventInfo.Name</a>
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-          <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-          <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-        </ul>
+          @Html.Partial("_MenuItems")
+       </ul>
         @await Html.PartialAsync("_LoginPartial")
       </div>
     </div>
   </div>
-  <div class="container body-content">
-    @RenderBody()
-    <hr />
-    <footer>
-      <p>&copy; 2016 - @config["Site:Name"]</p>
-    </footer>
+
+  @if (IsSectionDefined("topSection"))
+  {
+    <div class="top-content">
+      <div class="inner-bg">
+        <div class="container">
+
+          @RenderSection("topSection", false)
+
+        </div>
+      </div>
+    </div>
+  }
+
+  <div class="features-container section-container">
+    <div class="container">
+      @RenderBody()
+    </div>
   </div>
+
+  @RenderSection("moreSections", false)
+
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4 footer-about wow fadeInUp">
+          <h3>About Us</h3>
+          <p>
+
+          </p>
+          <p>
+            <a class="scroll-link" asp-controller="Root" asp-action="About">Learn More</a>
+          </p>
+        </div>
+        <div class="col-sm-4 footer-contact-info wow fadeInDown">
+          <h3>@eventInfo.Name</h3>
+          <p>@eventInfo.Location.Facility</p>
+          <p><i class="fa fa-map-marker"></i> @eventInfo.Location.GetOneLineAddress()</p>
+          <p><i class="fa fa-envelope"></i> Email: <a href="mailto:@(eventInfo.ContactEmail)">@eventInfo.ContactEmail</a></p>
+        </div>
+        <div class="col-sm-4 footer-social wow fadeInUp">
+          <h3>We're Social</h3>
+          <p>
+            @if (!string.IsNullOrWhiteSpace(eventInfo.FacebookLink))
+            {
+              <a href="@eventInfo.FacebookLink"><i class="fa fa-facebook"></i></a>
+            }
+            @if (!string.IsNullOrWhiteSpace(eventInfo.TwitterLink))
+            {
+              <a href="@eventInfo.TwitterLink"><i class="fa fa-twitter"></i></a>
+            }
+            @if (!string.IsNullOrWhiteSpace(eventInfo.InstagramLink))
+            {
+              <a href="@eventInfo.InstagramLink"><i class="fa fa-instagram"></i></a>
+            }
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 footer-copyright">
+          &copy; <a asp-controller="Root" asp-action="Index" asp-route-moniker="@(eventInfo.Moniker)">Atlanta Code Camp</a></a>
+        </div>
+        <div class="col-sm-6 footer-menu">
+          <ul>
+            @Html.Partial("_MenuItems")
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <environment names="Development">
     <script src="~/lib/jquery/jquery.js"></script>

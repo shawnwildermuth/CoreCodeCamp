@@ -1,18 +1,7 @@
 
 @media (min-width: 992px) and (max-width: 1199px) {
 	
-	.form-bottom form .form-links { width: 190px; }
-	
-	.more-features-box-text { margin-top: 30px; padding-left: 0; }
-	.more-features-box-text:first-child { margin-top: 0; }
-	
-	.always-beautiful-box-text-left { padding-right: 0; }
-	.always-beautiful-box-text-left:first-child { margin-top: 0; }
-	
-	.how-it-works-box-icon .how-it-works-step { left: 75px; }
-	
-	.testimonial-list .testimonial-image { width: 20%; }
-	.testimonial-list .testimonial-text { width: 80%; }
+	.about-us-box h3 { margin-top: 0; }
 	
 }
 
@@ -20,23 +9,22 @@
 
 	.section-description p { padding: 0; }
 	
-	.form-bottom form .form-links { display: block; width: auto; margin-top: 15px; }
+	.inner-bg { padding: 140px 0 180px 0; }
 	
-	.more-features-box { float: none; width: auto; }
-	.more-features-box-text { margin-top: 30px; padding-left: 0; text-align: center; }
-	.more-features-box-text:first-child { margin-top: 50px; }
-	.more-features-box-text-icon { float: none; display: inline-block; }
-	.more-features-box-text h3 { float: none; width: auto; margin-top: 20px; }
-	.more-features-box-text-description { float: none; width: auto; }
+	.more-features-2-box h3 { margin-top: 0; }
 	
-	.always-beautiful-box { float: none; width: auto; }
-	.always-beautiful-box-text { margin-top: 30px; padding-left: 0; text-align: center; }
-	.always-beautiful-box-text-left { padding-right: 0; }
+	.many-options-box h3 { margin-top: 0; }
 	
-	.how-it-works-box-icon .how-it-works-step { left: 40px; }
+	.pricing-box-features ul li { padding: 5px 10px; }
 	
-	.testimonial-list .testimonial-image { width: 25%; }
-	.testimonial-list .testimonial-text { width: 75%; }
+	.about-us-box h3 { margin-top: 0; }
+	
+	.subscribe input[type="text"] { width: 330px; }
+	
+	.footer-contact-info i { padding-right: 5px; font-size: 22px; }
+	.footer-social a { margin-right: 15px; }
+	.footer-social i { font-size: 22px; }
+	.footer-menu li { margin-left: 15px; }
 
 }
 
@@ -45,6 +33,7 @@
 	.navbar.navbar-no-bg { background: #444; }
 	.navbar-brand { margin-left: 15px; }
 	.navbar-collapse { border: 0; }
+	.navbar-inverse .navbar-toggle { border-color: transparent; }
 	.navbar-inverse ul.navbar-nav li a:hover, .navbar-inverse ul.navbar-nav li a:focus { padding-bottom: 10px; border-bottom: 1px solid transparent; }
 	
 	.navbar-inverse ul.navbar-nav li a.btn-link-2 { margin-left: 15px; margin-right: 15px; }
@@ -53,38 +42,43 @@
 	.navbar-inverse ul.navbar-nav li a.btn-link-2:active, 
 	.navbar-inverse ul.navbar-nav li a.btn-link-2:active:focus { outline: 0; opacity: 0.6; background: rgba(0, 0, 0, 0.3); border: 1px solid #fff; color: #fff; }
 	
-	.inner-bg { padding: 110px 0 110px 0; }
-	.top-content .text { padding-top: 0; padding-bottom: 60px; }
-	.top-content .top-big-link { margin-top: 25px; }
-	.top-content .top-big-link a.btn { margin-top: 10px; }
-	.form-bottom form .form-links { display: block; width: auto; margin-top: 15px; }
-	
 	.section-description p { padding: 0; }
-    
-    .more-features-box-text { margin-top: 30px; padding-left: 0; text-align: center; }
-	.more-features-box-text:first-child { margin-top: 50px; }	
-	.more-features-box-text-icon { float: none; display: inline-block; }
-	.more-features-box-text h3 { float: none; width: auto; margin-top: 20px; }
-	.more-features-box-text-description { float: none; width: auto; }
 	
-	.always-beautiful-box-text { margin-top: 30px; padding-left: 0; text-align: center; }
-	.always-beautiful-box-text-left { padding-right: 0; }
+	.inner-bg { padding: 80px 0 80px 0; }
+	.top-buttons { margin-top: 20px; }
+	.top-buttons a.btn { margin: 20px 5px 0 5px; }
 	
-	.how-it-works-box-icon .how-it-works-step { left: 20px; }
+	.more-features-2-box { text-align: center; }
+	.more-features-2-box-right { padding-top: 30px; }
+	
+	.many-options-box { text-align: center; }
+	.many-options-box-right { padding-top: 30px; text-align: center; }
+	.many-options-box h3 { margin-top: 0; }
     
-    .pricing-box { padding-bottom: 50px; }
+    .pricing-box { padding-bottom: 30px; }
     .pricing-box:last-child { padding-bottom: 0; }
-	
-	.testimonial-list .testimonial-image { float: none; width: auto; text-align: center; }
-	.testimonial-list .testimonial-text { float: none; width: auto; margin-top: 30px; text-align: center; }
-	.testimonial-list .nav-tabs { margin-top: 20px; text-align: center; }
-	.testimonial-list .testimonial-image .testimonial-icon { display: none; }
+    .pricing-box-features ul li { padding: 5px 10px; }
+    
+    .about-us-box { text-align: center; }
+    .about-us-box-right { padding-top: 30px; }
+    
+	.subscribe input[type="text"], .subscribe button { width: 100%; }
+    
+    footer { text-align: center; }
+    .footer-contact-info, .footer-social { padding-top: 30px; }
+    .footer-contact-info i { padding-right: 5px; font-size: 22px; }
+    .footer-social a { margin: 0 10px; }
+    .footer-copyright { margin-top: 40px; }
+    .footer-menu { margin-top: 0; padding-top: 20px; border: 0; text-align: center; }
+    .footer-menu li { margin: 0 10px; }
 
 }
 
 @media (max-width: 415px) {
 	
 	h1, h2 { font-size: 32px; }
+	
+	.contact-top-right { font-size: 40px; line-height: 90px; }
 
 }
 

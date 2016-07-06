@@ -28,7 +28,7 @@ namespace CoreCodeCamp.Data
 
     public async Task SeedAsync()
     {
-      await _ctx.Database.MigrateAsync();
+      await _ctx.Database.EnsureCreatedAsync();
 
       var admin = await _userManager.FindByEmailAsync(_config["Admin:SuperUser:Email"]);
 
@@ -71,14 +71,16 @@ namespace CoreCodeCamp.Data
             EventLength = 1,
             Description = "The Atlanta Code Camp is awesome",
             IsDefault = true,
+            TwitterLink = "https://twitter.com/atlcodecamp",
+            ContactEmail = "codecamp@live.com",
             Location = new EventLocation()
             {
-              Facility = "TDB",
-              Address1 = "123 Main Street",
-              Address2 = "First Floor",
-              City = "Atlanta",
+              Facility = "Kennesaw State University (Formerly Southern Polytechnic)",
+              Address1 = "1100 S Marietta Pkwy",
+              Address2 = "",
+              City = "Marietta",
               StateProvince = "GA",
-              PostalCode = "30307",
+              PostalCode = "30060",
               Country = "USA",
               Link = ""
             }
@@ -87,26 +89,36 @@ namespace CoreCodeCamp.Data
           {
             Moniker = "2015",
             Name = "Atlanta Code Camp 2015",
-            EventDate = new DateTime(2015, 10, 12),
+            EventDate = new DateTime(2015, 10, 24),
             EventLength = 1,
             Description = "The Atlanta Code Camp is awesome",
             IsDefault = false,
             Location = new EventLocation()
             {
-              Facility = "TDB",
-              Address1 = "123 Main Street",
-              Address2 = "First Floor",
-              City = "Atlanta",
+              Facility = "Kennesaw State University (Formerly Southern Polytechnic)",
+              Address1 = "1100 S Marietta Pkwy",
+              Address2 = "",
+              City = "Marietta",
               StateProvince = "GA",
-              PostalCode = "30307",
+              PostalCode = "30060",
               Country = "USA",
               Link = ""
             }
           }
         };
 
-        _ctx.AddRange(codeCamps);
+        var sponsor = new Sponsor()
+        {
+          Name = "Wilder Minds",
+          Link = "http://wilderminds.com",
+          Event = codeCamps[0],
+          Paid = true,
+          ImageUrl = "/img/2016/sponsors/wilder-minds.jpg",
+          SponsorLevel = "Silver"
+        };
 
+        _ctx.AddRange(codeCamps);
+        _ctx.Add(sponsor);
         await _ctx.SaveChangesAsync();
       }
     }

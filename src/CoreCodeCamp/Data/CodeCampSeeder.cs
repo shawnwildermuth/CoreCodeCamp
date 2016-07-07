@@ -39,6 +39,7 @@ namespace CoreCodeCamp.Data
         {
           UserName = _config["Admin:SuperUser:Email"],
           Email = _config["Admin:SuperUser:Email"],
+          Name = _config["Admin:SuperUser:Name"],
           EmailConfirmed = true
         };
 

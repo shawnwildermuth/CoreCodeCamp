@@ -23,7 +23,6 @@
     <link href="~/lib/typeicons/src/font/typicons.css" rel="stylesheet" />
 
     <link href="~/template/css/animate.css" rel="stylesheet">
-    <link href="~/template/css/form-elements.css" rel="stylesheet">
     <link href="~/template/css/style.css" rel="stylesheet">
     <link href="~/template/css/media-queries.css" rel="stylesheet">
 
@@ -78,7 +77,7 @@
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          @Html.Partial("_MenuItems")
+          @await Html.PartialAsync("_MenuItems")
         </ul>
         @await Html.PartialAsync("_LoginPartial")
       </div>
@@ -149,7 +148,7 @@
         </div>
         <div class="col-sm-6 footer-menu">
           <ul>
-            @Html.Partial("_MenuItems")
+            @await Html.PartialAsync("_MenuItems")
           </ul>
         </div>
       </div>

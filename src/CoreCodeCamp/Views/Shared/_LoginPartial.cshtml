@@ -6,21 +6,20 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <form asp-area="" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
-            </li>
-            <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">Log off</button>
-            </li>
-        </ul>
-    </form>
+  var userName = (await UserManager.FindByNameAsync(UserManager.GetUserName(User))).Name;
+  <ul class="nav navbar-nav navbar-right">
+    <li>
+      <a asp-area="" asp-controller="Manage" asp-action="Index" asp-route-moniker="" title="Manage">Welcome @userName</a>
+    </li>
+    <li>
+      <a asp-area="" asp-controller="Account" asp-action="Logoff" asp-route-moniker="">Log off</a>
+    </li>
+  </ul>
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
-        <li><a asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li>
-    </ul>
+  <ul class="nav navbar-nav navbar-right">
+    <li><a asp-area="" asp-controller="Account" asp-action="Register" asp-route-moniker="">Register</a></li>
+    <li><a asp-area="" asp-controller="Account" asp-action="Login" asp-route-moniker="">Log in</a></li>
+  </ul>
 }

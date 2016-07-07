@@ -1,6 +1,14 @@
+@inject UserManager<CodeCampUser> userMgr
+@inject SignInManager<CodeCampUser> signInMgr
 @{
+  var codeCampUser = await userMgr.GetUserAsync(User);
   var moniker = ViewContext.RouteData.Values["moniker"] as string;
 }
+
 <li><a asp-area="" asp-controller="Root" asp-action="Index" asp-route-moniker="@moniker">Home</a></li>
 <li><a asp-area="" asp-controller="Root" asp-action="Contact" asp-route-moniker="@moniker">Contact</a></li>
-<li><a asp-area="" asp-controller="Root" asp-action="Sponsor" asp-route-moniker="@moniker">Sponsor</a></li>
+<li><a asp-area="" asp-controller="Root" asp-action="Sponsoring" asp-route-moniker="@moniker">Sponsor</a></li>
+@if (signInMgr.IsSignedIn(User) && await userMgr.IsInRoleAsync(codeCampUser, "Admin"))
+{
+  <li><a asp-area="Admin" asp-controller="Root" asp-action="Index">Admin</a></li>
+}

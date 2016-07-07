@@ -23,31 +23,11 @@ namespace CoreCodeCamp.Controllers
       return View(sponsors);
     }
 
-    private EventInfo EnsureEvent(string moniker)
+    public IActionResult Sponsoring(string moniker)
     {
-      var eventInfo = _repo.GetEventInfo(moniker);
-
-      if (eventInfo == null)
-      {
-        eventInfo = _repo.GetCurrentEvent();
-      }
-
-      return eventInfo;
+      return View();
     }
 
-    public IActionResult About(string moniker)
-    {
-      ViewData["Message"] = "About this Site";
-
-      return View(EnsureEvent(moniker));
-    }
-
-    public IActionResult Contact(string moniker)
-    {
-      ViewData["Message"] = "Your contact page.";
-
-      return View(EnsureEvent(moniker));
-    }
 
   }
 }

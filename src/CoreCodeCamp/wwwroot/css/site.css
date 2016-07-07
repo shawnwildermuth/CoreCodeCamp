@@ -11,14 +11,20 @@
 .navbar {
   background-color: rgba(255, 255, 255, 0.75);
 }
-a,
+a {
+  color: #ce0000;
+}
 a:hover,
 a:focus {
   color: #222;
+  text-decoration: underline;
 }
 .navbar-brand {
   background-image: url(../img/logo.png);
   width: 325px;
+}
+.left-align {
+  text-align: left;
 }
 .features-box .features-box-icon {
   color: #ce0000;
@@ -36,7 +42,7 @@ a:focus {
 .footer-about a:hover,
 .footer-contact-info a:focus,
 .footer-about a:focus {
-  border-bottom-color: #ce0000;
+  border: none;
 }
 footer a:hover,
 footer a:focus {

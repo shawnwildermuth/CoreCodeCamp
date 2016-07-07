@@ -14,6 +14,7 @@ using CoreCodeCamp.Data.Entities;
 namespace CoreCodeCamp.Controllers
 {
   [Authorize]
+  [Route("/you/")]
   public class ManageController : Controller
   {
     private readonly UserManager<CodeCampUser> _userManager;
@@ -32,7 +33,7 @@ namespace CoreCodeCamp.Controllers
 
     //
     // GET: /Manage/Index
-    [HttpGet]
+    [HttpGet("")]
     public async Task<IActionResult> Index(ManageMessageId? message = null)
     {
       ViewData["StatusMessage"] =
@@ -62,7 +63,7 @@ namespace CoreCodeCamp.Controllers
 
     //
     // POST: /Manage/RemoveLogin
-    [HttpPost]
+    [HttpPost("removelogin")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> RemoveLogin(RemoveLoginViewModel account)
     {
@@ -82,6 +83,7 @@ namespace CoreCodeCamp.Controllers
 
     //
     // GET: /Manage/AddPhoneNumber
+    [HttpGet("addphonenumber")]
     public IActionResult AddPhoneNumber()
     {
       return View();
@@ -89,7 +91,7 @@ namespace CoreCodeCamp.Controllers
 
     //
     // POST: /Manage/AddPhoneNumber
-    [HttpPost]
+    [HttpPost("addphonenumber")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
     {
@@ -110,7 +112,7 @@ namespace CoreCodeCamp.Controllers
 
     //
     // POST: /Manage/EnableTwoFactorAuthentication
-    [HttpPost]
+    [HttpPost("EnableTwoFactorAuthentication")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> EnableTwoFactorAuthentication()
     {
@@ -126,7 +128,7 @@ namespace CoreCodeCamp.Controllers
 
     //
     // POST: /Manage/DisableTwoFactorAuthentication
-    [HttpPost]
+    [HttpPost("DisableTwoFactorAuthentication")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DisableTwoFactorAuthentication()
     {
@@ -142,7 +144,7 @@ namespace CoreCodeCamp.Controllers
 
     //
     // GET: /Manage/VerifyPhoneNumber
-    [HttpGet]
+    [HttpGet("VerifyPhoneNumber")]
     public async Task<IActionResult> VerifyPhoneNumber(string phoneNumber)
     {
       var user = await GetCurrentUserAsync();
@@ -157,7 +159,7 @@ namespace CoreCodeCamp.Controllers
 
     //
     // POST: /Manage/VerifyPhoneNumber
-    [HttpPost]
+    [HttpPost("VerifyPhoneNumber")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
     {
@@ -182,7 +184,7 @@ namespace CoreCodeCamp.Controllers
 
     //
     // POST: /Manage/RemovePhoneNumber
-    [HttpPost]
+    [HttpPost("RemovePhoneNumber")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> RemovePhoneNumber()
     {
@@ -201,7 +203,7 @@ namespace CoreCodeCamp.Controllers
 
     //
     // GET: /Manage/ChangePassword
-    [HttpGet]
+    [HttpGet("ChangePassword")]
     public IActionResult ChangePassword()
     {
       return View();
@@ -209,7 +211,7 @@ namespace CoreCodeCamp.Controllers
 
     //
     // POST: /Manage/ChangePassword
-    [HttpPost]
+    [HttpPost("ChangePassword")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
     {
@@ -235,7 +237,7 @@ namespace CoreCodeCamp.Controllers
 
     //
     // GET: /Manage/SetPassword
-    [HttpGet]
+    [HttpGet("SetPassword")]
     public IActionResult SetPassword()
     {
       return View();
@@ -243,7 +245,7 @@ namespace CoreCodeCamp.Controllers
 
     //
     // POST: /Manage/SetPassword
-    [HttpPost]
+    [HttpPost("SetPassword")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> SetPassword(SetPasswordViewModel model)
     {
@@ -268,7 +270,7 @@ namespace CoreCodeCamp.Controllers
     }
 
     //GET: /Manage/ManageLogins
-    [HttpGet]
+    [HttpGet("ManageLogins")]
     public async Task<IActionResult> ManageLogins(ManageMessageId? message = null)
     {
       ViewData["StatusMessage"] =
@@ -293,7 +295,7 @@ namespace CoreCodeCamp.Controllers
 
     //
     // POST: /Manage/LinkLogin
-    [HttpPost]
+    [HttpPost("LinkLogin")]
     [ValidateAntiForgeryToken]
     public IActionResult LinkLogin(string provider)
     {
@@ -305,7 +307,7 @@ namespace CoreCodeCamp.Controllers
 
     //
     // GET: /Manage/LinkLoginCallback
-    [HttpGet]
+    [HttpGet("LinkLoginCallback")]
     public async Task<ActionResult> LinkLoginCallback()
     {
       var user = await GetCurrentUserAsync();

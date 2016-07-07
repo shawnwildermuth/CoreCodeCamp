@@ -68,7 +68,7 @@ namespace CoreCodeCamp.Controllers
         else
         {
           var user = await _userManager.FindByEmailAsync(model.Email);
-          if (!user.EmailConfirmed)
+          if (user != null && !user.EmailConfirmed)
           {
             ModelState.AddModelError(string.Empty, "You must confirm your email address before logging in.");
           }
@@ -103,7 +103,7 @@ namespace CoreCodeCamp.Controllers
       ViewData["ReturnUrl"] = returnUrl;
       if (ModelState.IsValid)
       {
-        var user = new CodeCampUser { UserName = model.Email, Email = model.Email };
+        var user = new CodeCampUser { UserName = model.Email, Email = model.Email, Name = model.Name };
         var result = await _userManager.CreateAsync(user, model.Password);
         if (result.Succeeded)
         {
@@ -121,10 +121,7 @@ namespace CoreCodeCamp.Controllers
       return View(model);
     }
 
-    //
-    // POST: /Account/LogOff
-    [HttpPost]
-    [ValidateAntiForgeryToken]
+    [HttpGet]
     public async Task<IActionResult> LogOff()
     {
       await _signInManager.SignOutAsync();

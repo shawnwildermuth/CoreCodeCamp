@@ -96,8 +96,13 @@ namespace CoreCodeCamp
         template: "{area:exists}/{controller=Root}/{action=Index}/{id?}");
 
       routes.MapRoute(
-        name: string.Concat("Events"),
+        name: "Events",
         template: string.Concat("{moniker}/{controller=Root}/{action=Index}/{id?}")
+        );
+
+      routes.MapRoute(
+        name: "Default",
+        template: "{controller=Root}/{action=Index}/{id?}"
         );
 
 

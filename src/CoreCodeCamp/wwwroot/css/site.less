@@ -16,13 +16,22 @@ body {
   background-color: fadeout(desaturate(lighten(@themeColor, 60%), 100%), 25%);
 }
 
-a, a:hover, a:focus {
-  color: #222;
+a {
+  color: @themeColor;
+
+  &:hover, &:focus {
+    color: #222;
+    text-decoration: underline;
+  }
 }
 
 .navbar-brand {
   background-image: url(../img/logo.png);
   width: 325px;
+}
+
+.left-align {
+  text-align: left;
 }
 
 .features-box .features-box-icon {
@@ -44,7 +53,7 @@ a, a:hover, a:focus {
 
 .footer-contact-info, .footer-about {
   a:hover, a:focus {
-    border-bottom-color: @themeColor;
+    border: none;
   }
 }
 

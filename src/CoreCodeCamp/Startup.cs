@@ -1,5 +1,9 @@
-﻿using CoreCodeCamp.Data;
+﻿using System;
+using System.Linq;
+using AutoMapper;
+using CoreCodeCamp.Data;
 using CoreCodeCamp.Data.Entities;
+using CoreCodeCamp.Models.Admin;
 using CoreCodeCamp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -66,6 +70,8 @@ namespace CoreCodeCamp
     {
       loggerFactory.AddConsole(_config.GetSection("Logging"));
 
+      Mapper.Initialize(CreateMaps);
+
       if (_env.IsDevelopment())
       {
         loggerFactory.AddDebug(LogLevel.Information);
@@ -87,6 +93,12 @@ namespace CoreCodeCamp
 
       app.UseMvc(CreateRoutes);
 
+    }
+
+    void CreateMaps(IMapperConfiguration config)
+    {
+      config.CreateMap<CodeCampUser, CodeCampUserViewModel>()
+        .ReverseMap();
     }
 
     void CreateRoutes(IRouteBuilder routes)

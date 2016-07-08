@@ -52,5 +52,12 @@ namespace CoreCodeCamp.Data
         .OrderBy(s => Guid.NewGuid())
         .ToList();
     }
+
+    public IEnumerable<CodeCampUser> GetUsers()
+    {
+      return _ctx.Users
+        .OrderBy(u => u.UserName)
+        .ToList();
+    }
   }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CoreCodeCamp.Controllers
+namespace CoreCodeCamp.Controllers.Web
 {
   [Route("~/[controller]/")]
   public class ErrorController : Controller

@@ -6,7 +6,7 @@ using CoreCodeCamp.Data;
 using CoreCodeCamp.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CoreCodeCamp.Controllers
+namespace CoreCodeCamp.Controllers.Web
 {
   public class RootController : Controller
   {

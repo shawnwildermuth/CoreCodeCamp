@@ -14,7 +14,7 @@ using CoreCodeCamp.Data;
 using CoreCodeCamp.Data.Entities;
 using CoreCodeCamp.Services;
 
-namespace CoreCodeCamp.Controllers
+namespace CoreCodeCamp.Controllers.Web
 {
   [Authorize]
   public class AccountController : Controller

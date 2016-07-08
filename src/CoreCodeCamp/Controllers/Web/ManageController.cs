@@ -11,7 +11,7 @@ using CoreCodeCamp.Models.ManageViewModels;
 using CoreCodeCamp.Data;
 using CoreCodeCamp.Data.Entities;
 
-namespace CoreCodeCamp.Controllers
+namespace CoreCodeCamp.Controllers.Web
 {
   [Authorize]
   [Route("/you/")]

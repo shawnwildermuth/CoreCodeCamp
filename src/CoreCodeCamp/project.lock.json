@@ -19,6 +19,20 @@
           "lib/netstandard1.1/AutoMapper.dll": {}
         }
       },
+      "CsvHelper/2.15.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.0.1",
+          "NETStandard.Library": "1.6.0",
+          "System.Reflection.TypeExtensions": "4.1.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/CsvHelper.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/CsvHelper.dll": {}
+        }
+      },
       "Libuv/1.9.0": {
         "type": "package",
         "dependencies": {
@@ -4448,6 +4462,20 @@
           "lib/net45/AutoMapper.dll": {}
         }
       },
+      "CsvHelper/2.15.0.2": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System",
+          "System.Core",
+          "mscorlib"
+        ],
+        "compile": {
+          "lib/net45/CsvHelper.dll": {}
+        },
+        "runtime": {
+          "lib/net45/CsvHelper.dll": {}
+        }
+      },
       "Libuv/1.9.0": {
         "type": "package",
         "dependencies": {
@@ -7072,6 +7100,100 @@
         "AutoMapper.nuspec",
         "lib/net45/AutoMapper.dll",
         "lib/netstandard1.1/AutoMapper.dll"
+      ]
+    },
+    "CsvHelper/2.15.0.2": {
+      "sha512": "+bSH7OXkIpU9wD5EfRxAn+0Q1awFn7I22zHfUJ0Pb0Z6qoKodyj7DVlxGqGfJgbXpePFmKFLWK050L8RdsUDfA==",
+      "type": "package",
+      "path": "CsvHelper/2.15.0.2",
+      "files": [
+        "CsvHelper.2.15.0.2.nupkg.sha512",
+        "CsvHelper.nuspec",
+        "lib/net20/CsvHelper.dll",
+        "lib/net20/CsvHelper.pdb",
+        "lib/net20/CsvHelper.xml",
+        "lib/net35/CsvHelper.dll",
+        "lib/net35/CsvHelper.pdb",
+        "lib/net35/CsvHelper.xml",
+        "lib/net40/CsvHelper.dll",
+        "lib/net40/CsvHelper.pdb",
+        "lib/net40/CsvHelper.xml",
+        "lib/net45/CsvHelper.dll",
+        "lib/net45/CsvHelper.pdb",
+        "lib/net45/CsvHelper.xml",
+        "lib/netstandard1.3/CsvHelper.dll",
+        "lib/netstandard1.3/CsvHelper.pdb",
+        "lib/netstandard1.3/CsvHelper.xml",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/CsvHelper.dll",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/CsvHelper.pdb",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/CsvHelper.xml",
+        "src/CsvHelper/Configuration/CsvClassMap.cs",
+        "src/CsvHelper/Configuration/CsvClassMapCollection.cs",
+        "src/CsvHelper/Configuration/CsvClassMap`1.cs",
+        "src/CsvHelper/Configuration/CsvConfiguration.cs",
+        "src/CsvHelper/Configuration/CsvConfigurationException.cs",
+        "src/CsvHelper/Configuration/CsvPropertyMap.cs",
+        "src/CsvHelper/Configuration/CsvPropertyMapCollection.cs",
+        "src/CsvHelper/Configuration/CsvPropertyMapComparer.cs",
+        "src/CsvHelper/Configuration/CsvPropertyMapData.cs",
+        "src/CsvHelper/Configuration/CsvPropertyNameCollection.cs",
+        "src/CsvHelper/Configuration/CsvPropertyReferenceMap.cs",
+        "src/CsvHelper/Configuration/CsvPropertyReferenceMapData.cs",
+        "src/CsvHelper/Configuration/DefaultCsvClassMap`1.cs",
+        "src/CsvHelper/CoreFxCompatibility/TypeExtensions.cs",
+        "src/CsvHelper/CoreFxCompatibility/TypeInfo.cs",
+        "src/CsvHelper/CsvBadDataException.cs",
+        "src/CsvHelper/CsvFactory.cs",
+        "src/CsvHelper/CsvHelperException.cs",
+        "src/CsvHelper/CsvMissingFieldException.cs",
+        "src/CsvHelper/CsvParser.cs",
+        "src/CsvHelper/CsvParserException.cs",
+        "src/CsvHelper/CsvReader.cs",
+        "src/CsvHelper/CsvReaderException.cs",
+        "src/CsvHelper/CsvSerializer.cs",
+        "src/CsvHelper/CsvWriter.cs",
+        "src/CsvHelper/CsvWriterException.cs",
+        "src/CsvHelper/ExceptionHelper.cs",
+        "src/CsvHelper/ICsvFactory.cs",
+        "src/CsvHelper/ICsvParser.cs",
+        "src/CsvHelper/ICsvReader.cs",
+        "src/CsvHelper/ICsvReaderRow.cs",
+        "src/CsvHelper/ICsvSerializer.cs",
+        "src/CsvHelper/ICsvWriter.cs",
+        "src/CsvHelper/MissingFrom20/Delegates.cs",
+        "src/CsvHelper/MissingFrom20/EnumerableExtensions.cs",
+        "src/CsvHelper/MissingFrom20/ExtensionAttribute.cs",
+        "src/CsvHelper/MissingFromPcl/EnumerableExtensions.cs",
+        "src/CsvHelper/Properties/AssemblyInfo.cs",
+        "src/CsvHelper/ReflectionHelper.cs",
+        "src/CsvHelper/StringHelper.cs",
+        "src/CsvHelper/TypeConversion/BooleanConverter.cs",
+        "src/CsvHelper/TypeConversion/ByteConverter.cs",
+        "src/CsvHelper/TypeConversion/CharConverter.cs",
+        "src/CsvHelper/TypeConversion/CsvTypeConverterException.cs",
+        "src/CsvHelper/TypeConversion/DateTimeConverter.cs",
+        "src/CsvHelper/TypeConversion/DateTimeOffsetConverter.cs",
+        "src/CsvHelper/TypeConversion/DecimalConverter.cs",
+        "src/CsvHelper/TypeConversion/DefaultTypeConverter.cs",
+        "src/CsvHelper/TypeConversion/DoubleConverter.cs",
+        "src/CsvHelper/TypeConversion/EnumConverter.cs",
+        "src/CsvHelper/TypeConversion/EnumerableConverter.cs",
+        "src/CsvHelper/TypeConversion/GuidConverter.cs",
+        "src/CsvHelper/TypeConversion/ITypeConverter.cs",
+        "src/CsvHelper/TypeConversion/Int16Converter.cs",
+        "src/CsvHelper/TypeConversion/Int32Converter.cs",
+        "src/CsvHelper/TypeConversion/Int64Converter.cs",
+        "src/CsvHelper/TypeConversion/NullableConverter.cs",
+        "src/CsvHelper/TypeConversion/SByteConverter.cs",
+        "src/CsvHelper/TypeConversion/SingleConverter.cs",
+        "src/CsvHelper/TypeConversion/StringConverter.cs",
+        "src/CsvHelper/TypeConversion/TimeSpanConverter.cs",
+        "src/CsvHelper/TypeConversion/TypeConverterFactory.cs",
+        "src/CsvHelper/TypeConversion/TypeConverterOptions.cs",
+        "src/CsvHelper/TypeConversion/TypeConverterOptionsFactory.cs",
+        "src/CsvHelper/TypeConversion/UInt16Converter.cs",
+        "src/CsvHelper/TypeConversion/UInt32Converter.cs",
+        "src/CsvHelper/TypeConversion/UInt64Converter.cs"
       ]
     },
     "Libuv/1.9.0": {
@@ -13782,6 +13904,7 @@
   "projectFileDependencyGroups": {
     "": [
       "AutoMapper >= 5.0.0-beta-1",
+      "CsvHelper >= 2.15.0.2",
       "Microsoft.AspNetCore.Authentication.Cookies >= 1.0.0",
       "Microsoft.AspNetCore.Diagnostics >= 1.0.0",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 1.0.0",

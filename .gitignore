@@ -138,7 +138,7 @@ App_Data/*.ldf
 # Code Files
 
 # Databases
-[Dd]atabase/
+[Dd]atabase/codecamp.db
 
 #ASPNETCore
 project.lock.json

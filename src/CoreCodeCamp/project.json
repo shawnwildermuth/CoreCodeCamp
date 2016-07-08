@@ -20,6 +20,7 @@
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
     "AutoMapper": "5.0.0-beta-1",
+    "CsvHelper": "2.15.0.2", 
 
     "Microsoft.AspNetCore.Razor.Tools": {
       "version": "1.0.0-preview2-final",

@@ -8,7 +8,7 @@
 <li><a asp-area="" asp-controller="Root" asp-action="Index" asp-route-moniker="@moniker">Home</a></li>
 <li><a asp-area="" asp-controller="Root" asp-action="Contact" asp-route-moniker="@moniker">Contact</a></li>
 <li><a asp-area="" asp-controller="Root" asp-action="Sponsoring" asp-route-moniker="@moniker">Sponsor</a></li>
-@if (signInMgr.IsSignedIn(User) && await userMgr.IsInRoleAsync(codeCampUser, "Admin"))
+@if (signInMgr.IsSignedIn(User) && await userMgr.IsInRoleAsync(codeCampUser, Consts.AdminRole))
 {
   <li><a asp-area="Admin" asp-controller="Root" asp-action="Index">Admin</a></li>
 }

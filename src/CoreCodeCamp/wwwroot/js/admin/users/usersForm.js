@@ -10,16 +10,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 // usersForm.ts
 var core_1 = require('@angular/core');
+var userService_1 = require("./userService");
 var UsersForm = (function () {
-    function UsersForm() {
+    function UsersForm(userService) {
+        this.isBusy = false;
+        this.userService = userService;
+        this.loadUsers();
     }
+    UsersForm.prototype.loadUsers = function () {
+        var _this = this;
+        this.isBusy = true;
+        this.userService
+            .getUsers()
+            .subscribe(function (res) { return _this.users = res.json(); }, function (res) { return console.log("Failed to get users"); }, function () { return _this.isBusy = false; });
+    };
+    UsersForm.prototype.onToggleAdmin = function (user) {
+        var _this = this;
+        this.isBusy = true;
+        this.userService
+            .toggleUser(user)
+            .subscribe(function (res) {
+            var result = res.json();
+            user.isAdmin = result;
+        }, function (res) { return console.log("Failed to toggle users."); }, function () { return _this.isBusy = false; });
+    };
     UsersForm = __decorate([
         core_1.Component({
             selector: "users-form",
             moduleId: module.id,
             templateUrl: "usersForm.html"
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [userService_1.UserService])
     ], UsersForm);
     return UsersForm;
 }());

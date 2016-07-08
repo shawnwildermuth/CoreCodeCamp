@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CoreCodeCamp.Data.Entities;
+using CoreCodeCamp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -49,13 +50,13 @@ namespace CoreCodeCamp.Data
           throw new InvalidOperationException("Failed to create Super User");
         }
 
-        if (!(await _roleManager.CreateAsync(new IdentityRole("Admin"))).Succeeded)
+        if (!(await _roleManager.CreateAsync(new IdentityRole(Consts.AdminRole))).Succeeded)
         {
           throw new InvalidOperationException("Failed to create Admin Role");
         }
 
         // Add to Admin Role
-        if (!(await _userManager.AddToRoleAsync(admin, "Admin")).Succeeded)
+        if (!(await _userManager.AddToRoleAsync(admin, Consts.AdminRole)).Succeeded)
         {
           throw new InvalidOperationException("Failed to update Super User Role");
         }

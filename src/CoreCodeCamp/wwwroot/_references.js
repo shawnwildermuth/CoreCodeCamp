@@ -2,6 +2,7 @@
 /// <reference path="../gulpfile.js" />
 /// <reference path="js/admin/main.js" />
 /// <reference path="js/admin/users/main.js" />
+/// <reference path="js/admin/users/userservice.js" />
 /// <reference path="js/admin/users/usersform.js" />
 /// <reference path="js/site.js" />
 /// <reference path="lib/bootstrap/dist/js/bootstrap.js" />

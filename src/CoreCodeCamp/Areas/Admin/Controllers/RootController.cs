@@ -8,11 +8,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreCodeCamp.Areas.Admin.Controllers
 {
-  [Authorize]
+  [Authorize(Roles = "Admin")]
   [Area("Admin")]
   public class RootController : Controller
   {
     public IActionResult Index()
+    {
+      return View();
+    }
+
+    public IActionResult Users()
     {
       return View();
     }

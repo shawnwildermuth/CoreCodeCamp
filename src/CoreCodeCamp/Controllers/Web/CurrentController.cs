@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using CoreCodeCamp.Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CoreCodeCamp.Controllers
+namespace CoreCodeCamp.Controllers.Web
 {
   [Route("~/")]
   public class CurrentController : Controller

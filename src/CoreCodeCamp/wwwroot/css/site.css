@@ -29,6 +29,9 @@ a:focus {
 .features-box .features-box-icon {
   color: #ce0000;
 }
+.sponsor-benefit-table td {
+  text-align: center;
+}
 .sponsor-box {
   height: 160px;
   margin-bottom: 5px;

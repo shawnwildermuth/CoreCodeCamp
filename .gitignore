@@ -149,6 +149,7 @@ node_modules/
 .settings
 **/PublishProfiles/
 **/PublishScripts/
+/*.csv
 
 #############
 ## Windows detritus

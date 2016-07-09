@@ -1,0 +1,11 @@
+@inject ICodeCampRepository repo
+@{
+  var moniker = ViewContext.RouteData.Values["moniker"] as string;
+  var events = repo.GetAllEventInfo().Where(e => e.Moniker != moniker).ToList();
+}
+<ul class="list-unstyled">
+  @foreach (var e in events)
+  {
+    <li><a asp-area="" asp-controller="Root" asp-action="Index" asp-route-moniker="@e.Moniker">@e.Name</a></li>
+  }
+</ul>

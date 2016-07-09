@@ -23,9 +23,9 @@ namespace CoreCodeCamp.Data
     private UserManager<CodeCampUser> _userManager;
     private IHostingEnvironment _env;
 
-    public CodeCampSeeder(CodeCampContext ctx, 
-      UserManager<CodeCampUser> userManager, 
-      RoleManager<IdentityRole> roleManager, 
+    public CodeCampSeeder(CodeCampContext ctx,
+      UserManager<CodeCampUser> userManager,
+      RoleManager<IdentityRole> roleManager,
       IConfigurationRoot config,
       IHostingEnvironment env)
     {
@@ -40,6 +40,10 @@ namespace CoreCodeCamp.Data
     {
       try
       {
+        if (_config["Migration:PrototypeDb"] == "true")
+        {
+          await _ctx.Database.EnsureDeletedAsync();
+        }
         await _ctx.Database.EnsureCreatedAsync();
 
         var admin = await _userManager.FindByEmailAsync(_config["Admin:SuperUser:Email"]);
@@ -73,93 +77,106 @@ namespace CoreCodeCamp.Data
           }
         }
 
+        EventInfo[] codeCamps;
         if (!_ctx.CodeCampEvents.Any())
         {
-          var codeCamps = new EventInfo[] {
-          new EventInfo()
+          codeCamps = new EventInfo[]
           {
-            Moniker = "2016",
-            Name = "Atlanta Code Camp 2016",
-            EventDate = new DateTime(2016, 10, 15),
-            EventLength = 1,
-            Description = "The Atlanta Code Camp is awesome",
-            IsDefault = true,
-            TwitterLink = "https://twitter.com/atlcodecamp",
-            ContactEmail = "codecamp@live.com",
-            Location = new EventLocation()
+            new EventInfo()
             {
-              Facility = "Kennesaw State University (Formerly Southern Polytechnic)",
-              Address1 = "1100 S Marietta Pkwy",
-              Address2 = "",
-              City = "Marietta",
-              StateProvince = "GA",
-              PostalCode = "30060",
-              Country = "USA",
-              Link = ""
-            }
-          },
-          new EventInfo()
-          {
-            Moniker = "2015",
-            Name = "Atlanta Code Camp 2015",
-            EventDate = new DateTime(2015, 10, 24),
-            EventLength = 1,
-            Description = "The Atlanta Code Camp is awesome",
-            IsDefault = false,
-            Location = new EventLocation()
+              Moniker = "2016",
+              Name = "Atlanta Code Camp 2016",
+              EventDate = new DateTime(2016, 10, 15),
+              EventLength = 1,
+              Description = "The Atlanta Code Camp is awesome",
+              IsDefault = true,
+              TwitterLink = "https://twitter.com/atlcodecamp",
+              ContactEmail = "codecamp@live.com",
+              Location = new EventLocation()
+              {
+                Facility = "Kennesaw State University (Formerly Southern Polytechnic)",
+                Address1 = "1100 S Marietta Pkwy",
+                Address2 = "",
+                City = "Marietta",
+                StateProvince = "GA",
+                PostalCode = "30060",
+                Country = "USA",
+                Link = ""
+              }
+            },
+            new EventInfo()
             {
-              Facility = "Kennesaw State University (Formerly Southern Polytechnic)",
-              Address1 = "1100 S Marietta Pkwy",
-              Address2 = "",
-              City = "Marietta",
-              StateProvince = "GA",
-              PostalCode = "30060",
-              Country = "USA",
-              Link = ""
-            }
-          },
-          new EventInfo()
-          {
-            Moniker = "2014",
-            Name = "Atlanta Code Camp 2014",
-            EventDate = new DateTime(2014, 10, 24),
-            EventLength = 1,
-            Description = "The Atlanta Code Camp is awesome",
-            IsDefault = false,
-            Location = new EventLocation()
+              Moniker = "2015",
+              Name = "Atlanta Code Camp 2015",
+              EventDate = new DateTime(2015, 10, 24),
+              EventLength = 1,
+              Description = "The Atlanta Code Camp is awesome",
+              IsDefault = false,
+              Location = new EventLocation()
+              {
+                Facility = "Kennesaw State University (Formerly Southern Polytechnic)",
+                Address1 = "1100 S Marietta Pkwy",
+                Address2 = "",
+                City = "Marietta",
+                StateProvince = "GA",
+                PostalCode = "30060",
+                Country = "USA",
+                Link = ""
+              }
+            },
+            new EventInfo()
             {
-              Facility = "Southern Polytechnic",
-              Address1 = "1100 S Marietta Pkwy",
-              Address2 = "",
-              City = "Marietta",
-              StateProvince = "GA",
-              PostalCode = "30060",
-              Country = "USA",
-              Link = ""
-            }
-          },
-          new EventInfo()
-          {
-            Moniker = "2013",
-            Name = "Atlanta Code Camp 2013",
-            EventDate = new DateTime(2013, 10, 24),
-            EventLength = 1,
-            Description = "The Atlanta Code Camp is awesome",
-            IsDefault = false,
-            Location = new EventLocation()
+              Moniker = "2014",
+              Name = "Atlanta Code Camp 2014",
+              EventDate = new DateTime(2014, 10, 24),
+              EventLength = 1,
+              Description = "The Atlanta Code Camp is awesome",
+              IsDefault = false,
+              Location = new EventLocation()
+              {
+                Facility = "Southern Polytechnic",
+                Address1 = "1100 S Marietta Pkwy",
+                Address2 = "",
+                City = "Marietta",
+                StateProvince = "GA",
+                PostalCode = "30060",
+                Country = "USA",
+                Link = ""
+              }
+            },
+            new EventInfo()
             {
-              Facility = "Southern Polytechnic",
-              Address1 = "1100 S Marietta Pkwy",
-              Address2 = "",
-              City = "Marietta",
-              StateProvince = "GA",
-              PostalCode = "30060",
-              Country = "USA",
-              Link = ""
+              Moniker = "2013",
+              Name = "Atlanta Code Camp 2013",
+              EventDate = new DateTime(2013, 10, 24),
+              EventLength = 1,
+              Description = "The Atlanta Code Camp is awesome",
+              IsDefault = false,
+              Location = new EventLocation()
+              {
+                Facility = "Southern Polytechnic",
+                Address1 = "1100 S Marietta Pkwy",
+                Address2 = "",
+                City = "Marietta",
+                StateProvince = "GA",
+                PostalCode = "30060",
+                Country = "USA",
+                Link = ""
+              }
             }
-          }
-        };
+          };
 
+          _ctx.AddRange(codeCamps);
+
+          await _ctx.SaveChangesAsync();
+        }
+        else
+        {
+          codeCamps = _ctx.CodeCampEvents.ToArray();
+        }
+
+        if (!_ctx.Sponsors.Any())
+        {
           var sponsor = new Sponsor()
           {
             Name = "Wilder Minds",
@@ -170,10 +187,16 @@ namespace CoreCodeCamp.Data
             SponsorLevel = "Silver"
           };
 
-          _ctx.AddRange(codeCamps);
           _ctx.Add(sponsor);
-          await _ctx.SaveChangesAsync();
+          _ctx.AddRange(Add2015Sponsors(codeCamps.Where(s => s.Moniker == "2015").First()));
+          _ctx.AddRange(Add2014Sponsors(codeCamps.Where(s => s.Moniker == "2014").First()));
+          _ctx.AddRange(Add2013Sponsors(codeCamps.Where(s => s.Moniker == "2013").First()));
 
+          await _ctx.SaveChangesAsync();
+        }
+
+        if (!_ctx.Speakers.Any())
+        {
           await Migrate();
         }
       }
@@ -184,9 +207,449 @@ namespace CoreCodeCamp.Data
       }
     }
 
+    private IEnumerable<Sponsor> Add2015Sponsors(EventInfo eventInfo)
+    {
+      var sponsors = new List<Sponsor>()
+      {
+        new Sponsor()
+        {
+          Name = "Magenic",
+          Link = "http://www.magenic.com/",
+          ImageUrl = "/img/2015/sponsors/magenic.jpg",
+          SponsorLevel = "Platinum"
+        },
+        new Sponsor()
+        {
+          Name = "Slalom Consulting",
+          Link = "http://slalom.com/",
+          ImageUrl = "/img/2015/sponsors/slalom.png",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "Matrix",
+          Link = "http://www.matrixres.com/",
+          ImageUrl = "/img/2015/sponsors/matrix.jpg",
+          SponsorLevel = "Other"
+        },
+        new Sponsor()
+        {
+          Name = "Tek Systems",
+          Link = "http://teksystems.com/",
+          ImageUrl = "/img/2015/sponsors/teksystems.png",
+          SponsorLevel = "Platinum"
+        },
+        new Sponsor()
+        {
+          Name = "Wilder Minds",
+          Link = "http://www.wilderminds.com/",
+          ImageUrl = "/img/2015/sponsors/wilderminds.jpg",
+          SponsorLevel = "Silver"
+        },
+        new Sponsor()
+        {
+          Name = "GreaterSum",
+          Link = "http://www.greatersum.com/",
+          ImageUrl = "/img/2015/sponsors/greatersum.jpg",
+          SponsorLevel = "TShirt"
+        },
+        new Sponsor()
+        {
+          Name = "Air Watch",
+          Link = "http://air-watch.com/",
+          ImageUrl = "/img/2015/sponsors/airwatch.jpg",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "CTS",
+          Link = "http://www.askcts.com/",
+          ImageUrl = "/img/2015/sponsors/cts.jpg",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "iVision",
+          Link = "http://ivision.com/our-services/technology-services/application-development/",
+          ImageUrl = "/img/2015/sponsors/ivision.jpg",
+          SponsorLevel = "Platinum"
+        },
+        new Sponsor()
+        {
+          Name = "Wintellect",
+          Link = "http://www.wintellect.com",
+          ImageUrl = "/img/2015/sponsors/wintellect.jpg",
+          SponsorLevel = "Silver"
+        },
+        new Sponsor()
+        {
+          Name = "LogicNP Software",
+          Link = "http://ssware.com",
+          ImageUrl = "/img/2015/sponsors/LogicNP.png",
+          SponsorLevel = "Other"
+        },
+        new Sponsor()
+        {
+          Name = "Red-gate",
+          Link = "http://www.red-gate.com/",
+          ImageUrl = "/img/2015/sponsors/redgate.png",
+          SponsorLevel = "Other"
+        },
+        new Sponsor()
+        {
+          Name = "Tyler Tech",
+          Link = "http://www.tylertech.com/",
+          ImageUrl = "/img/2015/sponsors/tylertech.jpg",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "CBS",
+          Link = "http://cbscorporation.jobs/",
+          ImageUrl = "/img/2015/sponsors/cbs.jpg",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "Hired",
+          Link = "http://hired.com/",
+          ImageUrl = "/img/2015/sponsors/hired.jpg",
+          SponsorLevel = "Platinum"
+        },
+        new Sponsor()
+        {
+          Name = "Innovative Architects",
+          Link = "https://www.innovativearchitects.com/",
+          ImageUrl = "/img/2015/sponsors/innovative-architects.jpg",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "PMG.net",
+          Link = "https://www.pmg.net/",
+          ImageUrl = "/img/2015/sponsors/pmg.jpg",
+          SponsorLevel = "Gold"
+        },
+      };
+
+      sponsors.ForEach(s => { s.Paid = true; s.Event = eventInfo; });
+
+      return sponsors;
+    }
+
+    private IEnumerable<Sponsor> Add2014Sponsors(EventInfo eventInfo)
+    {
+      var sponsors = new List<Sponsor>()
+      {
+        new Sponsor()
+        {
+          Name = "Magenic",
+          Link ="http://www.magenic.com/",
+          ImageUrl = "/img/2014/sponsors/magenic.jpg",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "Peachtree Data",
+          Link ="https://developer.peachtreedata.com",
+          ImageUrl = "/img/2014/sponsors/peachtreedata.jpg",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "Wilder Minds",
+          Link ="http://www.wilderminds.com/",
+          ImageUrl = "/img/2014/sponsors/wilderminds.jpg",
+          SponsorLevel = "Silver"
+        },
+        new Sponsor()
+        {
+          Name = "iVision",
+          Link ="http://www.iVision.com/",
+          ImageUrl = "/img/2014/sponsors/ivision.jpg",
+          SponsorLevel = "Silver"
+        },
+        new Sponsor()
+        {
+          Name = "Slalom Consulting",
+          Link ="http://slalom.com/",
+          ImageUrl = "/img/2014/sponsors/slalom.png",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "RDA",
+          Link ="http://www.rdacorp.com/",
+          ImageUrl = "/img/2014/sponsors/rda.jpg",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "Mandrill",
+          Link ="http://mandrill.com/",
+          ImageUrl = "/img/2014/sponsors/mandrill.png",
+          SponsorLevel = "Silver"
+        },
+        new Sponsor()
+        {
+  Name = "Matrix",
+          Link ="http://www.matrixres.com/",
+          ImageUrl = "/img/2014/sponsors/matrix.jpg",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "CTS/Particular Software",
+          Link ="http://www.askcts.com/",
+          ImageUrl = "/img/2014/sponsors/ctsparticular.jpg",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "Wintellect",
+          Link ="http://www.wintellect.com",
+          ImageUrl = "/img/2014/sponsors/wintellect.jpg",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "Air Watch",
+          Link ="http://air-watch.com/",
+          ImageUrl = "/img/2014/sponsors/airwatch.jpg",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "Tek Systems",
+          Link ="http://teksystems.com/",
+          ImageUrl = "/img/2014/sponsors/teksystems.png",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "Tyler Tech",
+          Link ="http://www.tylertech.com/",
+          ImageUrl = "/img/2014/sponsors/tylertech.jpg",
+          SponsorLevel = "Gold"
+        },
+      };
+
+      sponsors.ForEach(s => { s.Paid = true; s.Event = eventInfo; });
+
+      return sponsors;
+    }
+
+    private IEnumerable<Sponsor> Add2013Sponsors(EventInfo eventInfo)
+    {
+      var sponsors = new List<Sponsor>()
+      {
+        new Sponsor()
+        {
+          Name = "Component One",
+          Link ="http://www.componentone.com/",
+          ImageUrl = "/img/2013/sponsors/componentone.png",
+          SponsorLevel = "Platinum"
+        },
+        new Sponsor()
+        {
+          Name = "Magenic",
+          Link ="http://www.magenic.com/",
+          ImageUrl = "/img/2013/sponsors/magenic.png",
+          SponsorLevel = "Platinum"
+        },
+        new Sponsor()
+        {
+          Name = "Matrix",
+          Link ="http://www.matrixres.com/",
+          ImageUrl = "/img/2013/sponsors/matrix.jpg",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "CTS",
+          Link ="http://www.askcts.com/",
+          ImageUrl = "/img/2013/sponsors/cts.jpg",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "Telerik",
+          Link ="http://www.telerik.com/",
+          ImageUrl = "/img/2013/sponsors/telerik.jpg",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "Pariveda Solutions",
+          Link ="http://www.parivedasolutions.com/",
+          ImageUrl = "/img/2013/sponsors/parivedasolutions.png",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "Wilder Minds",
+          Link ="http://www.wilderminds.com/",
+          ImageUrl = "/img/2013/sponsors/wilderminds.jpg",
+          SponsorLevel = "Silver"
+        },
+        new Sponsor()
+        {
+          Name = "Discount ASP",
+          Link ="http://discountasp.com/",
+          ImageUrl = "/img/2013/sponsors/discountasp.png",
+          SponsorLevel = "Silver"
+        },
+        new Sponsor()
+        {
+          Name = "Agile Thought",
+          Link ="http://agilethought.com/",
+          ImageUrl = "/img/2013/sponsors/agilethought.png",
+          SponsorLevel = "Platinum"
+        },
+        new Sponsor()
+        {
+          Name = "Air Watch",
+          Link ="http://air-watch.com/",
+          ImageUrl = "/img/2013/sponsors/airwatch.jpg",
+          SponsorLevel = "Platinum"
+        },
+        new Sponsor()
+        {
+          Name = "Pluralsight",
+          Link ="http://pluralsight.com/",
+          ImageUrl = "/img/2013/sponsors/pluralsight.png",
+          SponsorLevel = "Other"
+        },
+        new Sponsor()
+        {
+          Name = "Code Magazine",
+          Link ="http://code-magazine.com/",
+          ImageUrl = "/img/2013/sponsors/codemag.jpg",
+          SponsorLevel = "Other"
+        },
+        new Sponsor()
+        {
+          Name = "Campus MVP",
+          Link ="http://campusmvp.net/",
+          ImageUrl = "/img/2013/sponsors/campusMVP.png",
+          SponsorLevel = "Other"
+        },
+        new Sponsor()
+        {
+          Name = "LogicNP Software",
+          Link ="http://ssware.com/",
+          ImageUrl = "/img/2013/sponsors/logicnp.png",
+          SponsorLevel = "Other"
+        },
+        new Sponsor()
+        {
+          Name = "O'Reilly Publishing",
+          Link ="http://oreilly.com/",
+          ImageUrl = "/img/2013/sponsors/oreilly.gif",
+          SponsorLevel = "Other"
+        },
+        new Sponsor()
+        {
+          Name = "Blue Fletch Consulting",
+          Link ="http://bluefletch.com/",
+          ImageUrl = "/img/2013/sponsors/blue-fletch.png",
+          SponsorLevel = "Silver"
+        },
+        new Sponsor()
+        {
+          Name = "Bit Wizards",
+          Link ="http://www.bitwizards.com/",
+          ImageUrl = "/img/2013/sponsors/bitwizards.jpg",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "Mandrill",
+          Link ="http://mandrill.com/",
+          ImageUrl = "/img/2013/sponsors/mandrill.png",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "MailChimp",
+          Link ="http://mailchimp.com/",
+          ImageUrl = "/img/2013/sponsors/mailchimp.png",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "Jet Stream Technologies",
+          Link ="http://jetstreamapp.com/",
+          ImageUrl = "/img/2013/sponsors/jetstream.png",
+          SponsorLevel = "Silver"
+        },
+        new Sponsor()
+        {
+          Name = "RedGate",
+          Link ="http://red-gate.com/",
+          ImageUrl = "/img/2013/sponsors/redgate.png",
+          SponsorLevel = "Silver"
+        },
+        new Sponsor()
+        {
+          Name = "Slalom Consulting",
+          Link ="http://slalom.com/",
+          ImageUrl = "/img/2013/sponsors/slalom.png",
+          SponsorLevel = "Silver"
+        },
+        new Sponsor()
+        {
+          Name = "Tek Systems",
+          Link ="http://teksystems.com/",
+          ImageUrl = "/img/2013/sponsors/teksystems.png",
+          SponsorLevel = "Platinum"
+        },
+        new Sponsor()
+        {
+          Name = "Infragistics",
+          Link ="http://infragistics.com/",
+          ImageUrl = "/img/2013/sponsors/infragistics.png",
+          SponsorLevel = "Platinum"
+        },
+        new Sponsor()
+        {
+          Name = "Daugherty Business Solutions",
+          Link ="http://www.daugherty.com/",
+          ImageUrl = "/img/2013/sponsors/daugherty.png",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "Fabric.com",
+          Link ="http://www.fabric.com/",
+          ImageUrl = "/img/2013/sponsors/fabric.png",
+          SponsorLevel = "Silver"
+        },
+        new Sponsor()
+        {
+          Name = "Apex Payroll",
+          Link ="http://www.apexpayroll.com",
+          ImageUrl = "/img/2013/sponsors/apexpr.png",
+          SponsorLevel = "Gold"
+        },
+        new Sponsor()
+        {
+          Name = "Syncfusion",
+          Link ="http://www.syncfusion.com",
+          ImageUrl = "/img/2013/sponsors/syncfusion.png",
+          SponsorLevel = "Silver"
+        },
+      };
+
+      sponsors.ForEach(s => { s.Paid = true; s.Event = eventInfo; });
+
+      return sponsors;
+    }
+
     private async Task Migrate()
     {
-      var speakerFile = string.Concat(_env.ContentRootPath, @"\Database\speakers.csv");
+
+      var speakerFile = Path.Combine(_env.ContentRootPath, @"..\..\speakers.csv");
       if (File.Exists(speakerFile))
       {
         var oldSpeakers = new CsvReader(File.OpenText(speakerFile));
@@ -225,7 +688,7 @@ namespace CoreCodeCamp.Data
     {
       var result = new List<Talk>();
 
-      var talkFile = string.Concat(_env.ContentRootPath, @"\Database\talks.csv");
+      var talkFile = Path.Combine(_env.ContentRootPath, @"..\..\talks.csv");
       if (File.Exists(talkFile))
       {
         var oldTalks = new CsvReader(File.OpenText(talkFile));
@@ -249,7 +712,7 @@ namespace CoreCodeCamp.Data
         Approved = true,
         Audience = oldTalks.GetField("Audience"),
         CodeUrl = oldTalks.GetField("CodeUrl"),
-        Level = Int32.Parse(oldTalks.GetField("Level")),
+        Level = Int32.Parse(oldTalks.GetField("SponsorLevel")),
         Prerequisites = oldTalks.GetField("Prerequisites"),
         PresentationUrl = oldTalks.GetField("PresentationUrl"),
         SpeakerDeckUrl = oldTalks.GetField("SpeakerDeckUrl"),

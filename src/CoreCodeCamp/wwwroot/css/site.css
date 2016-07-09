@@ -29,11 +29,20 @@ a:focus {
 .features-box .features-box-icon {
   color: #ce0000;
 }
+.sponsor-box {
+  height: 160px;
+  margin-bottom: 5px;
+}
 .sponsor-box img {
   border: 1px solid #eee;
   margin: 0 auto;
+  max-height: 100px;
+}
+.sponsor-box .sponsor-box-logo {
+  min-height: 115px;
 }
 .sponsor-box .sponsor-box-level {
+  margin-top: 5px;
   background: #eee;
   text-align: center;
   font-weight: bold;

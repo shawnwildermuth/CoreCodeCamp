@@ -92,6 +92,8 @@ namespace CoreCodeCamp.Data
               IsDefault = true,
               TwitterLink = "https://twitter.com/atlcodecamp",
               ContactEmail = "codecamp@live.com",
+              CallForSpeakersOpened = new DateTime(2016, 8, 1),
+              CallForSpeakersClosed = new DateTime(2016, 10, 1),
               Location = new EventLocation()
               {
                 Facility = "Kennesaw State University (Formerly Southern Polytechnic)",
@@ -112,6 +114,8 @@ namespace CoreCodeCamp.Data
               EventLength = 1,
               Description = "The Atlanta Code Camp is awesome",
               IsDefault = false,
+              CallForSpeakersOpened = new DateTime(2015, 8, 1),
+              CallForSpeakersClosed = new DateTime(2015, 10, 1),
               Location = new EventLocation()
               {
                 Facility = "Kennesaw State University (Formerly Southern Polytechnic)",
@@ -132,6 +136,8 @@ namespace CoreCodeCamp.Data
               EventLength = 1,
               Description = "The Atlanta Code Camp is awesome",
               IsDefault = false,
+              CallForSpeakersOpened = new DateTime(2014, 8, 1),
+              CallForSpeakersClosed = new DateTime(2014, 9, 15),
               Location = new EventLocation()
               {
                 Facility = "Southern Polytechnic",
@@ -152,6 +158,8 @@ namespace CoreCodeCamp.Data
               EventLength = 1,
               Description = "The Atlanta Code Camp is awesome",
               IsDefault = false,
+              CallForSpeakersOpened = new DateTime(2013, 6, 1),
+              CallForSpeakersClosed = new DateTime(2013, 8, 1),
               Location = new EventLocation()
               {
                 Facility = "Southern Polytechnic",

@@ -2,12 +2,11 @@
 @inject SignInManager<CodeCampUser> signInMgr
 @{
   var codeCampUser = await userMgr.GetUserAsync(User);
-  var moniker = ViewContext.RouteData.Values["moniker"] as string;
 }
 
-<li><a asp-area="" asp-controller="Root" asp-action="Index" asp-route-moniker="@moniker">Home</a></li>
-<li><a asp-area="" asp-controller="Root" asp-action="Contact" asp-route-moniker="@moniker">Contact</a></li>
-<li><a asp-area="" asp-controller="Root" asp-action="Sponsoring" asp-route-moniker="@moniker">Sponsor</a></li>
+<li class="@Html.GetActiveMenuItem("Root", "Index")"><a asp-area="" asp-controller="Root" asp-action="Index" asp-route-moniker="@Html.GetMoniker()">Home</a></li>
+<li class="@Html.GetActiveMenuItem("Root", "CallForSpeakers")"><a asp-area="" asp-controller="Root" asp-action="CallForSpeakers" asp-route-moniker="@Html.GetMoniker()">Call for Speakers</a></li>
+<li class="@Html.GetActiveMenuItem("Root", "Sponsoring")"><a asp-area="" asp-controller="Root" asp-action="Sponsoring" asp-route-moniker="@Html.GetMoniker()">Sponsor</a></li>
 @if (signInMgr.IsSignedIn(User) && await userMgr.IsInRoleAsync(codeCampUser, Consts.AdminRole))
 {
   <li><a asp-area="Admin" asp-controller="Root" asp-action="Index">Admin</a></li>

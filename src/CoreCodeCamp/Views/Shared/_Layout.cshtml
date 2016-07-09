@@ -1,11 +1,4 @@
-﻿@inject CoreCodeCamp.Data.ICodeCampRepository repo
-@{
-  var moniker = ViewContext.RouteData.Values["moniker"] as string;
-  var eventInfo = repo.GetEventInfo(moniker);
-  ViewBag.EventInfo = eventInfo;
-
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 
@@ -13,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>@ViewData["Title"] - @eventInfo.Name</title>
+  <title>@ViewData["Title"] - @this.GetEventInfo().Name</title>
 
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
 
@@ -73,7 +66,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a asp-area="" asp-controller="Root" asp-action="Index" asp-route-moniker="@moniker" class="navbar-brand">@eventInfo.Name</a>
+        <a asp-area="" asp-controller="Root" asp-action="Index" asp-route-moniker="@Html.GetMoniker()" class="navbar-brand">@this.GetEventInfo().Name</a>
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
@@ -114,32 +107,32 @@
           @Html.Partial("_OtherEvents")
         </div>
         <div class="col-sm-4 footer-contact-info wow fadeInDown">
-          <h3>@eventInfo.Name</h3>
-          <p>@eventInfo.Location.Facility</p>
-          <p><i class="fa fa-map-marker"></i> @eventInfo.Location.GetOneLineAddress()</p>
-          <p><i class="fa fa-envelope"></i> Email: <a href="mailto:@(eventInfo.ContactEmail)">@eventInfo.ContactEmail</a></p>
+          <h3>@this.GetEventInfo().Name</h3>
+          <p>@this.GetEventInfo().Location.Facility</p>
+          <p><i class="fa fa-map-marker"></i> @this.GetEventInfo().Location.GetOneLineAddress()</p>
+          <p><i class="fa fa-envelope"></i> Email: <a href="mailto:@(this.GetEventInfo().ContactEmail)">@this.GetEventInfo().ContactEmail</a></p>
         </div>
         <div class="col-sm-4 footer-social wow fadeInUp">
           <h3>We're Social</h3>
           <p>
-            @if (!string.IsNullOrWhiteSpace(eventInfo.FacebookLink))
+            @if (!string.IsNullOrWhiteSpace(this.GetEventInfo().FacebookLink))
             {
-              <a href="@eventInfo.FacebookLink"><i class="fa fa-facebook"></i></a>
+              <a href="@this.GetEventInfo().FacebookLink"><i class="fa fa-facebook"></i></a>
             }
-            @if (!string.IsNullOrWhiteSpace(eventInfo.TwitterLink))
+            @if (!string.IsNullOrWhiteSpace(this.GetEventInfo().TwitterLink))
             {
-              <a href="@eventInfo.TwitterLink"><i class="fa fa-twitter"></i></a>
+              <a href="@this.GetEventInfo().TwitterLink"><i class="fa fa-twitter"></i></a>
             }
-            @if (!string.IsNullOrWhiteSpace(eventInfo.InstagramLink))
+            @if (!string.IsNullOrWhiteSpace(this.GetEventInfo().InstagramLink))
             {
-              <a href="@eventInfo.InstagramLink"><i class="fa fa-instagram"></i></a>
+              <a href="@this.GetEventInfo().InstagramLink"><i class="fa fa-instagram"></i></a>
             }
           </p>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-6 footer-copyright">
-          &copy; <a asp-controller="Root" asp-action="Index" asp-route-moniker="@(eventInfo.Moniker)">Atlanta Code Camp</a></a>
+          &copy; <a asp-controller="Root" asp-action="Index" asp-route-moniker="@(this.GetEventInfo().Moniker)">Atlanta Code Camp</a></a>
         </div>
         <div class="col-sm-6 footer-menu">
           <ul>

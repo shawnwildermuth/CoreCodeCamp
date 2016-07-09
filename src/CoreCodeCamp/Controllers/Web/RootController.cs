@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CoreCodeCamp.Data;
 using CoreCodeCamp.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace CoreCodeCamp.Controllers.Web
 {
@@ -29,6 +30,19 @@ namespace CoreCodeCamp.Controllers.Web
       return View();
     }
 
+    [HttpGet("{moniker}/CallForSpeakers")]
+    public IActionResult CallForSpeakers(string moniker)
+    {
+      return View();
+    }
+
+    public override void OnActionExecuting(ActionExecutingContext context)
+    {
+      base.OnActionExecuting(context);
+
+      // Put the current event in scope data
+      context.HttpContext.Items["EventInfo"] = _repo.GetEventInfo(context.RouteData.Values["moniker"] as string);
+    }
 
   }
 }

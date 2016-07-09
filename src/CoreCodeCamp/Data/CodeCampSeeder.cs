@@ -128,7 +128,7 @@ namespace CoreCodeCamp.Data
             {
               Moniker = "2014",
               Name = "Atlanta Code Camp 2014",
-              EventDate = new DateTime(2014, 10, 24),
+              EventDate = new DateTime(2014, 10, 11),
               EventLength = 1,
               Description = "The Atlanta Code Camp is awesome",
               IsDefault = false,
@@ -148,7 +148,7 @@ namespace CoreCodeCamp.Data
             {
               Moniker = "2013",
               Name = "Atlanta Code Camp 2013",
-              EventDate = new DateTime(2013, 10, 24),
+              EventDate = new DateTime(2013, 8, 24),
               EventLength = 1,
               Description = "The Atlanta Code Camp is awesome",
               IsDefault = false,

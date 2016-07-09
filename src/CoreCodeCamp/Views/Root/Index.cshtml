@@ -4,12 +4,12 @@
 }
 @section topSection {
   <div class="col-sm-8 col-sm-offset-2 text">
-    <h1 class="wow fadeInLeftBig"><strong>@ViewBag.EventInfo.Name</strong> is coming @ViewBag.EventInfo.EventDate.ToString("D")</h1>
+    <h1 class="wow fadeInLeftBig"><strong>@this.GetEventInfo().Name</strong> is coming @this.GetEventInfo().EventDate.ToString("D")</h1>
     <div class="description wow fadeInLeftBig">
       <p class="lead">
-        The @ViewBag.EventInfo.Name is your opportunity to join your other Atlanta developer and design community members in a day of training.
+        The @this.GetEventInfo().Name is your opportunity to join your other Atlanta developer and design community members in a day of training.
       </p>
-      <a asp-controller="Root" asp-action="Register" asp-route-moniker="@ViewBag.EventInfo.Moniker" class="btn btn-lg btn-success disabled">Coming Soon</a>
+      <a asp-controller="Root" asp-action="Register" asp-route-moniker="@this.GetEventInfo().Moniker" class="btn btn-lg btn-success disabled">Coming Soon</a>
     </div>
   </div>
 
@@ -67,9 +67,9 @@
         }
       </div>
       <div class="row">
-        <h3>Want to Sponsor the <strong>@ViewBag.EventInfo.Name</strong>?</h3>
+        <h3>Want to Sponsor the <strong>@this.GetEventInfo().Name</strong>?</h3>
         <p class="lead">Interested in helping us bring this event to the Atlanta Metro Area? Become a sponsor today:</p>
-        <a asp-controller="Root" asp-action="Sponsoring" asp-route-moniker="@ViewBag.EventInfo.Moniker" class="btn btn-lg btn-success">Become a Sponsor</a>
+        <a asp-controller="Root" asp-action="Sponsoring" asp-route-moniker="@this.GetEventInfo().Moniker" class="btn btn-lg btn-success">Become a Sponsor</a>
       </div>
     </div>
   </div>

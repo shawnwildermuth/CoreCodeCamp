@@ -23,6 +23,7 @@ namespace CoreCodeCamp.Controllers.Web
       return View(sponsors);
     }
 
+    [HttpGet("{moniker}/Sponsoring")]
     public IActionResult Sponsoring(string moniker)
     {
       return View();

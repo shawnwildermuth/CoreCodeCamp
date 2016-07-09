@@ -110,13 +110,8 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-4 footer-about wow fadeInUp">
-          <h3>About Us</h3>
-          <p>
-
-          </p>
-          <p>
-            <a class="scroll-link" asp-controller="Root" asp-action="About">Learn More</a>
-          </p>
+          <h3>Other Events</h3>
+          @Html.Partial("_OtherEvents")
         </div>
         <div class="col-sm-4 footer-contact-info wow fadeInDown">
           <h3>@eventInfo.Name</h3>

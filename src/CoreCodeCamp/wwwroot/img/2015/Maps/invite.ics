@@ -1,0 +1,12 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+URL:http://pluralsightluckystrike.com
+DTSTART:20151104T040000Z
+DTEND:20151104T060000Z
+ORGANIZER;CN="Jodi Stamm":mailto:pluralsightluckystrike@event.splashthat.com
+SUMMARY:Pluralsight Lucky Strike
+DESCRIPTION:For more information - http://pluralsightluckystrike.com
+LOCATION:Lucky Strike 700 Bellevue Way NE Bellevue WA 98004
+END:VEVENT
+END:VCALENDAR

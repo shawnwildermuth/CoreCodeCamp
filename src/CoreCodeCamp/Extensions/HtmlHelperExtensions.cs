@@ -15,5 +15,15 @@ namespace CoreCodeCamp.Extensions
     {
       return new HtmlString(html.ViewContext.RouteData.Values["moniker"] as string);
     }
+
+    public static HtmlString GetActiveMenuItem(this IHtmlHelper<dynamic> html, string controller, string action)
+    {
+      if (html.ViewContext.RouteData.Values["controller"].Equals(controller) && html.ViewContext.RouteData.Values["action"].Equals(action))
+      {
+        return new HtmlString("active");
+      }
+
+      return new HtmlString("");
+    }
   }
 }

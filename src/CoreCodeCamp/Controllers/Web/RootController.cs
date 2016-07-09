@@ -9,13 +9,10 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace CoreCodeCamp.Controllers.Web
 {
-  public class RootController : Controller
+  public class RootController : MonikerControllerBase
   {
-    private ICodeCampRepository _repo;
-
-    public RootController(ICodeCampRepository repo)
+    public RootController(ICodeCampRepository repo) : base(repo)
     {
-      _repo = repo;
     }
 
     public IActionResult Index(string moniker)
@@ -34,14 +31,6 @@ namespace CoreCodeCamp.Controllers.Web
     public IActionResult CallForSpeakers(string moniker)
     {
       return View();
-    }
-
-    public override void OnActionExecuting(ActionExecutingContext context)
-    {
-      base.OnActionExecuting(context);
-
-      // Put the current event in scope data
-      context.HttpContext.Items["EventInfo"] = _repo.GetEventInfo(context.RouteData.Values["moniker"] as string);
     }
 
   }

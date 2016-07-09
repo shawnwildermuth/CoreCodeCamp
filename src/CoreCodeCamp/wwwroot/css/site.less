@@ -12,8 +12,22 @@ body {
   padding-right: 15px;
 }
 
+p {
+  text-align: left;
+}
+
+p.lead {
+  text-align: center;
+}
+
 .navbar {
   background-color: fadeout(desaturate(lighten(@themeColor, 60%), 100%), 25%);
+  .navbar-nav {
+    .active > a {
+      font-weight: 500;
+      background: rgba(200, 200, 200, 0.2) none repeat scroll 0 0;
+    }
+  }
 }
 
 a {

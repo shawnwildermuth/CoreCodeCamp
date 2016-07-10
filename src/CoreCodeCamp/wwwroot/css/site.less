@@ -21,13 +21,24 @@ p.lead {
 }
 
 .navbar {
-  background-color: fadeout(desaturate(lighten(@themeColor, 60%), 100%), 25%);
+  background-color: fadeout(desaturate(lighten(@themeColor, 60%), 100%), 20%);
+  border-bottom: 1px solid #ccc;
   .navbar-nav {
     .active > a {
       font-weight: 500;
       background: rgba(200, 200, 200, 0.2) none repeat scroll 0 0;
     }
   }
+}
+
+.text-sm {
+  font-size: small;
+  line-height:normal;
+}
+
+#imagePicker
+{
+  margin-top: 29px;
 }
 
 a {

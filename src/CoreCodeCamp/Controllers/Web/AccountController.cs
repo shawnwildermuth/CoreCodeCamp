@@ -17,7 +17,7 @@ using CoreCodeCamp.Services;
 namespace CoreCodeCamp.Controllers.Web
 {
   [Authorize]
-  public class AccountController : Controller
+  public class AccountController : MonikerControllerBase
   {
     private readonly UserManager<CodeCampUser> _userManager;
     private readonly SignInManager<CodeCampUser> _signInManager;
@@ -28,7 +28,8 @@ namespace CoreCodeCamp.Controllers.Web
         UserManager<CodeCampUser> userManager,
         SignInManager<CodeCampUser> signInManager,
         ILoggerFactory loggerFactory,
-        IMailService mailService)
+        IMailService mailService,
+        ICodeCampRepository repo) : base(repo)
     {
       _userManager = userManager;
       _signInManager = signInManager;

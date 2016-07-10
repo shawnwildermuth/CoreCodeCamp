@@ -79,7 +79,7 @@
 
   @if (IsSectionDefined("topSection"))
   {
-    <div class="top-content">
+    <div class="@ViewData["TopSectionClass"] section-container-image-bg">
       <div class="inner-bg">
         <div class="container">
 
@@ -89,13 +89,14 @@
       </div>
     </div>
   }
-
-  <div class="features-container section-container">
-    <div class="container">
-      @RenderBody()
+  @if (!ViewData.ContainsKey("SupressBody") || ((bool)ViewData["SupressBody"]) == false)
+  {
+    <div class="features-container section-container">
+      <div class="container">
+        @RenderBody()
+      </div>
     </div>
-  </div>
-
+  }
   @RenderSection("moreSections", false)
 
 

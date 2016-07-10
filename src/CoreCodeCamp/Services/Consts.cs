@@ -8,6 +8,8 @@ namespace CoreCodeCamp.Services
 {
   public static class Consts
   {
-    public const string AdminRole = "Admin";
+    public const string ADMINROLE = "Admin";
+    public const string EVENT_INFO_ITEM = "EventInfo_Item";
+
   }
 }

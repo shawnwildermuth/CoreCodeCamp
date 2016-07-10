@@ -9,13 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace CoreCodeCamp.Controllers.Web
 {
   [Route("~/")]
-  public class CurrentController : Controller
+  public class CurrentController : MonikerControllerBase
   {
-    private ICodeCampRepository _repo;
 
-    public CurrentController(ICodeCampRepository repo)
+    public CurrentController(ICodeCampRepository repo) : base(repo)
     {
-      _repo = repo;
     }
 
     [HttpGet("")]

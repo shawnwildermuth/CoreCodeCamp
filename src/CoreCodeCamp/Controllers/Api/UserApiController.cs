@@ -15,14 +15,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace CoreCodeCamp.Controllers.Api
 {
   [Route("api/users")]
-  [Authorize(Roles = Consts.AdminRole)]
-  public class UserController : Controller
+  [Authorize(Roles = Consts.ADMINROLE)]
+  public class UserApiController : Controller
   {
     private ICodeCampRepository _repo;
     private SignInManager<CodeCampUser> _signInMgr;
     private UserManager<CodeCampUser> _userMgr;
 
-    public UserController(ICodeCampRepository repo, UserManager<CodeCampUser> userMgr, SignInManager<CodeCampUser> signInMgr)
+    public UserApiController(ICodeCampRepository repo, UserManager<CodeCampUser> userMgr, SignInManager<CodeCampUser> signInMgr)
     {
       _repo = repo;
       _userMgr = userMgr;
@@ -39,7 +39,7 @@ namespace CoreCodeCamp.Controllers.Api
       {
         var element = vms.ElementAt(x);
         var usr = users.ElementAt(x);
-        element.IsAdmin = await _userMgr.IsInRoleAsync(usr, Consts.AdminRole);
+        element.IsAdmin = await _userMgr.IsInRoleAsync(usr, Consts.ADMINROLE);
         element.IsEmailConfirmed = usr.EmailConfirmed;
       }
 
@@ -55,15 +55,15 @@ namespace CoreCodeCamp.Controllers.Api
 
         if (user != null)
         {
-          var isAdmin = await _userMgr.IsInRoleAsync(user, Consts.AdminRole);
+          var isAdmin = await _userMgr.IsInRoleAsync(user, Consts.ADMINROLE);
           IdentityResult result;
           if (isAdmin)
           {
-            result = await _userMgr.RemoveFromRoleAsync(user, Consts.AdminRole);
+            result = await _userMgr.RemoveFromRoleAsync(user, Consts.ADMINROLE);
           }
           else
           {
-            result = await _userMgr.AddToRoleAsync(user, Consts.AdminRole);
+            result = await _userMgr.AddToRoleAsync(user, Consts.ADMINROLE);
           }
 
           if (result.Succeeded)

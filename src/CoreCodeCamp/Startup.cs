@@ -3,6 +3,7 @@ using System.Linq;
 using AutoMapper;
 using CoreCodeCamp.Data;
 using CoreCodeCamp.Data.Entities;
+using CoreCodeCamp.Models;
 using CoreCodeCamp.Models.Admin;
 using CoreCodeCamp.Services;
 using Microsoft.AspNetCore.Builder;
@@ -98,6 +99,8 @@ namespace CoreCodeCamp
     void CreateMaps(IMapperConfiguration config)
     {
       config.CreateMap<CodeCampUser, CodeCampUserViewModel>()
+        .ReverseMap();
+      config.CreateMap<Speaker, SpeakerViewModel>()
         .ReverseMap();
     }
 

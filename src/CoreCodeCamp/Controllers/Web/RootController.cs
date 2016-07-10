@@ -27,11 +27,5 @@ namespace CoreCodeCamp.Controllers.Web
       return View();
     }
 
-    [HttpGet("{moniker}/CallForSpeakers")]
-    public IActionResult CallForSpeakers(string moniker)
-    {
-      return View();
-    }
-
   }
 }

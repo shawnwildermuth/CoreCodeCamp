@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using CoreCodeCamp.Data.Entities;
 
 namespace CoreCodeCamp.Data
@@ -12,5 +13,8 @@ namespace CoreCodeCamp.Data
     EventInfo GetCurrentEvent();
     IEnumerable<Sponsor> GetSponsors(string moniker);
     IEnumerable<CodeCampUser> GetUsers();
+    Speaker GetSpeaker(string name);
+    void AddOrUpdateSpeaker(Speaker speaker);
+    Task<int> SaveChangesAsync();
   }
 }

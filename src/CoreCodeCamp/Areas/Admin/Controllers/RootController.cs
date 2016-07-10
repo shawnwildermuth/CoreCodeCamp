@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CoreCodeCamp.Controllers.Web;
+using CoreCodeCamp.Data;
 using CoreCodeCamp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreCodeCamp.Areas.Admin.Controllers
 {
-  [Authorize(Roles = Consts.AdminRole)]
+  [Authorize(Roles = Consts.ADMINROLE)]
   [Area("Admin")]
-  public class RootController : Controller
+  public class RootController : MonikerControllerBase
   {
+    public RootController(ICodeCampRepository repo) : base(repo)
+    {
+
+    }
+
     public IActionResult Index()
     {
       return View();

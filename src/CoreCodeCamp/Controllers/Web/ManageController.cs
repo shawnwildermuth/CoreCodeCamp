@@ -15,16 +15,17 @@ namespace CoreCodeCamp.Controllers.Web
 {
   [Authorize]
   [Route("/you/")]
-  public class ManageController : Controller
+  public class ManageController : MonikerControllerBase
   {
     private readonly UserManager<CodeCampUser> _userManager;
     private readonly SignInManager<CodeCampUser> _signInManager;
     private readonly ILogger _logger;
 
     public ManageController(
-    UserManager<CodeCampUser> userManager,
-    SignInManager<CodeCampUser> signInManager,
-    ILoggerFactory loggerFactory)
+      UserManager<CodeCampUser> userManager,
+      SignInManager<CodeCampUser> signInManager,
+      ILoggerFactory loggerFactory,
+      ICodeCampRepository repo) : base(repo)
     {
       _userManager = userManager;
       _signInManager = signInManager;

@@ -19,6 +19,8 @@ namespace CoreCodeCamp.Data.Entities
     public string Title { get; set; }
     public string CompanyName { get; set; }
     public string CompanyUrl { get; set; }
+    public string PhoneNumber { get; set; }
+    public string TShirtSize { get; set; }
 
     public ICollection<Talk> Talks { get; set; }
 

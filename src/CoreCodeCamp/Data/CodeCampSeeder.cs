@@ -65,13 +65,13 @@ namespace CoreCodeCamp.Data
             throw new InvalidOperationException("Failed to create Super User");
           }
 
-          if (!(await _roleManager.CreateAsync(new IdentityRole(Consts.AdminRole))).Succeeded)
+          if (!(await _roleManager.CreateAsync(new IdentityRole(Consts.ADMINROLE))).Succeeded)
           {
             throw new InvalidOperationException("Failed to create Admin Role");
           }
 
           // Add to Admin Role
-          if (!(await _userManager.AddToRoleAsync(admin, Consts.AdminRole)).Succeeded)
+          if (!(await _userManager.AddToRoleAsync(admin, Consts.ADMINROLE)).Succeeded)
           {
             throw new InvalidOperationException("Failed to update Super User Role");
           }
@@ -92,7 +92,7 @@ namespace CoreCodeCamp.Data
               IsDefault = true,
               TwitterLink = "https://twitter.com/atlcodecamp",
               ContactEmail = "codecamp@live.com",
-              CallForSpeakersOpened = new DateTime(2016, 8, 1),
+              CallForSpeakersOpened = new DateTime(2016, 7, 1),
               CallForSpeakersClosed = new DateTime(2016, 10, 1),
               Location = new EventLocation()
               {

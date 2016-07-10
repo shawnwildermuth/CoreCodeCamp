@@ -17,6 +17,18 @@ namespace CoreCodeCamp.Data
       _ctx = ctx;
     }
 
+    public void AddOrUpdateSpeaker(Speaker speaker)
+    {
+      if (_ctx.Entry(speaker).State == EntityState.Detached)
+      {
+        _ctx.Add(speaker);
+      }
+      else
+      {
+        _ctx.Update(speaker);
+      }
+    }
+
     public IEnumerable<EventInfo> GetAllEventInfo()
     {
       return _ctx.CodeCampEvents
@@ -46,6 +58,14 @@ namespace CoreCodeCamp.Data
         .FirstOrDefault();
     }
 
+    public Speaker GetSpeaker(string userName)
+    {
+      return _ctx.Speakers
+        .Include(s => s.Talks)
+        .Where(s => s.UserName == userName)
+        .FirstOrDefault();
+    }
+
     public IEnumerable<Sponsor> GetSponsors(string moniker)
     {
       var sponsorOrder = new List<string> { "Platinum", "Lunch", "T-Shirt", "Gold", "Silver", "Other" };
@@ -63,6 +83,11 @@ namespace CoreCodeCamp.Data
       return _ctx.Users
         .OrderBy(u => u.UserName)
         .ToList();
+    }
+
+    public Task<int> SaveChangesAsync()
+    {
+      return _ctx.SaveChangesAsync();
     }
   }
 }

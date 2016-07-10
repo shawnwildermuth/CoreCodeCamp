@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CoreCodeCamp.Data;
 using CoreCodeCamp.Data.Entities;
+using CoreCodeCamp.Services;
 using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace CoreCodeCamp.Extensions
@@ -13,7 +14,7 @@ namespace CoreCodeCamp.Extensions
   {
     public static EventInfo GetEventInfo(this RazorPage page)
     {
-      return (EventInfo)page.Context.Items["EventInfo"];
+      return (EventInfo)page.Context.Items[Consts.EVENT_INFO_ITEM];
     }
   }
 }

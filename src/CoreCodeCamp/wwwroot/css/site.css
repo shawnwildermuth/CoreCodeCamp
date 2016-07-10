@@ -15,11 +15,19 @@ p.lead {
   text-align: center;
 }
 .navbar {
-  background-color: rgba(255, 255, 255, 0.75);
+  background-color: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid #ccc;
 }
 .navbar .navbar-nav .active > a {
   font-weight: 500;
   background: rgba(200, 200, 200, 0.2) none repeat scroll 0 0;
+}
+.text-sm {
+  font-size: small;
+  line-height: normal;
+}
+#imagePicker {
+  margin-top: 29px;
 }
 a {
   color: #ce0000;

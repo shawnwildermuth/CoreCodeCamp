@@ -20,7 +20,8 @@
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
     "AutoMapper": "5.0.0-beta-1",
-    "CsvHelper": "2.15.0.2", 
+    "CsvHelper": "2.15.0.2",
+    "ImageProcessor.Web": "4.6.3",
 
     "Microsoft.AspNetCore.Razor.Tools": {
       "version": "1.0.0-preview2-final",
@@ -59,19 +60,23 @@
   },
 
   "frameworks": {
-    "netcoreapp1.0": {
-      "imports": [
-        "dotnet5.6",
-        "portable-net45+win8"
-      ],
-      "dependencies": {
-        "Microsoft.NETCore.App": {
-          "version": "1.0.0",
-          "type": "platform"
-        }
+    //"netcoreapp1.0": {
+    //  "imports": [
+    //    "dotnet5.6",
+    //    "portable-net45+win8"
+    //  ],
+    //  "dependencies": {
+    //    "Microsoft.NETCore.App": {
+    //      "version": "1.0.0",
+    //      "type": "platform"
+    //    }
+    //  }
+    //},
+    "net46": {
+      "frameworkAssemblies": {
+        "System.Drawing": "4.0.0.0"
       }
-    },
-    "net46": {}
+    }
   },
 
   "buildOptions": {

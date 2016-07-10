@@ -30,13 +30,19 @@ jQuery(document).ready(function () {
       Background slideshow
   */
   $('.top-content').backstretch([
-                                 "../../img/backgrounds/top-1.jpg",
-                                 "../../img/backgrounds/top-2.jpg",
-                                 "../../img/backgrounds/top-3.jpg",
-                                 "../../img/backgrounds/top-4.jpg"
+    "../../img/backgrounds/top-1.jpg",
+    "../../img/backgrounds/top-2.jpg",
+    "../../img/backgrounds/top-3.jpg",
+    "../../img/backgrounds/top-4.jpg"
   ], { duration: 3000, fade: 750 });
 
-  $('.testimonials-container').backstretch("assets/img/backgrounds/3.jpg");
+  $('.testimonials-container').backstretch([
+    "../../img/backgrounds/cfs-1.jpg",
+    "../../img/backgrounds/cfs-2.jpg",
+    "../../img/backgrounds/cfs-3.jpg",
+    "../../img/backgrounds/cfs-4.jpg"
+  ], { duration: 3000, fade: 750 });
+
   $('.how-it-works-container').backstretch("assets/img/backgrounds/4.jpg");
   $('.call-to-action-container').backstretch("assets/img/backgrounds/1.jpg");
   $('.contact-container').backstretch("assets/img/backgrounds/2.jpg");

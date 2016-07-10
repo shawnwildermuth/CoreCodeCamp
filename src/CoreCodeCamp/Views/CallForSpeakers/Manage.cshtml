@@ -1,0 +1,54 @@
+@model Speaker
+@{
+  ViewData["Title"] = "Manage Your Talks";
+}
+<div class="row text-left">
+  <h2>Speaking at the @this.GetEventInfo().Name</h2>
+  <div class="col-md-10">
+    <h3>@Model.Name</h3>
+    <p>@Model.Bio</p>
+    <dl class="dl-horizontal">
+      <dt>Title</dt>
+      <dd>@Model.Title</dd>
+      <dt>Company</dt>
+      <dd>@Model.CompanyName</dd>
+      <dt>Company Website</dt>
+      <dd>@Model.CompanyUrl</dd>
+      <dt>Blog</dt>
+      <dd>@Model.Blog</dd>
+      <dt>Website</dt>
+      <dd>@Model.Website</dd>
+      <dt>Twitter Handle</dt>
+      <dd>@Model.Twitter</dd>
+      <dt>Phone Number</dt>
+      <dd>@Model.PhoneNumber</dd>
+      <dt>T-Shirt Size</dt>
+      <dd>@Model.TShirtSize</dd>
+    </dl>
+    <hr />
+    <table class="table table-condensed table-responsive">
+      @foreach (var t in Model.Talks)
+      {
+        <tr>
+          <td>@t.Title</td>
+        </tr>
+        <tr>
+          <td><a asp-controller="Root" asp-action="Talk" asp-route-talkid="t.Id" class="btn btn-sm btn-primary">View</a></td>
+        </tr>
+        <tr>
+          <td><a asp-action="Talk" asp-route-talkid="t.Id">Edit</a></td>
+        </tr>
+      }
+    </table>
+  </div>
+  <div class="col-md-2">
+    <div>
+      <img class="img-thumbnail img-responsive" src="@Model.ImageUrl" alt="@Model.Name" />
+    </div>
+    <div>
+      <ul class="list-unstyled">
+        <li><a asp-action="Speaker">Edit Speaker Details</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

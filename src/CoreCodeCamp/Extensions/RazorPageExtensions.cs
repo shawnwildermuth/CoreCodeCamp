@@ -14,7 +14,9 @@ namespace CoreCodeCamp.Extensions
   {
     public static EventInfo GetEventInfo(this RazorPage page)
     {
-      return (EventInfo)page.Context.Items[Consts.EVENT_INFO_ITEM];
+      var info = page.Context.Items[Consts.EVENT_INFO_ITEM] as EventInfo;
+      if (info == null) info = new EventInfo();
+      return info;
     }
   }
 }

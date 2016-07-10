@@ -7,6 +7,7 @@
 /// <reference path="js/app/users/userservice.js" />
 /// <reference path="js/app/users/usersform.js" />
 /// <reference path="js/site.js" />
+/// <reference path="js/system.config.es5.min.js" />
 /// <reference path="js/system.config.js" />
 /// <reference path="lib/bootstrap/dist/js/bootstrap.js" />
 /// <reference path="lib/jquery-backstretch/jquery.backstretch.js" />

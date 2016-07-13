@@ -1,0 +1,2 @@
+// talk.ts
+interface Talk

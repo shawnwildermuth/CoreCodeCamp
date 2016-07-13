@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace CoreCodeCamp.Data.Entities
 {
-    public class Talk
-    {
+  public class Talk
+  {
     public int Id { get; set; }
     public string Title { get; set; }
     public string Abstract { get; set; }

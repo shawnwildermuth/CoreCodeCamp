@@ -2,6 +2,9 @@
 @{
   ViewData["Title"] = "Manage Your Talks";
 }
+@section Scripts {
+  @Html.Partial("_Angular2", "talks")
+}
 <div class="row text-left">
   <h2>Speaking at the @this.GetEventInfo().Name</h2>
   <div class="col-md-10">
@@ -26,20 +29,7 @@
       <dd>@Model.TShirtSize</dd>
     </dl>
     <hr />
-    <table class="table table-condensed table-responsive">
-      @foreach (var t in Model.Talks)
-      {
-        <tr>
-          <td>@t.Title</td>
-        </tr>
-        <tr>
-          <td><a asp-controller="Root" asp-action="Talk" asp-route-talkid="t.Id" class="btn btn-sm btn-primary">View</a></td>
-        </tr>
-        <tr>
-          <td><a asp-action="Talk" asp-route-talkid="t.Id">Edit</a></td>
-        </tr>
-      }
-    </table>
+    <talks><i class="fa-gear fa fa-spin"></i> Loading...</talks>
   </div>
   <div class="col-md-2">
     <div>

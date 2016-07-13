@@ -1,0 +1,44 @@
+<form novalidate (ngSubmit)="onSave()" #theForm="ngForm">
+  <div class="row">
+    <div [style.visibility]="isBusy ? 'visible' : 'hidden'"><i class="fa fa-spin fa-spinner"></i> Please wait...</div>
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="text-danger">{{ error }}</div>
+    <div class="form-group col-md-12">
+      <label>Title</label>
+      <input [(ngModel)]="model.title" class="form-control" placeholder="Talk Title" name="title" #title="ngModel" required minlength="15" />
+      <span class="text-danger" [hidden]="title.errors == null || !title.errors['required']">* Required</span>
+      <span class="text-danger" [hidden]="title.errors == null || !title.errors['minlength']">* Too short</span>
+    </div>
+    <div class="form-group col-md-12">
+      <label>Abstract</label>
+      <textarea [(ngModel)]="model.abstract" cols="40" rows="6" class="form-control" name="abstract" #abstract="ngModel" required minlength="100"></textarea>
+      <span class="text-danger" [hidden]="abstract.errors == null || !abstract.errors['required']">* Required</span>
+      <span class="text-danger" [hidden]="abstract.errors == null || !abstract.errors['minlength']">At least 100 characters</span>
+    </div>
+    <div class="form-group col-md-12">
+      <label>Prerequisites</label>
+      <input [(ngModel)]="model.prerequisites" class="form-control" placeholder="e.g. ASP.NET" name="prerequisites" #prerequisites="ngModel" />
+    </div>
+    <div class="form-group col-md-6">
+      <label>Audience</label>
+      <select [(ngModel)]="model.audience" class="form-control form-control-narrow" name="audience">
+        <option selected>Developers</option>
+        <option>IT Professionals</option>
+        <option>Managers</option>
+        <option>Anyone</option>
+      </select>
+    </div>
+    <div class="form-group col-md-6">
+      <label>Talk Level</label>
+      <select [(ngModel)]="model.level" name="level" class="form-control form-control-narrow">
+        <option selected value="100">100</option>
+        <option value="200">200</option>
+        <option value="300">300</option>
+      </select>
+    </div>
+    <div class="form-group col-md-12">
+      <input type="submit" class="btn btn-success btn-lg" value="Save" [disabled]="!theForm.form.valid" />
+      <a [routerLink]="['/speaker']" class="btn btn-default btn-lg">Cancel</a>
+    </div>
+  </div>
+</form>

@@ -12,10 +12,16 @@
   };
 
   // Our Components
-  ["users", "speaker"].forEach(function (c) {
+  ["users", "speaker", "talks"].forEach(function (c) {
     map[c] = '/js/app/' + c;
     packages[c] = { main: 'main.js', defaultExtension: 'js' };
   }); 
+
+  ["talkService"].forEach(function (c) {
+    map[c] = '/js/app/common/' + c;
+    packages[c] = { defaultExtension: 'js' };
+  });
+
 
   var ngPackageNames = [
     'common',

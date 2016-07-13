@@ -1,0 +1,17 @@
+<div>
+  <table class="table table-condensed table-responsive col-md-6">
+    <thead>
+      <tr>
+        <td>Name</td>
+        <td>Approved?</td>
+        <td></td>
+      </tr>
+    </thead>
+    <tr *ngFor="let talk of talks">
+      <td>{{talk.title}}</td>
+      <td>{{talk.approved ? "Yes" : "No"}}</td>
+      <td><a class="btn btn-sm btn-info" (click)="onEdit(talk)">Edit</a> | <a class="btn btn-sm btn-info" (click)="onDelete(talk)">Delete</a></td>
+    </tr>
+  </table>
+  <a [routerLink]="['/talkEditor/new']" class="btn btn btn-success">Add Talk</a>
+</div>

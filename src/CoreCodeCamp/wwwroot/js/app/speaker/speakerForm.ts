@@ -60,8 +60,9 @@ export class SpeakerForm {
       .then(() => this.isBusy = false);
   }
 
-  get validImage() {
-    return this.model && this.model.imageUrl && this.model.imageUrl.length > 0;
+  validImage() {
+    if (this.model && this.model.imageUrl && this.model.imageUrl.length > 0) return true;
+    return false;
   }
 
   uploadFile(file: File): Promise<string> {

@@ -66,13 +66,11 @@ var SpeakerForm = (function () {
         })
             .then(function () { return _this.isBusy = false; });
     };
-    Object.defineProperty(SpeakerForm.prototype, "validImage", {
-        get: function () {
-            return this.model && this.model.imageUrl && this.model.imageUrl.length > 0;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    SpeakerForm.prototype.validImage = function () {
+        if (this.model && this.model.imageUrl && this.model.imageUrl.length > 0)
+            return true;
+        return false;
+    };
     SpeakerForm.prototype.uploadFile = function (file) {
         var _this = this;
         return new Promise(function (resolve, reject) {

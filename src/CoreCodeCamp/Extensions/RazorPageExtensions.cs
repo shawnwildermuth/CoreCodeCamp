@@ -15,7 +15,16 @@ namespace CoreCodeCamp.Extensions
     public static EventInfo GetEventInfo(this RazorPage page)
     {
       var info = page.Context.Items[Consts.EVENT_INFO_ITEM] as EventInfo;
-      if (info == null) info = new EventInfo();
+     
+      // Build a temporary if we can't determine the right event.
+      if (info == null)
+      {
+        info = new EventInfo()
+        {
+          Location = new EventLocation(),
+          Name = "Atlanta Code Camp"
+        };
+      }
       return info;
     }
   }

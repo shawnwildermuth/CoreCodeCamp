@@ -13,8 +13,8 @@ var core_1 = require('@angular/core');
 var userService_1 = require("./userService");
 var UsersForm = (function () {
     function UsersForm(userService) {
-        this.isBusy = false;
         this.userService = userService;
+        this.isBusy = false;
         this.loadUsers();
     }
     UsersForm.prototype.loadUsers = function () {

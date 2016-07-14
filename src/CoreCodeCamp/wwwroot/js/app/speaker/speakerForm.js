@@ -13,17 +13,17 @@ var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 var SpeakerForm = (function () {
     function SpeakerForm(http) {
+        this.http = http;
         this.model = {};
         this.isBusy = false;
         this.error = null;
         this.imageError = null;
-        this._http = http;
         this.onLoad();
     }
     SpeakerForm.prototype.onLoad = function () {
         var _this = this;
         this.isBusy = true;
-        this._http.get(this.baseUrl)
+        this.http.get(this.baseUrl)
             .subscribe(function (res) {
             _this.model = res.json();
         }, function (e) {
@@ -48,7 +48,7 @@ var SpeakerForm = (function () {
         var _this = this;
         this.isBusy = true;
         var url = this.baseUrl;
-        this._http.post(url, this.model)
+        this.http.post(url, this.model)
             .subscribe(function (res) {
             window.location.href = "./manage";
         }, function (e) {

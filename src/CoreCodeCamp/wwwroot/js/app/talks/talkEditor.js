@@ -12,16 +12,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var router_2 = require('@angular/router');
+var talk_1 = require("./talk");
 var talkService_1 = require("./talkService");
-var Talk = (function () {
-    function Talk() {
-    }
-    return Talk;
-}());
 var TalkEditor = (function () {
-    function TalkEditor(route, talkService) {
+    function TalkEditor(route, talkService, router) {
         this.route = route;
         this.talkService = talkService;
+        this.router = router;
         this.isBusy = false;
         this.error = "";
     }
@@ -30,15 +27,24 @@ var TalkEditor = (function () {
         this.sub = this.route.params.subscribe(function (params) {
             var id = params['id'];
             if (id == "new") {
-                _this.model = new Talk();
+                _this.model = new talk_1.Talk();
             }
             else {
-                _this.model = _this.talkService.talks.find(function (t) { return t.Id == +id; });
+                _this.model = _this.talkService.talks.find(function (t) { return t.id == id; });
             }
         });
     };
     TalkEditor.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
+    };
+    TalkEditor.prototype.onSave = function () {
+        var _this = this;
+        this.isBusy = true;
+        this.talkService.saveTalk(this.model)
+            .then(function () {
+            _this.router.navigate(["/speaker"]);
+        }, function (err) { return _this.error = err; })
+            .then(function () { return _this.isBusy = false; });
     };
     TalkEditor = __decorate([
         core_1.Component({
@@ -46,7 +52,7 @@ var TalkEditor = (function () {
             templateUrl: "talkEditor.html",
             directives: [router_1.ROUTER_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [router_2.ActivatedRoute, talkService_1.TalkService])
+        __metadata('design:paramtypes', [router_2.ActivatedRoute, talkService_1.TalkService, router_2.Router])
     ], TalkEditor);
     return TalkEditor;
 }());

@@ -6,15 +6,19 @@ namespace CoreCodeCamp.Data
 {
   public interface ICodeCampRepository
   {
-    IEnumerable<Talk> GetAllTalks();
-
     IEnumerable<EventInfo> GetAllEventInfo();
     EventInfo GetEventInfo(string moniker);
     EventInfo GetCurrentEvent();
     IEnumerable<Sponsor> GetSponsors(string moniker);
     IEnumerable<CodeCampUser> GetUsers();
-    Speaker GetSpeaker(string name);
-    void AddOrUpdateSpeaker(Speaker speaker);
+
+    Speaker GetSpeaker(string moniker, string name);
+
+    IEnumerable<Talk> GetAllTalks();
+    Talk GetTalk(int id);
+
+    void AddOrUpdate(object entity);
+    void Delete(object entity);
     Task<int> SaveChangesAsync();
   }
 }

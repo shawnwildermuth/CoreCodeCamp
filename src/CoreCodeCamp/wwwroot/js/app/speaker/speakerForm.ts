@@ -16,16 +16,13 @@ export class SpeakerForm {
   error: string = null;
   imageError: string = null;
 
-  _http: Http;
-
-  constructor(http: Http) {
-    this._http = http;
+  constructor(private http: Http) {
     this.onLoad();
   }
 
   private onLoad() {
     this.isBusy = true;
-    this._http.get(this.baseUrl)
+    this.http.get(this.baseUrl)
       .subscribe((res) => {
         this.model = res.json();
       }, (e) => {
@@ -44,7 +41,7 @@ export class SpeakerForm {
   onSave() {
     this.isBusy = true;
     var url = this.baseUrl;
-    this._http.post(url, this.model)
+    this.http.post(url, this.model)
       .subscribe((res) => {
         window.location.href = "./manage";
       }, (e) => {

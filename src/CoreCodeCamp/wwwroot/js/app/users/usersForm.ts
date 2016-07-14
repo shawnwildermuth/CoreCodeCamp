@@ -12,10 +12,8 @@ export class UsersForm {
 
   users: Array<any>;
   isBusy: boolean = false;
-  userService: UserService;
 
-  constructor(userService: UserService) {
-    this.userService = userService;
+  constructor(private userService: UserService) {
     this.loadUsers();
   }
 

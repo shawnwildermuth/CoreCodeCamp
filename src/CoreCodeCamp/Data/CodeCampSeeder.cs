@@ -720,12 +720,13 @@ namespace CoreCodeCamp.Data
         Approved = true,
         Audience = oldTalks.GetField("Audience"),
         CodeUrl = oldTalks.GetField("CodeUrl"),
-        Level = Int32.Parse(oldTalks.GetField("SponsorLevel")),
+        Level = ConvertToLevel(oldTalks.GetField("SponsorLevel")),
         Prerequisites = oldTalks.GetField("Prerequisites"),
         PresentationUrl = oldTalks.GetField("PresentationUrl"),
         SpeakerDeckUrl = oldTalks.GetField("SpeakerDeckUrl"),
         SpeakerRateUrl = oldTalks.GetField("SpeakerRateUrl"),
-        Title = oldTalks.GetField("Title")
+        Title = oldTalks.GetField("Title"),
+        Category = oldTalks.GetField("Category")
       };
 
       // Add Categories
@@ -733,6 +734,13 @@ namespace CoreCodeCamp.Data
       _ctx.Add(talk);
 
       return talk;
+    }
+
+    private string ConvertToLevel(string lvl)
+    {
+      if (lvl == "300") return "Advanced";
+      if (lvl == "200") return "Intermediate";
+      return "Beginner";
     }
   }
 }

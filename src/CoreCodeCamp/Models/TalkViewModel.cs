@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CoreCodeCamp.Data.Entities
+namespace CoreCodeCamp.Models
 {
-  public class Talk
+  public class TalkViewModel
   {
     public int Id { get; set; }
     public string Title { get; set; }
@@ -21,11 +21,5 @@ namespace CoreCodeCamp.Data.Entities
     public string CodeUrl { get; set; }
     public string SpeakerDeckUrl { get; set; }
     public string SpeakerRateUrl { get; set; }
-
-    public Track Track { get; set; }
-    public Room Room { get; set; }
-    public TalkTime TalkTime { get; set; }
-
-
   }
 }

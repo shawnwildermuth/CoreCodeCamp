@@ -1,40 +1,59 @@
 <form novalidate (ngSubmit)="onSave()" #theForm="ngForm">
   <div class="row">
     <div [style.visibility]="isBusy ? 'visible' : 'hidden'"><i class="fa fa-spin fa-spinner"></i> Please wait...</div>
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="text-danger">{{ error }}</div>
+    <span class="text-danger">{{ error }}</span>
+    <span class="text-danger pull-right">* = Required</span>
     <div class="form-group col-md-12">
-      <label>Title</label>
-      <input [(ngModel)]="model.title" class="form-control" placeholder="Talk Title" name="title" #title="ngModel" required minlength="15" />
-      <span class="text-danger" [hidden]="title.errors == null || !title.errors['required']">* Required</span>
-      <span class="text-danger" [hidden]="title.errors == null || !title.errors['minlength']">* Too short</span>
+      <label class="text-danger">Title *</label>
+      <input [(ngModel)]="model.title" class="form-control" placeholder="Talk Title" name="title" #title="ngModel" required minlength="10" />
+      <div class="text-danger" [hidden]="title.errors == null || (!title.errors['required'] || title.pristine)">Required</div>
+      <div class="text-danger" [hidden]="title.errors == null || !title.errors['minlength']">Too short</div>
     </div>
     <div class="form-group col-md-12">
-      <label>Abstract</label>
-      <textarea [(ngModel)]="model.abstract" cols="40" rows="6" class="form-control" name="abstract" #abstract="ngModel" required minlength="100"></textarea>
-      <span class="text-danger" [hidden]="abstract.errors == null || !abstract.errors['required']">* Required</span>
-      <span class="text-danger" [hidden]="abstract.errors == null || !abstract.errors['minlength']">At least 100 characters</span>
+      <label class="text-danger">Abstract *</label>
+      <textarea [(ngModel)]="model.abstract" cols="40" rows="6" class="form-control" name="abstract" #abstract="ngModel" required minlength="100" maxlength="1024" placeholder="Two or three sentences describing your talk..."></textarea>
+      <div class="text-danger" [hidden]="abstract.errors == null || (!abstract.errors['required'] || title.pristine)">Required</div>
+      <div class="text-danger" [hidden]="abstract.errors == null || !abstract.errors['minlength']">At least 100 characters</div>
+      <div class="text-danger" [hidden]="abstract.errors == null || !abstract.errors['maxlength']">Max 1024 characters</div>
     </div>
     <div class="form-group col-md-12">
       <label>Prerequisites</label>
       <input [(ngModel)]="model.prerequisites" class="form-control" placeholder="e.g. ASP.NET" name="prerequisites" #prerequisites="ngModel" />
     </div>
     <div class="form-group col-md-6">
-      <label>Audience</label>
-      <select [(ngModel)]="model.audience" class="form-control form-control-narrow" name="audience">
+      <label class="text-danger">Audience *</label>
+      <select [(ngModel)]="model.audience" class="form-control" name="audience" #audience="ngModel" required>
         <option selected>Developers</option>
         <option>IT Professionals</option>
         <option>Managers</option>
         <option>Anyone</option>
       </select>
+      <div class="text-danger" [hidden]="audience.errors == null || (!audience.errors['required'] || audience.pristine)">Required</div>
     </div>
     <div class="form-group col-md-6">
-      <label>Talk Level</label>
-      <select [(ngModel)]="model.level" name="level" class="form-control form-control-narrow">
-        <option selected value="100">100</option>
-        <option value="200">200</option>
-        <option value="300">300</option>
+      <label class="text-danger">Talk Level *</label>
+      <select [(ngModel)]="model.level" name="level" class="form-control" #level="ngModel" required>
+        <option>Beginner</option>
+        <option>Intermediate</option>
+        <option>Advanced</option>
+        <option>Expert</option>
       </select>
+      <div class="text-danger" [hidden]="level.errors == null || (!level.errors['required'] || level.pristine)">Required</div>
+    </div>
+    <div class="form-group col-md-6">
+      <label class="text-danger">Category *</label>
+      <select [(ngModel)]="model.category" name="category" class="form-control" #category="ngModel" required>
+        <option>General Discussion</option>
+        <option>Client Development</option>
+        <option>Web Development</option>
+        <option>Database Development</option>
+        <option>Cloud Development</option>
+        <option>Design UI/UX</option>
+        <option>Professional Development</option>
+        <option>Career Advancement</option>
+        <option>IT Topics</option>
+      </select>
+      <div class="text-danger" [hidden]="category.errors == null || (!category.errors['required'] || category.pristine)">Required</div>
     </div>
     <div class="form-group col-md-12">
       <input type="submit" class="btn btn-success btn-lg" value="Save" [disabled]="!theForm.form.valid" />

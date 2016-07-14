@@ -10,7 +10,7 @@ exports.talkRoutes = [
             redirectTo: 'speaker',
             pathMatch: 'full'
         },
-        { path: 'talkEditor/:id', component: talkEditor_1.TalkEditor },
+        { path: 'edit/:id', component: talkEditor_1.TalkEditor },
         { path: 'speaker', component: talksForm_1.TalksForm }
     ])
 ];

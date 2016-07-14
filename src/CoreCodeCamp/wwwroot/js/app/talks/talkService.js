@@ -13,13 +13,10 @@ var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 var TalkService = (function () {
     function TalkService(http) {
-        this._http = http;
+        this.http = http;
+        this.talks = [];
+        this.loadInitialData();
     }
-    Object.defineProperty(TalkService.prototype, "talks", {
-        get: function () { return this._talks; },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(TalkService.prototype, "baseUrl", {
         get: function () {
             return '/' + this.moniker + "/api/cfs/speaker";
@@ -34,14 +31,31 @@ var TalkService = (function () {
         enumerable: true,
         configurable: true
     });
-    TalkService.prototype.getTasks = function () {
+    TalkService.prototype.loadInitialData = function () {
+        var _this = this;
+        this.http.get(this.baseUrl)
+            .subscribe(function (res) {
+            var resTalks = res.json().talks;
+            resTalks.forEach(function (t) { return _this.talks.push(t); });
+        }, function (err) { return console.log(err); });
+    };
+    TalkService.prototype.saveTalk = function (talk) {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            _this._http.get(_this.baseUrl)
+            var oldTalk = _this.talks.splice(_this.talks.indexOf(talk), 1);
+            var obj = _this.http.post(_this.baseUrl + "/talk", talk)
                 .subscribe(function (res) {
-                _this._talks = res.json().talks;
-                resolve(true);
-            }, function (err) { return reject(err); });
+                var updatedTalk = res.json();
+                _this.talks.push(updatedTalk);
+                resolve(updatedTalk);
+            }, function (error) { return reject(error); });
+        });
+    };
+    TalkService.prototype.delete = function (talk) {
+        var _this = this;
+        var obj = this.http.delete(this.baseUrl + "/talk/" + talk.id)
+            .subscribe(function (res) {
+            _this.talks.splice(_this.talks.indexOf(talk), 1);
         });
     };
     TalkService = __decorate([

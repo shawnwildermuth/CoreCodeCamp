@@ -17,16 +17,29 @@ namespace CoreCodeCamp.Data
       _ctx = ctx;
     }
 
-    public void AddOrUpdateSpeaker(Speaker speaker)
+    public void AddOrUpdate(object entity)
     {
-      if (_ctx.Entry(speaker).State == EntityState.Detached)
+      var state = _ctx.Entry(entity).State;
+
+      switch (state)
       {
-        _ctx.Add(speaker);
+        case EntityState.Detached:
+          _ctx.Add(entity);
+          break;
+        case EntityState.Modified:
+          _ctx.Update(entity);
+          break;
+        case EntityState.Added:
+        case EntityState.Deleted:
+        case EntityState.Unchanged:
+          // do nothing
+          break;
       }
-      else
-      {
-        _ctx.Update(speaker);
-      }
+    }
+
+    public void Delete(object entity)
+    {
+      _ctx.Remove(entity);
     }
 
     public IEnumerable<EventInfo> GetAllEventInfo()
@@ -39,7 +52,7 @@ namespace CoreCodeCamp.Data
 
     public IEnumerable<Talk> GetAllTalks()
     {
-      return _ctx.Talks.ToList();
+      return _ctx.Talks.Include(t => t.Room).Include(t => t.TalkTime).ToList();
     }
 
     public EventInfo GetCurrentEvent()
@@ -58,11 +71,11 @@ namespace CoreCodeCamp.Data
         .FirstOrDefault();
     }
 
-    public Speaker GetSpeaker(string userName)
+    public Speaker GetSpeaker(string moniker, string userName)
     {
       return _ctx.Speakers
         .Include(s => s.Talks)
-        .Where(s => s.UserName == userName)
+        .Where(s => s.UserName == userName && s.Event.Moniker == moniker)
         .FirstOrDefault();
     }
 
@@ -76,6 +89,15 @@ namespace CoreCodeCamp.Data
         .ToList()
         .OrderBy(s => sponsorOrder.IndexOf(s.SponsorLevel))
         .ToList();
+    }
+
+    public Talk GetTalk(int id)
+    {
+      return _ctx.Talks
+        .Include(t => t.Room)
+        .Include(t => t.TalkTime)
+        .Where(t => t.Id == id)
+        .FirstOrDefault();
     }
 
     public IEnumerable<CodeCampUser> GetUsers()

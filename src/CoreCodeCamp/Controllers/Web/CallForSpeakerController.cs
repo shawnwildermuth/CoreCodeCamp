@@ -34,7 +34,7 @@ namespace CoreCodeCamp.Controllers.Web
     [HttpGet("Manage")]
     public IActionResult Manage(string moniker)
     {
-      var speaker = _repo.GetSpeaker(User.Identity.Name);
+      var speaker = _repo.GetSpeaker(moniker, User.Identity.Name);
       if (speaker == null) return RedirectToAction("Speaker");
       return View(speaker);
     }

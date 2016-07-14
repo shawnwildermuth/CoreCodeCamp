@@ -10,7 +10,7 @@ export const talkRoutes: RouterConfig = [
       redirectTo: 'speaker',
       pathMatch: 'full'
     },
-    { path: 'talkEditor/:id', component: TalkEditor },
+    { path: 'edit/:id', component: TalkEditor },
     { path: 'speaker', component: TalksForm }
   ])
 ];

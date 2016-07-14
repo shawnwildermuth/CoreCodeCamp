@@ -5,11 +5,13 @@
 @section Scripts {
   @Html.Partial("_Angular2", "talks")
 }
+<h2>Speaking at the @this.GetEventInfo().Name</h2>
 <div class="row text-left">
-  <h2>Speaking at the @this.GetEventInfo().Name</h2>
-  <div class="col-md-10">
+  <div class="col-md-6">
+    <a asp-action="Speaker" class="btn btn-sm btn-primary">Edit Speaker Details</a>
     <h3>@Model.Name</h3>
-    <p>@Model.Bio</p>
+    <p><img class="img-responsive pull-right col-md-3" src="@Model.ImageUrl" alt="@Model.Name" />@Model.Bio</p>
+
     <dl class="dl-horizontal">
       <dt>Title</dt>
       <dd>@Model.Title</dd>
@@ -28,17 +30,9 @@
       <dt>T-Shirt Size</dt>
       <dd>@Model.TShirtSize</dd>
     </dl>
-    <hr />
-    <talks><i class="fa-gear fa fa-spin"></i> Loading...</talks>
   </div>
-  <div class="col-md-2">
-    <div>
-      <img class="img-thumbnail img-responsive" src="@Model.ImageUrl" alt="@Model.Name" />
-    </div>
-    <div>
-      <ul class="list-unstyled">
-        <li><a asp-action="Speaker">Edit Speaker Details</a></li>
-      </ul>
-    </div>
+  <div class="col-md-6">
+    <h3>Talks</h3>
+    <talks><i class="fa-gear fa fa-spin"></i> Loading...</talks>
   </div>
 </div>

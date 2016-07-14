@@ -1,9 +1,10 @@
 // talksForm.ts
 import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 import { FormBuilder, Validators, Control, ControlGroup } from '@angular/common';
-import {Http, Headers} from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { TalkService }  from "./talkService";
+import { Talk } from "./talk";
 
 @Component({
   moduleId: module.id, // To make urls become relative!
@@ -12,22 +13,14 @@ import { TalkService }  from "./talkService";
 })
 export class TalksForm {
 
-  isBusy: boolean = false;
-  error: string = "";
-  talks: Array<any> = [];
-  private _http: Http;
-  private _talkService: TalkService;
-
-  constructor(http: Http, talkService: TalkService) {
-    this._http = http;
-    this._talkService = talkService;
-    this.talks = this._talkService.talks;
-    this.getTalks();
+  constructor(private http: Http, private talkService: TalkService, private router: Router) {
   }
 
-  getTalks() {
-    this.isBusy = true;
-    this._talkService.getTasks();
+  onEdit(talk: Talk) {
+    this.router.navigate(["/edit/" + talk.id]);
   }
 
+  onDelete(talk: Talk) {
+    this.talkService.delete(talk);
+  }
 }

@@ -1,14 +1,14 @@
 import { Component }          from '@angular/core';
 import { ROUTER_DIRECTIVES }  from '@angular/router';
-import { Location }           from "@angular/common";
+import { TalkEditor } from "./talkEditor";
+import { TalksForm } from "./talksForm";
+
 
 @Component({
   selector: 'talks',
-  template: `<h3>Your Talks</h3>
-    <router-outlet></router-outlet>`,
-  directives: [ROUTER_DIRECTIVES]
+  template: `<router-outlet></router-outlet>`,
+  directives: [ROUTER_DIRECTIVES],
+  precompile: [TalkEditor, TalksForm]
 })
 export class TalksComponent{
-  constructor(location: Location) {
-  }
 }

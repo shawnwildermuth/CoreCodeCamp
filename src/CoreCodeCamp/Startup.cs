@@ -57,6 +57,10 @@ namespace CoreCodeCamp
       // Configure Identity (Security)
       services.AddIdentity<CodeCampUser, IdentityRole>(config =>
       {
+        config.Password.RequiredLength = 8;
+        config.Password.RequireDigit = true;
+        config.Password.RequireNonAlphanumeric = false;
+        config.User.RequireUniqueEmail = true;
         config.User.RequireUniqueEmail = true;
         config.SignIn.RequireConfirmedEmail = true;
         config.Lockout.MaxFailedAccessAttempts = 10;
@@ -101,7 +105,10 @@ namespace CoreCodeCamp
     {
       config.CreateMap<CodeCampUser, CodeCampUserViewModel>()
         .ReverseMap();
-      config.CreateMap<Speaker, SpeakerViewModel>()
+      config.CreateMap<SpeakerViewModel, Speaker>()
+        .ForMember(m => m.Talks, opt => opt.Ignore());
+      config.CreateMap<Speaker, SpeakerViewModel>();
+      config.CreateMap<Talk, TalkViewModel>()
         .ReverseMap();
     }
 

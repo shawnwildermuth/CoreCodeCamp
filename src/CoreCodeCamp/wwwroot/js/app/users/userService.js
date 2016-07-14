@@ -13,15 +13,15 @@ var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 var UserService = (function () {
     function UserService(http) {
-        this._http = http;
+        this.http = http;
     }
     UserService.prototype.getUsers = function () {
-        return this._http.get("/api/users");
+        return this.http.get("/api/users");
     };
     UserService.prototype.toggleUser = function (userName) {
         var headers = new http_1.Headers();
         headers.append("Content-Type", "application/json");
-        return this._http.put("/api/users/toggleAdmin", userName, { headers: headers });
+        return this.http.put("/api/users/toggleAdmin", userName, { headers: headers });
     };
     UserService = __decorate([
         core_1.Injectable(), 

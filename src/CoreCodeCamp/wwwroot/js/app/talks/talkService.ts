@@ -1,18 +1,19 @@
 // talkService.ts
-import {Injectable } from '@angular/core';
+import {Injectable, OnInit, OnDestroy } from '@angular/core';
 import {Http, Headers} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
+import {Observable, BehaviorSubject} from 'rxjs/Rx';
+import {Subject} from "rxjs/Subject";
+
+import {Talk} from "./talk";
 
 @Injectable()
 export class TalkService {
-  _http: Http;
-  _talks: Array<any>;
 
-  constructor(http: Http) {
-    this._http = http;
+  public talks: Array<Talk> = [];
+
+  constructor(private http: Http) {
+    this.loadInitialData();
   }
-  
-  get talks() { return this._talks; }
 
   private get baseUrl() {
     return '/' + this.moniker + "/api/cfs/speaker";
@@ -22,16 +23,35 @@ export class TalkService {
     return window.location.pathname.split('/')[1];
   }
 
-  getTasks() {
-    return new Promise<Boolean>((resolve, reject) => {
+  loadInitialData() {
 
-      this._http.get(this.baseUrl)
+    this.http.get(this.baseUrl)
+      .subscribe(res => {
+        var resTalks = res.json().talks;
+        resTalks.forEach((t:any) => this.talks.push(t));
+      }, err => console.log(err));
+
+  }
+
+  saveTalk(talk: Talk) {
+
+    return new Promise((resolve, reject) => {
+
+      var oldTalk = this.talks.splice(this.talks.indexOf(talk), 1);
+
+      var obj = this.http.post(this.baseUrl + "/talk", talk)
         .subscribe(res => {
-          this._talks = res.json().talks;
-          resolve(true);
-        }, err => reject(err));
-
+          var updatedTalk = res.json();
+          this.talks.push(updatedTalk);
+          resolve(updatedTalk);
+        }, error => reject(error));
     });
   }
 
+  delete(talk: Talk) {
+    var obj = this.http.delete(this.baseUrl + "/talk/" + talk.id)
+      .subscribe(res => {
+        this.talks.splice(this.talks.indexOf(talk), 1);
+      });
+  }
 }

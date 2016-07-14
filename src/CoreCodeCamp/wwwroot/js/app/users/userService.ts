@@ -4,15 +4,11 @@ import {Http, Headers} from '@angular/http';
 
 @Injectable()
 export class UserService {
-  _http: Http;
 
-  constructor(http: Http) {
-    this._http = http;
-  }
+  constructor(private http: Http) {}
 
   public getUsers() {
-
-    return this._http.get("/api/users");
+    return this.http.get("/api/users");
   }
 
   public toggleUser(userName: string) {
@@ -20,7 +16,7 @@ export class UserService {
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
 
-    return this._http.put("/api/users/toggleAdmin", userName, { headers: headers });
+    return this.http.put("/api/users/toggleAdmin", userName, { headers: headers });
 
   }
 }

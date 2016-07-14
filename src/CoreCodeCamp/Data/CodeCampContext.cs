@@ -28,7 +28,6 @@ namespace CoreCodeCamp.Data
     public DbSet<Speaker> Speakers { get; set; }
     public DbSet<TalkTime> TalkTimes { get; set; }
     public DbSet<Room> Rooms { get; set; }
-    public DbSet<Category> Categories { get; set; }
     public DbSet<Sponsor> Sponsors { get; set; }
     public DbSet<EventInfo> CodeCampEvents { get; set; }
  

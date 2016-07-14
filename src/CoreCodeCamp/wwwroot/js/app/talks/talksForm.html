@@ -1,5 +1,5 @@
 <div>
-  <table class="table table-condensed table-responsive col-md-6">
+  <table class="table table-condensed table-responsive text-sm">
     <thead>
       <tr>
         <td>Name</td>
@@ -7,11 +7,14 @@
         <td></td>
       </tr>
     </thead>
-    <tr *ngFor="let talk of talks">
+    <tr *ngFor="let talk of talkService.talks">
       <td>{{talk.title}}</td>
       <td>{{talk.approved ? "Yes" : "No"}}</td>
-      <td><a class="btn btn-sm btn-info" (click)="onEdit(talk)">Edit</a> | <a class="btn btn-sm btn-info" (click)="onDelete(talk)">Delete</a></td>
+      <td class="btn-group">
+        <a class="btn btn-xs btn-primary" (click)="onEdit(talk)">Edit</a>
+        <a class="btn btn-xs btn-danger" (click)="onDelete(talk)">Delete</a>
+      </td>
     </tr>
   </table>
-  <a [routerLink]="['/talkEditor/new']" class="btn btn btn-success">Add Talk</a>
+  <a [routerLink]="['/talkEditor/new']" class="btn btn-sm btn-success">Add Talk</a>
 </div>

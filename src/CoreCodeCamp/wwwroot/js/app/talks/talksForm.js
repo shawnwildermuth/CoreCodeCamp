@@ -14,18 +14,16 @@ var router_1 = require('@angular/router');
 var http_1 = require('@angular/http');
 var talkService_1 = require("./talkService");
 var TalksForm = (function () {
-    function TalksForm(http, talkService) {
-        this.isBusy = false;
-        this.error = "";
-        this.talks = [];
-        this._http = http;
-        this._talkService = talkService;
-        this.talks = this._talkService.talks;
-        this.getTalks();
+    function TalksForm(http, talkService, router) {
+        this.http = http;
+        this.talkService = talkService;
+        this.router = router;
     }
-    TalksForm.prototype.getTalks = function () {
-        this.isBusy = true;
-        this._talkService.getTasks();
+    TalksForm.prototype.onEdit = function (talk) {
+        this.router.navigate(["/edit/" + talk.id]);
+    };
+    TalksForm.prototype.onDelete = function (talk) {
+        this.talkService.delete(talk);
     };
     TalksForm = __decorate([
         core_1.Component({
@@ -33,7 +31,7 @@ var TalksForm = (function () {
             templateUrl: "talksForm.html",
             directives: [router_1.ROUTER_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [http_1.Http, talkService_1.TalkService])
+        __metadata('design:paramtypes', [http_1.Http, talkService_1.TalkService, router_1.Router])
     ], TalksForm);
     return TalksForm;
 }());

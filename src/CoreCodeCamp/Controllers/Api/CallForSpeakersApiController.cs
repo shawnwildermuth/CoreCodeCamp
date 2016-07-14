@@ -37,7 +37,7 @@ namespace CoreCodeCamp.Controllers.Api
     [HttpGet("speaker")]
     public async Task<IActionResult> GetSpeaker(string moniker)
     {
-      var speaker = _repo.GetSpeaker(User.Identity.Name);
+      var speaker = _repo.GetSpeaker(moniker, User.Identity.Name);
       if (speaker == null)
       {
         var user = await _userMgr.FindByNameAsync(User.Identity.Name);
@@ -113,13 +113,13 @@ namespace CoreCodeCamp.Controllers.Api
     }
 
     [HttpPost("speaker")]
-    public async Task<IActionResult> Speaker(string moniker, [FromBody]SpeakerViewModel model)
+    public async Task<IActionResult> UpsertSpeaker(string moniker, [FromBody]SpeakerViewModel model)
     {
       if (ModelState.IsValid)
       {
         try
         {
-          var speaker = _repo.GetSpeaker(User.Identity.Name);
+          var speaker = _repo.GetSpeaker(moniker, User.Identity.Name);
 
           if (speaker == null)
           {
@@ -132,7 +132,7 @@ namespace CoreCodeCamp.Controllers.Api
             Mapper.Map<SpeakerViewModel, Speaker>(model, speaker);
           }
 
-          _repo.AddOrUpdateSpeaker(speaker);
+          _repo.AddOrUpdate(speaker);
           await _repo.SaveChangesAsync();
 
           return Ok("Success");
@@ -146,5 +146,62 @@ namespace CoreCodeCamp.Controllers.Api
       return BadRequest("Failed to save Speaker");
     }
 
+    [HttpPost("speaker/talk")]
+    public async Task<IActionResult> UpsertTalk(string moniker, [FromBody]TalkViewModel model)
+    {
+      if (ModelState.IsValid)
+      {
+        try
+        {
+          var talk = _repo.GetTalk(model.Id);
+          var isNew = (talk == null);
+
+          if (isNew)
+          {
+            talk = Mapper.Map<Talk>(model);
+            var speaker = _repo.GetSpeaker(moniker, User.Identity.Name);
+            speaker.Talks.Add(talk);
+          }
+          else
+          {
+            Mapper.Map<TalkViewModel, Talk>(model, talk);
+          }
+
+          _repo.AddOrUpdate(talk);
+          await _repo.SaveChangesAsync();
+
+          var result = Mapper.Map<TalkViewModel>(talk);
+
+          if (isNew) return Created($"/{moniker}/api/cfs/speaker/talk/{result.Id}", result);
+          return Ok(result);
+        }
+        catch (Exception ex)
+        {
+          ModelState.AddModelError("", $"Failed to Save: {ex.Message}");
+        }
+      }
+
+      return BadRequest("Failed to save Talk");
+    }
+
+    [HttpDelete("speaker/talk/{id:int}")]
+    public async Task<IActionResult> DeleteTalk(string moniker, int id)
+    {
+      try
+      {
+        var talk = _repo.GetTalk(id);
+
+        _repo.Delete(talk);
+        await _repo.SaveChangesAsync();
+
+        return Ok();
+      }
+      catch (Exception ex)
+      {
+        ModelState.AddModelError("", $"Failed to Save: {ex.Message}");
+      }
+
+      return BadRequest("Failed to delete task");
+    }
   }
 }

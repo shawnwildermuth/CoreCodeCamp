@@ -15,12 +15,12 @@ namespace CoreCodeCamp.Data
 {
   public class CodeCampContext : IdentityDbContext<CodeCampUser>
   {
-    private IHostingEnvironment _hosting;
+    private IConfigurationRoot _config;
 
-    public CodeCampContext(IHostingEnvironment hosting, DbContextOptions<CodeCampContext> options)
+    public CodeCampContext(IConfigurationRoot config, DbContextOptions<CodeCampContext> options)
         : base(options)
     {
-      _hosting = hosting;
+      _config = config;
     }
 
     public DbSet<Talk> Talks { get; set; }
@@ -41,14 +41,7 @@ namespace CoreCodeCamp.Data
     {
       base.OnConfiguring(optionsBuilder);
 
-      Directory.CreateDirectory($@"{_hosting.ContentRootPath}\Database\");
-
-      var connection = new SqliteConnectionStringBuilder
-      {
-        DataSource = $@"{_hosting.ContentRootPath}\Database\CodeCamp.db"
-      };
-
-      optionsBuilder.UseSqlite(connection.ToString());
+      optionsBuilder.UseSqlServer(_config["Data:DbCodeCamp"]);
     }
   }
 }

@@ -40,12 +40,6 @@ namespace CoreCodeCamp.Data
     {
       try
       {
-        if (_config["Migration:PrototypeDb"] == "true")
-        {
-          await _ctx.Database.EnsureDeletedAsync();
-        }
-        await _ctx.Database.EnsureCreatedAsync();
-
         var admin = await _userManager.FindByEmailAsync(_config["Admin:SuperUser:Email"]);
 
         // If no Admin, then we haven't seeded the database
@@ -720,7 +714,7 @@ namespace CoreCodeCamp.Data
         Approved = true,
         Audience = oldTalks.GetField("Audience"),
         CodeUrl = oldTalks.GetField("CodeUrl"),
-        Level = ConvertToLevel(oldTalks.GetField("SponsorLevel")),
+        Level = ConvertToLevel(oldTalks.GetField("Level")),
         Prerequisites = oldTalks.GetField("Prerequisites"),
         PresentationUrl = oldTalks.GetField("PresentationUrl"),
         SpeakerDeckUrl = oldTalks.GetField("SpeakerDeckUrl"),

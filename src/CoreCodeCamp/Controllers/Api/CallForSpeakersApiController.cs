@@ -43,8 +43,7 @@ namespace CoreCodeCamp.Controllers.Api
         var user = await _userMgr.FindByNameAsync(User.Identity.Name);
         speaker = new Speaker()
         {
-          Name = user.Name,
-          ImageUrl = "/img/speaker-placeholder.jpg"
+          Name = user.Name
         };
       }
       return Ok(Mapper.Map<SpeakerViewModel>(speaker));
@@ -61,7 +60,7 @@ namespace CoreCodeCamp.Controllers.Api
 
       // Ensure it's a valid extension
       var extension = Path.GetExtension(Request.Form.Files[0].FileName).ToLower();
-      if (!(new[] { ".jpg", ".png" }.Any(s => extension == s)))
+      if (!(new[] { ".jpg", ".png", ".jpeg" }.Any(s => extension == s)))
       {
         return BadRequest("File msut be .jpg or .png");
       }

@@ -7,19 +7,19 @@
       <div class="text-danger">{{ error }}</div>
       <div class="well well-sm">
         <div class="form-group">
-          <label>Name</label>
+          <label class="text-danger">Name *</label>
           <input [(ngModel)]="model.name" class="form-control" placeholder="Your Name" name="name" #name="ngModel" required minlength="5" />
           <span class="text-danger" [hidden]="name.errors == null || !name.errors['required']">* Required</span>
           <span class="text-danger" [hidden]="name.errors == null || !name.errors['minlength']">* Too short</span>
         </div>
         <div class="form-group">
-          <label>Bio</label>
+          <label class="text-danger">Bio *</label>
           <textarea [(ngModel)]="model.bio" cols="40" rows="6" class="form-control" name="bio" #bio="ngModel" required minlength="100"></textarea>
           <span class="text-danger" [hidden]="bio.errors == null || !bio.errors['required']">* Required</span>
           <span class="text-danger" [hidden]="bio.errors == null || !bio.errors['minlength']">At least 100 characters</span>
         </div>
         <div class="form-group">
-          <label>PhoneNumber</label>
+          <label class="text-danger">PhoneNumber *</label>
           <input [(ngModel)]="model.phoneNumber" class="form-control" placeholder="Your Phone" required name="phoneNumber" #phoneNumber="ngModel" pattern="^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$" />
           <span class="text-danger" [hidden]="phoneNumber.errors == null || !phoneNumber.errors['required']">* Required</span>
           <span class="text-danger" [hidden]="phoneNumber.errors == null || !phoneNumber.errors['pattern']">* Must be a valid phone number</span>
@@ -52,32 +52,33 @@
         </div>
         <div class="form-group">
           <label>Twitter</label>
-          <input [(ngModel)]="model.twitter" class="form-control" placeholder="Just your handle" name="twitter" #twitter="ngModel" pattern="^@?(\w){1,15}$" />
+          <input [(ngModel)]="model.twitter" class="form-control" placeholder="Just your handle" name="twitter" #twitter="ngModel" pattern="^[^@]+$" />
           <span class="text-danger" [hidden]="twitter.errors == null || !twitter.errors['pattern']">* Don't include the @ sign</span>
         </div>
         <div class="form-group">
-          <label>TShirtSize</label>
-          <select [(ngModel)]="model.tShirtSize" class="form-control" name="tShirtSize">
+          <label class="text-danger">T-Shirt Size *</label>
+          <select [(ngModel)]="model.tShirtSize" class="form-control" name="tShirtSize" required #tShirtSize="ngModel">
             <option>Small</option>
             <option>Medium</option>
             <option>Large</option>
             <option>XL</option>
             <option>2X</option>
           </select>
+          <span class="text-danger" [hidden]="tShirtSize.errors == null || !tShirtSize.errors['required']">* Required</span>
         </div>
       </div>
       <div class="form-group">
-        <input type="submit" class="btn btn-success btn-lg" value="Save" [disabled]="!theForm.form.valid || !validImage" />
+        <input type="submit" class="btn btn-success btn-lg" value="Save" [disabled]="!theForm.form.valid || !validImage()" />
         <a href="./manage" class="btn btn-default btn-lg">Cancel</a>
       </div>
     </div>
     <div class="col-md-2">
       <div class="row" id="imagePicker">
-        <div><img src="{{ model.imageUrl ? model.imageUrl : '/img/speaker-placeholder.jpg' }}" alt="" class="img-responsive img-thumbnail"></div>
+        <div><img src="{{ model.imageUrl ? model.imageUrl : '/img/speaker-placeholder.jpg' }}" alt="" class="img-responsive img-thumbnail" [class.invalidHeadshot]="!validImage()"></div>
         <a (click)="filePicker.click();" class="btn btn-primary" href="#">Pick Headshot</a>
-        <input type="file" class="hidden" (change)="onImagePicked(filePicker)" #filePicker required />
+        <input type="file" class="hidden" accept=".jpg; .jpeg; .png;" (change)="onImagePicked(filePicker)" #filePicker required />
         <div class="text-muted text-sm">Please use as square as possible. .jpg and .png only.</div>
-        <div class="text-danger" [hidden]="validImage">* Headshot required. </div>
+        <div class="text-danger" [hidden]="validImage()">* Headshot required. </div>
         <div class="text-danger">{{ imageError }}</div>
       </div>
     </div>

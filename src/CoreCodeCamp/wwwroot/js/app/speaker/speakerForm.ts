@@ -1,8 +1,9 @@
 // speakerForm.ts
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, Control, ControlGroup } from '@angular/common';
-import {Http, Headers} from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { SpeakerViewModel } from './speakerViewModel';
+import { FileUploadService } from "../common/fileUploadService";
 
 @Component({
   selector: "speaker-form",
@@ -16,7 +17,7 @@ export class SpeakerForm {
   error: string = null;
   imageError: string = null;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private upload: FileUploadService) {
     this.onLoad();
   }
 
@@ -51,7 +52,7 @@ export class SpeakerForm {
 
   onImagePicked(filePicker: any) {
     this.isBusy = true;
-    this.uploadFile(filePicker.files[0])
+    this.upload.uploadFile(filePicker.files[0], this.baseUrl + "/headshot")
       .then(imageUrl => {
         this.model.imageUrl = imageUrl;
       }, (e) => {
@@ -65,26 +66,5 @@ export class SpeakerForm {
     return false;
   }
 
-  uploadFile(file: File): Promise<string> {
-    return new Promise((resolve, reject) => {
-
-      let xhr: XMLHttpRequest = new XMLHttpRequest();
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            resolve(xhr.response);
-          } else {
-            reject(xhr.response);
-          }
-        }
-      };
-
-      xhr.open('POST', this.baseUrl + "/headshot", true);
-
-      let formData = new FormData();
-      formData.append("file", file, file.name);
-      xhr.send(formData);
-    });
-  }
 }
 

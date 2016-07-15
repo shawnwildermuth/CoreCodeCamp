@@ -13,6 +13,7 @@ namespace CoreCodeCamp.Areas.Admin.Controllers
 {
   [Authorize(Roles = Consts.ADMINROLE)]
   [Area("Admin")]
+  [Route("[area]")]
   public class RootController : MonikerControllerBase
   {
     public RootController(ICodeCampRepository repo) : base(repo)
@@ -20,6 +21,7 @@ namespace CoreCodeCamp.Areas.Admin.Controllers
 
     }
 
+    [HttpGet("")]
     public IActionResult Index()
     {
       return View();

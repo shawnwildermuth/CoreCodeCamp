@@ -12,13 +12,13 @@
   };
 
   // Our Components
-  ["users", "speaker", "talks"].forEach(function (c) {
+  ["users", "speaker", "talks", "sponsors"].forEach(function (c) {
     map[c] = '/js/app/' + c;
     packages[c] = { main: 'main.js', defaultExtension: 'js' };
   }); 
 
-  ["talkService"].forEach(function (c) {
-    map[c] = '/js/app/common/' + c;
+  ["fileUploadService"].forEach(function (c) {
+    map[c] = '/js/app/common/';
     packages[c] = { defaultExtension: 'js' };
   });
 

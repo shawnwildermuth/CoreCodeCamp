@@ -11,9 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 // speakerForm.ts
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
+var fileUploadService_1 = require("../common/fileUploadService");
 var SpeakerForm = (function () {
-    function SpeakerForm(http) {
+    function SpeakerForm(http, upload) {
         this.http = http;
+        this.upload = upload;
         this.model = {};
         this.isBusy = false;
         this.error = null;
@@ -58,7 +60,7 @@ var SpeakerForm = (function () {
     SpeakerForm.prototype.onImagePicked = function (filePicker) {
         var _this = this;
         this.isBusy = true;
-        this.uploadFile(filePicker.files[0])
+        this.upload.uploadFile(filePicker.files[0], this.baseUrl + "/headshot")
             .then(function (imageUrl) {
             _this.model.imageUrl = imageUrl;
         }, function (e) {
@@ -71,33 +73,13 @@ var SpeakerForm = (function () {
             return true;
         return false;
     };
-    SpeakerForm.prototype.uploadFile = function (file) {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        resolve(xhr.response);
-                    }
-                    else {
-                        reject(xhr.response);
-                    }
-                }
-            };
-            xhr.open('POST', _this.baseUrl + "/headshot", true);
-            var formData = new FormData();
-            formData.append("file", file, file.name);
-            xhr.send(formData);
-        });
-    };
     SpeakerForm = __decorate([
         core_1.Component({
             selector: "speaker-form",
             moduleId: module.id,
             templateUrl: "speakerForm.html"
         }), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [http_1.Http, fileUploadService_1.FileUploadService])
     ], SpeakerForm);
     return SpeakerForm;
 }());

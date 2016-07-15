@@ -25,7 +25,20 @@ namespace CoreCodeCamp.Areas.Admin.Controllers
       return View();
     }
 
+    [HttpGet("users")]
     public IActionResult Users()
+    {
+      return View();
+    }
+
+    [HttpGet("talks")]
+    public IActionResult Talks()
+    {
+      return View();
+    }
+
+    [HttpGet("sponsors")]
+    public IActionResult Sponsors()
     {
       return View();
     }

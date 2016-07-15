@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,11 +10,17 @@ namespace CoreCodeCamp.Models
   public class TalkViewModel
   {
     public int Id { get; set; }
+
+    [Required]
     public string Title { get; set; }
+    [Required]
     public string Abstract { get; set; }
     public string Prerequisites { get; set; }
+    [Required]
     public string Audience { get; set; }
+    [Required]
     public string Category { get; set; }
+    [Required]
     public string Level { get; set; }
     public bool Approved { get; set; }
 

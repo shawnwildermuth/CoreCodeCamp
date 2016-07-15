@@ -21,6 +21,15 @@ var SponsorService = (function () {
     SponsorService.prototype.getSponsors = function (moniker) {
         return this.http.get("/api/sponsors/" + moniker);
     };
+    SponsorService.prototype.saveSponsor = function (moniker, sponsor) {
+        return this.http.post("/api/sponsors/" + moniker, sponsor);
+    };
+    SponsorService.prototype.deleteSponsor = function (moniker, sponsor) {
+        return this.http.delete("/api/sponsors/" + moniker + "/" + sponsor.id);
+    };
+    SponsorService.prototype.togglePaid = function (moniker, sponsor) {
+        return this.http.put("/api/sponsors/" + moniker + "/togglePaid/" + sponsor.id, null);
+    };
     SponsorService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])

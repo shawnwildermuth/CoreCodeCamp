@@ -1,8 +1,7 @@
 // usersForm.ts
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, Control, ControlGroup } from '@angular/common';
 import { SponsorService } from "./sponsorService";
-import { FileUploadService } from "../common/fileUploadService";
+import { ImageUploadService } from "../common/imageUploadService";
 
 @Component({
   selector: "sponsors-form",
@@ -21,7 +20,7 @@ export class SponsorForm {
   error: string = null;
   imageError: string = null;
 
-  constructor(private sponsorService: SponsorService, private upload: FileUploadService) {
+  constructor(private sponsorService: SponsorService, private upload: ImageUploadService) {
     this.loadEvents();
   }
 
@@ -31,8 +30,13 @@ export class SponsorForm {
       .getEvents()
       .subscribe(
       res => this.events = res.json(),
-      res => this.error = "Failed to get events",
+      res => this.showError("Failed to get events"),
       () => this.isBusy = false);
+  }
+
+  showError(err) {
+    this.error = "Failed to get events";
+    this.isBusy = false;
   }
 
   loadSponsors() {
@@ -42,7 +46,7 @@ export class SponsorForm {
         .getSponsors(this.currentMoniker)
         .subscribe(
         res => this.sponsors = res.json(),
-        res => this.error = "Failed to get sponsors",
+        res => this.showError("Failed to get sponsors"),
         () => this.isBusy = false);
     }
   }
@@ -56,19 +60,51 @@ export class SponsorForm {
     this.isEditing = true;
   }
 
+  onDelete(sponsor: any) {
+    this.isBusy = true;
+    this.sponsorService.deleteSponsor(this.currentMoniker, sponsor)
+      .subscribe(res => {
+        this.sponsors.splice(this.sponsors.indexOf(sponsor), 1);
+      }, e => this.showError("Failed to delete sponsor"), () => this.isBusy = false);
+  }
+
+  onTogglePaid(sponsor: any) {
+    this.isBusy = true;
+    this.sponsorService.togglePaid(this.currentMoniker, sponsor) 
+      .subscribe(res => {
+        sponsor.paid = !sponsor.paid;
+      }, e => this.showError("Failed to toggle paid flag"), () => this.isBusy = false);
+  }
+
   onNew() {
     this.isEditing = true;
     this.model = {};
   }
 
+  onCancel() {
+    this.isEditing = false;
+    this.model = {};
+  }
+
+  onSave() {
+    // Remove old one
+    var old = this.sponsors.indexOf(this.model);
+    if (old > -1) this.sponsors.splice(this.sponsors.indexOf(this.model), 1); 
+    this.isBusy = true;
+
+    this.sponsorService.saveSponsor(this.currentMoniker, this.model)
+      .subscribe(res => {
+        this.sponsors.push(res.json());
+        this.isEditing = false;
+      }, (e) => this.showError("Failed to save sponsor"), () => this.isBusy = false);
+  }
+
   onImagePicked(filePicker: any) {
     this.isBusy = true;
-    this.upload.uploadFile(filePicker.files[0], "api/sponsor/image")
-      .then(imageUrl => {
+    this.upload.uploadImage(filePicker.files[0], "sponsor", this.currentMoniker + "/sponsors")
+      .then((imageUrl:any) => {
         this.model.imageUrl = imageUrl;
-      }, (e) => {
-        this.imageError = e.json();
-      })
+      }, (e) => this.showError("Failed to upload Image"))
       .then(() => this.isBusy = false);
   }
 

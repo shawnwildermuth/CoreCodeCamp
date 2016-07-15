@@ -1,6 +1,6 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="../gulpfile.js" />
-/// <reference path="js/app/common/fileuploadservice.js" />
+/// <reference path="js/app/common/imageuploadservice.js" />
 /// <reference path="js/app/speaker/main.js" />
 /// <reference path="js/app/speaker/speakerform.js" />
 /// <reference path="js/app/speaker/speakerviewmodel.js" />

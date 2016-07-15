@@ -6,11 +6,14 @@ namespace CoreCodeCamp.Data
 {
   public interface ICodeCampRepository
   {
+    IEnumerable<CodeCampUser> GetUsers();
+
     IEnumerable<EventInfo> GetAllEventInfo();
     EventInfo GetEventInfo(string moniker);
     EventInfo GetCurrentEvent();
+
     IEnumerable<Sponsor> GetSponsors(string moniker);
-    IEnumerable<CodeCampUser> GetUsers();
+    Sponsor GetSponsor(int id);
 
     Speaker GetSpeaker(string moniker, string name);
 

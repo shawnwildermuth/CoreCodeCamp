@@ -11,11 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 // fileUploadService.ts
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
-var FileUploadService = (function () {
-    function FileUploadService(http) {
+var ImageUploadService = (function () {
+    function ImageUploadService(http) {
         this.http = http;
     }
-    FileUploadService.prototype.uploadFile = function (file, url) {
+    ImageUploadService.prototype.uploadImage = function (file, imageType, imagePath) {
         return new Promise(function (resolve, reject) {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
@@ -28,17 +28,17 @@ var FileUploadService = (function () {
                     }
                 }
             };
-            xhr.open('POST', url, true);
+            xhr.open('POST', "/api/images/" + imageType + "?imagePath=" + encodeURIComponent(imagePath), true);
             var formData = new FormData();
             formData.append("file", file, file.name);
             xhr.send(formData);
         });
     };
-    FileUploadService = __decorate([
+    ImageUploadService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
-    ], FileUploadService);
-    return FileUploadService;
+    ], ImageUploadService);
+    return ImageUploadService;
 }());
-exports.FileUploadService = FileUploadService;
-//# sourceMappingURL=fileUploadService.js.map
+exports.ImageUploadService = ImageUploadService;
+//# sourceMappingURL=imageUploadService.js.map

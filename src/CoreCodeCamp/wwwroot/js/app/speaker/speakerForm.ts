@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators, Control, ControlGroup } from '@angular/common';
 import { Http, Headers } from '@angular/http';
 import { SpeakerViewModel } from './speakerViewModel';
-import { FileUploadService } from "../common/fileUploadService";
+import { ImageUploadService } from "../common/imageUploadService";
 
 @Component({
   selector: "speaker-form",
@@ -17,7 +17,7 @@ export class SpeakerForm {
   error: string = null;
   imageError: string = null;
 
-  constructor(private http: Http, private upload: FileUploadService) {
+  constructor(private http: Http, private upload: ImageUploadService) {
     this.onLoad();
   }
 
@@ -52,11 +52,11 @@ export class SpeakerForm {
 
   onImagePicked(filePicker: any) {
     this.isBusy = true;
-    this.upload.uploadFile(filePicker.files[0], this.baseUrl + "/headshot")
-      .then(imageUrl => {
+    this.upload.uploadImage(filePicker.files[0], "speaker", this.moniker + "/speakers")
+      .then((imageUrl:any) => {
         this.model.imageUrl = imageUrl;
       }, (e) => {
-        this.imageError = e.json();
+        this.imageError = e;
       })
       .then(() => this.isBusy = false);
   }

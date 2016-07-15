@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 // usersForm.ts
 var core_1 = require('@angular/core');
 var sponsorService_1 = require("./sponsorService");
-var fileUploadService_1 = require("../common/fileUploadService");
+var imageUploadService_1 = require("../common/imageUploadService");
 var SponsorForm = (function () {
     function SponsorForm(sponsorService, upload) {
         this.sponsorService = sponsorService;
@@ -31,7 +31,11 @@ var SponsorForm = (function () {
         this.isBusy = true;
         this.sponsorService
             .getEvents()
-            .subscribe(function (res) { return _this.events = res.json(); }, function (res) { return _this.error = "Failed to get events"; }, function () { return _this.isBusy = false; });
+            .subscribe(function (res) { return _this.events = res.json(); }, function (res) { return _this.showError("Failed to get events"); }, function () { return _this.isBusy = false; });
+    };
+    SponsorForm.prototype.showError = function (err) {
+        this.error = "Failed to get events";
+        this.isBusy = false;
     };
     SponsorForm.prototype.loadSponsors = function () {
         var _this = this;
@@ -39,7 +43,7 @@ var SponsorForm = (function () {
             this.isBusy = true;
             this.sponsorService
                 .getSponsors(this.currentMoniker)
-                .subscribe(function (res) { return _this.sponsors = res.json(); }, function (res) { return _this.error = "Failed to get sponsors"; }, function () { return _this.isBusy = false; });
+                .subscribe(function (res) { return _this.sponsors = res.json(); }, function (res) { return _this.showError("Failed to get sponsors"); }, function () { return _this.isBusy = false; });
         }
     };
     SponsorForm.prototype.onMonikerChange = function ($event) {
@@ -49,19 +53,50 @@ var SponsorForm = (function () {
         this.model = sponsor;
         this.isEditing = true;
     };
+    SponsorForm.prototype.onDelete = function (sponsor) {
+        var _this = this;
+        this.isBusy = true;
+        this.sponsorService.deleteSponsor(this.currentMoniker, sponsor)
+            .subscribe(function (res) {
+            _this.sponsors.splice(_this.sponsors.indexOf(sponsor), 1);
+        }, function (e) { return _this.showError("Failed to delete sponsor"); }, function () { return _this.isBusy = false; });
+    };
+    SponsorForm.prototype.onTogglePaid = function (sponsor) {
+        var _this = this;
+        this.isBusy = true;
+        this.sponsorService.togglePaid(this.currentMoniker, sponsor)
+            .subscribe(function (res) {
+            sponsor.paid = !sponsor.paid;
+        }, function (e) { return _this.showError("Failed to toggle paid flag"); }, function () { return _this.isBusy = false; });
+    };
     SponsorForm.prototype.onNew = function () {
         this.isEditing = true;
         this.model = {};
     };
+    SponsorForm.prototype.onCancel = function () {
+        this.isEditing = false;
+        this.model = {};
+    };
+    SponsorForm.prototype.onSave = function () {
+        var _this = this;
+        // Remove old one
+        var old = this.sponsors.indexOf(this.model);
+        if (old > -1)
+            this.sponsors.splice(this.sponsors.indexOf(this.model), 1);
+        this.isBusy = true;
+        this.sponsorService.saveSponsor(this.currentMoniker, this.model)
+            .subscribe(function (res) {
+            _this.sponsors.push(res.json());
+            _this.isEditing = false;
+        }, function (e) { return _this.showError("Failed to save sponsor"); }, function () { return _this.isBusy = false; });
+    };
     SponsorForm.prototype.onImagePicked = function (filePicker) {
         var _this = this;
         this.isBusy = true;
-        this.upload.uploadFile(filePicker.files[0], "api/sponsor/image")
+        this.upload.uploadImage(filePicker.files[0], "sponsor", this.currentMoniker + "/sponsors")
             .then(function (imageUrl) {
             _this.model.imageUrl = imageUrl;
-        }, function (e) {
-            _this.imageError = e.json();
-        })
+        }, function (e) { return _this.showError("Failed to upload Image"); })
             .then(function () { return _this.isBusy = false; });
     };
     SponsorForm.prototype.validImage = function () {
@@ -75,7 +110,7 @@ var SponsorForm = (function () {
             moduleId: module.id,
             templateUrl: "sponsorForm.html"
         }), 
-        __metadata('design:paramtypes', [sponsorService_1.SponsorService, fileUploadService_1.FileUploadService])
+        __metadata('design:paramtypes', [sponsorService_1.SponsorService, imageUploadService_1.ImageUploadService])
     ], SponsorForm);
     return SponsorForm;
 }());

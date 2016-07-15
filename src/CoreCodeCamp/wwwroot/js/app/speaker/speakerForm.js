@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 // speakerForm.ts
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
-var fileUploadService_1 = require("../common/fileUploadService");
+var imageUploadService_1 = require("../common/imageUploadService");
 var SpeakerForm = (function () {
     function SpeakerForm(http, upload) {
         this.http = http;
@@ -60,11 +60,11 @@ var SpeakerForm = (function () {
     SpeakerForm.prototype.onImagePicked = function (filePicker) {
         var _this = this;
         this.isBusy = true;
-        this.upload.uploadFile(filePicker.files[0], this.baseUrl + "/headshot")
+        this.upload.uploadImage(filePicker.files[0], "speaker", this.moniker + "/speakers")
             .then(function (imageUrl) {
             _this.model.imageUrl = imageUrl;
         }, function (e) {
-            _this.imageError = e.json();
+            _this.imageError = e;
         })
             .then(function () { return _this.isBusy = false; });
     };
@@ -79,7 +79,7 @@ var SpeakerForm = (function () {
             moduleId: module.id,
             templateUrl: "speakerForm.html"
         }), 
-        __metadata('design:paramtypes', [http_1.Http, fileUploadService_1.FileUploadService])
+        __metadata('design:paramtypes', [http_1.Http, imageUploadService_1.ImageUploadService])
     ], SpeakerForm);
     return SpeakerForm;
 }());

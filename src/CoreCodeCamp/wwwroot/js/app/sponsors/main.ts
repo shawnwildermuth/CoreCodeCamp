@@ -5,11 +5,11 @@ import { disableDeprecatedForms, provideForms } from '@angular/forms';
 
 import { SponsorForm } from './sponsorForm';
 import { SponsorService } from "./sponsorService";
-import { FileUploadService } from '../common/fileUploadService';
+import { ImageUploadService } from '../common/imageUploadService';
 
 bootstrap(SponsorForm,
   [disableDeprecatedForms(),
     provideForms(),
     HTTP_PROVIDERS,
     SponsorService,
-    FileUploadService]);
+    ImageUploadService]);

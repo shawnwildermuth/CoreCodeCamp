@@ -128,6 +128,7 @@ namespace CoreCodeCamp
       config.CreateMap<Speaker, SpeakerViewModel>();
       config.CreateMap<Talk, TalkViewModel>()
         .ReverseMap();
+      config.CreateMap<Sponsor, SponsorViewModel>().ReverseMap();
     }
 
     void CreateRoutes(IRouteBuilder routes)

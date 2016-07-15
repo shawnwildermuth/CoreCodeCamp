@@ -79,6 +79,11 @@ namespace CoreCodeCamp.Data
         .FirstOrDefault();
     }
 
+    public Sponsor GetSponsor(int id)
+    {
+      return _ctx.Sponsors.Where(s => s.Id == id).FirstOrDefault();
+    }
+
     public IEnumerable<Sponsor> GetSponsors(string moniker)
     {
       var sponsorOrder = new List<string> { "Platinum", "Lunch", "T-Shirt", "Gold", "Silver", "Other" };

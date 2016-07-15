@@ -9,6 +9,7 @@
         <td>Email</td>
         <td>Email Confirmed</td>
         <td>Is Admin?</td>
+        <td></td>
       </tr>
     </thead>
     <tr *ngFor="let user of users">
@@ -16,9 +17,9 @@
       <td>{{user.userName}}</td>
       <td>{{user.email}}</td>
       <td>{{user.isEmailConfirmed}}</td>
+      <td>{{ user.isAdmin ? "Yes" : "No" }}</td>
       <td>
-        <button class="btn btn-sm btn-primary" (click)="onToggleAdmin(user)" [class.hidden]="!user.isAdmin">Not Admin</button>
-        <button class="btn btn-sm btn-primary" (click)="onToggleAdmin(user)" [class.hidden]="user.isAdmin">Admin</button>
+        <button class="btn btn-sm btn-primary" (click)="onToggleAdmin(user)">Toggle Admin</button>
       </td>
     </tr>
   </table>

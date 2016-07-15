@@ -20,8 +20,9 @@ p.lead {
   text-align: center;
 }
 
+
 .navbar {
-  background-color: fadeout(desaturate(lighten(@themeColor, 60%), 100%), 20%);
+  background-color: fadeout(desaturate(lighten(@themeColor, 60%), 100%), 10%);
   border-bottom: 1px solid #ccc;
 
   .navbar-nav {
@@ -29,6 +30,10 @@ p.lead {
       font-weight: 500;
       background: rgba(200, 200, 200, 0.2) none repeat scroll 0 0;
     }
+  }
+
+  .navbar-toggle .icon-bar {
+    background: @themeColor;
   }
 }
 

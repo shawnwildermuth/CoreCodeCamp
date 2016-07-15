@@ -133,10 +133,6 @@ namespace CoreCodeCamp
     void CreateRoutes(IRouteBuilder routes)
     {
       routes.MapRoute(
-        name: "areas",
-        template: "{area:exists}/{controller=Root}/{action=Index}/{id?}");
-
-      routes.MapRoute(
         name: "Events",
         template: string.Concat("{moniker}/{controller=Root}/{action=Index}/{id?}")
         );

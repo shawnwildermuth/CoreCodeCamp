@@ -676,7 +676,7 @@ namespace CoreCodeCamp.Data
         Blog = oldSpeakers.GetField("Blog"),
         CompanyName = oldSpeakers.GetField("CompanyName"),
         CompanyUrl = oldSpeakers.GetField("CompanyUrl"),
-        ImageUrl = oldSpeakers.GetField("ImageUrl"),
+        ImageUrl = oldSpeakers.GetField("ImageUrl").Replace("/images/", "/img/"),
         Name = oldSpeakers.GetField("Name"),
         Title = oldSpeakers.GetField("Title"),
         Twitter = oldSpeakers.GetField("Twitter"),

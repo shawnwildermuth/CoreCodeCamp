@@ -71,12 +71,25 @@ namespace CoreCodeCamp.Data
         .FirstOrDefault();
     }
 
-    public Speaker GetSpeaker(string moniker, string userName)
+    public Speaker GetSpeakerForCurrentUser(string moniker, string userName)
     {
       return _ctx.Speakers
         .Include(s => s.Talks)
         .Where(s => s.UserName == userName && s.Event.Moniker == moniker)
         .FirstOrDefault();
+    }
+
+    public Speaker GetSpeaker(int id)
+    {
+      return _ctx.Speakers
+        .Include(s => s.Talks)
+        .Where(s => s.Id == id)
+        .FirstOrDefault();
+    }
+
+    public IEnumerable<Speaker> GetSpeakers(string moniker)
+    {
+      return _ctx.Speakers.Include(s => s.Talks).Where(s => s.Event.Moniker == moniker).ToList();
     }
 
     public Sponsor GetSponsor(int id)

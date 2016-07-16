@@ -1,0 +1,28 @@
+@model IEnumerable<Speaker>
+@{
+  ViewData["Title"] = "Speakers";
+}
+<div class="row">
+  <div class="col-sm-12 features section-description wow fadeIn">
+    <h2>Speakers</h2>
+    <div class="divider-1 wow fadeInUp"><span></span></div>
+  </div>
+</div>
+<div class="row">
+  @if (Model == null || Model.Count() == 0)
+  {
+    <p class="lead">Speakers will be coming soon. If you'd like to speak, visit our <a asp-controller="CallForSpeakers" asp-action="Index">Call for Speakers</a>.</p>
+  }
+  else
+  {
+    foreach (var speaker in Model)
+    {
+      <div class="col-lg-2 col-md-3 col-sm-6 testi features-box wow fadeInUp animated">
+        <div class="testimonial-image">
+          <img src="@speaker.ImageUrl" alt="@speaker.Name" class="speaker-image" />
+        </div>
+        <div class="speaker-name">@speaker.Name</div>
+      </div>
+    }
+  }
+  </div>

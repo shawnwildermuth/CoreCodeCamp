@@ -27,5 +27,12 @@ namespace CoreCodeCamp.Controllers.Web
       return View();
     }
 
+    [HttpGet("{moniker}/Speakers")]
+    public IActionResult Speakers(string moniker)
+    {
+      var speakers = _repo.GetSpeakers(moniker).Where(s => s.Talks.Any(t => t.Approved)).OrderBy(s => s.Name).ToList();
+
+      return View(speakers);
+    }
   }
 }

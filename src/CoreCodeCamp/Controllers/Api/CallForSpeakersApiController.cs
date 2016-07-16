@@ -37,7 +37,7 @@ namespace CoreCodeCamp.Controllers.Api
     [HttpGet("speaker")]
     public async Task<IActionResult> GetSpeaker(string moniker)
     {
-      var speaker = _repo.GetSpeaker(moniker, User.Identity.Name);
+      var speaker = _repo.GetSpeakerForCurrentUser(moniker, User.Identity.Name);
       if (speaker == null)
       {
         var user = await _userMgr.FindByNameAsync(User.Identity.Name);
@@ -58,7 +58,7 @@ namespace CoreCodeCamp.Controllers.Api
       {
         try
         {
-          var speaker = _repo.GetSpeaker(moniker, User.Identity.Name);
+          var speaker = _repo.GetSpeakerForCurrentUser(moniker, User.Identity.Name);
 
           if (speaker == null)
           {
@@ -98,7 +98,7 @@ namespace CoreCodeCamp.Controllers.Api
           if (isNew)
           {
             talk = Mapper.Map<Talk>(model);
-            var speaker = _repo.GetSpeaker(moniker, User.Identity.Name);
+            var speaker = _repo.GetSpeakerForCurrentUser(moniker, User.Identity.Name);
             speaker.Talks.Add(talk);
           }
           else

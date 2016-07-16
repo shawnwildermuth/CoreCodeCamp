@@ -5,7 +5,8 @@
 }
 
 <li class="@Html.GetActiveMenuItem("Root", "Index")"><a asp-area="" asp-controller="Root" asp-action="Index" asp-route-moniker="@this.GetEventInfo().Moniker">Home</a></li>
-<li class="@Html.GetActiveMenuItem("Root", "CallForSpeakers")"><a asp-area="" asp-controller="CallForSpeakers" asp-action="Index" asp-route-moniker="@this.GetEventInfo().Moniker">Call for Speakers</a></li>
+<li class="@Html.GetActiveMenuItem("CallForSpeakers", "Index")"><a asp-area="" asp-controller="CallForSpeakers" asp-action="Index" asp-route-moniker="@this.GetEventInfo().Moniker">Call for Speakers</a></li>
+<li class="@Html.GetActiveMenuItem("Root", "Speakers")"><a asp-area="" asp-controller="Root" asp-action="Speakers" asp-route-moniker="@this.GetEventInfo().Moniker">Speakers</a></li>
 <li class="@Html.GetActiveMenuItem("Root", "Sponsoring")"><a asp-area="" asp-controller="Root" asp-action="Sponsoring" asp-route-moniker="@this.GetEventInfo().Moniker">Sponsor</a></li>
 @if (signInMgr.IsSignedIn(User) && await userMgr.IsInRoleAsync(codeCampUser, Consts.ADMINROLE))
 {

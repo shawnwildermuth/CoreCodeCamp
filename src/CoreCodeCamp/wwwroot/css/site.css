@@ -1,5 +1,5 @@
 ﻿body {
-  padding-top: 50px;
+  padding-top: 35px;
   padding-bottom: 20px;
 }
 /* Wrapping element */
@@ -17,6 +17,7 @@ p.lead {
 .navbar {
   background-color: rgba(255, 255, 255, 0.9);
   border-bottom: 1px solid #ccc;
+  min-height: 35px;
 }
 .navbar .navbar-nav .active > a {
   font-weight: 500;
@@ -42,10 +43,17 @@ a:focus {
 }
 .navbar-brand {
   background-image: url(../img/logo.png);
-  width: 325px;
+  width: 350px;
+  height: 35px;
 }
 .left-align {
   text-align: left;
+}
+.speaker-name {
+  font-size: 14px;
+  line-height: normal;
+  min-height: 40px;
+  padding-top: 5px;
 }
 .features-box .features-box-icon {
   color: #ce0000;
@@ -88,4 +96,23 @@ footer a:focus {
 }
 .invalidHeadshot {
   border-color: #ce0000;
+}
+.ul.navbar-nav {
+  font-size: 14px;
+}
+.navbar-nav > li > a {
+  line-height: 14px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+.speaker-image {
+  max-height: 200px;
+  border-radius: 255px;
+  box-shadow: 3px -3px 15px 0px rgba(133, 133, 133, 0.7);
+}
+.navbar-toggle {
+  margin-bottom: 0;
+  margin-right: 5px;
+  margin-top: 3px;
+  padding: 0 10px;
 }

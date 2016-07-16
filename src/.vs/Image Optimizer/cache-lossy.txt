@@ -1,0 +1,2 @@
+D:\projects\CoreCodeCamp\src\CoreCodeCamp\wwwroot\img\2013\Speakers\Allan-Davis.jpg|8919
+D:\projects\CoreCodeCamp\src\CoreCodeCamp\wwwroot\img\2013\Speakers\doug-ware.jpg|6211

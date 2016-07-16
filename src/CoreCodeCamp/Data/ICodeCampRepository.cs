@@ -15,7 +15,9 @@ namespace CoreCodeCamp.Data
     IEnumerable<Sponsor> GetSponsors(string moniker);
     Sponsor GetSponsor(int id);
 
-    Speaker GetSpeaker(string moniker, string name);
+    IEnumerable<Speaker> GetSpeakers(string moniker);
+    Speaker GetSpeakerForCurrentUser(string moniker, string name);
+    Speaker GetSpeaker(int id);
 
     IEnumerable<Talk> GetAllTalks();
     Talk GetTalk(int id);

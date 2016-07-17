@@ -49,6 +49,11 @@ namespace CoreCodeCamp.Controllers.Api
     [HttpPut("toggleAdmin")]
     public async Task<IActionResult> ToggleAdmin([FromBody]CodeCampUserViewModel vm)
     {
+      if (!User.Identity.IsAuthenticated)
+      {
+        return Ok();
+      }
+
       if (ModelState.IsValid)
       {
         var user = await _userMgr.FindByNameAsync(vm.UserName);

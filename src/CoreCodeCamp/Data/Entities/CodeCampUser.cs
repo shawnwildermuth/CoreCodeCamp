@@ -6,6 +6,6 @@ namespace CoreCodeCamp.Data.Entities
   public class CodeCampUser : IdentityUser
   {
     public string Name { get; set; }
-    public ICollection<Talk> Talks { get; set; }
+    public ICollection<FavoriteTalk> FavoriteTalks { get; set; }
   }
 }

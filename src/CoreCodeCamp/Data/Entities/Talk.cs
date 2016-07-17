@@ -22,6 +22,7 @@ namespace CoreCodeCamp.Data.Entities
     public string SpeakerDeckUrl { get; set; }
     public string SpeakerRateUrl { get; set; }
 
+    public Speaker Speaker { get; set; }
     public Track Track { get; set; }
     public Room Room { get; set; }
     public TalkTime TalkTime { get; set; }

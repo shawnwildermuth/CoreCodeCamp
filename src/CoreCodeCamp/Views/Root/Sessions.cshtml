@@ -1,0 +1,23 @@
+@model IEnumerable<TalkViewModel>
+@{
+  ViewData["Title"] = "Sessions";
+}
+<div class="row">
+  <div class="col-sm-12 features section-description wow fadeIn">
+    <h2>Sessions</h2>
+    <div class="divider-1 wow fadeInUp"><span></span></div>
+  </div>
+</div>
+<div class="row">
+  @if (Model == null || Model.Count() == 0)
+  {
+    <p class="lead">Once the sessions are finalized, they will appear here!</p>
+  }
+  else
+  {
+    foreach (var talk in Model)
+    {
+      @Html.Partial("_Session", Tuple.Create(talk, false))
+    }
+  }
+</div>

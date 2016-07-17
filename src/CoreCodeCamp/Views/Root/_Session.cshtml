@@ -1,0 +1,39 @@
+@model Tuple<TalkViewModel, bool>
+@{
+  var talk = Model.Item1;
+  var suppress = Model.Item2;
+}
+<div class="col-md-12 wow fadeInUp">
+  <div class="panel panel-danger">
+    <div class="panel-body">
+      <div class="text-right text-muted lead">
+        @if (!User.Identity.IsAuthenticated)
+        { <span class="text-sm text-muted">(Login to vote)</span> }
+        <span class="voteStar @(talk.Favorite ? "voted" : "")" data-id="@talk.Id"><i class="fa fa-star"></i></span>
+      </div>
+      @if (!suppress)
+      {
+        <div class="pull-right" style="width: 150px;">
+          <img src="@talk.Speaker.ImageUrl" alt="@talk.Speaker.Name" class="img-responsive img-thumbnail" />
+          <p class="text-center">@talk.Speaker.Name</p>
+        </div>
+      }
+      <h3 class="text-left">@talk.Title</h3>
+      <div>
+        <p>@Html.Raw(talk.Abstract.Replace("<br/>", ""))</p>
+      </div>
+      <dl class="dl-horizontal text-left">
+        <dt>Level</dt>
+        <dd>@talk.Level</dd>
+        <dt>Category</dt>
+        <dd>@talk.Category</dd>
+        <dt>Room</dt>
+        <dd>@talk.Location?.Room</dd>
+        <dt>Time</dt>
+        <dd>@talk.Location?.Time.ToShortTimeString()</dd>
+        <dt>Track</dt>
+        <dd>@talk.Location?.Track</dd>
+      </dl>
+    </div>
+  </div>
+</div>

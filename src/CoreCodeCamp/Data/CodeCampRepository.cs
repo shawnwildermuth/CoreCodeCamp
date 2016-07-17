@@ -50,9 +50,14 @@ namespace CoreCodeCamp.Data
         .ToList();
     }
 
-    public IEnumerable<Talk> GetAllTalks()
+    public IEnumerable<Talk> GetTalks(string moniker)
     {
-      return _ctx.Talks.Include(t => t.Room).Include(t => t.TalkTime).ToList();
+      return _ctx.Talks
+        .Include(t => t.Speaker)
+        .Include(t => t.TalkTime)
+        .Where(t => t.Speaker.Event.Moniker == moniker)
+        .OrderBy(t => t.Title)
+        .ToList();
     }
 
     public EventInfo GetCurrentEvent()
@@ -128,6 +133,44 @@ namespace CoreCodeCamp.Data
     public Task<int> SaveChangesAsync()
     {
       return _ctx.SaveChangesAsync();
+    }
+
+    public void ToggleTalkForUser(string userName, int talkId)
+    {
+      var user = _ctx.Users.Include(u => u.FavoriteTalks).ThenInclude(f => f.Talk).Where(u => u.UserName == userName).First();
+      var fav = user.FavoriteTalks.Where(t => t.Talk.Id == talkId).FirstOrDefault();
+      if (fav == null)
+      {
+        fav = new FavoriteTalk()
+        {
+          User = user,
+          Talk = _ctx.Talks.Where(t => t.Id == talkId).First()
+        };
+        user.FavoriteTalks.Add(fav);
+      }
+      else
+      {
+        user.FavoriteTalks.Remove(fav);
+      }
+    }
+
+    public Speaker GetSpeakerByName(string moniker, string name)
+    {
+      var transformName = name.Replace("-", " ").ToLower();
+      return _ctx.Speakers
+        .Include(s => s.Talks)
+        .ThenInclude(s => s.Room)
+        .Where(s => s.Name.ToLower() == transformName)
+        .FirstOrDefault();
+    }
+
+    public CodeCampUser GetUserWithFavorites(string name)
+    {
+      return _ctx.Users
+        .Include(u => u.FavoriteTalks)
+        .ThenInclude(f => f.Talk)
+        .OrderBy(u => u.UserName)
+        .FirstOrDefault();
     }
   }
 }

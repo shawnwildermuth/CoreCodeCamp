@@ -42,7 +42,7 @@ namespace CoreCodeCamp
       services.AddSingleton(f => _config);
 
       if (_env.IsProduction())
-        {
+      {
         services.AddScoped<IMailService, SendGridMailService>();
       }
       else
@@ -123,11 +123,15 @@ namespace CoreCodeCamp
     {
       config.CreateMap<CodeCampUser, CodeCampUserViewModel>()
         .ReverseMap();
+
       config.CreateMap<SpeakerViewModel, Speaker>()
         .ForMember(m => m.Talks, opt => opt.Ignore());
-      config.CreateMap<Speaker, SpeakerViewModel>();
-      config.CreateMap<Talk, TalkViewModel>()
-        .ReverseMap();
+      config.CreateMap<Speaker, SpeakerViewModel>()
+        .ForMember(m => m.Talks, opt => opt.Ignore());
+
+      config.CreateMap<Talk, TalkViewModel>();
+      config.CreateMap<TalkViewModel, Talk>();
+
       config.CreateMap<Sponsor, SponsorViewModel>().ReverseMap();
     }
 

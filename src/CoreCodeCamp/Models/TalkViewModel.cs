@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CoreCodeCamp.Data.Entities;
 
 namespace CoreCodeCamp.Models
 {
@@ -24,9 +25,14 @@ namespace CoreCodeCamp.Models
     public string Level { get; set; }
     public bool Approved { get; set; }
 
+    public TalkLocationViewModel Location { get; set; }
+
     public string PresentationUrl { get; set; }
     public string CodeUrl { get; set; }
     public string SpeakerDeckUrl { get; set; }
     public string SpeakerRateUrl { get; set; }
+
+    public bool Favorite { get; set; }
+    public SpeakerViewModel Speaker { get; set; }
   }
 }

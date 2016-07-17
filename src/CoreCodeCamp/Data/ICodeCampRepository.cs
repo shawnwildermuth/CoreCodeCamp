@@ -7,6 +7,7 @@ namespace CoreCodeCamp.Data
   public interface ICodeCampRepository
   {
     IEnumerable<CodeCampUser> GetUsers();
+    CodeCampUser GetUserWithFavorites(string name);
 
     IEnumerable<EventInfo> GetAllEventInfo();
     EventInfo GetEventInfo(string moniker);
@@ -18,9 +19,11 @@ namespace CoreCodeCamp.Data
     IEnumerable<Speaker> GetSpeakers(string moniker);
     Speaker GetSpeakerForCurrentUser(string moniker, string name);
     Speaker GetSpeaker(int id);
+    Speaker GetSpeakerByName(string moniker, string name);
 
-    IEnumerable<Talk> GetAllTalks();
+    IEnumerable<Talk> GetTalks(string moniker);
     Talk GetTalk(int id);
+    void ToggleTalkForUser(string userName, int talkId);
 
     void AddOrUpdate(object entity);
     void Delete(object entity);

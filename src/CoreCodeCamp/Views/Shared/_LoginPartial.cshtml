@@ -7,9 +7,9 @@
 @if (SignInManager.IsSignedIn(User))
 {
   var userName = (await UserManager.FindByNameAsync(UserManager.GetUserName(User))).Name;
-  <ul class="nav navbar-nav navbar-right">
+  <ul class="nav navbar-nav navbar-right auth-nav">
     <li>
-      <a asp-area="" asp-controller="Manage" asp-action="Index" asp-route-moniker="" title="Manage">Welcome @userName</a>
+      <a asp-area="" asp-controller="Manage" asp-action="Index" asp-route-moniker="" title="Manage">@userName</a>
     </li>
     <li>
       <a asp-area="" asp-controller="Account" asp-action="Logoff" asp-route-moniker="">Log off</a>
@@ -18,7 +18,7 @@
 }
 else
 {
-  <ul class="nav navbar-nav navbar-right">
+  <ul class="nav navbar-nav navbar-right auth-nav">
     <li><a asp-area="" asp-controller="Account" asp-action="Register" asp-route-moniker="">Register</a></li>
     <li><a asp-area="" asp-controller="Account" asp-action="Login" asp-route-moniker="">Log in</a></li>
   </ul>

@@ -178,6 +178,7 @@ namespace CoreCodeCamp.Data
       var user = _ctx.Users
         .Include(u => u.FavoriteTalks)
         .ThenInclude(f => f.Talk.Speaker)
+        .ThenInclude(s => s.Event)
         .Include(u => u.FavoriteTalks)
         .ThenInclude(f => f.Talk.Room)
         .Include(u => u.FavoriteTalks)

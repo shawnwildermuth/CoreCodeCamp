@@ -3,14 +3,8 @@
   ViewData["Title"] = "Schedule";
 }
 <div class="row">
-  <div class="col-sm-12 features section-description wow fadeIn">
-    <h2>Schedule</h2>
-    <div class="divider-1 wow fadeInUp"><span></span></div>
-  </div>
-</div>
-<div class="row">
   <div class="col-md-3 text-left">
-    <h4>Your Favorites</h4>
+    <h3>Your Favorites</h3>
     @foreach (var fav in Model.Item2)
     {
       <div class="well well-sm text-sm">
@@ -29,6 +23,7 @@
     }
   </div>
   <div class="col-md-9">
-    <h3>Full Schedule Coming Soon</h3>
+    <h3>Schedule</h3>
+    <p class="lead">Full Schedule Coming Soon</p>
   </div>
 </div>

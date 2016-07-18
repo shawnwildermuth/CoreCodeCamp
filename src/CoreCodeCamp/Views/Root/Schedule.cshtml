@@ -1,3 +1,4 @@
+@model Tuple<IEnumerable<Talk>, IEnumerable<Talk>>
 @{
   ViewData["Title"] = "Schedule";
 }
@@ -5,6 +6,29 @@
   <div class="col-sm-12 features section-description wow fadeIn">
     <h2>Schedule</h2>
     <div class="divider-1 wow fadeInUp"><span></span></div>
-    <p class="lead">Coming soon!</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3 text-left">
+    <h4>Your Favorites</h4>
+    @foreach (var fav in Model.Item2)
+    {
+      <div class="well well-sm text-sm">
+        <span class="delete-star pull-right" data-id="@fav.Id" title="Remove Favorite"><i class="fa fa-close"></i></span>
+        <div><strong>@fav.Title</strong></div>
+        <div>@fav.Speaker.Name</div>
+        @if (fav.Room != null)
+        {
+          <div class="text-sm">Room: @fav.Room.Name</div>
+        }
+        @if (fav.TalkTime != null)
+        {
+          <div class="text-sm">Time: @fav.TalkTime.Name</div>
+        }
+      </div>
+    }
+  </div>
+  <div class="col-md-9">
+    <h3>Full Schedule Coming Soon</h3>
   </div>
 </div>

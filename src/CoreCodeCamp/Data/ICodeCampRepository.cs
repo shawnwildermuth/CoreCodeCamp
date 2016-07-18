@@ -24,6 +24,7 @@ namespace CoreCodeCamp.Data
     IEnumerable<Talk> GetTalks(string moniker);
     Talk GetTalk(int id);
     void ToggleTalkForUser(string userName, int talkId);
+    IEnumerable<Talk> GetUserWithFavoriteTalksForEvent(string name, string moniker);
 
     void AddOrUpdate(object entity);
     void Delete(object entity);

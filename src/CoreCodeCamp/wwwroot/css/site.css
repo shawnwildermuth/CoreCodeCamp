@@ -124,8 +124,11 @@ footer a:focus {
   box-shadow: 3px -3px 15px 0px rgba(133, 133, 133, 0.7);
 }
 .speaker {
-  line-height: auto;
+  line-height: normal;
   margin-top: 25px;
+}
+.delete-star {
+  cursor: pointer;
 }
 .voteStar {
   cursor: pointer;

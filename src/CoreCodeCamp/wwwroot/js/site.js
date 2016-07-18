@@ -1,28 +1,46 @@
 ﻿// Write your Javascript code.
 $(document).ready(function () {
 
+  $(".delete-star").on("click", function () {
+    var $this = $(this);
+    var id = $this.attr("data-id");
+
+    toggleFavorite(id, function () {
+      $this.parent().remove();
+    }, function (error) {
+        showAlert("Failed to remove favorite. Unknown reason.");
+    });
+
+  });
+
   $(".voteStar").on("click", function () {
     var $this = $(this);
-    $.ajax({
-      url: "/api/talks/" + $this.attr("data-id") + "/toggleStar",
-      type: 'PUT',
-      success: function () {
-        var id = me.attr("data-id");
-        if ($this.hasClass("voted")) {
-          $this.removeClass("voted");
-        } else {
-          $this.addClass("voted");
-        }
-      },
-      error: function (error) {
-        if (error.status == 401) {
-          showAlert("Must be logged in to set favorite sessions.");
-        } else {
-          showAlert("Failed to set favorite. Unknown reason.");
-        }
+    var id = $this.attr("data-id");
+
+    toggleFavorite(id, function () {
+      if ($this.hasClass("voted")) {
+        $this.removeClass("voted");
+      } else {
+        $this.addClass("voted");
+      }
+    }, function (error) {
+      if (error.status == 401) {
+        showAlert("Must be logged in to set favorite sessions.");
+      } else {
+        showAlert("Failed to set favorite. Unknown reason.");
       }
     });
   });
+
+  function toggleFavorite(id, success, fail) {
+    $.ajax({
+      url: "/api/talks/" + id + "/toggleStar",
+      type: 'PUT',
+      success: success,
+      error: fail
+    });
+
+  }
 
   var $topBar = $("#topBar");
   function showAlert(msg, alertType) {

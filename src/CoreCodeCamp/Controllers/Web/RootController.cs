@@ -74,7 +74,9 @@ namespace CoreCodeCamp.Controllers.Web
     [HttpGet("{moniker}/Schedule")]
     public IActionResult Schedule(string moniker)
     {
-      return View();
+      var sessions = _repo.GetTalks(moniker).Where(t => t.Approved).ToList();
+      var favorites = _repo.GetUserWithFavoriteTalksForEvent(User.Identity.Name, moniker);
+      return View(Tuple.Create<IEnumerable<Talk>, IEnumerable<Talk>>(sessions, favorites));
     }
   }
 }

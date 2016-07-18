@@ -172,5 +172,25 @@ namespace CoreCodeCamp.Data
         .OrderBy(u => u.UserName)
         .FirstOrDefault();
     }
+
+    public IEnumerable<Talk> GetUserWithFavoriteTalksForEvent(string name, string moniker)
+    {
+      var user = _ctx.Users
+        .Include(u => u.FavoriteTalks)
+        .ThenInclude(f => f.Talk.Speaker)
+        .Include(u => u.FavoriteTalks)
+        .ThenInclude(f => f.Talk.Room)
+        .Include(u => u.FavoriteTalks)
+        .ThenInclude(f => f.Talk.TalkTime)
+        .Where(u => u.UserName == name)
+        .First();
+
+      if (user == null) return new List<Talk>();
+
+      return user.FavoriteTalks
+        .Where(t => t.Talk.Speaker.Event.Moniker == moniker)
+        .Select(t => t.Talk)
+        .ToList();
+    }
   }
 }

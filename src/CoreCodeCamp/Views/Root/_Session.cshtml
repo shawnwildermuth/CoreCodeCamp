@@ -6,10 +6,15 @@
 <div class="col-md-12 wow fadeInUp">
   <div class="panel panel-danger">
     <div class="panel-body">
-      <div class="text-right text-muted lead">
-        @if (!User.Identity.IsAuthenticated)
-        { <span class="text-sm text-muted">(Login to vote)</span> }
-        <span class="voteStar @(talk.Favorite ? "voted" : "")" data-id="@talk.Id"><i class="fa fa-star"></i></span>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="pull-right text-muted lead">
+            @if (!User.Identity.IsAuthenticated)
+            { <span class="text-sm text-muted">(Login to vote)</span> }
+            <span class="voteStar @(talk.Favorite ? "voted" : "")" data-id="@talk.Id"><i class="fa fa-star"></i></span>
+          </div>
+          <h3 class="text-left">@talk.Title</h3>
+        </div>
       </div>
       @if (!suppress)
       {
@@ -18,7 +23,6 @@
           <p class="text-center">@talk.Speaker.Name</p>
         </div>
       }
-      <h3 class="text-left">@talk.Title</h3>
       <div>
         <p>@Html.Raw(talk.Abstract.Replace("<br/>", ""))</p>
       </div>

@@ -3,15 +3,11 @@
   ViewData["Title"] = $"{Model.Name}";
 }
 <div class="row">
-  <div class="col-sm-12 features section-description wow fadeIn">
-    <h1>@Model.Name</h1>
-    <div class="divider-1 wow fadeInUp"><span></span></div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
+  <div class="col-md-12 speaker wow fadeInLeft">
     <img src="@Model.ImageUrl" alt="@Model.Name" class="img-responsive img-circle pull-right" />
-    <p>@Model.Bio</p>
+    <h1>@Model.Name</h1>
+    <div class="divider-1 wow fadeInleft"></div>
+    <p class="wow fadeInUp">@Model.Bio</p>
   </div>
 </div>
 <div class="row">

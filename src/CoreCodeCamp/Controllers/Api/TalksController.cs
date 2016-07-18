@@ -30,6 +30,11 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
+        if (!User.Identity.IsAuthenticated)
+        {
+          return BadRequest("Cannot set favorites without logging in");
+        }
+
         _repo.ToggleTalkForUser(User.Identity.Name, talkId);
         await _repo.SaveChangesAsync();
         return Ok();

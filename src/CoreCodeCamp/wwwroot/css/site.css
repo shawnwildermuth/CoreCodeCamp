@@ -94,6 +94,14 @@ footer a:focus {
 .footer-social a {
   color: #ff4f4f;
 }
+.alert {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-bottom: 0;
+}
+.alert-dismissible .close {
+  padding-top: 4px;
+}
 .invalidHeadshot {
   border-color: #ce0000;
 }
@@ -114,6 +122,10 @@ footer a:focus {
   max-height: 200px;
   border-radius: 255px;
   box-shadow: 3px -3px 15px 0px rgba(133, 133, 133, 0.7);
+}
+.speaker {
+  line-height: auto;
+  margin-top: 25px;
 }
 .voteStar {
   cursor: pointer;

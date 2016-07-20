@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CoreCodeCamp.Services;
 using ImageProcessor;
 using ImageProcessor.Imaging;
 using ImageProcessor.Imaging.Formats;
@@ -14,8 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreCodeCamp.Controllers.Api
 {
-  [Authorize]
-  [Route("api/images")]
+  [Route("{moniker}/api/images")]
   public class ImageController : Controller
   {
     private IHostingEnvironment _env;
@@ -25,11 +25,22 @@ namespace CoreCodeCamp.Controllers.Api
       _env = env;
     }
 
-    [HttpPost("{imageType}")]
-    public async Task<IActionResult> PostImage(string imageType, string imagePath)
+    [HttpPost("sponsors")]
+    [Authorize(Roles = Consts.ADMINROLE)]
+    public async Task<IActionResult> PostSponsorImage(string moniker)
     {
-      if (imageType != "speaker" && imageType != "sponsor") return BadRequest("Invalid Image Type");
+      return await SaveImage($"{moniker}/sponsors/", new Size(300, 88));
+    }
 
+    [HttpPost("speakers")]
+    [Authorize]
+    public async Task<IActionResult> PostSpeakerImage(string moniker)
+    {
+      return await SaveImage($"{moniker}/speakers/", new Size(300, 300));
+    }
+
+    async Task<IActionResult> SaveImage(string imagePath, Size size)
+    {
       if (!Request.Form.Files.Any())
       {
         return BadRequest("No Image supplied");
@@ -57,7 +68,6 @@ namespace CoreCodeCamp.Controllers.Api
       }
 
       // TODO Resize Image
-      var size = imageType == "speaker" ? new Size(300, 300) : new Size(300, 88);
       using (var newStream = ResizeImage(Request.Form.Files[0].OpenReadStream(), size))
       using (var stream = System.IO.File.Create(filePath))
       {
@@ -67,8 +77,9 @@ namespace CoreCodeCamp.Controllers.Api
         // Calculate the URL
         var imageUrl = $"/img/{imagePath}/{Path.GetFileName(filePath)}";
 
-        return Ok(imageUrl);
+        return Created(imageUrl, new { succeeded = true });
       }
+
     }
 
     private Stream ResizeImage(Stream stream, Size size)

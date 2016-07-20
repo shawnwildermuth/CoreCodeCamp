@@ -10,11 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 // speakerForm.ts
 var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
 var imageUploadService_1 = require("../common/imageUploadService");
+var dataService_1 = require("../common/dataService");
 var SpeakerForm = (function () {
-    function SpeakerForm(http, upload) {
-        this.http = http;
+    function SpeakerForm(data, upload) {
+        this.data = data;
         this.upload = upload;
         this.model = {};
         this.isBusy = false;
@@ -25,42 +25,28 @@ var SpeakerForm = (function () {
     SpeakerForm.prototype.onLoad = function () {
         var _this = this;
         this.isBusy = true;
-        this.http.get(this.baseUrl)
+        this.data.getMySpeaker()
             .subscribe(function (res) {
             _this.model = res.json();
         }, function (e) {
-            _this.error = e.json();
+            _this.error = e.response;
         }, function () { return _this.isBusy = false; });
     };
-    Object.defineProperty(SpeakerForm.prototype, "baseUrl", {
-        get: function () {
-            return '/' + this.moniker + "/api/cfs/speaker";
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(SpeakerForm.prototype, "moniker", {
-        get: function () {
-            return window.location.pathname.split('/')[1];
-        },
-        enumerable: true,
-        configurable: true
-    });
     SpeakerForm.prototype.onSave = function () {
         var _this = this;
         this.isBusy = true;
-        var url = this.baseUrl;
-        this.http.post(url, this.model)
+        this.data.saveSpeaker(this.model)
             .subscribe(function (res) {
             window.location.href = "./manage";
         }, function (e) {
-            _this.error = e.response.json();
-        }, function () { return _this.isBusy = false; });
+            _this.error = e;
+            _this.isBusy = false;
+        });
     };
     SpeakerForm.prototype.onImagePicked = function (filePicker) {
         var _this = this;
         this.isBusy = true;
-        this.upload.uploadImage(filePicker.files[0], "speaker", this.moniker + "/speakers")
+        this.upload.uploadSpeaker(filePicker.files[0])
             .then(function (imageUrl) {
             _this.model.imageUrl = imageUrl;
         }, function (e) {
@@ -79,7 +65,7 @@ var SpeakerForm = (function () {
             moduleId: module.id,
             templateUrl: "speakerForm.html"
         }), 
-        __metadata('design:paramtypes', [http_1.Http, imageUploadService_1.ImageUploadService])
+        __metadata('design:paramtypes', [dataService_1.DataService, imageUploadService_1.ImageUploadService])
     ], SpeakerForm);
     return SpeakerForm;
 }());

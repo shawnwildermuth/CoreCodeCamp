@@ -33,8 +33,9 @@ $(document).ready(function () {
   });
 
   function toggleFavorite(id, success, fail) {
+    var moniker = window.location.pathname.split('/')[1];
     $.ajax({
-      url: "/api/talks/" + id + "/toggleStar",
+      url: "/" + moniker + "/api/me/favorites/" + id,
       type: 'PUT',
       success: success,
       error: fail

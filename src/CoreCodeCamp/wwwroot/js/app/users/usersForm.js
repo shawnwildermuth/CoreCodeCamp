@@ -10,29 +10,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 // usersForm.ts
 var core_1 = require('@angular/core');
-var userService_1 = require("./userService");
+var dataService_1 = require("../common/dataService");
 var UsersForm = (function () {
-    function UsersForm(userService) {
-        this.userService = userService;
+    function UsersForm(data) {
+        this.data = data;
         this.isBusy = false;
+        this.error = "";
         this.loadUsers();
     }
     UsersForm.prototype.loadUsers = function () {
         var _this = this;
         this.isBusy = true;
-        this.userService
-            .getUsers()
-            .subscribe(function (res) { return _this.users = res.json(); }, function (res) { return console.log("Failed to get users"); }, function () { return _this.isBusy = false; });
+        this.data.getUsers()
+            .subscribe(function (res) {
+            _this.users = res.json();
+            _this.isBusy = false;
+        }, function (res) {
+            _this.error = "Failed to get users";
+            _this.isBusy = false;
+        });
     };
     UsersForm.prototype.onToggleAdmin = function (user) {
         var _this = this;
         this.isBusy = true;
-        this.userService
-            .toggleUser(user)
+        this.data.toggleAdmin(user)
             .subscribe(function (res) {
             var result = res.json();
             user.isAdmin = result;
-        }, function (res) { return console.log("Failed to toggle users."); }, function () { return _this.isBusy = false; });
+            _this.isBusy = false;
+        }, function (res) {
+            _this.error = "Failed to toggle users.";
+            _this.isBusy = false;
+        });
     };
     UsersForm = __decorate([
         core_1.Component({
@@ -40,7 +49,7 @@ var UsersForm = (function () {
             moduleId: module.id,
             templateUrl: "usersForm.html"
         }), 
-        __metadata('design:paramtypes', [userService_1.UserService])
+        __metadata('design:paramtypes', [dataService_1.DataService])
     ], UsersForm);
     return UsersForm;
 }());

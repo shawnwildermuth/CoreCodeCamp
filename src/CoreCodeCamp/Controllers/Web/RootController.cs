@@ -46,10 +46,10 @@ namespace CoreCodeCamp.Controllers.Web
 
       if (User.Identity.IsAuthenticated)
       {
-        var user = _repo.GetUserWithFavorites(User.Identity.Name);
+        var favs = _repo.GetUserWithFavoriteTalksForEvent(User.Identity.Name, moniker);
         foreach (var talk in vm.Talks)
         {
-          talk.Favorite = user.FavoriteTalks.Any(f => f.Talk.Id == talk.Id);
+          talk.Favorite = favs.Any(f => f.Id == talk.Id);
         }
       }
 
@@ -64,8 +64,8 @@ namespace CoreCodeCamp.Controllers.Web
 
       if (User.Identity.IsAuthenticated)
       {
-        var user = _repo.GetUserWithFavorites(User.Identity.Name);
-        sessions.ForEach(t => t.Favorite = user.FavoriteTalks.Any(f => f.Talk.Id == t.Id));
+        var favs = _repo.GetUserWithFavoriteTalksForEvent(User.Identity.Name, moniker);
+        sessions.ForEach(t => t.Favorite = favs.Any(f => f.Id == t.Id));
       }
 
       return View(sessions);

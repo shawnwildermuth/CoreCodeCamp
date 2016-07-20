@@ -1,6 +1,6 @@
 // usersForm.ts
 import { Component } from '@angular/core';
-import { SponsorService } from "./sponsorService";
+import { DataService } from "../common/dataService";
 import { ImageUploadService } from "../common/imageUploadService";
 
 @Component({
@@ -20,13 +20,13 @@ export class SponsorForm {
   error: string = null;
   imageError: string = null;
 
-  constructor(private sponsorService: SponsorService, private upload: ImageUploadService) {
+  constructor(private data: DataService, private upload: ImageUploadService) {
     this.loadEvents();
   }
 
   loadEvents() {
     this.isBusy = true;
-    this.sponsorService
+    this.data
       .getEvents()
       .subscribe(
       res => this.events = res.json(),
@@ -42,8 +42,7 @@ export class SponsorForm {
   loadSponsors() {
     if (this.currentMoniker) {
       this.isBusy = true;
-      this.sponsorService
-        .getSponsors(this.currentMoniker)
+      this.data.getSponsors(this.currentMoniker)
         .subscribe(
         res => this.sponsors = res.json(),
         res => this.showError("Failed to get sponsors"),
@@ -62,7 +61,7 @@ export class SponsorForm {
 
   onDelete(sponsor: any) {
     this.isBusy = true;
-    this.sponsorService.deleteSponsor(this.currentMoniker, sponsor)
+    this.data.deleteSponsor(this.currentMoniker, sponsor)
       .subscribe(res => {
         this.sponsors.splice(this.sponsors.indexOf(sponsor), 1);
       }, e => this.showError("Failed to delete sponsor"), () => this.isBusy = false);
@@ -70,7 +69,7 @@ export class SponsorForm {
 
   onTogglePaid(sponsor: any) {
     this.isBusy = true;
-    this.sponsorService.togglePaid(this.currentMoniker, sponsor) 
+    this.data.togglePaid(this.currentMoniker, sponsor) 
       .subscribe(res => {
         sponsor.paid = !sponsor.paid;
       }, e => this.showError("Failed to toggle paid flag"), () => this.isBusy = false);
@@ -92,7 +91,7 @@ export class SponsorForm {
     if (old > -1) this.sponsors.splice(this.sponsors.indexOf(this.model), 1); 
     this.isBusy = true;
 
-    this.sponsorService.saveSponsor(this.currentMoniker, this.model)
+    this.data.saveSponsor(this.currentMoniker, this.model)
       .subscribe(res => {
         this.sponsors.push(res.json());
         this.isEditing = false;
@@ -101,7 +100,7 @@ export class SponsorForm {
 
   onImagePicked(filePicker: any) {
     this.isBusy = true;
-    this.upload.uploadImage(filePicker.files[0], "sponsor", this.currentMoniker + "/sponsors")
+    this.upload.uploadSponsor(filePicker.files[0], this.currentMoniker)
       .then((imageUrl:any) => {
         this.model.imageUrl = imageUrl;
       }, (e) => this.showError("Failed to upload Image"))

@@ -2,6 +2,6 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { UsersForm } from './usersForm';
 import { HTTP_PROVIDERS } from '@angular/http';
-import { UserService } from "./userService";
+import { DataService } from "../common/dataService";
 
-bootstrap(UsersForm, [HTTP_PROVIDERS, UserService]);
+bootstrap(UsersForm, [HTTP_PROVIDERS, DataService]);

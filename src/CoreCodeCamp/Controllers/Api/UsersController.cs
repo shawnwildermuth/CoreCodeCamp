@@ -16,13 +16,13 @@ namespace CoreCodeCamp.Controllers.Api
 {
   [Route("api/users")]
   [Authorize(Roles = Consts.ADMINROLE)]
-  public class UserApiController : Controller
+  public class UsersController : Controller
   {
     private ICodeCampRepository _repo;
     private SignInManager<CodeCampUser> _signInMgr;
     private UserManager<CodeCampUser> _userMgr;
 
-    public UserApiController(ICodeCampRepository repo, UserManager<CodeCampUser> userMgr, SignInManager<CodeCampUser> signInMgr)
+    public UsersController(ICodeCampRepository repo, UserManager<CodeCampUser> userMgr, SignInManager<CodeCampUser> signInMgr)
     {
       _repo = repo;
       _userMgr = userMgr;
@@ -46,17 +46,32 @@ namespace CoreCodeCamp.Controllers.Api
       return Ok(vms);
     }
 
-    [HttpPut("toggleAdmin")]
-    public async Task<IActionResult> ToggleAdmin([FromBody]CodeCampUserViewModel vm)
+    [HttpGet("{name}")]
+    public async Task<IActionResult> Get(string name)
     {
-      if (!User.Identity.IsAuthenticated)
-      {
-        return Ok();
-      }
+      var user = await _userMgr.FindByNameAsync(name);
+      var vm = Mapper.Map<CodeCampUserViewModel>(user);
+      vm.IsAdmin = await _userMgr.IsInRoleAsync(user, Consts.ADMINROLE);
 
+      return Ok(vm);
+    }
+
+    [HttpPut("{name}")]
+    public async Task<IActionResult> Put(string name, [FromBody]CodeCampUserViewModel vm)
+    {
+      var user = await _userMgr.FindByNameAsync(name);
+      Mapper.Map<CodeCampUserViewModel, CodeCampUser>(vm, user);
+      await _repo.SaveChangesAsync();
+
+      return Ok(Mapper.Map<CodeCampUserViewModel>(user));
+    }
+
+    [HttpPut("{name}/toggleAdmin")]
+    public async Task<IActionResult> ToggleAdmin(string name, [FromBody]CodeCampUserViewModel vm)
+    {
       if (ModelState.IsValid)
       {
-        var user = await _userMgr.FindByNameAsync(vm.UserName);
+        var user = await _userMgr.FindByNameAsync(name);
 
         if (user != null)
         {

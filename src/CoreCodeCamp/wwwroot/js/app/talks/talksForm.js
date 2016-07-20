@@ -11,11 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 // talksForm.ts
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var http_1 = require('@angular/http');
 var talkService_1 = require("./talkService");
 var TalksForm = (function () {
-    function TalksForm(http, talkService, router) {
-        this.http = http;
+    function TalksForm(talkService, router) {
         this.talkService = talkService;
         this.router = router;
     }
@@ -31,7 +29,7 @@ var TalksForm = (function () {
             templateUrl: "talksForm.html",
             directives: [router_1.ROUTER_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [http_1.Http, talkService_1.TalkService, router_1.Router])
+        __metadata('design:paramtypes', [talkService_1.TalkService, router_1.Router])
     ], TalksForm);
     return TalksForm;
 }());

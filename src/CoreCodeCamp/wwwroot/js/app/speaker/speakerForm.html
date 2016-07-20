@@ -43,7 +43,8 @@
       <div class="well well-sm">
         <div class="form-group">
           <label>Blog</label>
-          <input [(ngModel)]="model.blog" class="form-control" placeholder="Your Blog" name="blog" />
+          <input [(ngModel)]="model.blog" class="form-control" placeholder="Your Blog" name="blog" #blog="ngModel" pattern="^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$" />
+          <span class="text-danger" [hidden]="blog.errors == null || !blog.errors['pattern']">* must be a valid url (e.g. start with http(s))</span>
         </div>
         <div class="form-group">
           <label>Website</label>

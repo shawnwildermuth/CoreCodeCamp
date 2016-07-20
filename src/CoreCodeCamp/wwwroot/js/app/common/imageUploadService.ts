@@ -1,27 +1,38 @@
 // fileUploadService.ts
-import {Injectable} from '@angular/core';
-import {Http, Headers} from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+import { DataService } from "./dataService";
 
 @Injectable()
 export class ImageUploadService {
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private data: DataService) { }
 
-  uploadImage(file: File, imageType: string, imagePath: string): Promise<string> {
+  uploadSpeaker(img: File) {
+    return this.uploadImage(img, "speakers");
+  }
+
+  uploadSponsor(img: File, moniker: string) {
+    return this.uploadImage(img, "sponsors", moniker);
+  }
+
+  private uploadImage(file: File, imageType: string, moniker: string = this.data.moniker): Promise<string> {
     return new Promise((resolve, reject) => {
 
       let xhr: XMLHttpRequest = new XMLHttpRequest();
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            resolve(xhr.response);
+          if (xhr.status >= 200 && xhr.status <= 299) {
+            let location = xhr.getResponseHeader("location");
+            if (!location) location = xhr.responseBody.location;
+            resolve(location);
           } else {
             reject(xhr.response);
           }
         }
       };
 
-      xhr.open('POST', "/api/images/" + imageType + "?imagePath=" + encodeURIComponent(imagePath), true);
+      xhr.open('POST', "/" + moniker + "/api/images/" + imageType, true);
 
       let formData = new FormData();
       formData.append("file", file, file.name);

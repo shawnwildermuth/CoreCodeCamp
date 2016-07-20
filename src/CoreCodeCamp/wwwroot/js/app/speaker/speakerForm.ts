@@ -4,6 +4,7 @@ import { FormBuilder, Validators, Control, ControlGroup } from '@angular/common'
 import { Http, Headers } from '@angular/http';
 import { SpeakerViewModel } from './speakerViewModel';
 import { ImageUploadService } from "../common/imageUploadService";
+import { DataService } from "../common/dataService";
 
 @Component({
   selector: "speaker-form",
@@ -17,42 +18,34 @@ export class SpeakerForm {
   error: string = null;
   imageError: string = null;
 
-  constructor(private http: Http, private upload: ImageUploadService) {
+  constructor(private data: DataService, private upload: ImageUploadService) {
     this.onLoad();
   }
 
   private onLoad() {
     this.isBusy = true;
-    this.http.get(this.baseUrl)
+    this.data.getMySpeaker()
       .subscribe((res) => {
         this.model = res.json();
       }, (e) => {
-        this.error = e.json();
+        this.error = e.response;
       }, () => this.isBusy = false);
-  }
-
-  private get baseUrl() {
-    return '/' + this.moniker + "/api/cfs/speaker";
-  }
-
-  private get moniker() {
-    return window.location.pathname.split('/')[1];
   }
 
   onSave() {
     this.isBusy = true;
-    var url = this.baseUrl;
-    this.http.post(url, this.model)
+    this.data.saveSpeaker(this.model)
       .subscribe((res) => {
         window.location.href = "./manage";
       }, (e) => {
-        this.error = e.response.json();
-      }, () => this.isBusy = false);
+        this.error = e;
+        this.isBusy = false;
+      });
   }
 
   onImagePicked(filePicker: any) {
     this.isBusy = true;
-    this.upload.uploadImage(filePicker.files[0], "speaker", this.moniker + "/speakers")
+    this.upload.uploadSpeaker(filePicker.files[0])
       .then((imageUrl:any) => {
         this.model.imageUrl = imageUrl;
       }, (e) => {

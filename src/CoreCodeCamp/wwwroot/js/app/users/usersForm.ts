@@ -1,7 +1,6 @@
 // usersForm.ts
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, Control, ControlGroup } from '@angular/common';
-import { UserService } from "./userService";
+import { DataService } from "../common/dataService";
 
 @Component({
   selector: "users-form",
@@ -12,32 +11,39 @@ export class UsersForm {
 
   users: Array<any>;
   isBusy: boolean = false;
+  error: string = "";
 
-  constructor(private userService: UserService) {
+  constructor(private data: DataService) {
     this.loadUsers();
   }
 
   loadUsers() {
     this.isBusy = true;
-    this.userService
-      .getUsers()
+    this.data.getUsers()
       .subscribe(
-      res => this.users = res.json(),
-      res => console.log("Failed to get users"),
-      () => this.isBusy = false);
+      res => {
+        this.users = res.json();
+        this.isBusy = false;
+      },
+      res => {
+        this.error = "Failed to get users";
+        this.isBusy = false;
+      });
   }
 
-  public onToggleAdmin(user: any) {
+  onToggleAdmin(user: any) {
     this.isBusy = true;
-    this.userService
-      .toggleUser(user)
+    this.data.toggleAdmin(user)
       .subscribe(
       res => {
         let result = res.json();
         user.isAdmin = result;
+        this.isBusy = false;
       },
-      res => console.log("Failed to toggle users."),
-      () => this.isBusy = false);
+      res => {
+        this.error = "Failed to toggle users.";
+        this.isBusy = false;
+      });
   }
 
 }

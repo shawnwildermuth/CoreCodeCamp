@@ -11,24 +11,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 // fileUploadService.ts
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
+var dataService_1 = require("./dataService");
 var ImageUploadService = (function () {
-    function ImageUploadService(http) {
+    function ImageUploadService(http, data) {
         this.http = http;
+        this.data = data;
     }
-    ImageUploadService.prototype.uploadImage = function (file, imageType, imagePath) {
+    ImageUploadService.prototype.uploadSpeaker = function (img) {
+        return this.uploadImage(img, "speakers");
+    };
+    ImageUploadService.prototype.uploadSponsor = function (img, moniker) {
+        return this.uploadImage(img, "sponsors", moniker);
+    };
+    ImageUploadService.prototype.uploadImage = function (file, imageType, moniker) {
+        if (moniker === void 0) { moniker = this.data.moniker; }
         return new Promise(function (resolve, reject) {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        resolve(xhr.response);
+                    if (xhr.status >= 200 && xhr.status <= 299) {
+                        var location_1 = xhr.getResponseHeader("location");
+                        if (!location_1)
+                            location_1 = xhr.responseBody.location;
+                        resolve(location_1);
                     }
                     else {
                         reject(xhr.response);
                     }
                 }
             };
-            xhr.open('POST', "/api/images/" + imageType + "?imagePath=" + encodeURIComponent(imagePath), true);
+            xhr.open('POST', "/" + moniker + "/api/images/" + imageType, true);
             var formData = new FormData();
             formData.append("file", file, file.name);
             xhr.send(formData);
@@ -36,7 +48,7 @@ var ImageUploadService = (function () {
     };
     ImageUploadService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [http_1.Http, dataService_1.DataService])
     ], ImageUploadService);
     return ImageUploadService;
 }());

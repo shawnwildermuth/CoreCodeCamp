@@ -10,32 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 // talkService.ts
 var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
+var dataService_1 = require("../common/dataService");
 var TalkService = (function () {
-    function TalkService(http) {
-        this.http = http;
+    function TalkService(data) {
+        this.data = data;
         this.talks = [];
         this.loadInitialData();
     }
-    Object.defineProperty(TalkService.prototype, "baseUrl", {
-        get: function () {
-            return '/' + this.moniker + "/api/cfs/speaker";
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TalkService.prototype, "moniker", {
-        get: function () {
-            return window.location.pathname.split('/')[1];
-        },
-        enumerable: true,
-        configurable: true
-    });
     TalkService.prototype.loadInitialData = function () {
         var _this = this;
-        this.http.get(this.baseUrl)
+        this.data.getTalks()
             .subscribe(function (res) {
-            var resTalks = res.json().talks;
+            var resTalks = res.json();
             resTalks.forEach(function (t) { return _this.talks.push(t); });
         }, function (err) { return console.log(err); });
     };
@@ -43,7 +29,7 @@ var TalkService = (function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
             var oldTalk = _this.talks.splice(_this.talks.indexOf(talk), 1);
-            var obj = _this.http.post(_this.baseUrl + "/talk", talk)
+            var obj = _this.data.saveTalk(talk)
                 .subscribe(function (res) {
                 var updatedTalk = res.json();
                 _this.talks.push(updatedTalk);
@@ -53,14 +39,14 @@ var TalkService = (function () {
     };
     TalkService.prototype.delete = function (talk) {
         var _this = this;
-        var obj = this.http.delete(this.baseUrl + "/talk/" + talk.id)
+        var obj = this.data.deleteTalk(talk.id)
             .subscribe(function (res) {
             _this.talks.splice(_this.talks.indexOf(talk), 1);
         });
     };
     TalkService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [dataService_1.DataService])
     ], TalkService);
     return TalkService;
 }());

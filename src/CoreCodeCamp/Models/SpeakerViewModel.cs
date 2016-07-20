@@ -61,6 +61,8 @@ namespace CoreCodeCamp.Models
     [Display(Name = "T-Shirt Size", Description = "For an event shirt!")]
     public string TShirtSize { get; set; }
 
+    public int Id { get; set; }
+
     public ICollection<TalkViewModel> Talks { get; set; }
 
   }

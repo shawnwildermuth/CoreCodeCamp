@@ -13,34 +13,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreCodeCamp.Controllers.Api
 {
-  [Route("api/sponsors")]
+  [Route("{moniker}/api/sponsors")]
   [Authorize(Roles = Consts.ADMINROLE)]
-  public class SponsorsApiController : Controller
+  public class SponsorsController : Controller
   {
     private ICodeCampRepository _repo;
 
-    public SponsorsApiController(ICodeCampRepository repo)
+    public SponsorsController(ICodeCampRepository repo)
     {
       _repo = repo;
     }
 
-    [HttpGet("events")]
-    public IActionResult GetEvents()
-    {
-      try
-      {
-        return Ok(_repo.GetAllEventInfo()
-          .OrderByDescending(e => e.Moniker)
-          .Select(e => new { Name = e.Name, Moniker = e.Moniker })
-          .ToArray());
-      }
-      catch
-      {
-        return BadRequest("Failed to get events");
-      }
-    }
-
-    [HttpGet("{moniker}")]
+    [HttpGet("")]
+    [AllowAnonymous]
     public IActionResult GetSponsors(string moniker)
     {
       try
@@ -53,7 +38,7 @@ namespace CoreCodeCamp.Controllers.Api
       }
     }
 
-    [HttpPost("{moniker}")]
+    [HttpPost("")]
     public async Task<IActionResult> UpsertSponsors(string moniker, [FromBody] SponsorViewModel vm)
     {
       if (ModelState.IsValid)
@@ -91,7 +76,7 @@ namespace CoreCodeCamp.Controllers.Api
       return BadRequest("Failed to save Sponsor");
     }
 
-    [HttpPut("{moniker}/togglePaid/{id:int}")]
+    [HttpPut("{id:int}/togglePaid")]
     public async Task<IActionResult> TogglePaid(string moniker, int id)
     {
       try
@@ -111,7 +96,7 @@ namespace CoreCodeCamp.Controllers.Api
       return BadRequest("Failed to toggle paid on sponsor");
     }
 
-    [HttpDelete("{moniker}/{id:int}")]
+    [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteSponsor(string moniker, int id)
     {
       try

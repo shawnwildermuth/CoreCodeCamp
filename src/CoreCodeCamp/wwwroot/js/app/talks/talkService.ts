@@ -1,9 +1,9 @@
 // talkService.ts
 import {Injectable, OnInit, OnDestroy } from '@angular/core';
-import {Http, Headers} from '@angular/http';
 import {Observable, BehaviorSubject} from 'rxjs/Rx';
 import {Subject} from "rxjs/Subject";
 
+import { DataService } from "../common/dataService";
 import {Talk} from "./talk";
 
 @Injectable()
@@ -11,23 +11,15 @@ export class TalkService {
 
   public talks: Array<Talk> = [];
 
-  constructor(private http: Http) {
+  constructor(private data: DataService) {
     this.loadInitialData();
-  }
-
-  private get baseUrl() {
-    return '/' + this.moniker + "/api/cfs/speaker";
-  }
-
-  private get moniker() {
-    return window.location.pathname.split('/')[1];
   }
 
   loadInitialData() {
 
-    this.http.get(this.baseUrl)
+    this.data.getTalks()
       .subscribe(res => {
-        var resTalks = res.json().talks;
+        var resTalks = res.json();
         resTalks.forEach((t:any) => this.talks.push(t));
       }, err => console.log(err));
 
@@ -39,7 +31,7 @@ export class TalkService {
 
       var oldTalk = this.talks.splice(this.talks.indexOf(talk), 1);
 
-      var obj = this.http.post(this.baseUrl + "/talk", talk)
+      var obj = this.data.saveTalk(talk)
         .subscribe(res => {
           var updatedTalk = res.json();
           this.talks.push(updatedTalk);
@@ -49,7 +41,7 @@ export class TalkService {
   }
 
   delete(talk: Talk) {
-    var obj = this.http.delete(this.baseUrl + "/talk/" + talk.id)
+    var obj = this.data.deleteTalk(talk.id)
       .subscribe(res => {
         this.talks.splice(this.talks.indexOf(talk), 1);
       });

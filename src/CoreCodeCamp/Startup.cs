@@ -69,7 +69,7 @@ namespace CoreCodeCamp
         {
           OnRedirectToLogin = async ctx =>
           {
-            if (ctx.Request.Path.StartsWithSegments("/api") &&
+            if (ctx.Request.Path.Value.Contains("/api/") &&
               ctx.Response.StatusCode == 200)
             {
               ctx.Response.StatusCode = 401;
@@ -133,6 +133,16 @@ namespace CoreCodeCamp
       config.CreateMap<TalkViewModel, Talk>();
 
       config.CreateMap<Sponsor, SponsorViewModel>().ReverseMap();
+
+      config.CreateMap<Talk, FavoriteTalkViewModel>()
+        .ForMember(dest => dest.Room, opt => opt.MapFrom(s => s.Room.Name))
+        .ForMember(dest => dest.Time, opt => opt.MapFrom(s => s.TalkTime.Name))
+        .ForMember(dest => dest.SpeakerName, opt => opt.MapFrom(s => s.Speaker.Name))
+        .ForMember(dest => dest.Title, opt => opt.MapFrom(s => s.Title))
+        .ForMember(dest => dest.Abstract, opt => opt.MapFrom(s => s.Abstract));
+
+      config.CreateMap<EventInfo, EventInfoViewModel>().ReverseMap();
+      config.CreateMap<EventLocation, EventLocationViewModel>().ReverseMap();
     }
 
     void CreateRoutes(IRouteBuilder routes)

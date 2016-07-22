@@ -6,7 +6,7 @@ import { ImageUploadService } from "../common/imageUploadService";
 @Component({
   selector: "sponsors-form",
   moduleId: module.id, // To make urls become relative!
-  templateUrl: "sponsorForm.html"
+  templateUrl: "/js/app/sponsors/sponsorForm.html"
 })
 export class SponsorForm {
 

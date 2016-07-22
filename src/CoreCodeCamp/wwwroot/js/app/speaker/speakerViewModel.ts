@@ -10,4 +10,4 @@ export interface SpeakerViewModel {
   companyUrl: string;
   phoneNumber: string;
   tShirtSize: string;
-}
+} 

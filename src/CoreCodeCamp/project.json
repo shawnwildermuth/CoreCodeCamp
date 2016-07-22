@@ -100,7 +100,7 @@
   },
 
   "scripts": {
-    "prepublish": [ "bower install", "npm install", "dotnet bundle", "gulp" ],
+    "prepublish": [ "bower install", "npm install", "dotnet bundle", "gulp", "webpack" ],
     "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   }
 }

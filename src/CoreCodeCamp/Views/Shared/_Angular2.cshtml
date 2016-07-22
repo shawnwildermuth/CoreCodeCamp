@@ -5,6 +5,12 @@
   <script src="~/lib/systemjs/system.src.js"></script>
 
   <script src="~/js/system.config.js"></script>
+
+  <script>
+    System.import('@Model')
+          .then(null, console.error.bind(console));
+  </script>
+
 </environment>
 <environment names="Production,Staging">
   <!-- IE required polyfills, in this exact order -->
@@ -13,9 +19,6 @@
   <script src="~/lib/reflect-metadata/Reflect.js"></script>
   <script src="~/lib/systemjs/system.js"></script>
 
-  <script src="~/js/system.config.js"></script>
+  <script src="~/lib/site/@(Model).main.min.js"></script>
 </environment>
-<script>
-  System.import('@Model')
-        .then(null, console.error.bind(console));
-</script>
+

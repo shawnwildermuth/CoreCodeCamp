@@ -27,8 +27,12 @@
     "typescript": "~1.8.10",
     "gulp-uglify": "~1.5.3",
     "gulp-concat": "~2.6.0",
+    "gulp-rename": "~1.2.2",
     "gulp-bower-files": "~0.2.7",
-    "typings": "~0.8.1"
+    "typings": "~0.8.1",
+    "webpack": "~1.13.1",
+    "ts-loader": "~0.8.2",
+    "angular-template-loader": "~0.0.2"
 
   },
   "scripts": {

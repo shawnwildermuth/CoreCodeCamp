@@ -5,6 +5,10 @@ import { HTTP_PROVIDERS } from '@angular/http';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
+// Turn on Production Mode
+import { buildType } from "../common/buildType";
+buildType();
+
 import { TalkService } from "./talkService";
 import { DataService } from "../common/dataService";
 import { TalksComponent } from './TalksComponent';

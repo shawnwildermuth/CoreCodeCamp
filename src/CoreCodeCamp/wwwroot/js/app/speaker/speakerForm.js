@@ -63,7 +63,7 @@ var SpeakerForm = (function () {
         core_1.Component({
             selector: "speaker-form",
             moduleId: module.id,
-            templateUrl: "speakerForm.html"
+            templateUrl: "/js/app/speaker/speakerForm.html"
         }), 
         __metadata('design:paramtypes', [dataService_1.DataService, imageUploadService_1.ImageUploadService])
     ], SpeakerForm);

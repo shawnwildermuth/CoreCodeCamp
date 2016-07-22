@@ -17,5 +17,10 @@
     "wwwroot/lib",
     "bin",
     "obj"
+  ],
+  "include": [
+    "wwwroot/js/app/*.ts",
+    "wwwroot/js/app/**/*.ts",
+    "wwwroot/js/app/**/**/*.ts"
   ]
 }

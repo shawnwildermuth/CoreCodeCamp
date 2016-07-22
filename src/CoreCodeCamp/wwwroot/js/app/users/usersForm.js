@@ -46,8 +46,7 @@ var UsersForm = (function () {
     UsersForm = __decorate([
         core_1.Component({
             selector: "users-form",
-            moduleId: module.id,
-            templateUrl: "usersForm.html"
+            templateUrl: "/js/app/users/usersForm.html"
         }), 
         __metadata('design:paramtypes', [dataService_1.DataService])
     ], UsersForm);

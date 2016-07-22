@@ -4,8 +4,7 @@ import { DataService } from "../common/dataService";
 
 @Component({
   selector: "users-form",
-  moduleId: module.id, // To make urls become relative!
-  templateUrl: "usersForm.html"
+  templateUrl: "/js/app/users/usersForm.html"
 })
 export class UsersForm {
 

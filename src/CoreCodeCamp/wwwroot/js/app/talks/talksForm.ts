@@ -6,7 +6,7 @@ import { Talk } from "./talk";
 
 @Component({
   moduleId: module.id, // To make urls become relative!
-  templateUrl: "talksForm.html",
+  templateUrl: "/js/app/talks/talksForm.html",
   directives: [ROUTER_DIRECTIVES]
 })
 export class TalksForm {

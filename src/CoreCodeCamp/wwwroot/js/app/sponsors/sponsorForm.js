@@ -107,7 +107,7 @@ var SponsorForm = (function () {
         core_1.Component({
             selector: "sponsors-form",
             moduleId: module.id,
-            templateUrl: "sponsorForm.html"
+            templateUrl: "/js/app/sponsors/sponsorForm.html"
         }), 
         __metadata('design:paramtypes', [dataService_1.DataService, imageUploadService_1.ImageUploadService])
     ], SponsorForm);

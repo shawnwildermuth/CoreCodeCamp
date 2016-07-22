@@ -24,7 +24,7 @@ $(document).ready(function () {
         $this.addClass("voted");
       }
     }, function (error) {
-      if (error.status == 401) {
+      if (error.status === 401) {
         showAlert("Must be logged in to set favorite sessions.");
       } else {
         showAlert("Failed to set favorite. Unknown reason.");
@@ -50,7 +50,7 @@ $(document).ready(function () {
           "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'><i class='fa fa-close'></i></span></button>" +
           "<p>##MSG##</p>" +
         "</div>";
-    var $alert = (template.replace("##MSG##", msg).replace("##ALERTTYPE##", alertType));
+    var $alert = template.replace("##MSG##", msg).replace("##ALERTTYPE##", alertType);
     $topBar.after($alert);
     $alert.alert();
   }

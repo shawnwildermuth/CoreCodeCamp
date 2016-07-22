@@ -12,7 +12,7 @@ import { TalkService } from "./talkService";
 
 @Component({
   moduleId: module.id, // To make urls become relative!
-  templateUrl: "talkEditor.html",
+  templateUrl: "/js/app/talks/talkEditor.html",
   directives: [ROUTER_DIRECTIVES]
 })
 export class TalkEditor implements OnInit {

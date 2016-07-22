@@ -49,7 +49,7 @@ var TalkEditor = (function () {
     TalkEditor = __decorate([
         core_1.Component({
             moduleId: module.id,
-            templateUrl: "talkEditor.html",
+            templateUrl: "/js/app/talks/talkEditor.html",
             directives: [router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [router_2.ActivatedRoute, talkService_1.TalkService, router_2.Router])

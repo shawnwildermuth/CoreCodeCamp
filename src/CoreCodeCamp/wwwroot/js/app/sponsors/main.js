@@ -3,6 +3,9 @@
 var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
 var http_1 = require('@angular/http');
 var forms_1 = require('@angular/forms');
+// Turn on Production Mode
+var buildType_1 = require("../common/buildType");
+buildType_1.buildType();
 var sponsorForm_1 = require('./sponsorForm');
 var dataService_1 = require("../common/dataService");
 var imageUploadService_1 = require('../common/imageUploadService');

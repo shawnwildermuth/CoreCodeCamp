@@ -9,7 +9,7 @@ import { DataService } from "../common/dataService";
 @Component({
   selector: "speaker-form",
   moduleId: module.id, // To make urls become relative!
-  templateUrl: "speakerForm.html"
+  templateUrl: "/js/app/speaker/speakerForm.html"
 })
 export class SpeakerForm {
 

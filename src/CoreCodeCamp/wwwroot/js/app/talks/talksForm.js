@@ -26,7 +26,7 @@ var TalksForm = (function () {
     TalksForm = __decorate([
         core_1.Component({
             moduleId: module.id,
-            templateUrl: "talksForm.html",
+            templateUrl: "/js/app/talks/talksForm.html",
             directives: [router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [talkService_1.TalkService, router_1.Router])

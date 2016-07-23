@@ -111,7 +111,8 @@ namespace CoreCodeCamp.Controllers.Api
         Talk talk = speaker.Talks.Where(t => t.Id == vm.Id).FirstOrDefault();
         if (talk == null)
         {
-          speaker.Talks.Add(Mapper.Map<Talk>(vm));
+          talk = Mapper.Map<Talk>(vm);
+          speaker.Talks.Add(talk);
         }
         else
         {

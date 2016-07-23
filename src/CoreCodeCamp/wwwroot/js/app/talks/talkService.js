@@ -28,7 +28,9 @@ var TalkService = (function () {
     TalkService.prototype.saveTalk = function (talk) {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            var oldTalk = _this.talks.splice(_this.talks.indexOf(talk), 1);
+            var index = _this.talks.indexOf(talk);
+            if (index > -1)
+                _this.talks.splice(index, 1);
             var obj = _this.data.saveTalk(talk)
                 .subscribe(function (res) {
                 var updatedTalk = res.json();

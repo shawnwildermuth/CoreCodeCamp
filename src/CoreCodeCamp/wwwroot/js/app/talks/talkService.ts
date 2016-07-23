@@ -29,7 +29,8 @@ export class TalkService {
 
     return new Promise((resolve, reject) => {
 
-      var oldTalk = this.talks.splice(this.talks.indexOf(talk), 1);
+      var index = this.talks.indexOf(talk);
+      if (index > -1) this.talks.splice(index, 1);
 
       var obj = this.data.saveTalk(talk)
         .subscribe(res => {

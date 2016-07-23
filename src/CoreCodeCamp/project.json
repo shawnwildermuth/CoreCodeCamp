@@ -1,6 +1,4 @@
 ﻿{
-  "userSecretsId": "aspnet-CoreCodeCamp-afe6298a-7d1d-4494-927a-a5b4de545db5",
-
   "dependencies": {
     "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
@@ -100,7 +98,7 @@
   },
 
   "scripts": {
-    "prepublish": [ "npm install", "bower install", "dotnet bundle", "gulp", "webpack" ],
+    "prepublish": [ "npm install", "bower install", "dotnet bundle", "gulp build"],
     "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   }
 }

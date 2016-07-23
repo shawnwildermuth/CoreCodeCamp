@@ -33,7 +33,7 @@
     "typings": "~0.8.1",
     "webpack": "~1.13.1",
     "ts-loader": "~0.8.2",
-    "angular-template-loader": "~0.0.2"
+    "angular2-template-loader": "~0.4.0"
 
   },
   "scripts": {

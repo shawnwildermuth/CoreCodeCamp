@@ -26,25 +26,25 @@
       <div class="well well-sm">
         <div class="form-group">
           <label class="text-danger">Event Date *</label>
-          <input [(ngModel)]="model.eventDate" class="form-control" name="eventDate" required #eventDate="ngModel" pattern="^(\d{2})\/(\d{2})\/(\d{4})$" />
+          <input [(ngModel)]="model.eventDate" class="form-control datepicker" name="eventDate" required #eventDate="ngModel" pattern="^(\d{2})\/(\d{2})\/(\d{4})$" />
           <span class="text-danger" [hidden]="eventDate.errors == null || !eventDate.errors['required']">* Required</span>
           <span class="text-danger" [hidden]="eventDate.errors == null || !eventDate.errors['pattern']">* DD/MM/YYYY only</span>
         </div>
         <div class="form-group">
           <label class="text-danger">Event Length *</label>
-          <input [(ngModel)]="model.eventLength" class="form-control" name="eventLength" required #eventLength="ngModel" pattern="^[a-zA-Z0-9-_]+$" />
+          <input [(ngModel)]="model.eventLength" class="form-control " name="eventLength" required #eventLength="ngModel" pattern="^[a-zA-Z0-9-_]+$" />
           <span class="text-danger" [hidden]="eventLength.errors == null || !eventLength.errors['required']">* Required</span>
           <span class="text-danger" [hidden]="eventLength.errors == null || !eventLength.errors['pattern']">* Alphanumerics, dash and underscore only!</span>
         </div>
         <div class="form-group">
           <label class="text-danger">Call For Speaker Opening Date *</label>
-          <input [(ngModel)]="model.callForSpeakersOpened" class="form-control" name="callForSpeakersOpened" required #callForSpeakersOpened="ngModel" pattern="^(\d{2})\/(\d{2})\/(\d{4})$" />
+          <input [(ngModel)]="model.callForSpeakersOpened" class="form-control datepicker" name="callForSpeakersOpened" required #callForSpeakersOpened="ngModel" pattern="^(\d{2})\/(\d{2})\/(\d{4})$" />
           <span class="text-danger" [hidden]="callForSpeakersOpened.errors == null || !callForSpeakersOpened.errors['required']">* Required</span>
           <span class="text-danger" [hidden]="callForSpeakersOpened.errors == null || !callForSpeakersOpened.errors['pattern']">* DD/MM/YYYY only</span>
         </div>
         <div class="form-group">
           <label class="text-danger">Call For Speaker Closing Date *</label>
-          <input [(ngModel)]="model.callForSpeakersClosed" class="form-control" name="callForSpeakersClosed" required #callForSpeakersClosed="ngModel" pattern="^(\d{2})\/(\d{2})\/(\d{4})$" />
+          <input [(ngModel)]="model.callForSpeakersClosed" class="form-control datepicker" name="callForSpeakersClosed" required #callForSpeakersClosed="ngModel" pattern="^(\d{2})\/(\d{2})\/(\d{4})$" />
           <span class="text-danger" [hidden]="callForSpeakersClosed.errors == null || !callForSpeakersClosed.errors['required']">* Required</span>
           <span class="text-danger" [hidden]="callForSpeakersClosed.errors == null || !callForSpeakersClosed.errors['pattern']">* DD/MM/YYYY only</span>
         </div>

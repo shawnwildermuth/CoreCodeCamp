@@ -5,15 +5,26 @@
 }
 @section topSection {
   <div class="col-sm-8 col-sm-offset-2 text">
-    <h1 class="wow fadeInLeftBig"><strong>@this.GetEventInfo().Name</strong> is coming @this.GetEventInfo().EventDate.ToString("D")</h1>
-    <div class="description wow fadeInLeftBig">
-      <p class="lead">
-        The @this.GetEventInfo().Name is your opportunity to join your other Atlanta developer and design community members in a day of training.
-      </p>
-      <a asp-controller="Root" asp-action="Register" asp-route-moniker="@this.GetEventInfo().Moniker" class="btn btn-lg btn-success disabled">Coming Soon</a>
-    </div>
+    @if (this.GetEventInfo().EventDate > DateTime.Today.AddDays(2))
+    {
+      <h1 class="wow fadeInLeftBig"><strong>@this.GetEventInfo().Name</strong> is coming @this.GetEventInfo().EventDate.ToString("D")</h1>
+      <div class="description wow fadeInLeftBig">
+        <p class="lead">
+          The @this.GetEventInfo().Name is your opportunity to join your other Atlanta developer and design community members in a day of training.
+        </p>
+        <a asp-controller="Root" asp-action="Register" asp-route-moniker="@this.GetEventInfo().Moniker" class="btn btn-lg btn-success @(string.IsNullOrWhiteSpace(this.GetEventInfo().RegistrationLink) ? "disabled" : "")">Coming Soon</a>
+      </div>
+    }
+    else
+    {
+      <h1 class="wow fadeInLeftBig"><strong>@this.GetEventInfo().Name</strong> is over!</h1>
+      <div class="description wow fadeInLeftBig">
+        <p class="lead">
+          Thanks for coming to the @this.GetEventInfo().Name! See you next year!
+        </p>
+      </div>
+    }
   </div>
-
 }
 <div class="row">
   <div class="col-sm-12 features section-description wow fadeIn">

@@ -1,17 +1,8 @@
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-6 text-left">
     <div [style.visibility]="isBusy ? 'visible' : 'hidden'"><i class="fa fa-spin fa-spinner"></i> Please wait...</div>
     <div [style.visibility]="error" class="text-danger">{{ error }}</div>
     <div class="row">
-      Pick an Event:
-      <select [(ngModel)]="currentMoniker" name="currentMoniker" (ngModelChange)="onMonikerChange($event)" class="form-control-static">
-        <option *ngFor="let e of events" value="{{ e.moniker }}">{{ e.name }}</option>
-      </select>
-    </div>
-    <hr/>
-  </div>
-    <div class="col-md-6 text-left">
-    <div class="row" [hidden]="!currentMoniker">
       <table class="table table-striped table-bordered table-hover table-condensed">
         <thead>
           <tr>
@@ -80,7 +71,7 @@
           </div>
           <div class="form-group">
             <input type="submit" class="btn btn-success" value="Save" [disabled]="!theForm.form.valid || !validImage()" />
-            <button (click)="onCancel()" class="btn btn-default">Cancel</button>
+            <a (click)="onCancel()" class="btn btn-default">Cancel</a>
           </div>
         </form>
       </div>

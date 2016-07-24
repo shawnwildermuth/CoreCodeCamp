@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace CoreCodeCamp.Migrations
 {
-    public partial class InitialDb : Migration
+    public partial class InitialDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -33,32 +33,6 @@ namespace CoreCodeCamp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Rooms",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Rooms", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TalkTimes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TalkTimes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -228,6 +202,26 @@ namespace CoreCodeCamp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Rooms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    EventId = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rooms", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rooms_CodeCampEvents_EventId",
+                        column: x => x.EventId,
+                        principalTable: "CodeCampEvents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Speakers",
                 columns: table => new
                 {
@@ -283,6 +277,26 @@ namespace CoreCodeCamp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TalkTimes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    EventId = table.Column<int>(nullable: true),
+                    Time = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TalkTimes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TalkTimes_CodeCampEvents_EventId",
+                        column: x => x.EventId,
+                        principalTable: "CodeCampEvents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tracks",
                 columns: table => new
                 {
@@ -312,7 +326,6 @@ namespace CoreCodeCamp.Migrations
                     Approved = table.Column<bool>(nullable: false),
                     Audience = table.Column<string>(nullable: true),
                     Category = table.Column<string>(nullable: true),
-                    CodeCampUserId = table.Column<string>(nullable: true),
                     CodeUrl = table.Column<string>(nullable: true),
                     Level = table.Column<string>(nullable: true),
                     Prerequisites = table.Column<string>(nullable: true),
@@ -328,12 +341,6 @@ namespace CoreCodeCamp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Talks", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Talks_AspNetUsers_CodeCampUserId",
-                        column: x => x.CodeCampUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Talks_Rooms_RoomId",
                         column: x => x.RoomId,
@@ -360,6 +367,32 @@ namespace CoreCodeCamp.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "FavoriteTalk",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    TalkId = table.Column<int>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FavoriteTalk", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FavoriteTalk_Talks_TalkId",
+                        column: x => x.TalkId,
+                        principalTable: "Talks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_FavoriteTalk_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
@@ -377,6 +410,21 @@ namespace CoreCodeCamp.Migrations
                 column: "LocationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FavoriteTalk_TalkId",
+                table: "FavoriteTalk",
+                column: "TalkId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FavoriteTalk_UserId",
+                table: "FavoriteTalk",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rooms_EventId",
+                table: "Rooms",
+                column: "EventId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Speakers_EventId",
                 table: "Speakers",
                 column: "EventId");
@@ -385,11 +433,6 @@ namespace CoreCodeCamp.Migrations
                 name: "IX_Sponsors_EventId",
                 table: "Sponsors",
                 column: "EventId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Talks_CodeCampUserId",
-                table: "Talks",
-                column: "CodeCampUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Talks_RoomId",
@@ -410,6 +453,11 @@ namespace CoreCodeCamp.Migrations
                 name: "IX_Talks_TrackId",
                 table: "Talks",
                 column: "TrackId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TalkTimes_EventId",
+                table: "TalkTimes",
+                column: "EventId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tracks_EventId",
@@ -450,10 +498,10 @@ namespace CoreCodeCamp.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Sponsors");
+                name: "FavoriteTalk");
 
             migrationBuilder.DropTable(
-                name: "Talks");
+                name: "Sponsors");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -471,6 +519,15 @@ namespace CoreCodeCamp.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Talks");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
                 name: "Rooms");
 
             migrationBuilder.DropTable(
@@ -481,12 +538,6 @@ namespace CoreCodeCamp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tracks");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "CodeCampEvents");

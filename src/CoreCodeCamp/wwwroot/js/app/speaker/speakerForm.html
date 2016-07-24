@@ -3,7 +3,6 @@
   <form novalidate (ngSubmit)="onSave()" #theForm="ngForm">
     <div class="col-md-6 col-lg-offset-2 text-left">
       <div [style.visibility]="isBusy ? 'visible' : 'hidden'"><i class="fa fa-spin fa-spinner"></i> Please wait...</div>
-      <div asp-validation-summary="All" class="text-danger"></div>
       <div class="text-danger">{{ error }}</div>
       <div class="well well-sm">
         <div class="form-group">

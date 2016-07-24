@@ -4,9 +4,11 @@ var path = require('path');
 module.exports = {
   context: path.resolve("./wwwroot/js/app/"),
   entry: {
+    eventInfo: "./eventInfo/main.ts",
     speaker: "./speaker/main.ts",
     sponsors: "./sponsors/main.ts",
     talks: "./talks/main.ts",
+    schedule: "./schedule/main.ts",
     users: "./users/main.ts"
   },
   output: {

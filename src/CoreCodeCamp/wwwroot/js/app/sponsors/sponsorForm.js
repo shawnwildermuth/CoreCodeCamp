@@ -18,35 +18,22 @@ var SponsorForm = (function () {
         this.upload = upload;
         this.model = {};
         this.sponsors = [];
-        this.events = [];
         this.currentMoniker = "";
         this.isBusy = false;
         this.isEditing = false;
         this.error = null;
         this.imageError = null;
-        this.loadEvents();
+        this.loadSponsors();
     }
-    SponsorForm.prototype.loadEvents = function () {
-        var _this = this;
-        this.isBusy = true;
-        this.data
-            .getEvents()
-            .subscribe(function (res) { return _this.events = res.json(); }, function (res) { return _this.showError("Failed to get events"); }, function () { return _this.isBusy = false; });
-    };
     SponsorForm.prototype.showError = function (err) {
-        this.error = "Failed to get events";
+        this.error = err;
         this.isBusy = false;
     };
     SponsorForm.prototype.loadSponsors = function () {
         var _this = this;
-        if (this.currentMoniker) {
-            this.isBusy = true;
-            this.data.getSponsors(this.currentMoniker)
-                .subscribe(function (res) { return _this.sponsors = res.json(); }, function (res) { return _this.showError("Failed to get sponsors"); }, function () { return _this.isBusy = false; });
-        }
-    };
-    SponsorForm.prototype.onMonikerChange = function ($event) {
-        this.loadSponsors();
+        this.isBusy = true;
+        this.data.getSponsors()
+            .subscribe(function (res) { return _this.sponsors = res.json(); }, function (res) { return _this.showError("Failed to get sponsors"); }, function () { return _this.isBusy = false; });
     };
     SponsorForm.prototype.onEdit = function (sponsor) {
         this.model = sponsor;
@@ -55,7 +42,7 @@ var SponsorForm = (function () {
     SponsorForm.prototype.onDelete = function (sponsor) {
         var _this = this;
         this.isBusy = true;
-        this.data.deleteSponsor(this.currentMoniker, sponsor)
+        this.data.deleteSponsor(sponsor)
             .subscribe(function (res) {
             _this.sponsors.splice(_this.sponsors.indexOf(sponsor), 1);
         }, function (e) { return _this.showError("Failed to delete sponsor"); }, function () { return _this.isBusy = false; });
@@ -63,7 +50,7 @@ var SponsorForm = (function () {
     SponsorForm.prototype.onTogglePaid = function (sponsor) {
         var _this = this;
         this.isBusy = true;
-        this.data.togglePaid(this.currentMoniker, sponsor)
+        this.data.togglePaid(sponsor)
             .subscribe(function (res) {
             sponsor.paid = !sponsor.paid;
         }, function (e) { return _this.showError("Failed to toggle paid flag"); }, function () { return _this.isBusy = false; });
@@ -83,7 +70,7 @@ var SponsorForm = (function () {
         if (old > -1)
             this.sponsors.splice(this.sponsors.indexOf(this.model), 1);
         this.isBusy = true;
-        this.data.saveSponsor(this.currentMoniker, this.model)
+        this.data.saveSponsor(this.model)
             .subscribe(function (res) {
             _this.sponsors.push(res.json());
             _this.isEditing = false;
@@ -92,7 +79,7 @@ var SponsorForm = (function () {
     SponsorForm.prototype.onImagePicked = function (filePicker) {
         var _this = this;
         this.isBusy = true;
-        this.upload.uploadSponsor(filePicker.files[0], this.currentMoniker)
+        this.upload.uploadSponsor(filePicker.files[0])
             .then(function (imageUrl) {
             _this.model.imageUrl = imageUrl;
         }, function (e) { return _this.showError("Failed to upload Image"); })

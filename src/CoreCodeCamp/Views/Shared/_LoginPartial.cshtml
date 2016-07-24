@@ -6,7 +6,7 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-  var userName = (await UserManager.FindByNameAsync(UserManager.GetUserName(User))).Name;
+  var userName = (await UserManager.FindByNameAsync(UserManager.GetUserName(User)))?.Name;
   <ul class="nav navbar-nav navbar-right auth-nav">
     <li>
       <a asp-area="" asp-controller="Manage" asp-action="Index" asp-route-moniker="" title="Manage">@userName</a>

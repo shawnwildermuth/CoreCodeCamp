@@ -22,6 +22,7 @@ namespace CoreCodeCamp.Data.Entities
     public string InstagramLink { get; set; }
     public DateTime CallForSpeakersOpened { get; set; }
     public DateTime CallForSpeakersClosed { get; set; }
+    public string RegistrationLink { get; set; }
 
     public EventLocation Location { get; set; }
   }

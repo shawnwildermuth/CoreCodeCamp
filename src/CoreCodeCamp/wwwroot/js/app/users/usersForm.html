@@ -20,7 +20,7 @@
       <td>{{user.isEmailConfirmed}}</td>
       <td>{{ user.isAdmin ? "Yes" : "No" }}</td>
       <td>
-        <button class="btn btn-sm btn-primary" (click)="onToggleAdmin(user)">Toggle Admin</button>
+        <button class="btn btn-sm btn-primary" (click)="onToggleAdmin(user)" title="Toggle Admin"><i class="fa fa-check"></i></button>
       </td>
     </tr>
   </table>

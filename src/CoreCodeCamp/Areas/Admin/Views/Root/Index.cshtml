@@ -1,13 +1,23 @@
+@model IEnumerable<EventInfo>
 @{
   ViewData["Title"] = "Administration";
 }
-<div class="row">
-  <h2>@ViewData["Title"]</h2>
-  <div class="col-md-12">
-    <ul class="list-unstyled">
-      <li><a asp-area="Admin" asp-controller="Root" asp-action="Users">Users</a></li>
-      <li><a asp-area="Admin" asp-controller="Root" asp-action="Sponsors">Sponsors</a></li>
-      <li><a asp-area="Admin" asp-controller="Root" asp-action="Talks">Talks</a></li>
-    </ul>
+<div class="row text-left">
+  <div class="col-lg-4 col-lg-offset-4">
+    <h2>@ViewData["Title"]</h2>
+    <div class="col-md-12">
+      <ul class="list-unstyled">
+        <li><a asp-area="Admin" asp-controller="Root" asp-action="Users">Users</a></li>
+        @foreach (var e in Model)
+      {
+          <div>@e.Name</div>
+          <ul>
+            <li><a asp-area="Admin" asp-controller="Root" asp-action="EventInfo" asp-route-moniker="@e.Moniker">Event Info</a></li>
+            <li><a asp-area="Admin" asp-controller="Root" asp-action="Sponsors" asp-route-moniker="@e.Moniker">Sponsors</a></li>
+            <li><a asp-area="Admin" asp-controller="Root" asp-action="Schedule" asp-route-moniker="@e.Moniker">Schedule</a></li>
+          </ul>
+        }
+      </ul>
+    </div>
   </div>
 </div>

@@ -1,5 +1,10 @@
 @section Scripts {
+  <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+
   @Html.Partial("_Angular2", "eventInfo")
+}
+@section Head {
+  <link href="~/lib/jquery-ui/themes/base/all.css" rel="stylesheet" />
 }
 <h2>Event Info</h2>
 <event-info-form><i class="fa fa-spinner fa-spin"></i> Loading...</event-info-form>

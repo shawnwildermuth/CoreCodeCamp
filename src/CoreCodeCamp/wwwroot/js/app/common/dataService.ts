@@ -1,6 +1,7 @@
 // dataService.ts
 import { Injectable } from "@angular/core";
 import { Http } from "@angular/http";
+import { Observable } from "rxjs/Rx";
 
 @Injectable()
 export class DataService {
@@ -18,25 +19,29 @@ export class DataService {
   }
 
   // Events
-  public getEvents() {
-    return this.http.get("/api/events");
+  public getEventInfo() {
+    return this.http.get("/api/events/" + this.moniker);
+  }
+
+  public saveEventInfo(eventInfo: any) {
+    return this.http.post("/api/events", eventInfo);
   }
 
   // Sponsors
-  public getSponsors(moniker: string) {
-    return this.http.get(this.baseUrl(moniker) + "sponsors");
+  public getSponsors() {
+    return this.http.get(this.baseUrl() + "sponsors");
   }
 
-  public saveSponsor(moniker: string, sponsor: any) {
-    return this.http.post(this.baseUrl(moniker) + "sponsors", sponsor);
+  public saveSponsor(sponsor: any) {
+    return this.http.post(this.baseUrl() + "sponsors", sponsor);
   }
 
-  public deleteSponsor(moniker: string, sponsor: any) {
-    return this.http.delete(this.baseUrl(moniker) + "sponsors/" + sponsor.id);
+  public deleteSponsor(sponsor: any) {
+    return this.http.delete(this.baseUrl() + "sponsors/" + sponsor.id);
   }
 
-  public togglePaid(moniker: string, sponsor: any) {
-    return this.http.put(this.baseUrl(moniker) + "sponsors/" + sponsor.id + "/togglePaid/", null);
+  public togglePaid(sponsor: any) {
+    return this.http.put(this.baseUrl() + "sponsors/" + sponsor.id + "/togglePaid/", null);
   }
 
   // Speakers
@@ -53,12 +58,20 @@ export class DataService {
     return this.http.get(this.baseUrl() + "talks/me"); 
   }
 
+  public getAllTalks() {
+    return this.http.get(this.baseUrl() + "talks");
+  }
+
   public saveTalk(talk: any) {
     return this.http.post(this.baseUrl() + "speakers/me/talks", talk);
   }
 
   public deleteTalk(id: Number) {
     return this.http.delete(this.baseUrl() + "talks/" + id);
+  }
+
+  public toggleApproved(talk: any) {
+    return this.http.put(this.baseUrl() + "talks/" + talk.id + "/toggleApproved", talk);
   }
 
   // Users
@@ -69,4 +82,45 @@ export class DataService {
   public toggleAdmin(user: any) {
     return this.http.put("/api/users/" + encodeURIComponent(user.userName) + "/toggleAdmin", user);
   }
+
+  // Time Slots
+  public getTimeSlots() {
+    return this.http.get(this.baseUrl() + "timeSlots");
+  }
+
+  public saveTimeSlot(timeSlot) {
+    return this.http.post(this.baseUrl() + "timeSlots", { time: timeSlot });
+  }
+
+  public deleteTimeSlot(timeSlot) {
+    return this.http.delete(this.baseUrl() + "timeSlots/" + timeSlot.id);
+  }
+
+  // Rooms
+  public getRooms() {
+    return this.http.get(this.baseUrl() + "rooms");
+  }
+
+  public saveRoom(room) {
+    return this.http.post(this.baseUrl() + "rooms", { name: room });
+  }
+
+  public deleteRoom(room) {
+    return this.http.delete(this.baseUrl() + "rooms/" + room.id);
+  }
+
+  // Tracks
+  public getTracks() {
+    return this.http.get(this.baseUrl() + "tracks");
+  }
+
+  public saveTrack(track) {
+    return this.http.post(this.baseUrl() + "tracks", { name: track });
+  }
+
+  public deleteTrack(track) {
+    return this.http.delete(this.baseUrl() + "tracks/" + track.id);
+  }
+
+
 }

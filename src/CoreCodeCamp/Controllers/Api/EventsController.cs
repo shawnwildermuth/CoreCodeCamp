@@ -41,6 +41,24 @@ namespace CoreCodeCamp.Controllers.Api
       }
     }
 
+    [HttpGet("{moniker}")]
+    [AllowAnonymous]
+    public IActionResult GetEvent(string moniker)
+    {
+      try
+      {
+        var info = _repo.GetAllEventInfo()
+          .Where(e => e.Moniker == moniker)
+          .FirstOrDefault();
+
+        return Ok(Mapper.Map<EventInfoViewModel>(info));
+      }
+      catch
+      {
+        return BadRequest("Failed to get events");
+      }
+    }
+
     [HttpPost("")]
     public async Task<IActionResult> Upsert([FromBody]EventInfoViewModel vm)
     {

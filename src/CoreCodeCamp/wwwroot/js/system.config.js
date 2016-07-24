@@ -12,10 +12,11 @@
   };
 
   // Our Components
-  ["users", "speaker", "talks", "sponsors"].forEach(function (c) {
-    map[c] = '/js/app/' + c;
-    packages[c] = { main: 'main.js', defaultExtension: 'js' };
-  }); 
+  ["users", "speaker", "talks", "sponsors", "schedule", "eventInfo"]
+    .forEach(function (c) {
+      map[c] = '/js/app/' + c;
+      packages[c] = { main: 'main.js', defaultExtension: 'js' };
+    }); 
 
   ["fileUploadService"].forEach(function (c) {
     map[c] = '/js/app/common/';

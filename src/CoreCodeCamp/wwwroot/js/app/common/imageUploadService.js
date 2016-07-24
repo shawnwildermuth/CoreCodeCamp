@@ -21,6 +21,7 @@ var ImageUploadService = (function () {
         return this.uploadImage(img, "speakers");
     };
     ImageUploadService.prototype.uploadSponsor = function (img, moniker) {
+        if (moniker === void 0) { moniker = this.data.moniker; }
         return this.uploadImage(img, "sponsors", moniker);
     };
     ImageUploadService.prototype.uploadImage = function (file, imageType, moniker) {

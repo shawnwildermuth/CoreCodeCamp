@@ -12,7 +12,7 @@ export class ImageUploadService {
     return this.uploadImage(img, "speakers");
   }
 
-  uploadSponsor(img: File, moniker: string) {
+  uploadSponsor(img: File, moniker: string = this.data.moniker) {
     return this.uploadImage(img, "sponsors", moniker);
   }
 

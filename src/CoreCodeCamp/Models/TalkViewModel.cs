@@ -25,7 +25,9 @@ namespace CoreCodeCamp.Models
     public string Level { get; set; }
     public bool Approved { get; set; }
 
-    public TalkLocationViewModel Location { get; set; }
+    public string Room { get; set; }
+    public DateTime Time { get; set; }
+    public string Track { get; set; }
 
     public string PresentationUrl { get; set; }
     public string CodeUrl { get; set; }

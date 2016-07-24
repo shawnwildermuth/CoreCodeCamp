@@ -21,6 +21,15 @@ namespace CoreCodeCamp.Data
     Speaker GetSpeaker(int id);
     Speaker GetSpeakerByName(string moniker, string name);
 
+    IEnumerable<Room> GetRooms(string moniker);
+    Room GetRoom(string moniker, int id);
+
+    IEnumerable<Track> GetTracks(string moniker);
+    Track GetTrack(string moniker, int id);
+
+    IEnumerable<TimeSlot> GetTimeSlots(string moniker);
+    TimeSlot GetTimeSlot(string moniker, int id);
+
     IEnumerable<Talk> GetTalks(string moniker);
     Talk GetTalk(int id);
     bool ToggleTalkForUser(string moniker, string userName, int talkId);

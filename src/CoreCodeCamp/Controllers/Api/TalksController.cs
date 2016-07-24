@@ -32,7 +32,7 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        return Ok(Mapper.Map<TalkViewModel>(_repo.GetTalks(moniker)));
+        return Ok(Mapper.Map<IEnumerable<TalkViewModel>>(_repo.GetTalks(moniker)));
       }
       catch
       {
@@ -73,6 +73,27 @@ namespace CoreCodeCamp.Controllers.Api
       }
 
       return BadRequest("Couldn't load talk.");
+    }
+
+    [HttpPut("{moniker}/api/talks/{id}/toggleapproved")]
+    public async Task<IActionResult> ToggleApproved(string moniker, int id)
+    {
+      try
+      {
+        var talk = _repo.GetTalk(id);
+        if (talk.Speaker.Event.Moniker != moniker) return BadRequest("Bad Event for this Talk");
+
+        talk.Approved = !talk.Approved;
+        await _repo.SaveChangesAsync();
+
+        return Ok();
+      }
+      catch
+      {
+
+      }
+
+      return BadRequest("Could not change Approved.");
     }
 
     [HttpGet("{moniker}/api/speakers/{id:int}/talks")]

@@ -129,14 +129,18 @@ namespace CoreCodeCamp
       config.CreateMap<Speaker, SpeakerViewModel>()
         .ForMember(m => m.Talks, opt => opt.Ignore());
 
-      config.CreateMap<Talk, TalkViewModel>();
+      config.CreateMap<Talk, TalkViewModel>()
+        .ForMember(m => m.Room, opt => opt.MapFrom(t => t.Room.Name))
+        .ForMember(m => m.Time, opt => opt.MapFrom(t => t.TalkTime.Time))
+        .ForMember(m => m.Track, opt => opt.MapFrom(t => t.Track.Name));
+
       config.CreateMap<TalkViewModel, Talk>();
 
       config.CreateMap<Sponsor, SponsorViewModel>().ReverseMap();
 
       config.CreateMap<Talk, FavoriteTalkViewModel>()
         .ForMember(dest => dest.Room, opt => opt.MapFrom(s => s.Room.Name))
-        .ForMember(dest => dest.Time, opt => opt.MapFrom(s => s.TalkTime.Name))
+        .ForMember(dest => dest.Time, opt => opt.MapFrom(s => s.TalkTime.Time))
         .ForMember(dest => dest.SpeakerName, opt => opt.MapFrom(s => s.Speaker.Name))
         .ForMember(dest => dest.Title, opt => opt.MapFrom(s => s.Title))
         .ForMember(dest => dest.Abstract, opt => opt.MapFrom(s => s.Abstract));

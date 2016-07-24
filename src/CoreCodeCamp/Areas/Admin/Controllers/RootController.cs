@@ -13,7 +13,6 @@ namespace CoreCodeCamp.Areas.Admin.Controllers
 {
   [Authorize(Roles = Consts.ADMINROLE)]
   [Area("Admin")]
-  [Route("[area]")]
   public class RootController : MonikerControllerBase
   {
     public RootController(ICodeCampRepository repo) : base(repo)
@@ -21,26 +20,32 @@ namespace CoreCodeCamp.Areas.Admin.Controllers
 
     }
 
-    [HttpGet("")]
+    [HttpGet("[area]")]
     public IActionResult Index()
     {
-      return View();
+      return View(_repo.GetAllEventInfo());
     }
 
-    [HttpGet("users")]
+    [HttpGet("[area]/users")]
     public IActionResult Users()
     {
       return View();
     }
 
-    [HttpGet("talks")]
-    public IActionResult Talks()
+    [HttpGet("{moniker}/[area]/schedule")]
+    public IActionResult Schedule(string moniker)
     {
       return View();
     }
 
-    [HttpGet("sponsors")]
-    public IActionResult Sponsors()
+    [HttpGet("{moniker}/[area]/sponsors")]
+    public IActionResult Sponsors(string moniker)
+    {
+      return View();
+    }
+
+    [HttpGet("{moniker}/[area]/eventinfo")]
+    public IActionResult EventInfo(string moniker)
     {
       return View();
     }

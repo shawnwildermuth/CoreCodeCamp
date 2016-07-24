@@ -12,7 +12,6 @@ export class SponsorForm {
 
   model: any = {};
   sponsors: Array<any> = [];
-  events: Array<any> = [];
   currentMoniker: string = "";
 
   isBusy: boolean = false;
@@ -21,37 +20,21 @@ export class SponsorForm {
   imageError: string = null;
 
   constructor(private data: DataService, private upload: ImageUploadService) {
-    this.loadEvents();
-  }
-
-  loadEvents() {
-    this.isBusy = true;
-    this.data
-      .getEvents()
-      .subscribe(
-      res => this.events = res.json(),
-      res => this.showError("Failed to get events"),
-      () => this.isBusy = false);
+    this.loadSponsors();
   }
 
   showError(err) {
-    this.error = "Failed to get events";
+    this.error = err;
     this.isBusy = false;
   }
 
   loadSponsors() {
-    if (this.currentMoniker) {
-      this.isBusy = true;
-      this.data.getSponsors(this.currentMoniker)
-        .subscribe(
-        res => this.sponsors = res.json(),
-        res => this.showError("Failed to get sponsors"),
-        () => this.isBusy = false);
-    }
-  }
-
-  onMonikerChange($event: any) {
-    this.loadSponsors();
+    this.isBusy = true;
+    this.data.getSponsors()
+      .subscribe(
+      res => this.sponsors = res.json(),
+      res => this.showError("Failed to get sponsors"),
+      () => this.isBusy = false);
   }
 
   onEdit(sponsor: any) {
@@ -61,7 +44,7 @@ export class SponsorForm {
 
   onDelete(sponsor: any) {
     this.isBusy = true;
-    this.data.deleteSponsor(this.currentMoniker, sponsor)
+    this.data.deleteSponsor(sponsor)
       .subscribe(res => {
         this.sponsors.splice(this.sponsors.indexOf(sponsor), 1);
       }, e => this.showError("Failed to delete sponsor"), () => this.isBusy = false);
@@ -69,7 +52,7 @@ export class SponsorForm {
 
   onTogglePaid(sponsor: any) {
     this.isBusy = true;
-    this.data.togglePaid(this.currentMoniker, sponsor) 
+    this.data.togglePaid(sponsor)
       .subscribe(res => {
         sponsor.paid = !sponsor.paid;
       }, e => this.showError("Failed to toggle paid flag"), () => this.isBusy = false);
@@ -88,10 +71,10 @@ export class SponsorForm {
   onSave() {
     // Remove old one
     var old = this.sponsors.indexOf(this.model);
-    if (old > -1) this.sponsors.splice(this.sponsors.indexOf(this.model), 1); 
+    if (old > -1) this.sponsors.splice(this.sponsors.indexOf(this.model), 1);
     this.isBusy = true;
 
-    this.data.saveSponsor(this.currentMoniker, this.model)
+    this.data.saveSponsor(this.model)
       .subscribe(res => {
         this.sponsors.push(res.json());
         this.isEditing = false;
@@ -100,8 +83,8 @@ export class SponsorForm {
 
   onImagePicked(filePicker: any) {
     this.isBusy = true;
-    this.upload.uploadSponsor(filePicker.files[0], this.currentMoniker)
-      .then((imageUrl:any) => {
+    this.upload.uploadSponsor(filePicker.files[0])
+      .then((imageUrl: any) => {
         this.model.imageUrl = imageUrl;
       }, (e) => this.showError("Failed to upload Image"))
       .then(() => this.isBusy = false);

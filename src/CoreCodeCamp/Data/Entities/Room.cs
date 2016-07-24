@@ -11,5 +11,7 @@ namespace CoreCodeCamp.Data.Entities
     public int Id { get; set; }
     public string Name { get; set; }
 
+    public EventInfo Event { get; set; }
+
   }
 }

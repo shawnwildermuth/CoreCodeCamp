@@ -32,11 +32,11 @@
         <dt>Category</dt>
         <dd>@talk.Category</dd>
         <dt>Room</dt>
-        <dd>@talk.Location?.Room</dd>
+        <dd>@talk.Room</dd>
         <dt>Time</dt>
-        <dd>@talk.Location?.Time.ToShortTimeString()</dd>
+        <dd>@(talk.Time == DateTime.MinValue ? "" : talk.Time.ToShortTimeString())</dd>
         <dt>Track</dt>
-        <dd>@talk.Location?.Track</dd>
+        <dd>@talk.Track</dd>
       </dl>
     </div>
   </div>

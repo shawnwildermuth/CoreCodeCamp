@@ -8,8 +8,8 @@ using CoreCodeCamp.Data;
 namespace CoreCodeCamp.Migrations
 {
     [DbContext(typeof(CodeCampContext))]
-    [Migration("20160714035057_InitialDb")]
-    partial class InitialDb
+    [Migration("20160724021326_InitialDB")]
+    partial class InitialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -108,14 +108,36 @@ namespace CoreCodeCamp.Migrations
                     b.ToTable("CodeCampEvents");
                 });
 
+            modelBuilder.Entity("CoreCodeCamp.Data.Entities.FavoriteTalk", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("TalkId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TalkId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FavoriteTalk");
+                });
+
             modelBuilder.Entity("CoreCodeCamp.Data.Entities.Room", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("EventId");
+
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EventId");
 
                     b.ToTable("Rooms");
                 });
@@ -195,8 +217,6 @@ namespace CoreCodeCamp.Migrations
 
                     b.Property<string>("Category");
 
-                    b.Property<string>("CodeCampUserId");
-
                     b.Property<string>("CodeUrl");
 
                     b.Property<string>("Level");
@@ -221,8 +241,6 @@ namespace CoreCodeCamp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CodeCampUserId");
-
                     b.HasIndex("RoomId");
 
                     b.HasIndex("SpeakerId");
@@ -239,9 +257,13 @@ namespace CoreCodeCamp.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<int?>("EventId");
+
+                    b.Property<DateTime>("Time");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EventId");
 
                     b.ToTable("TalkTimes");
                 });
@@ -402,6 +424,24 @@ namespace CoreCodeCamp.Migrations
                         .HasForeignKey("LocationId");
                 });
 
+            modelBuilder.Entity("CoreCodeCamp.Data.Entities.FavoriteTalk", b =>
+                {
+                    b.HasOne("CoreCodeCamp.Data.Entities.Talk", "Talk")
+                        .WithMany()
+                        .HasForeignKey("TalkId");
+
+                    b.HasOne("CoreCodeCamp.Data.Entities.CodeCampUser", "User")
+                        .WithMany("FavoriteTalks")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("CoreCodeCamp.Data.Entities.Room", b =>
+                {
+                    b.HasOne("CoreCodeCamp.Data.Entities.EventInfo", "Event")
+                        .WithMany()
+                        .HasForeignKey("EventId");
+                });
+
             modelBuilder.Entity("CoreCodeCamp.Data.Entities.Speaker", b =>
                 {
                     b.HasOne("CoreCodeCamp.Data.Entities.EventInfo", "Event")
@@ -418,15 +458,11 @@ namespace CoreCodeCamp.Migrations
 
             modelBuilder.Entity("CoreCodeCamp.Data.Entities.Talk", b =>
                 {
-                    b.HasOne("CoreCodeCamp.Data.Entities.CodeCampUser")
-                        .WithMany("Talks")
-                        .HasForeignKey("CodeCampUserId");
-
                     b.HasOne("CoreCodeCamp.Data.Entities.Room", "Room")
                         .WithMany()
                         .HasForeignKey("RoomId");
 
-                    b.HasOne("CoreCodeCamp.Data.Entities.Speaker")
+                    b.HasOne("CoreCodeCamp.Data.Entities.Speaker", "Speaker")
                         .WithMany("Talks")
                         .HasForeignKey("SpeakerId");
 
@@ -437,6 +473,13 @@ namespace CoreCodeCamp.Migrations
                     b.HasOne("CoreCodeCamp.Data.Entities.Track", "Track")
                         .WithMany()
                         .HasForeignKey("TrackId");
+                });
+
+            modelBuilder.Entity("CoreCodeCamp.Data.Entities.TalkTime", b =>
+                {
+                    b.HasOne("CoreCodeCamp.Data.Entities.EventInfo", "Event")
+                        .WithMany()
+                        .HasForeignKey("EventId");
                 });
 
             modelBuilder.Entity("CoreCodeCamp.Data.Entities.Track", b =>

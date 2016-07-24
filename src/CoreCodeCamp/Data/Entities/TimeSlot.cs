@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace CoreCodeCamp.Data.Entities
 {
-  public class TalkTime
+  public class TimeSlot
   {
     public int Id { get; set; }
-    public string Name { get; set; }
+    public DateTime Time { get; set; }
+
+    public EventInfo Event { get; set; }
 
   }
 }

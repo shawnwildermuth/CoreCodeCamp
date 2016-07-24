@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -40,6 +41,12 @@ namespace CoreCodeCamp.Data
     {
       try
       {
+        if (_env.IsDevelopment() && _config["Data:IterateDatabase"].ToLower() == "true")
+        {
+          await _ctx.Database.EnsureDeletedAsync();
+          await _ctx.Database.EnsureCreatedAsync();
+        }
+
         var admin = await _userManager.FindByEmailAsync(_config["Admin:SuperUser:Email"]);
 
         // If no Admin, then we haven't seeded the database
@@ -90,7 +97,7 @@ namespace CoreCodeCamp.Data
               CallForSpeakersClosed = new DateTime(2016, 10, 1),
               Location = new EventLocation()
               {
-                Facility = "Kennesaw State University (Formerly Southern Polytechnic)",
+                Facility = "Kennesaw State University",
                 Address1 = "1100 S Marietta Pkwy",
                 Address2 = "",
                 City = "Marietta",
@@ -682,11 +689,11 @@ namespace CoreCodeCamp.Data
         Twitter = oldSpeakers.GetField("Twitter"),
         UserName = "",
         Website = "",
-        Talks = MigrateTalks(Int32.Parse(oldSpeakers.GetField("Id")))
+        Talks = MigrateTalks(Int32.Parse(oldSpeakers.GetField("Id")), camp)
       };
     }
 
-    private ICollection<Talk> MigrateTalks(int speakerId)
+    private ICollection<Talk> MigrateTalks(int speakerId, EventInfo camp)
     {
       var result = new List<Talk>();
 
@@ -698,7 +705,7 @@ namespace CoreCodeCamp.Data
         {
           if (Int32.Parse(oldTalks.GetField("Speaker_Id")) == speakerId)
           {
-            result.Add(MigrateTalk(oldTalks));
+            result.Add(MigrateTalk(oldTalks, camp));
           }
         }
       }
@@ -706,7 +713,7 @@ namespace CoreCodeCamp.Data
       return result;
     }
 
-    private Talk MigrateTalk(CsvReader oldTalks)
+    private Talk MigrateTalk(CsvReader oldTalks, EventInfo camp)
     {
       var talk = new Talk()
       {
@@ -720,14 +727,67 @@ namespace CoreCodeCamp.Data
         SpeakerDeckUrl = oldTalks.GetField("SpeakerDeckUrl"),
         SpeakerRateUrl = oldTalks.GetField("SpeakerRateUrl"),
         Title = oldTalks.GetField("Title"),
-        Category = oldTalks.GetField("Category")
+        Category = oldTalks.GetField("Category"),
+        Room = HandleRoom(oldTalks.GetField("Room"), camp),
+        TalkTime = HandleTalkTime(oldTalks.GetField("StartTime"), camp)
       };
-
-      // Add Categories
 
       _ctx.Add(talk);
 
       return talk;
+    }
+
+    List<Room> _rooms = new List<Room>();
+
+    private Room HandleRoom(string roomName, EventInfo camp)
+    {
+      if (string.IsNullOrWhiteSpace(roomName)) return null;
+
+      var room = _rooms.Where(r => r.Event.Moniker == camp.Moniker && r.Name == roomName).FirstOrDefault();
+      if (room == null)
+      {
+        // Make new room
+        room = new Room()
+        {
+          Name = roomName,
+          Event = camp
+        };
+        _ctx.Rooms.Add(room);
+        _rooms.Add(room);
+      }
+
+      return room;
+    }
+
+    List<TimeSlot> _slots = new List<TimeSlot>();
+
+    private TimeSlot HandleTalkTime(string talkTime, EventInfo camp)
+    {
+      DateTime timeSlot;
+
+      var culture = new CultureInfo("en-US");
+
+      if ((!DateTime.TryParseExact(talkTime, "hh:mmtt", culture, DateTimeStyles.AssumeLocal, out timeSlot) &&
+        !DateTime.TryParseExact(talkTime, "h:mmtt", culture, DateTimeStyles.AssumeLocal, out timeSlot)) ||
+        timeSlot.Hour < 4)
+      {
+        return null;
+      }
+
+      var slot = _slots.Where(r => r.Event.Moniker == camp.Moniker && r.Time == timeSlot).FirstOrDefault();
+      if (slot == null)
+      {
+        // Make new room
+        slot = new TimeSlot()
+        {
+          Time = timeSlot,
+          Event = camp
+        };
+        _ctx.TimeSlots.Add(slot);
+        _slots.Add(slot);
+      }
+
+      return slot;
     }
 
     private string ConvertToLevel(string lvl)

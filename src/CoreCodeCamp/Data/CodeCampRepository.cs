@@ -50,16 +50,6 @@ namespace CoreCodeCamp.Data
         .ToList();
     }
 
-    public IEnumerable<Talk> GetTalks(string moniker)
-    {
-      return _ctx.Talks
-        .Include(t => t.Speaker)
-        .Include(t => t.TalkTime)
-        .Where(t => t.Speaker.Event.Moniker == moniker)
-        .OrderBy(t => t.Title)
-        .ToList();
-    }
-
     public EventInfo GetCurrentEvent()
     {
       return _ctx.CodeCampEvents
@@ -80,6 +70,11 @@ namespace CoreCodeCamp.Data
     {
       return _ctx.Speakers
         .Include(s => s.Talks)
+        .ThenInclude(t => t.Track)
+        .Include(s => s.Talks)
+        .ThenInclude(t => t.TalkTime)
+        .Include(s => s.Talks)
+        .ThenInclude(t => t.Room)
         .Where(s => s.UserName == userName && s.Event.Moniker == moniker)
         .FirstOrDefault();
     }
@@ -88,16 +83,26 @@ namespace CoreCodeCamp.Data
     {
       return _ctx.Speakers
         .Include(s => s.Talks)
-        .ThenInclude(s => s.Room)
+        .ThenInclude(t => t.Track)
         .Include(s => s.Talks)
-        .ThenInclude(s => s.TalkTime)
+        .ThenInclude(t => t.TalkTime)
+        .Include(s => s.Talks)
+        .ThenInclude(t => t.Room)
         .Where(s => s.Id == id)
         .FirstOrDefault();
     }
 
     public IEnumerable<Speaker> GetSpeakers(string moniker)
     {
-      return _ctx.Speakers.Include(s => s.Talks).Where(s => s.Event.Moniker == moniker).ToList();
+      return _ctx.Speakers
+        .Include(s => s.Talks)
+        .ThenInclude(t => t.Track)
+        .Include(s => s.Talks)
+        .ThenInclude(t => t.TalkTime)
+        .Include(s => s.Talks)
+        .ThenInclude(t => t.Room)
+        .Where(s => s.Event.Moniker == moniker)
+        .ToList();
     }
 
     public Sponsor GetSponsor(int id)
@@ -117,11 +122,25 @@ namespace CoreCodeCamp.Data
         .ToList();
     }
 
+    public IEnumerable<Talk> GetTalks(string moniker)
+    {
+      return _ctx.Talks
+        .Include(t => t.Room)
+        .Include(t => t.TalkTime)
+        .Include(t => t.Track)
+        .Include(t => t.Speaker.Event)
+        .Where(t => t.Speaker.Event.Moniker == moniker)
+        .OrderBy(t => t.Title)
+        .ToList();
+    }
+
     public Talk GetTalk(int id)
     {
       return _ctx.Talks
         .Include(t => t.Room)
         .Include(t => t.TalkTime)
+        .Include(t => t.Track)
+        .Include(t => t.Speaker.Event)
         .Where(t => t.Id == id)
         .FirstOrDefault();
     }
@@ -169,8 +188,12 @@ namespace CoreCodeCamp.Data
       var transformName = name.Replace("-", " ").ToLower();
       return _ctx.Speakers
         .Include(s => s.Talks)
-        .ThenInclude(s => s.Room)
-        .Where(s => s.Name.ToLower() == transformName)
+        .ThenInclude(t => t.Track)
+        .Include(s => s.Talks)
+        .ThenInclude(t => t.TalkTime)
+        .Include(s => s.Talks)
+        .ThenInclude(t => t.Room)
+        .Where(s => s.Name.ToLower() == transformName && s.Event.Moniker == moniker)
         .FirstOrDefault();
     }
 
@@ -193,6 +216,36 @@ namespace CoreCodeCamp.Data
         .Where(t => t.Talk.Speaker.Event.Moniker == moniker)
         .Select(t => t.Talk)
         .ToList();
+    }
+
+    public IEnumerable<Room> GetRooms(string moniker)
+    {
+      return _ctx.Rooms.Where(r => r.Event.Moniker == moniker).OrderBy(r => r.Name).ToList();
+    }
+
+    public IEnumerable<Track> GetTracks(string moniker)
+    {
+      return _ctx.Tracks.Where(r => r.Event.Moniker == moniker).OrderBy(r => r.Name).ToList();
+    }
+
+    public IEnumerable<TimeSlot> GetTimeSlots(string moniker)
+    {
+      return _ctx.TimeSlots.Where(r => r.Event.Moniker == moniker).OrderBy(r => r.Time).ToList();
+    }
+
+    public Room GetRoom(string moniker, int id)
+    {
+      return _ctx.Rooms.Where(r => r.Id == id).FirstOrDefault();
+    }
+
+    public Track GetTrack(string moniker, int id)
+    {
+      return _ctx.Tracks.Where(r => r.Id == id).FirstOrDefault();
+    }
+
+    public TimeSlot GetTimeSlot(string moniker, int id)
+    {
+      return _ctx.TimeSlots.Where(r => r.Id == id).FirstOrDefault();
     }
   }
 }

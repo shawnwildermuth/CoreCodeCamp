@@ -16,7 +16,7 @@ export class ScheduleForm extends BaseForm {
   tracks: Array<any> = [];
   msg: string = "";
   sort: string = "";
-  sortAsc: bool = true;
+  sortAsc: boolean = true;
 
   constructor(private data: DataService) {
     super();

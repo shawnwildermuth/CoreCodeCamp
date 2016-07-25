@@ -4,16 +4,15 @@
     <span [style.visibility]="error" class="text-danger">{{ error }}</span>
     <span [style.visibility]="msg" class="text-success">{{ msg }}</span>
     <div class="row">
-      <table class="table table-striped table-bordered table-hover table-condensed">
+      <table class="table table-striped table-bordered table-condensed">
         <thead>
           <tr>
-            <td class="col-lg-3">
+            <td class="col-lg-4">
               <span [class.text-bold]="sort == 'title'">
                 Title
               </span>
             </td>
-            <td class="col-lg-2">Speaker</td>
-            <td class="col-lg-1">
+            <td class="col-lg-2">
               <span (click)="onSort('category')" title="Sort" class="click-cursor" [class.text-bold]="sort == 'category'">
                 Category
                 <i class="fa" [class.fa-sort]="sort != 'votes'" [class.icon-enabled]="sort == 'category'" [class.fa-sort-asc]="sort == 'category' && sortAsc" [class.fa-sort-desc]="sort == 'category' && !sortAsc"></i>
@@ -52,34 +51,39 @@
             <td class="col-lg-1"></td>
           </tr>
         </thead>
-        <tr *ngFor="let talk of talks">
-          <td>{{talk.title}}</td>
-          <td>{{talk.speaker.name}}</td>
-          <td>{{talk.category}}</td>
-          <td>
-            <select [(ngModel)]="talk.track" (ngModelChange)="onTrackChanged(talk, $event)">
-              <option *ngFor="let t of tracks">{{ t.name }}</option>
-            </select>
-          </td>
-          <td>
-            <select [(ngModel)]="talk.room" (ngModelChange)="onRoomChanged(talk, $event)">
-              <option *ngFor="let t of rooms">{{ t.name }}</option>
-            </select>
-          </td>
-          <td>
-            <select [(ngModel)]="talk.time" (ngModelChange)="onTimeChanged(talk, $event)">
-              <option *ngFor="let t of timeSlots" value="{{ t.time }}">{{ t.time | date:"hh:mma" }}</option>
-            </select>
-          </td>
-          <td>{{ talk.approved ? "Yes" : "No" }}</td>
-          <td>{{ talk.votes }}</td>
-          <td>
-            <div class="btn-group">
-              <button class="btn btn-sm btn-primary" (click)="onToggleApproved(talk)" title="Toggle Approved"><i class="fa fa-check"></i></button>
-              <button class="btn btn-sm btn-danger" (click)="onDelete(talk)" title="Delete"><i class="fa fa-remove"></i></button>
-            </div>
-          </td>
-        </tr>
+        <tbody *ngFor="let talk of talks">
+          <tr>
+            <td>{{talk.title}}</td>
+            <td>{{talk.category}}</td>
+            <td>
+              <select [(ngModel)]="talk.track" (ngModelChange)="onTrackChanged(talk, $event)">
+                <option *ngFor="let t of tracks">{{ t.name }}</option>
+              </select>
+            </td>
+            <td>
+              <select [(ngModel)]="talk.room" (ngModelChange)="onRoomChanged(talk, $event)">
+                <option *ngFor="let t of rooms">{{ t.name }}</option>
+              </select>
+            </td>
+            <td>
+              <select [(ngModel)]="talk.time" (ngModelChange)="onTimeChanged(talk, $event)">
+                <option *ngFor="let t of timeSlots" value="{{ t.time }}">{{ t.time | date:"hh:mma" }}</option>
+              </select>
+            </td>
+            <td>{{ talk.approved ? "Yes" : "No" }}</td>
+            <td>{{ talk.votes }}</td>
+            <td>
+              <div class="btn-group">
+                <button class="btn btn-sm btn-primary" (click)="onToggleApproved(talk)" title="Toggle Approved"><i class="fa fa-check"></i></button>
+                <button class="btn btn-sm btn-danger" (click)="onDelete(talk)" title="Delete"><i class="fa fa-remove"></i></button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Speaker: <a href="{{ talk.speaker.speakerLink }}" target="_blank">{{talk.speaker.name}}</a></td>
+            <td class="table-abstract" colspan="7"><p>{{ talk.abstract }}</p></td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>

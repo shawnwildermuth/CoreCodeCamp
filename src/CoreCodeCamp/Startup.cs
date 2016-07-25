@@ -127,14 +127,18 @@ namespace CoreCodeCamp
       config.CreateMap<SpeakerViewModel, Speaker>()
         .ForMember(m => m.Talks, opt => opt.Ignore());
       config.CreateMap<Speaker, SpeakerViewModel>()
-        .ForMember(m => m.Talks, opt => opt.Ignore());
+        .ForMember(m => m.Talks, opt => opt.Ignore())
+        .ForMember(m => m.SpeakerLink, opt => opt.MapFrom(s => $"/{s.Event.Moniker}/Speakers/{s.Name.Replace(" ", "-")}"));
 
       config.CreateMap<Talk, TalkViewModel>()
         .ForMember(m => m.Room, opt => opt.MapFrom(t => t.Room.Name))
         .ForMember(m => m.Time, opt => opt.MapFrom(t => t.TalkTime.Time))
         .ForMember(m => m.Track, opt => opt.MapFrom(t => t.Track.Name));
 
-      config.CreateMap<TalkViewModel, Talk>();
+      config.CreateMap<TalkViewModel, Talk>()
+        .ForMember(m => m.Room, opt => opt.Ignore())
+        .ForMember(m => m.TalkTime, opt => opt.Ignore())
+        .ForMember(m => m.Track, opt => opt.Ignore());
 
       config.CreateMap<Sponsor, SponsorViewModel>().ReverseMap();
 

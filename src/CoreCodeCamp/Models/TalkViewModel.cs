@@ -36,5 +36,6 @@ namespace CoreCodeCamp.Models
 
     public bool Favorite { get; set; }
     public SpeakerViewModel Speaker { get; set; }
+    public int Votes { get; set; }
   }
 }

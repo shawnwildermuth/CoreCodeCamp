@@ -1,34 +1,107 @@
 // scheduleForm.ts
 import { Component } from '@angular/core';
 import { DataService } from "../common/dataService";
+import { BaseForm } from "../common/baseForm";
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: "schedule-form",
   templateUrl: "/js/app/schedule/scheduleForm.html"
 })
-export class ScheduleForm {
+export class ScheduleForm extends BaseForm {
 
   talks: Array<any> = [];
-
-  isBusy: boolean = false;
-  error: string = null;
+  timeSlots: Array<any> = [];
+  rooms: Array<any> = [];
+  tracks: Array<any> = [];
+  msg: string = "";
+  sort: string = "";
+  sortAsc: bool = true;
 
   constructor(private data: DataService) {
+    super();
     this.loadSchedule();
-  }
-
-  showError(err) {
-    this.error = err;
-    this.isBusy = false;
   }
 
   loadSchedule() {
     this.isBusy = true;
-    this.data.getAllTalks()
-      .subscribe(
-      res => this.talks = res.json(),
-      res => this.showError("Failed to get talks"),
+
+    Observable.forkJoin(
+      this.data.getAllTalks(),
+      this.data.getRooms(),
+      this.data.getTimeSlots(),
+      this.data.getTracks()
+    ).subscribe(
+      res => {
+        this.talks = res[0].json();
+        this.rooms = res[1].json();
+        this.timeSlots = res[2].json();
+        this.tracks = res[3].json();
+      },
+      res => this.showError("Failed to get data"),
       () => this.isBusy = false);
+
+  }
+
+  setMsg(text: string) {
+    this.msg = text;
+    window.setTimeout(() => this.msg = "", 5000);
+  }
+
+  onTrackChanged(talk: any, value) {
+    this.isBusy = true;
+    this.data.updateTalkTrack(talk, value)
+      .subscribe(res => {
+        this.setMsg("Saved...");
+        this.isBusy = false;
+      }, e => {
+        this.showError("Failed to update talk");
+        this.isBusy = false;
+      });
+  }
+
+  onTimeChanged(talk: any, value) {
+    this.isBusy = true;
+    this.data.updateTalkTime(talk, value)
+      .subscribe(res => {
+        this.setMsg("Saved...");
+        this.isBusy = false;
+      }, e => {
+        this.showError("Failed to update talk");
+        this.isBusy = false;
+      });
+  }
+
+  onRoomChanged(talk: any, value) {
+    this.isBusy = true;
+    this.data.updateTalkRoom(talk, value)
+      .subscribe(res => {
+        this.setMsg("Saved...");
+        this.isBusy = false;
+      }, e => {
+        this.showError("Failed to update talk");
+        this.isBusy = false;
+      });
+  }
+
+  onSort(sort: string) {
+    if (sort == this.sort) {
+      if (this.sortAsc) this.sortAsc = false;
+      else {
+        this.sort = "title"; // Reset to default sort
+        this.sortAsc = true;
+      }
+    } else {
+      this.sort = sort;
+      this.sortAsc = true;
+    }
+
+    // do the sort
+    this.talks = this.talks.sort((a, b) => {
+      if (a[this.sort] == b[this.sort]) return 0;
+      if (a[this.sort] < b[this.sort]) return this.sortAsc ? -1 : 1;
+      else return this.sortAsc ? 1 : -1;
+    });  
   }
 
   onDelete(talk: any) {

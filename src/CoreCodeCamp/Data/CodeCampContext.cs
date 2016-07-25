@@ -30,7 +30,7 @@ namespace CoreCodeCamp.Data
     public DbSet<Room> Rooms { get; set; }
     public DbSet<Sponsor> Sponsors { get; set; }
     public DbSet<EventInfo> CodeCampEvents { get; set; }
- 
+    public DbSet<FavoriteTalk> FavoriteTalks { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

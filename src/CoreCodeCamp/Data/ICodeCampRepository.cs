@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoreCodeCamp.Data.Entities;
 
@@ -23,6 +24,8 @@ namespace CoreCodeCamp.Data
 
     IEnumerable<Room> GetRooms(string moniker);
     Room GetRoom(string moniker, int id);
+
+    IEnumerable<Tuple<Talk, int>> GetTalkCounts(string moniker);
 
     IEnumerable<Track> GetTracks(string moniker);
     Track GetTrack(string moniker, int id);

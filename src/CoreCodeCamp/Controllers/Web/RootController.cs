@@ -6,6 +6,7 @@ using AutoMapper;
 using CoreCodeCamp.Data;
 using CoreCodeCamp.Data.Entities;
 using CoreCodeCamp.Models;
+using CoreCodeCamp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -40,7 +41,14 @@ namespace CoreCodeCamp.Controllers.Web
     [HttpGet("{moniker}/Speakers/{id}")]
     public IActionResult Speaker(string moniker, string id)
     {
+
       var speaker = _repo.GetSpeakerByName(moniker, id);
+
+      if (!User.IsInRole(Consts.ADMINROLE))
+      {
+        if (!speaker.Talks.Any(t => t.Approved)) return RedirectToAction("Speakers");
+      }
+
       var vm = Mapper.Map<SpeakerViewModel>(speaker);
       vm.Talks = Mapper.Map<ICollection<TalkViewModel>>(speaker.Talks);
 

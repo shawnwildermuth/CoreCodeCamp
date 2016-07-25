@@ -46,6 +46,10 @@ p.lead {
 .icon-enabled {
   color: #ce0000;
 }
+.table-abstract {
+  font-size: small;
+  text-align: left;
+}
 .text-bold {
   font-weight: 800;
 }

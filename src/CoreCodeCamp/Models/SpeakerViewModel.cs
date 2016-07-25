@@ -63,6 +63,8 @@ namespace CoreCodeCamp.Models
 
     public int Id { get; set; }
 
+    public string SpeakerLink { get; set; }
+
     public ICollection<TalkViewModel> Talks { get; set; }
 
   }

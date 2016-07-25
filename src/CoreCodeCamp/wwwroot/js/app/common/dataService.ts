@@ -74,6 +74,18 @@ export class DataService {
     return this.http.put(this.baseUrl() + "talks/" + talk.id + "/toggleApproved", talk);
   }
 
+  public updateTalkRoom(talk: any, value: any) {
+    return this.http.put(this.baseUrl() + "talks/" + talk.id + "/room", { room: value });
+  }
+
+  public updateTalkTime(talk: any, value: any) {
+    return this.http.put(this.baseUrl() + "talks/" + talk.id + "/time", { time: value });
+  }
+
+  public updateTalkTrack(talk: any, value: any) {
+    return this.http.put(this.baseUrl() + "talks/" + talk.id + "/track", { track: value });
+  }
+
   // Users
   public getUsers() {
     return this.http.get("/api/users");

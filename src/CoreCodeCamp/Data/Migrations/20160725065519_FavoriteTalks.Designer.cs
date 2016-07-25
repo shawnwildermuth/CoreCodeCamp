@@ -8,9 +8,10 @@ using CoreCodeCamp.Data;
 namespace CoreCodeCamp.Migrations
 {
     [DbContext(typeof(CodeCampContext))]
-    partial class CodeCampContextModelSnapshot : ModelSnapshot
+    [Migration("20160725065519_FavoriteTalks")]
+    partial class FavoriteTalks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")

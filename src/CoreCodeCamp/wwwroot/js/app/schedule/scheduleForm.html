@@ -1,18 +1,54 @@
 <div class="row">
   <div class="col-md-12">
     <div [style.visibility]="isBusy ? 'visible' : 'hidden'"><i class="fa fa-spin fa-spinner"></i> Please wait...</div>
-    <div [style.visibility]="error" class="text-danger">{{ error }}</div>
+    <span [style.visibility]="error" class="text-danger">{{ error }}</span>
+    <span [style.visibility]="msg" class="text-success">{{ msg }}</span>
     <div class="row">
       <table class="table table-striped table-bordered table-hover table-condensed">
         <thead>
           <tr>
-            <td class="col-lg-3">Name</td>
+            <td class="col-lg-3">
+              <span [class.text-bold]="sort == 'title'">
+                Title
+              </span>
+            </td>
             <td class="col-lg-2">Speaker</td>
-            <td class="col-lg-2">Category</td>
-            <td class="col-lg-1">Track</td>
-            <td class="col-lg-1">Room</td>
-            <td class="col-lg-1">Timeslot</td>
-            <td class="col-lg-1">Approved?</td>
+            <td class="col-lg-1">
+              <span (click)="onSort('category')" title="Sort" class="click-cursor" [class.text-bold]="sort == 'category'">
+                Category
+                <i class="fa" [class.fa-sort]="sort != 'votes'" [class.icon-enabled]="sort == 'category'" [class.fa-sort-asc]="sort == 'category' && sortAsc" [class.fa-sort-desc]="sort == 'category' && !sortAsc"></i>
+              </span>
+            </td>
+            <td class="col-lg-1">
+              <span (click)="onSort('track')" title="Sort" class="click-cursor" [class.text-bold]="sort == 'track'">
+                Track
+                <i class="fa" [class.fa-sort]="sort != 'track'" [class.icon-enabled]="sort == 'track'" [class.fa-sort-asc]="sort == 'track' && sortAsc" [class.fa-sort-desc]="sort == 'track' && !sortAsc"></i>
+              </span>
+            </td>
+            <td class="col-lg-1">
+              <span (click)="onSort('room')" title="Sort" class="click-cursor" [class.text-bold]="sort == 'room'">
+                Room
+                <i class="fa" [class.fa-sort]="sort != 'room'" [class.icon-enabled]="sort == 'room'" [class.fa-sort-asc]="sort == 'room' && sortAsc" [class.fa-sort-desc]="sort == 'room' && !sortAsc"></i>
+              </span>
+            </td>
+            <td class="col-lg-1">
+              <span (click)="onSort('time')" title="Sort" class="click-cursor" [class.text-bold]="sort == 'time'">
+                Timeslot
+                <i class="fa" [class.fa-sort]="sort != 'time'" [class.icon-enabled]="sort == 'time'" [class.fa-sort-asc]="sort == 'time' && sortAsc" [class.fa-sort-desc]="sort == 'time' && !sortAsc"></i>
+              </span>
+            </td>
+            <td class="col-lg-1">
+              <span (click)="onSort('approved')" title="Sort" class="click-cursor" [class.text-bold]="sort == 'approved'">
+                Aprv'd
+                <i class="fa" [class.fa-sort]="sort != 'approved'" [class.icon-enabled]="sort == 'approved'" [class.fa-sort-asc]="sort == 'approved' && sortAsc" [class.fa-sort-desc]="sort == 'approved' && !sortAsc"></i>
+              </span>
+            </td>
+            <td class="col-lg-1">
+              <span (click)="onSort('votes')" title="Sort" class="click-cursor" [class.text-bold]="sort == 'votes'">
+                Votes
+                <i class="fa" [class.fa-sort]="sort != 'votes'" [class.icon-enabled]="sort == 'votes'" [class.fa-sort-asc]="sort == 'votes' && sortAsc" [class.fa-sort-desc]="sort == 'votes' && !sortAsc"></i>
+              </span>
+            </td>
             <td class="col-lg-1"></td>
           </tr>
         </thead>
@@ -21,29 +57,22 @@
           <td>{{talk.speaker.name}}</td>
           <td>{{talk.category}}</td>
           <td>
-            <select [(ngModel)]="talk.track">
-              <option>.NET</option>
-              <option>SQL Server</option>
-              <option>SharePoint</option>
+            <select [(ngModel)]="talk.track" (ngModelChange)="onTrackChanged(talk, $event)">
+              <option *ngFor="let t of tracks">{{ t.name }}</option>
             </select>
           </td>
           <td>
-            <select [(ngModel)]="talk.room">
-              <option>j201</option>
-              <option>j202</option>
-              <option>Auditorium</option>
+            <select [(ngModel)]="talk.room" (ngModelChange)="onRoomChanged(talk, $event)">
+              <option *ngFor="let t of rooms">{{ t.name }}</option>
             </select>
           </td>
           <td>
-            <select [(ngModel)]="talk.timeslot">
-              <option>9:30-10:30</option>
-              <option>10:45-11:45</option>
-              <option>1:00-2:00</option>
-              <option>2:15-3:15</option>
-              <option>3:30-4:30</option>
+            <select [(ngModel)]="talk.time" (ngModelChange)="onTimeChanged(talk, $event)">
+              <option *ngFor="let t of timeSlots" value="{{ t.time }}">{{ t.time | date:"hh:mma" }}</option>
             </select>
           </td>
-          <td>{{talk.approved ? "Yes" : "No" }}</td>
+          <td>{{ talk.approved ? "Yes" : "No" }}</td>
+          <td>{{ talk.votes }}</td>
           <td>
             <div class="btn-group">
               <button class="btn btn-sm btn-primary" (click)="onToggleApproved(talk)" title="Toggle Approved"><i class="fa fa-check"></i></button>

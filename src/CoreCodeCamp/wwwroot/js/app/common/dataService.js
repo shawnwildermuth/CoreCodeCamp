@@ -70,6 +70,15 @@ var DataService = (function () {
     DataService.prototype.toggleApproved = function (talk) {
         return this.http.put(this.baseUrl() + "talks/" + talk.id + "/toggleApproved", talk);
     };
+    DataService.prototype.updateTalkRoom = function (talk, value) {
+        return this.http.put(this.baseUrl() + "talks/" + talk.id + "/room", { room: value });
+    };
+    DataService.prototype.updateTalkTime = function (talk, value) {
+        return this.http.put(this.baseUrl() + "talks/" + talk.id + "/time", { time: value });
+    };
+    DataService.prototype.updateTalkTrack = function (talk, value) {
+        return this.http.put(this.baseUrl() + "talks/" + talk.id + "/track", { track: value });
+    };
     // Users
     DataService.prototype.getUsers = function () {
         return this.http.get("/api/users");

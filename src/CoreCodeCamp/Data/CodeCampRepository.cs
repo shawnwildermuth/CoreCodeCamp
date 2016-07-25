@@ -134,6 +134,15 @@ namespace CoreCodeCamp.Data
         .ToList();
     }
 
+    public IEnumerable<Tuple<Talk, int>> GetTalkCounts(string moniker)
+    {
+      return _ctx.FavoriteTalks
+        .Where(f => f.Talk.Speaker.Event.Moniker == moniker)
+        .GroupBy(f => f.Talk)
+        .Select(f => Tuple.Create(f.Key, f.Count()))
+        .ToList();
+    }
+
     public Talk GetTalk(int id)
     {
       return _ctx.Talks

@@ -32,7 +32,20 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        return Ok(Mapper.Map<IEnumerable<TalkViewModel>>(_repo.GetTalks(moniker)));
+        var talks = Mapper.Map<IEnumerable<TalkViewModel>>(_repo.GetTalks(moniker));
+
+        // Update Vote Counts
+        var counts = _repo.GetTalkCounts(moniker);
+        foreach (var t in talks)
+        {
+          var result = counts.Where(c => c.Item1.Id == t.Id).FirstOrDefault();
+          if (result != null)
+          {
+            t.Votes = result.Item2;
+          }
+        }
+
+        return Ok(talks);
       }
       catch
       {
@@ -162,6 +175,73 @@ namespace CoreCodeCamp.Controllers.Api
       }
       return BadRequest("Couldn't Save");
     }
+
+    [HttpPut("{moniker}/api/talks/{id:int}/room")]
+    public async Task<IActionResult> UpdateRoom(string moniker, int id, [FromBody]TalkViewModel model)
+    {
+      try
+      {
+        var talk = _repo.GetTalk(id);
+        var room = _repo.GetRooms(moniker).Where(r => r.Name == model.Room).FirstOrDefault();
+        if (room == null || talk == null) return NotFound("Cannot find talk.");
+        talk.Room = room;
+
+        await _repo.SaveChangesAsync();
+        return Ok(talk);
+
+      }
+      catch
+      {
+
+      }
+
+      return BadRequest("Couldn't update talk.");
+    }
+
+    [HttpPut("{moniker}/api/talks/{id:int}/time")]
+    public async Task<IActionResult> UpdateTime(string moniker, int id, [FromBody]TalkViewModel model)
+    {
+      try
+      {
+        var talk = _repo.GetTalk(id);
+        var time = _repo.GetTimeSlots(moniker).Where(r => r.Time == model.Time).FirstOrDefault();
+        if (time == null || talk == null) return NotFound("Cannot find talk.");
+        talk.TalkTime = time;
+
+        await _repo.SaveChangesAsync();
+        return Ok(talk);
+
+      }
+      catch
+      {
+
+      }
+
+      return BadRequest("Couldn't update talk.");
+    }
+
+    [HttpPut("{moniker}/api/talks/{id:int}/track")]
+    public async Task<IActionResult> UpdateTrack(string moniker, int id, [FromBody]TalkViewModel model)
+    {
+      try
+      {
+        var talk = _repo.GetTalk(id);
+        var track = _repo.GetTracks(moniker).Where(r => r.Name == model.Track).FirstOrDefault();
+        if (track == null || talk == null) return NotFound("Cannot find talk.");
+        talk.Track = track;
+
+        await _repo.SaveChangesAsync();
+        return Ok(talk);
+
+      }
+      catch
+      {
+
+      }
+
+      return BadRequest("Couldn't update talk.");
+    }
+
 
     [HttpDelete("{moniker}/api/talks/{id:int}")]
     public async Task<IActionResult> Delete(string moniker, int id)

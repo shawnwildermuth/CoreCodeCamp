@@ -50,7 +50,7 @@ export class DataService {
   }
 
   public saveSpeaker(speaker: any) {
-    return this.http.post(this.baseUrl() + "speakers", speaker);
+    return this.http.post(this.baseUrl() + "speakers/me", speaker);
   }
 
   // Talks

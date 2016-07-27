@@ -10,6 +10,7 @@ using CoreCodeCamp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace CoreCodeCamp.Controllers.Api
 {
@@ -18,9 +19,11 @@ namespace CoreCodeCamp.Controllers.Api
   {
     private ICodeCampRepository _repo;
     private UserManager<CodeCampUser> _userMgr;
+    private ILogger<TalksController> _logger;
 
-    public TalksController(ICodeCampRepository repo, UserManager<CodeCampUser> userMgr)
+    public TalksController(ICodeCampRepository repo, UserManager<CodeCampUser> userMgr, ILogger<TalksController> logger)
     {
+      _logger = logger;
       _repo = repo;
       _userMgr = userMgr;
 
@@ -47,9 +50,9 @@ namespace CoreCodeCamp.Controllers.Api
 
         return Ok(talks);
       }
-      catch
+      catch (Exception ex)
       {
-
+        _logger.LogError("Failed to get talks: {0}", ex);
       }
 
       return BadRequest("Couldn't load talks.");
@@ -63,9 +66,9 @@ namespace CoreCodeCamp.Controllers.Api
         var speaker = _repo.GetSpeakerForCurrentUser(moniker, User.Identity.Name);
         return Ok(Mapper.Map<IEnumerable<TalkViewModel>>(speaker.Talks));
       }
-      catch
+      catch (Exception ex)
       {
-
+        _logger.LogError("Failed to get my talks: {0}", ex);
       }
 
       return BadRequest("Couldn't load talks.");
@@ -80,9 +83,9 @@ namespace CoreCodeCamp.Controllers.Api
       {
         return Ok(Mapper.Map<TalkViewModel>(_repo.GetTalk(id)));
       }
-      catch
+      catch (Exception ex)
       {
-
+        _logger.LogError("Failed to get individual talk: {0}", ex);
       }
 
       return BadRequest("Couldn't load talk.");
@@ -101,9 +104,9 @@ namespace CoreCodeCamp.Controllers.Api
 
         return Ok();
       }
-      catch
+      catch (Exception ex)
       {
-
+        _logger.LogError("Failed to toggle the 'approved' talk: {0}", ex);
       }
 
       return BadRequest("Could not change Approved.");
@@ -120,9 +123,9 @@ namespace CoreCodeCamp.Controllers.Api
 
         return Ok(Mapper.Map<IEnumerable<TalkViewModel>>(speaker.Talks));
       }
-      catch
+      catch (Exception ex)
       {
-
+        _logger.LogError("Failed to get speaker's talks: {0}", ex);
       }
 
       return BadRequest("Couldn't load talk.");
@@ -157,9 +160,9 @@ namespace CoreCodeCamp.Controllers.Api
 
         return Ok(Mapper.Map<TalkViewModel>(talk));
       }
-      catch
+      catch (Exception ex)
       {
-
+        _logger.LogError("Failed to update talk: {0}", ex);
       }
 
       return BadRequest("Couldn't save or update talk.");
@@ -190,9 +193,9 @@ namespace CoreCodeCamp.Controllers.Api
         return Ok(talk);
 
       }
-      catch
+      catch (Exception ex)
       {
-
+        _logger.LogError("Failed to update room on talk: {0}", ex);
       }
 
       return BadRequest("Couldn't update talk.");
@@ -206,15 +209,15 @@ namespace CoreCodeCamp.Controllers.Api
         var talk = _repo.GetTalk(id);
         var time = _repo.GetTimeSlots(moniker).Where(r => r.Time == model.Time).FirstOrDefault();
         if (time == null || talk == null) return NotFound("Cannot find talk.");
-        talk.TalkTime = time;
+        talk.TimeSlot = time;
 
         await _repo.SaveChangesAsync();
         return Ok(talk);
 
       }
-      catch
+      catch (Exception ex)
       {
-
+        _logger.LogError("Failed to update talk time: {0}", ex);
       }
 
       return BadRequest("Couldn't update talk.");
@@ -234,9 +237,9 @@ namespace CoreCodeCamp.Controllers.Api
         return Ok(talk);
 
       }
-      catch
+      catch (Exception ex)
       {
-
+        _logger.LogError("Failed to update track: {0}", ex);
       }
 
       return BadRequest("Couldn't update talk.");
@@ -260,12 +263,12 @@ namespace CoreCodeCamp.Controllers.Api
           return NotFound();
         }
       }
-      catch
+      catch (Exception ex)
       {
-
+        _logger.LogError("Failed to delete talk: {0}", ex);
       }
 
-      return BadRequest("Couldn't save or update talk.");
+      return BadRequest("Couldn't delete talk.");
     }
 
   }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace CoreCodeCamp.Migrations
 {
-    public partial class InitialDB : Migration
+    public partial class InitialRelease : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -143,6 +143,7 @@ namespace CoreCodeCamp.Migrations
                     LocationId = table.Column<int>(nullable: true),
                     Moniker = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
+                    RegistrationLink = table.Column<string>(nullable: true),
                     TwitterLink = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -277,7 +278,7 @@ namespace CoreCodeCamp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TalkTimes",
+                name: "TimeSlots",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -287,9 +288,9 @@ namespace CoreCodeCamp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TalkTimes", x => x.Id);
+                    table.PrimaryKey("PK_TimeSlots", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TalkTimes_CodeCampEvents_EventId",
+                        name: "FK_TimeSlots_CodeCampEvents_EventId",
                         column: x => x.EventId,
                         principalTable: "CodeCampEvents",
                         principalColumn: "Id",
@@ -334,7 +335,7 @@ namespace CoreCodeCamp.Migrations
                     SpeakerDeckUrl = table.Column<string>(nullable: true),
                     SpeakerId = table.Column<int>(nullable: true),
                     SpeakerRateUrl = table.Column<string>(nullable: true),
-                    TalkTimeId = table.Column<int>(nullable: true),
+                    TimeSlotId = table.Column<int>(nullable: true),
                     Title = table.Column<string>(nullable: true),
                     TrackId = table.Column<int>(nullable: true)
                 },
@@ -354,9 +355,9 @@ namespace CoreCodeCamp.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Talks_TalkTimes_TalkTimeId",
-                        column: x => x.TalkTimeId,
-                        principalTable: "TalkTimes",
+                        name: "FK_Talks_TimeSlots_TimeSlotId",
+                        column: x => x.TimeSlotId,
+                        principalTable: "TimeSlots",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -368,7 +369,7 @@ namespace CoreCodeCamp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FavoriteTalk",
+                name: "FavoriteTalks",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -378,15 +379,15 @@ namespace CoreCodeCamp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FavoriteTalk", x => x.Id);
+                    table.PrimaryKey("PK_FavoriteTalks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FavoriteTalk_Talks_TalkId",
+                        name: "FK_FavoriteTalks_Talks_TalkId",
                         column: x => x.TalkId,
                         principalTable: "Talks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_FavoriteTalk_AspNetUsers_UserId",
+                        name: "FK_FavoriteTalks_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -410,13 +411,13 @@ namespace CoreCodeCamp.Migrations
                 column: "LocationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FavoriteTalk_TalkId",
-                table: "FavoriteTalk",
+                name: "IX_FavoriteTalks_TalkId",
+                table: "FavoriteTalks",
                 column: "TalkId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FavoriteTalk_UserId",
-                table: "FavoriteTalk",
+                name: "IX_FavoriteTalks_UserId",
+                table: "FavoriteTalks",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -445,9 +446,9 @@ namespace CoreCodeCamp.Migrations
                 column: "SpeakerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Talks_TalkTimeId",
+                name: "IX_Talks_TimeSlotId",
                 table: "Talks",
-                column: "TalkTimeId");
+                column: "TimeSlotId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Talks_TrackId",
@@ -455,8 +456,8 @@ namespace CoreCodeCamp.Migrations
                 column: "TrackId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TalkTimes_EventId",
-                table: "TalkTimes",
+                name: "IX_TimeSlots_EventId",
+                table: "TimeSlots",
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
@@ -498,7 +499,7 @@ namespace CoreCodeCamp.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "FavoriteTalk");
+                name: "FavoriteTalks");
 
             migrationBuilder.DropTable(
                 name: "Sponsors");
@@ -534,7 +535,7 @@ namespace CoreCodeCamp.Migrations
                 name: "Speakers");
 
             migrationBuilder.DropTable(
-                name: "TalkTimes");
+                name: "TimeSlots");
 
             migrationBuilder.DropTable(
                 name: "Tracks");

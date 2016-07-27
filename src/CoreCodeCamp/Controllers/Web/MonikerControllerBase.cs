@@ -8,16 +8,19 @@ using CoreCodeCamp.Data.Entities;
 using CoreCodeCamp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
 
 namespace CoreCodeCamp.Controllers.Web
 {
   public abstract class MonikerControllerBase : Controller
   {
     protected ICodeCampRepository _repo;
+    protected ILogger _logger;
 
-    public MonikerControllerBase(ICodeCampRepository repo)
+    public MonikerControllerBase(ICodeCampRepository repo, ILogger logger)
     {
       _repo = repo;
+      _logger = logger;
     }
 
     public override void OnActionExecuting(ActionExecutingContext context)

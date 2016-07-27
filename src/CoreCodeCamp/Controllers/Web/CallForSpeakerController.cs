@@ -10,6 +10,7 @@ using CoreCodeCamp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace CoreCodeCamp.Controllers.Web
 {
@@ -19,7 +20,9 @@ namespace CoreCodeCamp.Controllers.Web
   {
     private UserManager<CodeCampUser> _userMgr;
 
-    public CallForSpeakersController(ICodeCampRepository repo, UserManager<CodeCampUser> userMgr) : base(repo)
+    public CallForSpeakersController(ICodeCampRepository repo,
+      UserManager<CodeCampUser> userMgr,
+      ILogger<CallForSpeakersController> logger) : base(repo, logger)
     {
       _userMgr = userMgr;
     }
@@ -31,7 +34,7 @@ namespace CoreCodeCamp.Controllers.Web
       return View();
     }
 
-    [HttpGet("Manage")]
+    [HttpGet("Manage", Name = "MySpeakerPage")]
     public IActionResult Manage(string moniker)
     {
       var speaker = _repo.GetSpeakerForCurrentUser(moniker, User.Identity.Name);

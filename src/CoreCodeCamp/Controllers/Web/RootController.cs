@@ -9,12 +9,13 @@ using CoreCodeCamp.Models;
 using CoreCodeCamp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
 
 namespace CoreCodeCamp.Controllers.Web
 {
   public class RootController : MonikerControllerBase
   {
-    public RootController(ICodeCampRepository repo) : base(repo)
+    public RootController(ICodeCampRepository repo, ILogger<RootController> logger) : base(repo, logger)
     {
     }
 

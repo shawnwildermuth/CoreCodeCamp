@@ -12,6 +12,9 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
+        "MailService:ApiUser": "shawnwildermuth",
+        "MailService:FromEmail": "shawn@wilderminds.com",
+        "MailService:ApiKey": "lO \"*\",8,1",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },

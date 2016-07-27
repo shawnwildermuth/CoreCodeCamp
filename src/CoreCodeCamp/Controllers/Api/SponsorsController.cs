@@ -10,6 +10,7 @@ using CoreCodeCamp.Models;
 using CoreCodeCamp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace CoreCodeCamp.Controllers.Api
 {
@@ -18,9 +19,11 @@ namespace CoreCodeCamp.Controllers.Api
   public class SponsorsController : Controller
   {
     private ICodeCampRepository _repo;
+    private ILogger<SponsorsController> _logger;
 
-    public SponsorsController(ICodeCampRepository repo)
+    public SponsorsController(ICodeCampRepository repo, ILogger<SponsorsController> logger)
     {
+      _logger = logger;
       _repo = repo;
     }
 
@@ -32,8 +35,9 @@ namespace CoreCodeCamp.Controllers.Api
       {
         return Ok(Mapper.Map<IEnumerable<SponsorViewModel>>(_repo.GetSponsors(moniker)));
       }
-      catch
+      catch (Exception ex)
       {
+        _logger.LogError("Failed to get sponsors: {0}", ex);
         return BadRequest("Failed to get sponsors");
       }
     }
@@ -69,6 +73,7 @@ namespace CoreCodeCamp.Controllers.Api
         }
         catch (Exception ex)
         {
+          _logger.LogError("Failed to update sponsor: {0}", ex);
           ModelState.AddModelError("", $"Failed to Save: {ex.Message}");
         }
       }
@@ -89,8 +94,9 @@ namespace CoreCodeCamp.Controllers.Api
 
         return Ok();
       }
-      catch
+      catch (Exception ex)
       {
+        _logger.LogError("Failed to toggle the Sponsor's Paid flag: {0}", ex);
       }
 
       return BadRequest("Failed to toggle paid on sponsor");
@@ -109,8 +115,9 @@ namespace CoreCodeCamp.Controllers.Api
 
         return Ok();
       }
-      catch
+      catch (Exception ex)
       {
+        _logger.LogError("Failed to delete sponsor: {0}", ex);
       }
 
       return BadRequest("Failed to delete sponsor");

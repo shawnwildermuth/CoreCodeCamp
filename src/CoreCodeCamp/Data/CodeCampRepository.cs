@@ -72,7 +72,7 @@ namespace CoreCodeCamp.Data
         .Include(s => s.Talks)
         .ThenInclude(t => t.Track)
         .Include(s => s.Talks)
-        .ThenInclude(t => t.TalkTime)
+        .ThenInclude(t => t.TimeSlot)
         .Include(s => s.Talks)
         .ThenInclude(t => t.Room)
         .Where(s => s.UserName == userName && s.Event.Moniker == moniker)
@@ -85,7 +85,7 @@ namespace CoreCodeCamp.Data
         .Include(s => s.Talks)
         .ThenInclude(t => t.Track)
         .Include(s => s.Talks)
-        .ThenInclude(t => t.TalkTime)
+        .ThenInclude(t => t.TimeSlot)
         .Include(s => s.Talks)
         .ThenInclude(t => t.Room)
         .Where(s => s.Id == id)
@@ -98,7 +98,7 @@ namespace CoreCodeCamp.Data
         .Include(s => s.Talks)
         .ThenInclude(t => t.Track)
         .Include(s => s.Talks)
-        .ThenInclude(t => t.TalkTime)
+        .ThenInclude(t => t.TimeSlot)
         .Include(s => s.Talks)
         .ThenInclude(t => t.Room)
         .Where(s => s.Event.Moniker == moniker)
@@ -126,7 +126,7 @@ namespace CoreCodeCamp.Data
     {
       return _ctx.Talks
         .Include(t => t.Room)
-        .Include(t => t.TalkTime)
+        .Include(t => t.TimeSlot)
         .Include(t => t.Track)
         .Include(t => t.Speaker.Event)
         .Where(t => t.Speaker.Event.Moniker == moniker)
@@ -147,7 +147,7 @@ namespace CoreCodeCamp.Data
     {
       return _ctx.Talks
         .Include(t => t.Room)
-        .Include(t => t.TalkTime)
+        .Include(t => t.TimeSlot)
         .Include(t => t.Track)
         .Include(t => t.Speaker.Event)
         .Where(t => t.Id == id)
@@ -199,7 +199,7 @@ namespace CoreCodeCamp.Data
         .Include(s => s.Talks)
         .ThenInclude(t => t.Track)
         .Include(s => s.Talks)
-        .ThenInclude(t => t.TalkTime)
+        .ThenInclude(t => t.TimeSlot)
         .Include(s => s.Talks)
         .ThenInclude(t => t.Room)
         .Where(s => s.Name.ToLower() == transformName && s.Event.Moniker == moniker)
@@ -215,9 +215,9 @@ namespace CoreCodeCamp.Data
         .Include(u => u.FavoriteTalks)
         .ThenInclude(f => f.Talk.Room)
         .Include(u => u.FavoriteTalks)
-        .ThenInclude(f => f.Talk.TalkTime)
+        .ThenInclude(f => f.Talk.TimeSlot)
         .Where(u => u.UserName == name)
-        .First();
+        .FirstOrDefault();
 
       if (user == null) return new List<Talk>();
 

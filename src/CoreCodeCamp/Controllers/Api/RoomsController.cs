@@ -8,6 +8,7 @@ using CoreCodeCamp.Data.Entities;
 using CoreCodeCamp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace CoreCodeCamp.Controllers.Api
 {
@@ -16,10 +17,12 @@ namespace CoreCodeCamp.Controllers.Api
   public class RoomsController : Controller
   {
     private ICodeCampRepository _repo;
+    private ILogger<RoomsController> _logger;
 
-    public RoomsController(ICodeCampRepository repo)
+    public RoomsController(ICodeCampRepository repo, ILogger<RoomsController> logger)
     {
       _repo = repo;
+      _logger = logger;
     }
 
     [HttpGet()]
@@ -45,9 +48,9 @@ namespace CoreCodeCamp.Controllers.Api
             return Created($"{moniker}/api/rooms/{model.Id}", model);
           }
         }
-        catch
+        catch (Exception ex)
         {
-
+          _logger.LogError("Failed to save new Room: {0}", ex);
         }
       }
 
@@ -65,9 +68,9 @@ namespace CoreCodeCamp.Controllers.Api
 
         return Ok();
       }
-      catch
+      catch (Exception ex)
       {
-
+        _logger.LogError("Couldn't Delete Favorite Room: {0}", ex);
       }
 
       return BadRequest("Failed to delete Room");

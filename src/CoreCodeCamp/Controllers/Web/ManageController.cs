@@ -19,17 +19,15 @@ namespace CoreCodeCamp.Controllers.Web
   {
     private readonly UserManager<CodeCampUser> _userManager;
     private readonly SignInManager<CodeCampUser> _signInManager;
-    private readonly ILogger _logger;
 
     public ManageController(
       UserManager<CodeCampUser> userManager,
       SignInManager<CodeCampUser> signInManager,
-      ILoggerFactory loggerFactory,
-      ICodeCampRepository repo) : base(repo)
+      ILogger<ManageController> logger,
+      ICodeCampRepository repo) : base(repo, logger)
     {
       _userManager = userManager;
       _signInManager = signInManager;
-      _logger = loggerFactory.CreateLogger<ManageController>();
     }
 
     //

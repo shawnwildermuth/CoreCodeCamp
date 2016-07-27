@@ -8,6 +8,7 @@ using CoreCodeCamp.Data.Entities;
 using CoreCodeCamp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace CoreCodeCamp.Controllers.Api
 {
@@ -16,9 +17,11 @@ namespace CoreCodeCamp.Controllers.Api
   public class TimeSlotsController : Controller
   {
     private ICodeCampRepository _repo;
+    private ILogger<TimeSlotsController> _logger;
 
-    public TimeSlotsController(ICodeCampRepository repo)
+    public TimeSlotsController(ICodeCampRepository repo, ILogger<TimeSlotsController> logger)
     {
+      _logger = logger;
       _repo = repo;
     }
 
@@ -46,9 +49,9 @@ namespace CoreCodeCamp.Controllers.Api
             return Created($"{moniker}/api/timeslot/{model.Id}", model);
           }
         }
-        catch
+        catch (Exception ex)
         {
-
+          _logger.LogError("Failed to create a timeslot: {0}", ex);
         }
       }
 
@@ -66,9 +69,9 @@ namespace CoreCodeCamp.Controllers.Api
 
         return Ok();
       }
-      catch
+      catch (Exception ex)
       {
-
+        _logger.LogError("Failed to delete a time slot: {0}", ex);
       }
 
       return BadRequest("Failed to delete TimeSlot");

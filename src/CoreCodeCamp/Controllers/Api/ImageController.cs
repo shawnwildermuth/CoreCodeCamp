@@ -12,6 +12,7 @@ using ImageProcessor.Imaging.Formats;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace CoreCodeCamp.Controllers.Api
 {
@@ -19,10 +20,12 @@ namespace CoreCodeCamp.Controllers.Api
   public class ImageController : Controller
   {
     private IHostingEnvironment _env;
+    private ILogger<ImageController> _logger;
 
-    public ImageController(IHostingEnvironment env)
+    public ImageController(IHostingEnvironment env, ILogger<ImageController> logger)
     {
       _env = env;
+      _logger = logger;
     }
 
     [HttpPost("sponsors")]
@@ -43,6 +46,7 @@ namespace CoreCodeCamp.Controllers.Api
     {
       if (!Request.Form.Files.Any())
       {
+        _logger.LogWarning("Tried to upload image with no body/image attached");
         return BadRequest("No Image supplied");
       }
 
@@ -67,7 +71,6 @@ namespace CoreCodeCamp.Controllers.Api
         filePath = Path.Combine(path, Path.ChangeExtension(Path.GetRandomFileName(), Path.GetExtension(filePath)));
       }
 
-      // TODO Resize Image
       using (var newStream = ResizeImage(Request.Form.Files[0].OpenReadStream(), size))
       using (var stream = System.IO.File.Create(filePath))
       {

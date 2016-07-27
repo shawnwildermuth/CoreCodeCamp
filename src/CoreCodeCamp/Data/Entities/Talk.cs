@@ -25,7 +25,7 @@ namespace CoreCodeCamp.Data.Entities
     public Speaker Speaker { get; set; }
     public Track Track { get; set; }
     public Room Room { get; set; }
-    public TimeSlot TalkTime { get; set; }
+    public TimeSlot TimeSlot { get; set; }
 
 
   }

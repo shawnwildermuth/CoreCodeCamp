@@ -729,7 +729,7 @@ namespace CoreCodeCamp.Data
         Title = oldTalks.GetField("Title"),
         Category = oldTalks.GetField("Category"),
         Room = HandleRoom(oldTalks.GetField("Room"), camp),
-        TalkTime = HandleTalkTime(oldTalks.GetField("StartTime"), camp)
+        TimeSlot = HandleTalkTime(oldTalks.GetField("StartTime"), camp)
       };
 
       _ctx.Add(talk);

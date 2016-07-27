@@ -8,6 +8,7 @@ using CoreCodeCamp.Data;
 using CoreCodeCamp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace CoreCodeCamp.Controllers.Api
 {
@@ -15,11 +16,13 @@ namespace CoreCodeCamp.Controllers.Api
   [Authorize]
   public class MeController : Controller
   {
+    private ILogger<MeController> _logger;
     private ICodeCampRepository _repo;
 
-    public MeController(ICodeCampRepository repo)
+    public MeController(ICodeCampRepository repo, ILogger<MeController> logger)
     {
       _repo = repo;
+      _logger = logger;
     }
 
     [HttpGet("favorites")]
@@ -38,8 +41,9 @@ namespace CoreCodeCamp.Controllers.Api
         await _repo.SaveChangesAsync();
         return Ok(state);
       }
-      catch
+      catch (Exception ex)
       {
+        _logger.LogError("Failed to save favorite talk: {0}", ex);
       }
 
       return BadRequest("Failed to toggle star");

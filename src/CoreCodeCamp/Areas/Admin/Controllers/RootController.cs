@@ -8,6 +8,7 @@ using CoreCodeCamp.Data;
 using CoreCodeCamp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace CoreCodeCamp.Areas.Admin.Controllers
 {
@@ -15,7 +16,8 @@ namespace CoreCodeCamp.Areas.Admin.Controllers
   [Area("Admin")]
   public class RootController : MonikerControllerBase
   {
-    public RootController(ICodeCampRepository repo) : base(repo)
+    public RootController(ICodeCampRepository repo, ILogger<RootController> logger)
+     : base(repo, logger)
     {
 
     }

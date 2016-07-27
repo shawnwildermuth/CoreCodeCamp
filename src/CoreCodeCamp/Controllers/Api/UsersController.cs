@@ -11,6 +11,7 @@ using CoreCodeCamp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace CoreCodeCamp.Controllers.Api
 {
@@ -18,12 +19,17 @@ namespace CoreCodeCamp.Controllers.Api
   [Authorize(Roles = Consts.ADMINROLE)]
   public class UsersController : Controller
   {
+    private ILogger<UsersController> _logger;
     private ICodeCampRepository _repo;
     private SignInManager<CodeCampUser> _signInMgr;
     private UserManager<CodeCampUser> _userMgr;
 
-    public UsersController(ICodeCampRepository repo, UserManager<CodeCampUser> userMgr, SignInManager<CodeCampUser> signInMgr)
+    public UsersController(ICodeCampRepository repo, 
+      UserManager<CodeCampUser> userMgr, 
+      SignInManager<CodeCampUser> signInMgr,
+      ILogger<UsersController> logger)
     {
+      _logger = logger;
       _repo = repo;
       _userMgr = userMgr;
       _signInMgr = signInMgr;

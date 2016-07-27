@@ -37,26 +37,27 @@ namespace CoreCodeCamp
 
 
     // This method gets called by the runtime. Use this method to add services to the container.
-    public void ConfigureServices(IServiceCollection services)
+    public void ConfigureServices(IServiceCollection svcs)
     {
-      services.AddSingleton(f => _config);
+      svcs.AddSingleton(f => _config);
 
       if (_env.IsProduction())
       {
-        services.AddScoped<IMailService, SendGridMailService>();
+        svcs.AddScoped<IMailService, SendGridMailService>();
       }
       else
       {
-        services.AddScoped<IMailService, DebugMailService>();
+        svcs.AddScoped<IMailService, SendGridMailService>();
+        //svcs.AddScoped<IMailService, DebugMailService>();
       }
 
       // Add framework services.
-      services.AddDbContext<CodeCampContext>();
-      services.AddScoped<ICodeCampRepository, CodeCampRepository>();
-      services.AddTransient<CodeCampSeeder>();
+      svcs.AddDbContext<CodeCampContext>();
+      svcs.AddScoped<ICodeCampRepository, CodeCampRepository>();
+      svcs.AddTransient<CodeCampSeeder>();
 
       // Configure Identity (Security)
-      services.AddIdentity<CodeCampUser, IdentityRole>(config =>
+      svcs.AddIdentity<CodeCampUser, IdentityRole>(config =>
       {
         config.Password.RequiredLength = 8;
         config.Password.RequireDigit = true;
@@ -85,7 +86,9 @@ namespace CoreCodeCamp
           .AddEntityFrameworkStores<CodeCampContext>()
           .AddDefaultTokenProviders();
 
-      services.AddMvc();
+      svcs.AddScoped<IEmailTemplateEngine, EmailTemplateEngine>();
+
+      svcs.AddMvc();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -128,23 +131,23 @@ namespace CoreCodeCamp
         .ForMember(m => m.Talks, opt => opt.Ignore());
       config.CreateMap<Speaker, SpeakerViewModel>()
         .ForMember(m => m.Talks, opt => opt.Ignore())
-        .ForMember(m => m.SpeakerLink, opt => opt.MapFrom(s => $"/{s.Event.Moniker}/Speakers/{s.Name.Replace(" ", "-")}"));
+        .ForMember(m => m.SpeakerLink, opt => opt.MapFrom(s => s.Event == null ? "" : $"/{s.Event.Moniker}/Speakers/{s.Name.Replace(" ", "-")}"));
 
       config.CreateMap<Talk, TalkViewModel>()
         .ForMember(m => m.Room, opt => opt.MapFrom(t => t.Room.Name))
-        .ForMember(m => m.Time, opt => opt.MapFrom(t => t.TalkTime.Time))
+        .ForMember(m => m.Time, opt => opt.MapFrom(t => t.TimeSlot.Time))
         .ForMember(m => m.Track, opt => opt.MapFrom(t => t.Track.Name));
 
       config.CreateMap<TalkViewModel, Talk>()
         .ForMember(m => m.Room, opt => opt.Ignore())
-        .ForMember(m => m.TalkTime, opt => opt.Ignore())
+        .ForMember(m => m.TimeSlot, opt => opt.Ignore())
         .ForMember(m => m.Track, opt => opt.Ignore());
 
       config.CreateMap<Sponsor, SponsorViewModel>().ReverseMap();
 
       config.CreateMap<Talk, FavoriteTalkViewModel>()
         .ForMember(dest => dest.Room, opt => opt.MapFrom(s => s.Room.Name))
-        .ForMember(dest => dest.Time, opt => opt.MapFrom(s => s.TalkTime.Time))
+        .ForMember(dest => dest.Time, opt => opt.MapFrom(s => s.TimeSlot.Time))
         .ForMember(dest => dest.SpeakerName, opt => opt.MapFrom(s => s.Speaker.Name))
         .ForMember(dest => dest.Title, opt => opt.MapFrom(s => s.Title))
         .ForMember(dest => dest.Abstract, opt => opt.MapFrom(s => s.Abstract));

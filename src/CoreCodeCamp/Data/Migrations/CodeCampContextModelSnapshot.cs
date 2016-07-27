@@ -234,7 +234,7 @@ namespace CoreCodeCamp.Migrations
 
                     b.Property<string>("SpeakerRateUrl");
 
-                    b.Property<int?>("TalkTimeId");
+                    b.Property<int?>("TimeSlotId");
 
                     b.Property<string>("Title");
 
@@ -246,7 +246,7 @@ namespace CoreCodeCamp.Migrations
 
                     b.HasIndex("SpeakerId");
 
-                    b.HasIndex("TalkTimeId");
+                    b.HasIndex("TimeSlotId");
 
                     b.HasIndex("TrackId");
 
@@ -467,9 +467,9 @@ namespace CoreCodeCamp.Migrations
                         .WithMany("Talks")
                         .HasForeignKey("SpeakerId");
 
-                    b.HasOne("CoreCodeCamp.Data.Entities.TimeSlot", "TalkTime")
+                    b.HasOne("CoreCodeCamp.Data.Entities.TimeSlot", "TimeSlot")
                         .WithMany()
-                        .HasForeignKey("TalkTimeId");
+                        .HasForeignKey("TimeSlotId");
 
                     b.HasOne("CoreCodeCamp.Data.Entities.Track", "Track")
                         .WithMany()

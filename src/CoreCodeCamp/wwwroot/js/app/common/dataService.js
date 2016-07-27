@@ -52,7 +52,7 @@ var DataService = (function () {
         return this.http.get(this.baseUrl() + "speakers/me");
     };
     DataService.prototype.saveSpeaker = function (speaker) {
-        return this.http.post(this.baseUrl() + "speakers", speaker);
+        return this.http.post(this.baseUrl() + "speakers/me", speaker);
     };
     // Talks
     DataService.prototype.getTalks = function () {

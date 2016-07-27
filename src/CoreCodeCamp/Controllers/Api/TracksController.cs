@@ -8,6 +8,7 @@ using CoreCodeCamp.Data.Entities;
 using CoreCodeCamp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace CoreCodeCamp.Controllers.Api
 {
@@ -16,9 +17,11 @@ namespace CoreCodeCamp.Controllers.Api
   public class TracksController : Controller
   {
     private ICodeCampRepository _repo;
+    private ILogger<TracksController> _logger;
 
-    public TracksController(ICodeCampRepository repo)
+    public TracksController(ICodeCampRepository repo, ILogger<TracksController> logger)
     {
+      _logger = logger;
       _repo = repo;
     }
 
@@ -46,10 +49,11 @@ namespace CoreCodeCamp.Controllers.Api
             return Created($"{moniker}/api/tracks/{model.Id}", model);
           }
         }
-        catch
+        catch (Exception ex)
         {
-
+          _logger.LogError("Failed to create a track: {0}", ex);
         }
+
       }
 
       return BadRequest("Failed to save Track");
@@ -66,9 +70,9 @@ namespace CoreCodeCamp.Controllers.Api
 
         return Ok();
       }
-      catch
+      catch (Exception ex)
       {
-
+        _logger.LogError("Failed to delete a track: {0}", ex);
       }
 
       return BadRequest("Failed to delete Track");

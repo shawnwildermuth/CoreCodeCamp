@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CoreCodeCamp.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace CoreCodeCamp.Controllers.Web
 {
@@ -12,7 +13,7 @@ namespace CoreCodeCamp.Controllers.Web
   public class CurrentController : MonikerControllerBase
   {
 
-    public CurrentController(ICodeCampRepository repo) : base(repo)
+    public CurrentController(ICodeCampRepository repo, ILogger<CurrentController> logger) : base(repo, logger)
     {
     }
 

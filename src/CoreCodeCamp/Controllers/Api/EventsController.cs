@@ -9,6 +9,7 @@ using CoreCodeCamp.Data.Entities;
 using CoreCodeCamp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace CoreCodeCamp.Controllers.Api
 {
@@ -17,10 +18,12 @@ namespace CoreCodeCamp.Controllers.Api
   public class EventsController : Controller
   {
     private ICodeCampRepository _repo;
+    private ILogger<EventsController> _logger;
 
-    public EventsController(ICodeCampRepository repo)
+    public EventsController(ICodeCampRepository repo, ILogger<EventsController> logger)
     {
       _repo = repo;
+      _logger = logger;
     }
 
     [HttpGet("")]
@@ -35,8 +38,10 @@ namespace CoreCodeCamp.Controllers.Api
 
         return Ok(Mapper.Map<IEnumerable<EventInfoViewModel>>(events));
       }
-      catch
+      catch (Exception ex)
       {
+        _logger.LogError("Failed to read events. {0}", ex);
+
         return BadRequest("Failed to get events");
       }
     }
@@ -53,9 +58,11 @@ namespace CoreCodeCamp.Controllers.Api
 
         return Ok(Mapper.Map<EventInfoViewModel>(info));
       }
-      catch
+      catch (Exception ex)
       {
-        return BadRequest("Failed to get events");
+        _logger.LogError("Failed to read event. {0}", ex);
+
+        return BadRequest("Failed to get event");
       }
     }
 
@@ -79,9 +86,9 @@ namespace CoreCodeCamp.Controllers.Api
 
         return Ok(Mapper.Map<EventInfoViewModel>(info));
       }
-      catch
+      catch (Exception ex)
       {
-
+        _logger.LogError("Failed to upsert EventInfo. {0}", ex);
       }
 
       return BadRequest("Failed to save new event.");

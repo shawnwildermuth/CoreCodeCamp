@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
@@ -14,12 +15,17 @@ namespace CoreCodeCamp.Services
     private IConfigurationRoot _config;
     private IHostingEnvironment _env;
     private ILogger<SendGridMailService> _logger;
+    private IEmailTemplateEngine _templateEngine;
 
-    public SendGridMailService(IHostingEnvironment env, IConfigurationRoot config, ILogger<SendGridMailService> logger)
+    public SendGridMailService(IHostingEnvironment env, 
+      IConfigurationRoot config, 
+      ILogger<SendGridMailService> logger,
+      IEmailTemplateEngine templateEngine)
     {
       _env = env;
       _config = config;
       _logger = logger;
+      _templateEngine = templateEngine;
     }
 
     public async Task SendMailAsync(string name, string email, string subject, string msg)
@@ -36,7 +42,7 @@ namespace CoreCodeCamp.Services
                 new KeyValuePair<string, string>("to", email),
                 new KeyValuePair<string, string>("toname", name),
                 new KeyValuePair<string, string>("subject", subject),
-                new KeyValuePair<string, string>("text", msg),
+                new KeyValuePair<string, string>("html", msg),
                 new KeyValuePair<string, string>("from", _config["MailService:FromEmail"])
               };
 
@@ -52,6 +58,13 @@ namespace CoreCodeCamp.Services
       {
         _logger.LogError("Exception Thrown sending message via SendGrid", ex);
       }
+    }
+
+    public async Task SendTemplateMailAsync(string name, string email, string subject, string templateName, params object[] args)
+    {
+      var parameters = args.Union(new object[] { name, email }).ToArray();
+      var body = _templateEngine.GenerateTemplate(templateName, parameters);
+      await SendMailAsync(name, email, subject, body);
     }
   }
 }

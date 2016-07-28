@@ -9,8 +9,6 @@ Atlanta Code Camp in 2016.
 The project uses the following technologies:
 * ASP.NET Core 1.0
 * .NET Core
-* Docker
-* SQLite
 * Bootstrap 3.0
 * Angular2
 * TypeScript

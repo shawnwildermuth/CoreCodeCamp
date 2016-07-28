@@ -43,6 +43,4 @@ gulp.task("webpack", function (callback) {
   });
 });
 
-gulp.task("build", ["npmTasks", "min", "webpack"]);
-
-gulp.task('default', ["npmTasks", "min"]);
+gulp.task('default', ["npmTasks", "min", "webpack"]);

@@ -93,12 +93,13 @@
       "wwwroot",
       "**/Views/",
       "appsettings.json",
-      "web.config"
+      "web.config",
+      "EmailTemplates"
     ]
   },
 
   "scripts": {
-    "prepublish": [ "npm install", "bower install", "npm install -g gulp", "gulp", "dotnet bundle" ],
+    "prepublish": [ "npm install", "bower install", "gulp build", "dotnet bundle" ],
     "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   }
 }

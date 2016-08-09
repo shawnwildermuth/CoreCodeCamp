@@ -89,7 +89,6 @@ namespace CoreCodeCamp
 
       svcs.AddScoped<IEmailTemplateEngine, EmailTemplateEngine>();
 
-
       svcs.AddMvc(opt =>
       {
         if (_env.IsProduction())

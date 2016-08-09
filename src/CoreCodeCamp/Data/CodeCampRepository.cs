@@ -112,7 +112,17 @@ namespace CoreCodeCamp.Data
 
     public IEnumerable<Sponsor> GetSponsors(string moniker)
     {
-      var sponsorOrder = new List<string> { "Platinum", "Lunch", "T-Shirt", "Gold", "Silver", "Other" };
+      var sponsorOrder = new List<string> {
+        "Platinum",
+        "Attendee Party",
+        "Attendee Shirts",
+        "Speaker Dinner",
+        "Speaker Shirts",
+        "Gold",
+        "Silver",
+        "Swag",
+        "Other"
+      };
 
       return _ctx.Sponsors
         .Where(e => e.Event.Moniker == moniker)

@@ -1,8 +1,26 @@
-var webpack = require('webpack');
+/// <binding ProjectOpened='Watch - Development' />
 var path = require('path');
+var webpack = require('webpack');
+var merge = require('extendify')({ isDeep: true, arrays: 'concat' });
+var devConfig = require('./webpack.config.dev');
+var prodConfig = require('./webpack.config.prod');
+var isProduction = process.env.ASPNETCORE_ENVIRONMENT !== 'Development';
+var outputDir = path.normalize(path.join(__dirname, 'wwwroot', 'lib', 'site'));
 
-module.exports = {
-  context: path.resolve("./wwwroot/js/app/"),
+console.log("output: " + outputDir);
+console.log("dirName:" + __dirname);
+
+module.exports = merge({
+  resolve: {
+    extensions: ['', '.ts', '.js']
+  },
+  module: {
+    loaders: [
+        { test: /\.ts$/, include: /ClientApps/, loader: 'ts-loader?silent=true' },
+        { test: /\.html$/, include: /ClientApps/, loader: 'raw-loader' }
+    ]
+  },
+  context: path.join(__dirname, "ClientApps"),
   entry: {
     eventInfo: "./eventInfo/main.ts",
     speaker: "./speaker/main.ts",
@@ -12,31 +30,14 @@ module.exports = {
     users: "./users/main.ts"
   },
   output: {
-    path: './wwwroot/lib/site/',
-    filename: "[name].main.min.js"
-  },
-  module: {
-    loaders: [
-      {
-        test: /\.ts$/,
-        loaders: ['ts', 'angular2-template-loader']
-      },
-       {
-         test: /\.html$/,
-         loader: 'html'
-
-       },
-    ]
-  },
-  resolve: {
-    extensions: ["", ".js", ".ts"],
+    path: outputDir,
+    filename: '[name].js',
+    publicPath: '/lib/site/'
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      },
-      mangle: false
-    })
+      new webpack.DllReferencePlugin({
+        context: __dirname,
+        manifest: require('./wwwroot/lib/site/vendor-manifest.json')
+      })
   ]
-};
+}, isProduction ? prodConfig : devConfig);

@@ -11,29 +11,19 @@
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,100,300,500">
 
   <environment names="Development">
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="~/lib/typeicons/src/font/typicons.css" rel="stylesheet" />
 
-    <link href="~/template/css/animate.css" rel="stylesheet">
-    <link href="~/template/css/style.css" rel="stylesheet">
-    <link href="~/template/css/media-queries.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/lib/corecodecamp.css" rel="stylesheet">
   </environment>
   <environment names="Staging,Production">
     <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
-          asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+          asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
           asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
 
     <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="~/lib/typeicons/src/font/typicons.min.css" rel="stylesheet" />
 
-    <link href="~/template/css/animate.css" rel="stylesheet">
-    <link href="~/template/css/style.css" rel="stylesheet">
-    <link href="~/template/css/media-queries.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    <link href="~/lib/corecodecamp.min.css" asp-append-version="true" rel="stylesheet">
   </environment>
 
   @RenderSection("Head", false)
@@ -74,7 +64,7 @@
         </ul>
         @await Html.PartialAsync("_LoginPartial")
       </div>
-      <span  id="topBar"></span>
+      <span id="topBar"></span>
     </div>
   </div>
 
@@ -94,7 +84,7 @@
   {
     <div class="features-container section-container">
       <div class="container">
-        
+
         @RenderBody()
       </div>
     </div>
@@ -148,12 +138,12 @@
 
   <environment names="Development">
     <script src="~/lib/jquery/jquery.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.js"></script>
 
-    <script src="~/lib/jquery-backstretch/jquery.backstretch.js"></script>
-    <script src="~/lib/wow/dist/wow.js"></script>
-    <script src="~/lib/retina.js/src/retina.js"></script>
-    <script src="~/lib/waypoints/waypoints.js"></script>
+    <script src="~/lib/jquery.backstretch/jquery.backstretch.js"></script>
+    <script src="~/lib/wowjs/wow.js"></script>
+    <script src="~/lib/retina.js/retina.js"></script>
+    <script src="~/lib/waypoints/jquery.waypoints.js"></script>
 
     <script src="~/template/js/scripts.js"></script>
 
@@ -163,21 +153,21 @@
 
 
     <script src="~/js/site.js" asp-append-version="true"></script>
-  </environment>
+</environment>
   <environment names="Staging,Production">
     <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.1.min.js"
             asp-fallback-src="~/lib/jquery/jquery.min.js"
             asp-fallback-test="window.jQuery">
     </script>
     <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
-            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+            asp-fallback-src="~/lib/bootstrap/js/bootstrap.min.js"
             asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
     </script>
 
-    <script src="~/lib/jquery-backstretch/jquery.backstretch.min.js"></script>
-    <script src="~/lib/wow/dist/wow.min.js"></script>
-    <script src="~/lib/retina.js/src/retina.js"></script>
-    <script src="~/lib/waypoints/waypoints.min.js"></script>
+    <script src="~/lib/jquery.backstretch/jquery.backstretch.min.js"></script>
+    <script src="~/lib/wowjs/wow.min.js"></script>
+    <script src="~/lib/retina.js/retina.js"></script>
+    <script src="~/lib/waypoints/jquery.waypoints.min.js"></script>
 
     <script src="~/template/js/scripts.js"></script>
 

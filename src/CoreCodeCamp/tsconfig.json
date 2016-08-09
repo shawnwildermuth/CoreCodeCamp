@@ -1,11 +1,13 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
+    //"module": "commonjs",
+    "moduleResolution": "node",
     "target": "es5",
-    "module": "commonjs",
     "sourceMap": true,
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipDefaultLibCheck": true,
     "removeComments": false,
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true
@@ -17,10 +19,5 @@
     "wwwroot/lib",
     "bin",
     "obj"
-  ],
-  "include": [
-    "wwwroot/js/app/*.ts",
-    "wwwroot/js/app/**/*.ts",
-    "wwwroot/js/app/**/**/*.ts"
   ]
 }

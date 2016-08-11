@@ -4,7 +4,7 @@ var webpack = require('webpack');
 var merge = require('extendify')({ isDeep: true, arrays: 'concat' });
 var devConfig = require('./webpack.config.dev');
 var prodConfig = require('./webpack.config.prod');
-var isProduction = process.env.ASPNETCORE_ENVIRONMENT !== 'Development';
+var isProduction = process.env.ASPNETCORE_ENVIRONMENT === 'Production';
 var outputDir = path.normalize(path.join(__dirname, 'wwwroot', 'lib', 'site'));
 
 console.log("output: " + outputDir);

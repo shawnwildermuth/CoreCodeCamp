@@ -4,11 +4,10 @@ var uglify = require('gulp-uglify');
 var uglifyCss = require('gulp-uglifycss');
 var concat = require('gulp-concat');
 var rename = require("gulp-rename");
-var webpack = require("webpack");
 var gutil = require("gulp-util");
-var webpackConfig = require("./webpack.config.js");
 
 gulp.task("npmTasks", function () {
+  console.log("Doing NPM Tasks");
   var libs = {
     "core-js": "core-js/client/*.js",
     "zone.js": "zone.js/dist/*.js",
@@ -34,13 +33,16 @@ gulp.task("npmTasks", function () {
 });
 
 gulp.task("min", function () {
-  return gulp.src([ "wwwroot/js/site.js"])
+  console.log("Doing MIN Tasks");
+  return gulp.src(["wwwroot/js/site.js"])
     .pipe(uglify())
     .pipe(rename("site.min.js"))
     .pipe(gulp.dest("wwwroot/lib/site/"));
 });
 
 gulp.task("css", function () {
+  console.log("Doing CSS Tasks");
+
   var srcs = [
     "wwwroot/template/css/animate.css",
     "wwwroot/template/css/style.css",

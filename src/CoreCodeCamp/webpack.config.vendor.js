@@ -1,6 +1,6 @@
 ﻿var path = require('path');
 var webpack = require('webpack');
-var isProduction = process.env.ASPNETCORE_ENVIRONMENT !== 'Development';
+var isProduction = process.env.ASPNETCORE_ENVIRONMENT === 'Production';
 var outputDir = path.normalize(path.join(__dirname, 'wwwroot', 'lib', 'site'));
 
 console.log("output: " + outputDir);

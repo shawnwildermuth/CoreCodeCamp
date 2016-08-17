@@ -7,8 +7,7 @@ import { TalksForm } from "./talksForm";
 @Component({
   selector: 'talks',
   template: `<router-outlet></router-outlet>`,
-  directives: [ROUTER_DIRECTIVES],
-  precompile: [TalkEditor, TalksForm]
+  directives: [ROUTER_DIRECTIVES]
 })
 export class TalksComponent{
 }

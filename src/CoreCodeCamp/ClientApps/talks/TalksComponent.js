@@ -10,8 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var talkEditor_1 = require("./talkEditor");
-var talksForm_1 = require("./talksForm");
 var TalksComponent = (function () {
     function TalksComponent() {
     }
@@ -19,8 +17,7 @@ var TalksComponent = (function () {
         core_1.Component({
             selector: 'talks',
             template: "<router-outlet></router-outlet>",
-            directives: [router_1.ROUTER_DIRECTIVES],
-            precompile: [talkEditor_1.TalkEditor, talksForm_1.TalksForm]
+            directives: [router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [])
     ], TalksComponent);

@@ -6,8 +6,6 @@ import { DataService } from "../common/dataService";
 import { BaseForm } from "../common/baseForm";
 import { Observable } from 'rxjs/Rx';
 
-declare var jQuery: any;
-
 @Component({
   selector: "event-info-form",
   template: require("./eventInfoForm.html")
@@ -131,10 +129,6 @@ export class EventInfoForm extends BaseForm {
       .subscribe(res => {
         this.timeSlots.splice(this.timeSlots.indexOf(timeSlot), 1);
       }, e => this.showError("Failed to delete Time Slot"), () => this.isBusy = false);
-  }
-
-  ngAfterViewChecked(): void {
-    jQuery(".datepicker").datepicker();
   }
 
 }

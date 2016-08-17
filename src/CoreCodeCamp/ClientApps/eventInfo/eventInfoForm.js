@@ -128,9 +128,6 @@ var EventInfoForm = (function (_super) {
             _this.timeSlots.splice(_this.timeSlots.indexOf(timeSlot), 1);
         }, function (e) { return _this.showError("Failed to delete Time Slot"); }, function () { return _this.isBusy = false; });
     };
-    EventInfoForm.prototype.ngAfterViewChecked = function () {
-        jQuery(".datepicker").datepicker();
-    };
     EventInfoForm = __decorate([
         core_1.Component({
             selector: "event-info-form",

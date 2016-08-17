@@ -51,7 +51,7 @@ namespace CoreCodeCamp.Controllers.Web
       }
 
       var vm = Mapper.Map<SpeakerViewModel>(speaker);
-      vm.Talks = Mapper.Map<ICollection<TalkViewModel>>(speaker.Talks);
+      vm.Talks = Mapper.Map<ICollection<TalkViewModel>>(speaker.Talks.Where(t => t.Approved).ToList());
 
       if (User.Identity.IsAuthenticated)
       {

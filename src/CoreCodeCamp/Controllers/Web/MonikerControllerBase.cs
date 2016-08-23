@@ -28,20 +28,33 @@ namespace CoreCodeCamp.Controllers.Web
     {
       base.OnActionExecuting(context);
 
-      if (!context.HttpContext.Items.ContainsKey(Consts.EVENT_INFO_ITEM))
+      if (context.RouteData.Values.ContainsKey("moniker"))
       {
-        if (context.RouteData.Values.ContainsKey("moniker"))
+        var moniker = context.RouteData.Values["moniker"] as string;
+
+        if (!context.HttpContext.Items.ContainsKey(Consts.EVENT_INFO_ITEM))
         {
-          _theEvent = _repo.GetEventInfo(context.RouteData.Values["moniker"] as string);
+          _theEvent = _repo.GetEventInfo(moniker);
         }
         else
         {
-          _theEvent = _repo.GetCurrentEvent();
+          _theEvent = (EventInfo)context.HttpContext.Items[Consts.EVENT_INFO_ITEM];
+          if (_theEvent.Moniker != moniker)
+          {
+            _theEvent = _repo.GetEventInfo(moniker);
+          }
         }
 
-        // Put the current event in scope data
-        context.HttpContext.Items[Consts.EVENT_INFO_ITEM] = _theEvent;
       }
+      else
+      {
+        _theEvent = _repo.GetCurrentEvent();
+      }
+
+      if (_theEvent == null) context.HttpContext.Response.Redirect("/");
+      else context.HttpContext.Items[Consts.EVENT_INFO_ITEM] = _theEvent;
+
+
     }
 
 

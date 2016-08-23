@@ -87,5 +87,13 @@ namespace CoreCodeCamp.Controllers.Web
       var favorites = _repo.GetUserWithFavoriteTalksForEvent(User.Identity.Name, moniker);
       return View(Tuple.Create<IEnumerable<Talk>, IEnumerable<Talk>>(sessions, favorites));
     }
+
+    [HttpGet("{moniker}/Register")]
+    public IActionResult Register(string moniker)
+    {
+      if (string.IsNullOrWhiteSpace(this._theEvent.RegistrationLink)) return RedirectToAction("Index");
+
+      return View();
+    }
   }
 }

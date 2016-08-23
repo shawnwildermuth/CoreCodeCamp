@@ -85,9 +85,9 @@ a {
 }
 
 .navbar-brand {
-  background-image: url(../img/logo.png);
-  width: 325px;
-  height: 35px;
+  background-image: url(../img/logo-xs.png);
+  width: 210px;
+  height: 25px;
 }
 
 .left-align {
@@ -169,7 +169,7 @@ footer {
 
 .navbar-nav > li > a {
   line-height: 14px;
-  padding: 10px;
+  padding: 10px 5px;
 }
 
 .navbar-toggle {
@@ -204,4 +204,33 @@ footer {
 
 .navbar-nav.auth-nav > li > a {
   font-size: 12px;
+}
+
+body {
+    -webkit-animation-delay: 0.1s;
+    -webkit-animation-name: fontfix;
+    -webkit-animation-duration: 0.1s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: linear;
+}
+
+@-webkit-keyframes fontfix {
+    from { opacity: 1; }
+    to   { opacity: 1; }
+}
+
+@media (min-width: 1200px) {
+  .navbar-brand {
+    background-image: url(../img/logo.png);
+    width: 325px;
+    height: 35px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .navbar-brand {
+    background-image: url(../img/logo-sm.png);
+    width: 265px;
+    height: 30px;
+  }
 }

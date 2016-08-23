@@ -68,11 +68,11 @@
         </button>
         <a asp-area="" asp-controller="Root" asp-action="Index" asp-route-moniker="@Html.GetMoniker()" class="navbar-brand">@this.GetEventInfo().Name</a>
       </div>
+      @await Html.PartialAsync("_LoginPartial")
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           @await Html.PartialAsync("_MenuItems")
         </ul>
-        @await Html.PartialAsync("_LoginPartial")
       </div>
       <span  id="topBar"></span>
     </div>

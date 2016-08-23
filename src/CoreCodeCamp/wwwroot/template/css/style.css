@@ -1,6 +1,6 @@
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', "Segoe UI", Helvetica, sans-serif;
     font-size: 16px;
     font-weight: 300;
     color: #888;
@@ -342,7 +342,7 @@ ul.navbar-nav {
     vertical-align: middle;
     background: #eee;
     border: 3px solid #eee;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', "Segoe UI", Helvetica, sans-serif;
     font-size: 16px;
     font-weight: 300;
     line-height: 50px;
@@ -369,7 +369,7 @@ ul.navbar-nav {
     vertical-align: middle;
     background: #ca8bdc;
     border: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', "Segoe UI", Helvetica, sans-serif;
     font-size: 16px;
     font-weight: 300;
     line-height: 50px;
@@ -410,7 +410,7 @@ ul.navbar-nav {
     vertical-align: middle;
     background: #eee;
     border: 3px solid #eee;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', "Segoe UI", Helvetica, sans-serif;
     font-size: 16px;
     font-weight: 300;
     line-height: 50px;
@@ -451,7 +451,7 @@ ul.navbar-nav {
     vertical-align: middle;
     background: #ca8bdc;
     border: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', "Segoe UI", Helvetica, sans-serif;
     font-size: 16px;
     font-weight: 300;
     line-height: 50px;

@@ -16,6 +16,7 @@ namespace CoreCodeCamp.Controllers.Web
   {
     protected ICodeCampRepository _repo;
     protected ILogger _logger;
+    protected EventInfo _theEvent;
 
     public MonikerControllerBase(ICodeCampRepository repo, ILogger logger)
     {
@@ -29,19 +30,17 @@ namespace CoreCodeCamp.Controllers.Web
 
       if (!context.HttpContext.Items.ContainsKey(Consts.EVENT_INFO_ITEM))
       {
-        EventInfo theEvent;
-
         if (context.RouteData.Values.ContainsKey("moniker"))
         {
-          theEvent = _repo.GetEventInfo(context.RouteData.Values["moniker"] as string);
+          _theEvent = _repo.GetEventInfo(context.RouteData.Values["moniker"] as string);
         }
         else
         {
-          theEvent = _repo.GetCurrentEvent();
+          _theEvent = _repo.GetCurrentEvent();
         }
 
         // Put the current event in scope data
-        context.HttpContext.Items[Consts.EVENT_INFO_ITEM] = theEvent;
+        context.HttpContext.Items[Consts.EVENT_INFO_ITEM] = _theEvent;
       }
     }
 

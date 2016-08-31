@@ -83,21 +83,21 @@ namespace CoreCodeCamp.Controllers.Web
     }
 
     //
-    // GET: /Account/Register
+    // GET: /Account/Join
     [HttpGet]
     [AllowAnonymous]
-    public IActionResult Register(string returnUrl = null)
+    public IActionResult Join(string returnUrl = null)
     {
       ViewData["ReturnUrl"] = returnUrl;
       return View();
     }
 
     //
-    // POST: /Account/Register
+    // POST: /Account/Join
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+    public async Task<IActionResult> Join(RegisterViewModel model, string returnUrl = null)
     {
       ViewData["ReturnUrl"] = returnUrl;
       if (ModelState.IsValid)

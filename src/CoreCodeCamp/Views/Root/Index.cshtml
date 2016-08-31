@@ -12,7 +12,14 @@
         <p class="lead">
           The @this.GetEventInfo().Name is your opportunity to join your other Atlanta developer and design community members in a day of training.
         </p>
-        <a asp-controller="Root" asp-action="Register" asp-route-moniker="@this.GetEventInfo().Moniker" class="btn btn-lg btn-success @(string.IsNullOrWhiteSpace(this.GetEventInfo().RegistrationLink) ? "disabled" : "")">Coming Soon</a>
+        @if (string.IsNullOrWhiteSpace(this.GetEventInfo().RegistrationLink))
+        {
+          <a class="btn btn-lg btn-success disabled">Coming Soon</a>
+        }
+        else
+        {
+          <a asp-action="Register" asp-controller="Root" asp-area="" class="btn btn-lg btn-success">Register for @this.GetEventInfo().Name</a>
+        }
       </div>
     }
     else

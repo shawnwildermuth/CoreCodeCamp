@@ -19,24 +19,33 @@
       @if (!suppress)
       {
         <div class="pull-right" style="width: 150px;">
-          <img src="@talk.Speaker.ImageUrl" alt="@talk.Speaker.Name" class="img-responsive img-thumbnail" />
-          <p class="text-center">@talk.Speaker.Name</p>
+          <a asp-controller="Root" asp-action="Speaker" asp-route-id="@(talk.Speaker.Name.Replace(" ", "-"))"><img src="@talk.Speaker.ImageUrl" alt="@talk.Speaker.Name" class="img-responsive img-thumbnail" /></a>
+          <p class="text-center"><a asp-controller="Root" asp-action="Speaker" asp-route-id="@(talk.Speaker.Name.Replace(" ", "-"))">@talk.Speaker.Name</a></p>
         </div>
       }
       <div>
         <p>@Html.Raw(talk.Abstract.Replace("<br/>", ""))</p>
       </div>
-      <dl class="dl-horizontal text-left">
+      <dl class="dl-horizontal text-left pull-left">
         <dt>Level</dt>
         <dd>@talk.Level</dd>
         <dt>Category</dt>
         <dd>@talk.Category</dd>
-        <dt>Room</dt>
-        <dd>@talk.Room</dd>
-        <dt>Time</dt>
-        <dd>@(talk.Time == DateTime.MinValue ? "" : talk.Time.ToShortTimeString())</dd>
-        <dt>Track</dt>
-        <dd>@talk.Track</dd>
+        @if (talk.Room != null)
+        {
+          <dt>Room</dt>
+          <dd>@talk.Room</dd>
+        }
+        @if (talk.Time != DateTime.MinValue)
+        {
+          <dt>Time</dt>
+          <dd>@(talk.Time == DateTime.MinValue ? "" : talk.Time.ToShortTimeString())</dd>
+        }
+        @if (!string.IsNullOrWhiteSpace(talk.Track))
+        {
+          <dt>Track</dt>
+          <dd>@talk.Track</dd>
+        }
       </dl>
     </div>
   </div>

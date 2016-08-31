@@ -5,10 +5,14 @@
 }
 
 <li class="@Html.GetActiveMenuItem("Root", "Index")"><a asp-area="" asp-controller="Root" asp-action="Index" asp-route-moniker="@this.GetEventInfo().Moniker">Home</a></li>
-<li class="@Html.GetActiveMenuItem("CallForSpeakers", "Index")"><a asp-area="" asp-controller="CallForSpeakers" asp-action="Index" asp-route-moniker="@this.GetEventInfo().Moniker">Call for Speakers</a></li>
-<li class="@Html.GetActiveMenuItem("Root", "Speakers")"><a asp-area="" asp-controller="Root" asp-action="Speakers" asp-route-moniker="@this.GetEventInfo().Moniker">Speakers</a></li>
+@if (!string.IsNullOrWhiteSpace(this.GetEventInfo().RegistrationLink))
+{
+  <li><a class="@Html.GetActiveMenuItem("Root", "Register")" asp-action="Register" asp-controller="Root" asp-area="" asp-route-moniker="@this.GetEventInfo().Moniker">Register</a></li>
+}
+<li class="@Html.GetActiveMenuItem("Root", "Speakers")"><a asp-area="" asp-controller="Root" asp-action="Speakers" >Speakers</a></li>
 <li class="@Html.GetActiveMenuItem("Root", "Sessions")"><a asp-area="" asp-controller="Root" asp-action="Sessions" asp-route-moniker="@this.GetEventInfo().Moniker">Sessions</a></li>
 <li class="@Html.GetActiveMenuItem("Root", "Schedule")"><a asp-area="" asp-controller="Root" asp-action="Schedule" asp-route-moniker="@this.GetEventInfo().Moniker">Schedule</a></li>
+<li class="@Html.GetActiveMenuItem("CallForSpeakers", "Index")"><a asp-area="" asp-controller="CallForSpeakers" asp-action="Index" asp-route-moniker="@this.GetEventInfo().Moniker">Speaking</a></li>
 <li class="@Html.GetActiveMenuItem("Root", "Sponsoring")"><a asp-area="" asp-controller="Root" asp-action="Sponsoring" asp-route-moniker="@this.GetEventInfo().Moniker">Sponsor</a></li>
 @if (codeCampUser != null && signInMgr.IsSignedIn(User) && await userMgr.IsInRoleAsync(codeCampUser, Consts.ADMINROLE))
 {

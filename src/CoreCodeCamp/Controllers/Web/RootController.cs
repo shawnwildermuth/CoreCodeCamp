@@ -51,7 +51,7 @@ namespace CoreCodeCamp.Controllers.Web
       }
 
       var vm = Mapper.Map<SpeakerViewModel>(speaker);
-      vm.Talks = Mapper.Map<ICollection<TalkViewModel>>(speaker.Talks);
+      vm.Talks = Mapper.Map<ICollection<TalkViewModel>>(speaker.Talks.Where(t => t.Approved).ToList());
 
       if (User.Identity.IsAuthenticated)
       {
@@ -86,6 +86,14 @@ namespace CoreCodeCamp.Controllers.Web
       var sessions = _repo.GetTalks(moniker).Where(t => t.Approved).ToList();
       var favorites = _repo.GetUserWithFavoriteTalksForEvent(User.Identity.Name, moniker);
       return View(Tuple.Create<IEnumerable<Talk>, IEnumerable<Talk>>(sessions, favorites));
+    }
+
+    [HttpGet("{moniker}/Register")]
+    public IActionResult Register(string moniker)
+    {
+      if (this._theEvent == null || string.IsNullOrWhiteSpace(this._theEvent.RegistrationLink)) return RedirectToAction("Index");
+
+      return View();
     }
   }
 }

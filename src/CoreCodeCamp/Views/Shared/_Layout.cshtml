@@ -58,11 +58,11 @@
         </button>
         <a asp-area="" asp-controller="Root" asp-action="Index" asp-route-moniker="@Html.GetMoniker()" class="navbar-brand">@this.GetEventInfo().Name</a>
       </div>
+      @await Html.PartialAsync("_LoginPartial")
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           @await Html.PartialAsync("_MenuItems")
         </ul>
-        @await Html.PartialAsync("_LoginPartial")
       </div>
       <span id="topBar"></span>
     </div>
@@ -124,8 +124,11 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-6 footer-copyright">
-          &copy; <a asp-controller="Root" asp-action="Index" asp-route-moniker="@(this.GetEventInfo().Moniker)">Atlanta Code Camp</a></a>
+        <div class="col-sm-3 footer-copyright">
+          &copy; <a asp-controller="Root" asp-action="Index" asp-route-moniker="@(this.GetEventInfo().Moniker)">Atlanta Code Camp</a>
+        </div>
+        <div class="col-md-3 footer-copyright">
+          <p>Source code available on <a href="http://github.com/shawnwildermuth/corecodecamp">Github</a></p>
         </div>
         <div class="col-sm-6 footer-menu">
           <ul>

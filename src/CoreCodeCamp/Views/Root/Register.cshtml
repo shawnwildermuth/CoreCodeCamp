@@ -1,0 +1,11 @@
+﻿<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <h2>Register for the @this.GetEventInfo().Name</h2>
+    <p class="text-center">We are using Eventbrite for event registration. Please fill out the following form to register.</p>
+    <hr/>
+    <div style="width:100%; text-align:left;">
+      <iframe src="//eventbrite.com/tickets-external?eid=@(this.GetEventInfo().RegistrationLink)&ref=etckt" frameborder="0" height="300" width="100%" vspace="0" hspace="0" marginheight="5" marginwidth="5" scrolling="auto" allowtransparency="true"></iframe>
+    </div>
+    <p class="lead">Alternatively you can register directly on the Eventbrite site at <a href="http://www.eventbrite.com/e/@(this.GetEventInfo().RegistrationLink)?aff=es2">www.eventbrite.com</a></p>
+  </div>
+</div>

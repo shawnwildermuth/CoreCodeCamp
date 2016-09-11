@@ -39,7 +39,7 @@ namespace CoreCodeCamp.Controllers.Web
       return View(speakers);
     }
 
-    [HttpGet("{moniker}/Speakers/{id}")]
+    [HttpGet("{moniker}/Speakers/{id}", Name = "SpeakerTalkPage" )]
     public IActionResult Speaker(string moniker, string id)
     {
 

@@ -26,5 +26,12 @@ namespace CoreCodeCamp.Data.Entities
 
     public EventInfo Event { get; set; }
 
+    public string Slug
+    {
+      get
+      {
+        return Name.Replace(" ", "-");
+      }
+    }
   }
 }

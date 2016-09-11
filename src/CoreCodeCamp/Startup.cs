@@ -48,14 +48,14 @@ namespace CoreCodeCamp
       }
       else
       {
-        svcs.AddScoped<IMailService, SendGridMailService>();
-        //svcs.AddScoped<IMailService, DebugMailService>();
+        svcs.AddScoped<IMailService, DebugMailService>();
       }
 
       // Add framework services.
       svcs.AddDbContext<CodeCampContext>();
       svcs.AddScoped<ICodeCampRepository, CodeCampRepository>();
       svcs.AddTransient<CodeCampSeeder>();
+      svcs.AddTransient<ViewRenderer>();
 
       // Configure Identity (Security)
       svcs.AddIdentity<CodeCampUser, IdentityRole>(config =>
@@ -87,13 +87,11 @@ namespace CoreCodeCamp
           .AddEntityFrameworkStores<CodeCampContext>()
           .AddDefaultTokenProviders();
 
-      svcs.AddScoped<IEmailTemplateEngine, EmailTemplateEngine>();
-
       svcs.AddMvc(opt =>
       {
         if (_env.IsProduction())
         {
-          opt.Filters.Add(new RequireHttpsAttribute());
+          //opt.Filters.Add(new RequireHttpsAttribute());
         }
       });
     }
@@ -174,7 +172,6 @@ namespace CoreCodeCamp
         name: "Default",
         template: "{controller=Root}/{action=Index}/{id?}"
         );
-
 
     }
   }

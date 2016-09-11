@@ -13,6 +13,7 @@ using CoreCodeCamp.Models.AccountViewModels;
 using CoreCodeCamp.Data;
 using CoreCodeCamp.Data.Entities;
 using CoreCodeCamp.Services;
+using CoreCodeCamp.Models.Emails;
 
 namespace CoreCodeCamp.Controllers.Web
 {
@@ -108,7 +109,13 @@ namespace CoreCodeCamp.Controllers.Web
         {
           var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
           var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-          await _mailService.SendTemplateMailAsync(model.Name, model.Email, "Confirm your account", "ConfirmEmail", callbackUrl);
+          await _mailService.SendTemplateMailAsync("ConfirmEmail", new AccountConfirmModel()
+          {
+            Name = model.Name,
+            Email = model.Email,
+            Subject = "Confirm your account",
+            Callback = callbackUrl
+          });
           _logger.LogInformation(3, "User created a new account with password.");
           return View("ResendConfirmEmailSent");
         }
@@ -153,7 +160,12 @@ namespace CoreCodeCamp.Controllers.Web
           {
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-            await _mailService.SendTemplateMailAsync(user.Name, user.Email, "Confirm your account", "ConfirmEmail", callbackUrl);
+            await _mailService.SendTemplateMailAsync("ConfirmEmail", new AccountConfirmModel()
+            {
+              Email = email,
+              Subject = "Confirm your account",
+              Callback = callbackUrl
+            });
 
             return View("ResendConfirmEmailSent");
           }
@@ -216,7 +228,12 @@ namespace CoreCodeCamp.Controllers.Web
         // Send an email with this link
         var code = await _userManager.GeneratePasswordResetTokenAsync(user);
         var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-        await _mailService.SendTemplateMailAsync(model.Email, model.Email, "Reset Password", "ResetPassword", callbackUrl);
+        await _mailService.SendTemplateMailAsync("ResetPassword", new AccountConfirmModel()
+        {
+          Email = model.Email,
+          Subject = "Confirm your account",
+          Callback = callbackUrl
+        });
         return View("ForgotPasswordConfirmation");
       }
 

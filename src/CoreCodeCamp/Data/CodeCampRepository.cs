@@ -212,6 +212,8 @@ namespace CoreCodeCamp.Data
         .ThenInclude(t => t.TimeSlot)
         .Include(s => s.Talks)
         .ThenInclude(t => t.Room)
+        .Include(s => s.Event)
+        .ThenInclude(e => e.Location)
         .Where(s => s.Name.ToLower() == transformName && s.Event.Moniker == moniker)
         .FirstOrDefault();
     }

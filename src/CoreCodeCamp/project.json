@@ -99,7 +99,13 @@
   },
 
   "scripts": {
-    "prepublish": [ "npm install", "bower install", "gulp build", "dotnet bundle" ],
+    "prepublish": [
+      "npm install",
+      "bower install",
+      "node node_modules/webpack/bin/webpack.js",
+      "gulp",
+      "dotnet bundle"
+    ],
     "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   }
 }

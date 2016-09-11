@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using CoreCodeCamp.Models.Emails;
 
 namespace CoreCodeCamp.Services
 {
@@ -15,17 +16,17 @@ namespace CoreCodeCamp.Services
     private IConfigurationRoot _config;
     private IHostingEnvironment _env;
     private ILogger<SendGridMailService> _logger;
-    private IEmailTemplateEngine _templateEngine;
+    private ViewRenderer _renderer;
 
     public SendGridMailService(IHostingEnvironment env, 
       IConfigurationRoot config, 
       ILogger<SendGridMailService> logger,
-      IEmailTemplateEngine templateEngine)
+      ViewRenderer renderer)
     {
       _env = env;
       _config = config;
       _logger = logger;
-      _templateEngine = templateEngine;
+      _renderer = renderer;
     }
 
     public async Task SendMailAsync(string name, string email, string subject, string msg)
@@ -60,11 +61,10 @@ namespace CoreCodeCamp.Services
       }
     }
 
-    public async Task SendTemplateMailAsync(string name, string email, string subject, string templateName, params object[] args)
+    public async Task SendTemplateMailAsync<T>(string templateName, T model) where T : EmailModel
     {
-      var parameters = args.Union(new object[] { name, email }).ToArray();
-      var body = _templateEngine.GenerateTemplate(templateName, parameters);
-      await SendMailAsync(name, email, subject, body);
+      var body = await _renderer.RenderAsync($"Emails/{templateName}", model);
+      await SendMailAsync(model.Name, model.Email, model.Subject, body);
     }
   }
 }

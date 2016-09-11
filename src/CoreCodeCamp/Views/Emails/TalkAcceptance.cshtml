@@ -1,22 +1,26 @@
+@model CoreCodeCamp.Models.Emails.TalkModel
+@{
+  Layout = "Emails/_Layout";
+}
 <h2>Atlanta Code Camp 2016 Session Acceptance</h2>
 <br />
-<p>Hello {0},</p>
+<p>Hello @Model.Talk.Speaker.Name,</p>
 <p>
-  Thank you for your session submission(s) to {0}. We're pleased to
+  Thank you for your session submission(s) to @Model.Talk.Speaker.Event.Name. We're pleased to
   inform you that the following submission has been accepted.
   Final session rooms and schedule will be published as soon as
   possible.  Please visit http://atlantacodecamp.com for more details.
 </p>
 
-<h3>{0}</h3>
+<h3>@Model.Talk.Title</h3>
 
-<div>PLEASE REGISTER @ https://atlantacodecamp.eventbrite.com/ by September 24, 2016 using the following speaker code.</div>
+<div>PLEASE REGISTER @@ https://atlantacodecamp.eventbrite.com/ by September 24, 2016 using the following speaker code.</div>
 <ul><li>Speaker Code: atlcodecamp.2016-speaker</li></ul>
 <p>In addition to your session acceptance, here are some important reminders.</p>
 <ul>
   <li>Session length is 75 minutes.  Please ensure your sessions allow for approximately 10 minutes of Q&A as needed.</li>
   <li>Speaker Dinner Friday, October 14th. We will be hosting a Speaker Dinner on Friday evening, October 14th. We would love for you to join us and meet your fellow speakers.</li>
-  <li>Location: ???</li>
+  <li>Location: Kennesaw State University, 1100 S Marietta Pkwy, Marietta,GA 30060</li>
   <li>Please confirm your attendance at the speaker dinner here: [link]</li>
 </ul>
 <p>We have a great list of speakers and we are thrilled to have you participating in Atlanta Code Camp 2016. Thank you for your participation and congratulations on your session acceptance!</p>

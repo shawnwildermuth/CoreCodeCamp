@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using CoreCodeCamp.Data;
 using CoreCodeCamp.Data.Entities;
 using CoreCodeCamp.Models;
+using CoreCodeCamp.Models.Emails;
 using CoreCodeCamp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -86,7 +85,6 @@ namespace CoreCodeCamp.Controllers.Api
       return await UpsertSpeaker(model, _repo.GetSpeakerForCurrentUser(moniker, User.Identity.Name), moniker, User.Identity.Name);
     }
 
-
     [HttpPost("")]
     [Authorize]
     public async Task<IActionResult> UpsertSpeaker(string moniker, [FromBody]SpeakerViewModel model)
@@ -109,13 +107,16 @@ namespace CoreCodeCamp.Controllers.Api
             // Send confirmation email on new speaker
             var user = await _userMgr.FindByNameAsync(userName);
             var speakerUrl = this.Url.Link("MySpeakerPage", new { moniker = moniker });
-            await _mailService.SendTemplateMailAsync(user.Name,
-              user.Email,
-              $"Speaking at the {speaker.Event.Name}",
+            await _mailService.SendTemplateMailAsync(
               "SpeakerSignUp",
-              speaker.Event.Name,
-              speaker.Event.CallForSpeakersClosed.ToShortDateString(),
-              speakerUrl);
+              new SpeakerModel()
+              {
+                Name = user.Name,
+                Email = user.Email,
+                Subject = $"Speaking at the {speaker.Event.Name}",
+                Speaker = speaker,
+                SpeakerUrl = speakerUrl
+              });
           }
           else
           {

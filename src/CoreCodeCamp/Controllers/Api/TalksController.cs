@@ -7,6 +7,8 @@ using AutoMapper;
 using CoreCodeCamp.Data;
 using CoreCodeCamp.Data.Entities;
 using CoreCodeCamp.Models;
+using CoreCodeCamp.Models.Emails;
+using CoreCodeCamp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,12 +22,14 @@ namespace CoreCodeCamp.Controllers.Api
     private ICodeCampRepository _repo;
     private UserManager<CodeCampUser> _userMgr;
     private ILogger<TalksController> _logger;
+    private IMailService _mailService;
 
-    public TalksController(ICodeCampRepository repo, UserManager<CodeCampUser> userMgr, ILogger<TalksController> logger)
+    public TalksController(ICodeCampRepository repo, UserManager<CodeCampUser> userMgr, ILogger<TalksController> logger, IMailService mailService)
     {
       _logger = logger;
       _repo = repo;
       _userMgr = userMgr;
+      _mailService = mailService;
 
     }
 
@@ -102,6 +106,22 @@ namespace CoreCodeCamp.Controllers.Api
         talk.Approved = !talk.Approved;
         await _repo.SaveChangesAsync();
 
+        if (talk.Approved)
+        {
+          var user = await _userMgr.FindByNameAsync(talk.Speaker.UserName);
+          var speakerUrl = this.Url.Link("SpeakerTalkPage", new { moniker = moniker, id = talk.Speaker.Slug });
+          await _mailService.SendTemplateMailAsync(
+            "TalkAcceptance",
+            new TalkModel()
+            {
+              Name = user.Name,
+              Email = user.Email,
+              Subject = $"Invited to Speak at the {talk.Speaker.Event.Name}",
+              Talk = talk,
+              SpeakerUrl = speakerUrl
+            });
+        }
+
         return Ok();
       }
       catch (Exception ex)
@@ -146,6 +166,7 @@ namespace CoreCodeCamp.Controllers.Api
       try
       {
         Talk talk = speaker.Talks.Where(t => t.Id == vm.Id).FirstOrDefault();
+
         if (talk == null)
         {
           talk = Mapper.Map<Talk>(vm);

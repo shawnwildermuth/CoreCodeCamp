@@ -74,7 +74,7 @@
     </div>
     <div class="col-md-2">
       <div class="row" id="imagePicker">
-        <div><img src="{{ model.imageUrl ? model.imageUrl : '/img/speaker-placeholder.jpg' }}" alt="" class="img-responsive img-thumbnail" [class.invalidHeadshot]="!validImage()"></div>
+        <div><img src="{{ model.imageUrl ? model.imageUrl : '/img/speaker-placeholder.jpg' }}" alt="" class="img-responsive speaker-image" [class.invalidHeadshot]="!validImage()"></div>
         <a (click)="filePicker.click();" class="btn btn-primary" href="#">Pick Headshot</a>
         <input type="file" class="hidden" accept="image/jpeg,image/png" (change)="onImagePicked(filePicker)" #filePicker required />
         <div class="text-muted text-sm">Please use as square as possible. .jpg and .png only.</div>

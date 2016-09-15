@@ -136,7 +136,8 @@ namespace CoreCodeCamp
         .ForMember(m => m.Talks, opt => opt.Ignore());
       config.CreateMap<Speaker, SpeakerViewModel>()
         .ForMember(m => m.Talks, opt => opt.Ignore())
-        .ForMember(m => m.SpeakerLink, opt => opt.MapFrom(s => s.Event == null ? "" : $"/{s.Event.Moniker}/Speakers/{s.Name.Replace(" ", "-")}"));
+        .ForMember(m => m.SpeakerLink, opt => opt.MapFrom(s => s.Event == null ? "" : $"/{s.Event.Moniker}/Speakers/{s.Name.Replace(" ", "-")}"))
+        .ForMember(m => m.Email, opt => opt.MapFrom(s => s.UserName));
 
       config.CreateMap<Talk, TalkViewModel>()
         .ForMember(m => m.Room, opt => opt.MapFrom(t => t.Room.Name))

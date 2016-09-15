@@ -62,7 +62,7 @@ namespace CoreCodeCamp.Models
     public string TShirtSize { get; set; }
 
     public int Id { get; set; }
-
+    public string Email { get; set; }
     public string SpeakerLink { get; set; }
 
     public ICollection<TalkViewModel> Talks { get; set; }

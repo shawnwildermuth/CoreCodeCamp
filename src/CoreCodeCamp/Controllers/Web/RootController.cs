@@ -31,6 +31,13 @@ namespace CoreCodeCamp.Controllers.Web
       return View();
     }
 
+    [HttpGet("{moniker}/Sponsors")]
+    public IActionResult Sponsors(string moniker)
+    {
+      var sponsors = _repo.GetSponsors(moniker);
+      return View(sponsors);
+    }
+
     [HttpGet("{moniker}/Speakers")]
     public IActionResult Speakers(string moniker)
     {

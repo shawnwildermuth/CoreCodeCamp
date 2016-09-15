@@ -2,17 +2,17 @@
   <table class="table table-condensed table-responsive text-sm">
     <thead>
       <tr>
-        <td>Name</td>
-        <td>Approved?</td>
-        <td></td>
+        <th class="col-xs-8">Name</th>
+        <th class="col-xs-2">Approved?</th>
+        <th class="col-xs-2"></th>
       </tr>
     </thead>
     <tr *ngFor="let talk of talkService.talks">
       <td>{{talk.title}}</td>
-      <td>{{talk.approved ? "Yes" : "No"}}</td>
+      <td class="text-center click-cursor"><i class='fa {{talk.approved ? "fa-check" : "fa-times"}}' title='{{talk.approved ? "Approved" : "Not Yet Approved"}}'></i></td>
       <td class="btn-group">
-        <a class="btn btn-xs btn-primary" (click)="onEdit(talk)">Edit</a>
-        <a class="btn btn-xs btn-danger" (click)="onDelete(talk)">Delete</a>
+        <a class="btn btn-xs btn-primary" (click)="onEdit(talk)" title="Edit"><i class="fa fa-pencil"></i></a>
+        <a class="btn btn-xs btn-danger" (click)="onDelete(talk)" title="Delete"><i class="fa fa-times"></i></a>
       </td>
     </tr>
   </table>

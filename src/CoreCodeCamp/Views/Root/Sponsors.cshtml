@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Sponsor>
+@{
+  ViewData["Title"] = "Sponsors";
+}
+
+<div class="row">
+  <h2>Our Sponsors</h2>
+  <p class="lead">We'd like to thank our sponsors for their generous support. Without it, we couldn't hold this event!</p>
+</div>
+
+@Html.Partial("_Sponsors", Model)

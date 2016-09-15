@@ -31,6 +31,8 @@ namespace CoreCodeCamp.Controllers.Web
     [HttpGet("")]
     public IActionResult Index(string moniker)
     {
+      var speaker = _repo.GetSpeakerForCurrentUser(moniker, User.Identity.Name);
+      if (speaker != null) return RedirectToAction("Manage");
       return View();
     }
 

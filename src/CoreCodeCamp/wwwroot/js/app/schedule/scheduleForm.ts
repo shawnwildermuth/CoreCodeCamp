@@ -17,26 +17,38 @@ export class ScheduleForm extends BaseForm {
   msg: string = "";
   sort: string = "";
   sortAsc: boolean = true;
+  summary = {
+    speakers: 0,
+    approved: 0,
+    talks: 0
+  };
 
   constructor(private data: DataService) {
     super();
     this.loadSchedule();
   }
 
+  updateSummary() {
+    this.summary.approved = this.talks.filter(t => t.approved).length; 
+    this.summary.talks = this.talks.length; 
+    this.summary.speakers = this.talks.map(t => t.speaker.name).filter((x, i, s) => s.indexOf(x) === i).length;
+  }
+
   loadSchedule() {
     this.isBusy = true;
 
-    Observable.forkJoin(
+    Observable.forkJoin([
       this.data.getAllTalks(),
       this.data.getRooms(),
       this.data.getTimeSlots(),
-      this.data.getTracks()
+      this.data.getTracks()]
     ).subscribe(
       res => {
         this.talks = res[0].json();
         this.rooms = res[1].json();
         this.timeSlots = res[2].json();
         this.tracks = res[3].json();
+        this.updateSummary();
       },
       res => this.showError("Failed to get data"),
       () => this.isBusy = false);
@@ -109,6 +121,7 @@ export class ScheduleForm extends BaseForm {
     this.data.deleteTalk(talk.id)
       .subscribe(res => {
         this.talks.splice(this.talks.indexOf(talk), 1);
+        this.updateSummary();
       }, e => this.showError("Failed to delete talk"), () => this.isBusy = false);
   }
 
@@ -117,6 +130,7 @@ export class ScheduleForm extends BaseForm {
     this.data.toggleApproved(talk)
       .subscribe(res => {
         talk.approved = !talk.approved;
+        this.updateSummary();
       }, e => this.showError("Failed to toggle approved flag"), () => this.isBusy = false);
   }
 

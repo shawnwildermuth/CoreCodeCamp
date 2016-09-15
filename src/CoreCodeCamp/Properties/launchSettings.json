@@ -12,7 +12,7 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT_": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "CoreCodeCamp": {

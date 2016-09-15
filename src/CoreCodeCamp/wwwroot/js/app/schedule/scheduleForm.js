@@ -30,16 +30,31 @@ var ScheduleForm = (function (_super) {
         this.msg = "";
         this.sort = "";
         this.sortAsc = true;
+        this.summary = {
+            speakers: 0,
+            approved: 0,
+            talks: 0
+        };
         this.loadSchedule();
     }
+    ScheduleForm.prototype.updateSummary = function () {
+        this.summary.approved = this.talks.filter(function (t) { return t.approved; }).length;
+        this.summary.talks = this.talks.length;
+        this.summary.speakers = this.talks.map(function (t) { return t.speaker.name; }).filter(function (x, i, s) { return s.indexOf(x) === i; }).length;
+    };
     ScheduleForm.prototype.loadSchedule = function () {
         var _this = this;
         this.isBusy = true;
-        Rx_1.Observable.forkJoin(this.data.getAllTalks(), this.data.getRooms(), this.data.getTimeSlots(), this.data.getTracks()).subscribe(function (res) {
+        Rx_1.Observable.forkJoin([
+            this.data.getAllTalks(),
+            this.data.getRooms(),
+            this.data.getTimeSlots(),
+            this.data.getTracks()]).subscribe(function (res) {
             _this.talks = res[0].json();
             _this.rooms = res[1].json();
             _this.timeSlots = res[2].json();
             _this.tracks = res[3].json();
+            _this.updateSummary();
         }, function (res) { return _this.showError("Failed to get data"); }, function () { return _this.isBusy = false; });
     };
     ScheduleForm.prototype.setMsg = function (text) {
@@ -113,6 +128,7 @@ var ScheduleForm = (function (_super) {
         this.data.deleteTalk(talk.id)
             .subscribe(function (res) {
             _this.talks.splice(_this.talks.indexOf(talk), 1);
+            _this.updateSummary();
         }, function (e) { return _this.showError("Failed to delete talk"); }, function () { return _this.isBusy = false; });
     };
     ScheduleForm.prototype.onToggleApproved = function (talk) {
@@ -121,6 +137,7 @@ var ScheduleForm = (function (_super) {
         this.data.toggleApproved(talk)
             .subscribe(function (res) {
             talk.approved = !talk.approved;
+            _this.updateSummary();
         }, function (e) { return _this.showError("Failed to toggle approved flag"); }, function () { return _this.isBusy = false; });
     };
     ScheduleForm = __decorate([

@@ -1,0 +1,10 @@
+﻿@model Talk
+<div class="col-md-3 col-sm-6 schedule-item-container">
+  <a href="@Url.Action("Speaker", "Root", new { id = Model.Speaker.Slug })">
+    <div class="schedule-item schedule-item-@(Model.Category.Replace(" ", "-").ToLower())">
+      <h5>@Model.Title</h5>
+      <div>@Model.Speaker.Name</div>
+      <div>@Model.Room.Name</div>
+    </div>
+  </a>
+</div>

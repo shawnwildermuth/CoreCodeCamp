@@ -162,6 +162,63 @@ footer a:focus {
 .navbar-nav.auth-nav > li > a {
   font-size: 12px;
 }
+.schedule-item-container {
+  margin: 0px;
+  padding: 2px;
+}
+.schedule-item-container a {
+  color: black;
+}
+.schedule-item-container a:hover {
+  text-decoration: none;
+}
+.schedule-item-container .schedule-item {
+  border-top: 1px solid rgba(206, 0, 0, 0.25);
+  border-bottom: 1px solid rgba(206, 0, 0, 0.25);
+  margin: 2px;
+  padding: 3px;
+  min-height: 140px;
+  background-color: rgba(128, 128, 128, 0.2);
+}
+.schedule-item-container .schedule-item:hover {
+  background-color: rgba(128, 128, 128, 0.4);
+}
+.schedule-item-container .schedule-item-general-discussion {
+  background-color: rgba(0, 0, 255, 0.2);
+}
+.schedule-item-container .schedule-item-general-discussion:hover {
+  background-color: rgba(0, 0, 255, 0.4);
+}
+.schedule-item-container .schedule-item-database-development {
+  background-color: rgba(0, 128, 0, 0.2);
+}
+.schedule-item-container .schedule-item-database-development:hover {
+  background-color: rgba(0, 128, 0, 0.4);
+}
+.schedule-item-container .schedule-item-it-topics {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+.schedule-item-container .schedule-item-it-topics:hover {
+  background-color: rgba(255, 0, 0, 0.4);
+}
+.schedule-item-container .schedule-item-web-development {
+  background-color: rgba(255, 165, 0, 0.2);
+}
+.schedule-item-container .schedule-item-web-development:hover {
+  background-color: rgba(255, 165, 0, 0.4);
+}
+.schedule-item-container .schedule-item-mobile-development {
+  background-color: rgba(128, 0, 128, 0.2);
+}
+.schedule-item-container .schedule-item-mobile-development:hover {
+  background-color: rgba(128, 0, 128, 0.4);
+}
+.schedule-item-container .schedule-item-career-advancement {
+  background-color: rgba(255, 255, 0, 0.2);
+}
+.schedule-item-container .schedule-item-career-advancement:hover {
+  background-color: rgba(255, 255, 0, 0.4);
+}
 body {
   -webkit-animation-delay: 0.1s;
   -webkit-animation-name: fontfix;

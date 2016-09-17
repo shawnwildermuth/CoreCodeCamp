@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CoreCodeCamp.Data.Entities;
+using CoreCodeCamp.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoreCodeCamp.Data
@@ -267,6 +268,29 @@ namespace CoreCodeCamp.Data
     public TimeSlot GetTimeSlot(string moniker, int id)
     {
       return _ctx.TimeSlots.Where(r => r.Id == id).FirstOrDefault();
+    }
+
+    public List<IEnumerable<ScheduleModel>> GetTalksInSlots(string moniker)
+    {
+      var talks = GetTalks(moniker).ToList();
+
+      var slots = from t in talks
+                  where t.TimeSlot != null && t.Room != null
+                  orderby t.TimeSlot.Time, t.Room.Name
+                  group t by t.TimeSlot.Time into g
+                  select new ScheduleModel()
+                  {
+                    Time = g.Key,
+                    Talks = g.ToList()
+                  };
+
+      var results = new List<IEnumerable<ScheduleModel>>()
+      {
+        slots.Where(a => a.Time.TimeOfDay < TimeSpan.FromHours(12)).ToList(),
+        slots.Where(a => a.Time.TimeOfDay > TimeSpan.FromHours(12)).ToList()
+      };
+
+      return results;
     }
   }
 }

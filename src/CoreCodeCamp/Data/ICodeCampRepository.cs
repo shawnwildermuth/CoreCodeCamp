@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoreCodeCamp.Data.Entities;
+using CoreCodeCamp.Models;
 
 namespace CoreCodeCamp.Data
 {
@@ -36,6 +37,7 @@ namespace CoreCodeCamp.Data
     IEnumerable<Talk> GetTalks(string moniker);
     Talk GetTalk(int id);
     bool ToggleTalkForUser(string moniker, string userName, int talkId);
+    List<IEnumerable<ScheduleModel>> GetTalksInSlots(string moniker);
 
     void AddOrUpdate(object entity);
     void Delete(object entity);

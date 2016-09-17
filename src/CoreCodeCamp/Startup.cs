@@ -91,7 +91,7 @@ namespace CoreCodeCamp
       {
         if (_env.IsProduction())
         {
-          //opt.Filters.Add(new RequireHttpsAttribute());
+          opt.Filters.Add(new RequireHttpsAttribute());
         }
       });
     }

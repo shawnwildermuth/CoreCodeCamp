@@ -1,11 +1,14 @@
-@model Tuple<IEnumerable<Talk>, IEnumerable<Talk>>
+@model Tuple<List<IEnumerable<ScheduleModel>>, IEnumerable<Talk>>
 @{
   ViewData["Title"] = "Schedule";
+
+  var slots = Model.Item1;
+  var favs = Model.Item2;
 }
 <div class="row">
-  <div class="col-md-3 text-left">
+  <div class="col-md-2 text-left">
     <h3>Your Favorites</h3>
-    @foreach (var fav in Model.Item2)
+    @foreach (var fav in favs)
     {
       <div class="well well-sm text-sm">
         <span class="delete-star pull-right" data-id="@fav.Id" title="Remove Favorite"><i class="fa fa-close"></i></span>
@@ -22,8 +25,75 @@
       </div>
     }
   </div>
-  <div class="col-md-9">
+  <div class="col-md-10">
     <h3>Schedule</h3>
-    <p class="lead">Full Schedule Coming Soon</p>
+    @if (slots == null || slots[0].Count() == 0 || slots[1].Count() == 0)
+    {
+      <p class="lead">Full Schedule Coming Soon</p>
+    }
+    else
+    {
+      <div class="row">
+        <div class="col-md-1">
+          <p>8:30am</p>
+        </div>
+        <div class="panel col-md-11 panel-success">
+          <div class="panel-body">
+            <h4>Introduction and Welcome</h4>
+            <div>Auditorium (Building J)</div>
+          </div>
+        </div>
+
+        @foreach (var slot in slots[0])
+        {
+          <div class="col-md-1">
+            <p>@slot.Time.ToString("hh:mmtt").ToLower()</p>
+          </div>
+          <div class="col-md-11">
+            <div class="row">
+              @foreach (var talk in slot.Talks)
+              {
+                @Html.Partial("_ScheduleItem", talk)
+              }
+            </div>
+          </div>
+        }
+
+        <div class="col-md-1">
+          <p>12:30pm</p>
+        </div>
+        <div class="panel col-md-11 panel-success">
+          <div class="panel-body">
+            <h4>Lunch</h4>
+            <div>Building I</div>
+          </div>
+        </div>
+
+        @foreach (var slot in slots[1])
+        {
+          <div class="col-md-1">
+            <p>@slot.Time.ToString("hh:mmtt").ToLower()</p>
+          </div>
+          <div class="col-md-11">
+            <div class="row">
+              @foreach (var talk in slot.Talks)
+              {
+                @Html.Partial("_ScheduleItem", talk)
+              }
+            </div>
+          </div>
+        }
+
+        <div class="col-md-1">
+          <p>4:30pm</p>
+        </div>
+        <div class="panel col-md-11 panel-success">
+          <div class="panel-body">
+            <h4>Wrap-up and Giveaways</h4>
+            <div>Auditorium (Building J)</div>
+          </div>
+        </div>
+      </div>
+    }
   </div>
 </div>

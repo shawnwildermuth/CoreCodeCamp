@@ -90,9 +90,11 @@ namespace CoreCodeCamp.Controllers.Web
     [HttpGet("{moniker}/Schedule")]
     public IActionResult Schedule(string moniker)
     {
-      var sessions = _repo.GetTalks(moniker).Where(t => t.Approved).ToList();
       var favorites = _repo.GetUserWithFavoriteTalksForEvent(User.Identity.Name, moniker);
-      return View(Tuple.Create<IEnumerable<Talk>, IEnumerable<Talk>>(sessions, favorites));
+
+      var slots = _repo.GetTalksInSlots(moniker);
+
+      return View(Tuple.Create<List<IEnumerable<ScheduleModel>>, IEnumerable<Talk>>(slots, favorites));
     }
 
     [HttpGet("{moniker}/Register")]

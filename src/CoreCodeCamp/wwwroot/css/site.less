@@ -35,7 +35,7 @@ p.lead {
 
   .navbar-nav {
     .active > a {
-      font-weight: 500;
+      font-weight: 800;
       background: rgba(200, 200, 200, 0.2) none repeat scroll 0 0;
     }
   }
@@ -218,6 +218,7 @@ footer {
 .schedule-item-container {
   margin: 0px;
   padding: 2px;
+  font-family: Roboto,Helvetica,Arial,sans-serif;
 
   a {
     color: black;
@@ -232,13 +233,21 @@ footer {
     border-bottom: 1px solid fadeout(@themeColor, 75%);
     margin: 2px;
     padding: 3px;
-    min-height: 140px;
+    min-height: 150px;
     .backstyle(gray);
   }
 
 
   .schedule-item-general-discussion {
     .backstyle(blue);
+  }
+
+  .schedule-item-design-ux-ui {
+    .backstyle(pink);
+  }
+
+  .schedule-item-cloud-development {
+    .backstyle(green);
   }
 
   .schedule-item-database-development {
@@ -259,6 +268,15 @@ footer {
 
   .schedule-item-career-advancement {
     .backstyle(yellow);
+  }
+
+  .schedule-item-professional-development {
+    .backstyle(tan);
+  }
+
+  .schedule-item-properties {
+    line-height: normal;
+    font-size: small;
   }
 }
 

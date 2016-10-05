@@ -34,7 +34,7 @@
         @if (talk.Room != null)
         {
           <dt>Room</dt>
-          <dd>@talk.Room</dd>
+          <dd><a href="/img/@(this.GetEventInfo().Moniker)/maps/@(talk.Room[1] == '1' ? "1stFloor" : "2ndFloor").png" target="_blank">@talk.Room</a></dd>
         }
         @if (talk.Time != DateTime.MinValue)
         {

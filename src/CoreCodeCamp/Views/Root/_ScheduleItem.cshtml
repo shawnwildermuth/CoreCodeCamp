@@ -4,7 +4,8 @@
     <div class="schedule-item schedule-item-@(Model.Category.Replace(" ", "-").ToLower())">
       <h5>@Model.Title</h5>
       <div>@Model.Speaker.Name</div>
-      <div>@Model.Room.Name</div>
+      <div class="schedule-item-properties">Room: @Model.Room.Name</div>
+      <div class="schedule-item-properties">Category: @Model.Category</div>
     </div>
   </a>
 </div>

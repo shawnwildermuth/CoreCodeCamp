@@ -12,7 +12,8 @@ gulp.task("npmTasks", function () {
     "rxjs": 'rxjs/**/*.*',
     "core-js": "core-js/client/*.js",
     "zone.js": "zone.js/dist/*.js",
-    "reflect-metadata": "reflect-metadata/*.js"
+    "reflect-metadata": "reflect-metadata/*.js",
+    "moment": "moment/*.js"
   };
 
   for (var name in libs) {

@@ -18,6 +18,7 @@ var core_1 = require('@angular/core');
 var dataService_1 = require("../common/dataService");
 var baseForm_1 = require("../common/baseForm");
 var Rx_1 = require('rxjs/Rx');
+var utcDatePipe_1 = require("../common/utcDatePipe");
 var ScheduleForm = (function (_super) {
     __extends(ScheduleForm, _super);
     function ScheduleForm(data) {
@@ -143,7 +144,8 @@ var ScheduleForm = (function (_super) {
     ScheduleForm = __decorate([
         core_1.Component({
             selector: "schedule-form",
-            templateUrl: "/js/app/schedule/scheduleForm.html"
+            templateUrl: "/js/app/schedule/scheduleForm.html",
+            pipes: [utcDatePipe_1.UtcDatePipe]
         }), 
         __metadata('design:paramtypes', [dataService_1.DataService])
     ], ScheduleForm);

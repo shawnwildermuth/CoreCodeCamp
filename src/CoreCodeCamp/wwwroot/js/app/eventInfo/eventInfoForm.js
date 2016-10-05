@@ -19,6 +19,7 @@ var common_1 = require('@angular/common');
 var dataService_1 = require("../common/dataService");
 var baseForm_1 = require("../common/baseForm");
 var Rx_1 = require('rxjs/Rx');
+var utcDatePipe_1 = require("../common/utcDatePipe");
 var EventInfoForm = (function (_super) {
     __extends(EventInfoForm, _super);
     function EventInfoForm(data) {
@@ -87,6 +88,7 @@ var EventInfoForm = (function (_super) {
             .subscribe(function (res) {
             _this.rooms.push(res.json());
             _this.isBusy = false;
+            _this.newRoom = "";
         }, function (e) {
             _this.error = e;
             _this.isBusy = false;
@@ -98,6 +100,7 @@ var EventInfoForm = (function (_super) {
         this.data.saveTimeSlot(this.newTimeSlot)
             .subscribe(function (res) {
             _this.timeSlots.push(res.json());
+            _this.newTimeSlot = "";
             _this.isBusy = false;
         }, function (e) {
             _this.error = e;
@@ -134,7 +137,8 @@ var EventInfoForm = (function (_super) {
     EventInfoForm = __decorate([
         core_1.Component({
             selector: "event-info-form",
-            templateUrl: "/js/app/eventInfo/eventInfoForm.html"
+            templateUrl: "/js/app/eventInfo/eventInfoForm.html",
+            pipes: [utcDatePipe_1.UtcDatePipe]
         }), 
         __metadata('design:paramtypes', [dataService_1.DataService])
     ], EventInfoForm);

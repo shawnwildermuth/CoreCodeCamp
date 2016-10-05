@@ -46,7 +46,7 @@ namespace CoreCodeCamp.Controllers.Web
       return View(speakers);
     }
 
-    [HttpGet("{moniker}/Speakers/{id}", Name = "SpeakerTalkPage" )]
+    [HttpGet("{moniker}/Speakers/{id}", Name = "SpeakerTalkPage")]
     public IActionResult Speaker(string moniker, string id)
     {
 
@@ -94,7 +94,27 @@ namespace CoreCodeCamp.Controllers.Web
 
       var slots = _repo.GetTalksInSlots(moniker);
 
-      return View(Tuple.Create<List<IEnumerable<ScheduleModel>>, IEnumerable<Talk>>(slots, favorites));
+      DateTime pickedSlot = DateTime.MinValue;
+
+      if (slots.Count() > 0)
+      {
+        var easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+        var eventTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
+
+        if (eventTime.Date == this._theEvent.EventDate)
+        {
+          pickedSlot = slots[0].First().Time;
+
+          foreach (var slot in slots)
+          {
+            if (slot.First().Time > eventTime)
+            {
+              pickedSlot = slot.First().Time;
+            }
+          }
+        }
+      }
+      return View(Tuple.Create(slots, favorites, pickedSlot));
     }
 
     [HttpGet("{moniker}/Register")]

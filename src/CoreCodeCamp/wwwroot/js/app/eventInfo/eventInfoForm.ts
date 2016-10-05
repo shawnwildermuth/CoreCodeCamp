@@ -5,12 +5,16 @@ import { Response } from '@angular/http';
 import { DataService } from "../common/dataService";
 import { BaseForm } from "../common/baseForm";
 import { Observable } from 'rxjs/Rx';
+import * as moment from 'moment/moment';
+import { UtcDatePipe } from "../common/utcDatePipe";
+
 
 declare var jQuery: any;
 
 @Component({
   selector: "event-info-form",
-  templateUrl: "/js/app/eventInfo/eventInfoForm.html"
+  templateUrl: "/js/app/eventInfo/eventInfoForm.html",
+  pipes: [ UtcDatePipe ]
 })
 export class EventInfoForm extends BaseForm {
 
@@ -91,6 +95,7 @@ export class EventInfoForm extends BaseForm {
       .subscribe((res) => {
         this.rooms.push(res.json());
         this.isBusy = false;
+        this.newRoom = "";
       }, (e) => {
         this.error = e;
         this.isBusy = false;
@@ -102,6 +107,7 @@ export class EventInfoForm extends BaseForm {
     this.data.saveTimeSlot(this.newTimeSlot)
       .subscribe((res) => {
         this.timeSlots.push(res.json());
+        this.newTimeSlot = "";
         this.isBusy = false;
       }, (e) => {
         this.error = e;

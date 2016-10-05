@@ -141,7 +141,7 @@
           </tr>
         </thead>
         <tr *ngFor="let timeSlot of timeSlots">
-          <td>{{ timeSlot.time | date:"shortTime" }}</td>
+          <td>{{ timeSlot.time | utcdate:"h:mma" }}</td>
           <td><button class="btn btn-sm btn-danger" title="Delete" (click)="deleteTimeSlot(timeSlot)"><i class="fa fa-remove"></i></button></td>
         </tr>
       </table>

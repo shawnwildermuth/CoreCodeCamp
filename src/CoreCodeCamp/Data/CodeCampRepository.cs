@@ -252,7 +252,10 @@ namespace CoreCodeCamp.Data
 
     public IEnumerable<TimeSlot> GetTimeSlots(string moniker)
     {
-      return _ctx.TimeSlots.Where(r => r.Event.Moniker == moniker).OrderBy(r => r.Time).ToList();
+      return _ctx.TimeSlots
+        .Where(r => r.Event.Moniker == moniker)
+        .OrderBy(r => r.Time)
+        .ToList();
     }
 
     public Room GetRoom(string moniker, int id)

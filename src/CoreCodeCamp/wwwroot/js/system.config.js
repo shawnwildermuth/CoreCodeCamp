@@ -3,12 +3,14 @@
   // map tells the System loader where to look for things
   var map = {
     '@angular': '/lib/angular2',
-    'rxjs': '/lib/rxjs'
-  };
+    'rxjs': '/lib/rxjs',
+    'moment': '/lib/moment'
+};
 
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
     'rxjs': { defaultExtension: 'js' },
+    'moment': { defaultExtension: 'js' }
   };
 
   // Our Components

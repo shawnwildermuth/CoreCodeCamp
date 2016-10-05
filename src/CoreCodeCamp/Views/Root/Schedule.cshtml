@@ -1,9 +1,19 @@
-@model Tuple<List<IEnumerable<ScheduleModel>>, IEnumerable<Talk>>
+@model Tuple<List<IEnumerable<ScheduleModel>>, IEnumerable<Talk>, DateTime>
 @{
   ViewData["Title"] = "Schedule";
 
   var slots = Model.Item1;
   var favs = Model.Item2;
+  var pickedTime = Model.Item3;
+
+}
+@section Scripts {
+  <script>
+    (function ($) {
+      var timeBlock = $('.current-time');
+      if (timeBlock.length > 0) window.scrollTo(0, timeBlock.offset().top - 50);
+    })(jQuery);
+  </script>
 }
 <div class="row">
   <div class="col-md-2 text-left">
@@ -26,7 +36,6 @@
     }
   </div>
   <div class="col-md-10">
-    <h3>Schedule</h3>
     @if (slots == null || slots[0].Count() == 0 || slots[1].Count() == 0)
     {
       <p class="lead">Full Schedule Coming Soon</p>
@@ -34,20 +43,26 @@
     else
     {
       <div class="row">
+        <div class="col-md-11 col-lg-offset-1"><h3>Schedule</h3></div>
         <div class="col-md-1">
-          <p>8:30am</p>
+          <p>7:45am-<br />8:30am</p>
+        </div>
+        <div class="panel col-md-11 panel-info">
+          <h4>Registration</h4>
+          <div>Auditorium (Building J)</div>
+        </div>
+        <div class="col-md-1">
+          <p>8:30am-<br />9:00am</p>
         </div>
         <div class="panel col-md-11 panel-success">
-          <div class="panel-body">
-            <h4>Introduction and Welcome</h4>
-            <div>Auditorium (Building J)</div>
-          </div>
+          <h4>Introduction and Welcome</h4>
+          <div>Auditorium (Building J)</div>
         </div>
 
         @foreach (var slot in slots[0])
         {
-          <div class="col-md-1">
-            <p>@slot.Time.ToString("hh:mmtt").ToLower()</p>
+          <div class="col-md-1 @(slot.Time.TimeOfDay == pickedTime.TimeOfDay ? "current-time" : "")">
+            <p>@slot.Time.ToString("hh:mmtt").ToLower()-<br />@slot.Time.AddHours(1).ToString("hh:mmtt").ToLower()</p>
           </div>
           <div class="col-md-11">
             <div class="row">
@@ -60,19 +75,17 @@
         }
 
         <div class="col-md-1">
-          <p>12:30pm</p>
+          <p>12:00pm-<br />1:00pm</p>
         </div>
         <div class="panel col-md-11 panel-success">
-          <div class="panel-body">
-            <h4>Lunch</h4>
-            <div>Building I</div>
-          </div>
+          <h4>Lunch</h4>
+          <div>Building I</div>
         </div>
 
         @foreach (var slot in slots[1])
         {
-          <div class="col-md-1">
-            <p>@slot.Time.ToString("hh:mmtt").ToLower()</p>
+          <div class="col-md-1 @(slot.Time.TimeOfDay == pickedTime.TimeOfDay ? "current-time" : "")">
+            <p>@slot.Time.ToString("hh:mmtt").ToLower()-<br />@slot.Time.AddHours(1).ToString("hh:mmtt").ToLower()</p>
           </div>
           <div class="col-md-11">
             <div class="row">
@@ -85,13 +98,11 @@
         }
 
         <div class="col-md-1">
-          <p>4:30pm</p>
+          <p>5:00pm-<br />5:30pm</p>
         </div>
         <div class="panel col-md-11 panel-success">
-          <div class="panel-body">
-            <h4>Wrap-up and Giveaways</h4>
-            <div>Auditorium (Building J)</div>
-          </div>
+          <h4>Wrap-up and Giveaways</h4>
+          <div>Auditorium (Building J)</div>
         </div>
       </div>
     }

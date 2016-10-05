@@ -68,7 +68,7 @@
             </td>
             <td>
               <select [(ngModel)]="talk.time" (ngModelChange)="onTimeChanged(talk, $event)">
-                <option *ngFor="let t of timeSlots" value="{{ t.time }}">{{ t.time | date:"hh:mma" }}</option>
+                <option *ngFor="let t of timeSlots" value="{{ t.time }}">{{ t.time | utcdate:"hh:mma" }}</option>
               </select>
             </td>
             <td>{{ talk.approved ? "Yes" : "No" }}</td>

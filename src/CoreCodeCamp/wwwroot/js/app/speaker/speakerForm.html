@@ -35,19 +35,19 @@
         </div>
         <div class="form-group">
           <label>Company Website</label>
-          <input [(ngModel)]="model.companyUrl" class="form-control" placeholder="Company Website" name="companyUrl" #companyUrl="ngModel" pattern="^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$" />
+          <input [(ngModel)]="model.companyUrl" class="form-control" placeholder="Company Website" name="companyUrl" #companyUrl="ngModel" pattern="^(https?:\/\/)?([\da-zA-Z0-9-_\.-]+)\.([a-zA-Z\.]{2,6}).*?$" />
           <span class="text-danger" [hidden]="companyUrl.errors == null || !companyUrl.errors['pattern']">* must be a valid url (e.g. start with http(s))</span>
         </div>
       </div>
       <div class="well well-sm">
         <div class="form-group">
           <label>Blog</label>
-          <input [(ngModel)]="model.blog" class="form-control" placeholder="Your Blog" name="blog" #blog="ngModel" pattern="^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$" />
+          <input [(ngModel)]="model.blog" class="form-control" placeholder="Your Blog" name="blog" #blog="ngModel" pattern="^(https?:\/\/)?([\da-zA-Z0-9-_\.-]+)\.([a-zA-Z\.]{2,6}).*?$" />
           <span class="text-danger" [hidden]="blog.errors == null || !blog.errors['pattern']">* must be a valid url (e.g. start with http(s))</span>
         </div>
         <div class="form-group">
           <label>Website</label>
-          <input [(ngModel)]="model.website" class="form-control" placeholder="Your Website" name="website" #website="ngModel" pattern="^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$" />
+          <input [(ngModel)]="model.website" class="form-control" placeholder="Your Website" name="website" #website="ngModel" pattern="^(https?:\/\/)?([\da-zA-Z0-9-_\.-]+)\.([a-zA-Z\.]{2,6}).*?$" />
           <span class="text-danger" [hidden]="website.errors == null || !website.errors['pattern']">* must be a valid url (e.g. start with http(s))</span>
         </div>
         <div class="form-group">

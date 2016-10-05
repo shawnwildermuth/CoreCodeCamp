@@ -3,10 +3,12 @@ import { Component } from '@angular/core';
 import { DataService } from "../common/dataService";
 import { BaseForm } from "../common/baseForm";
 import { Observable } from 'rxjs/Rx';
+import { UtcDatePipe } from "../common/utcDatePipe";
 
 @Component({
   selector: "schedule-form",
-  templateUrl: "/js/app/schedule/scheduleForm.html"
+  templateUrl: "/js/app/schedule/scheduleForm.html",
+  pipes: [ UtcDatePipe ]
 })
 export class ScheduleForm extends BaseForm {
 

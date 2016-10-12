@@ -19,9 +19,25 @@ namespace CoreCodeCamp.Controllers.Web
     {
     }
 
+    List<string> _levels = new List<string> { "Platinum",
+              "Attendee Party",
+              "Speaker Dinner",
+              "Attendee Shirts",
+              "TShirt",
+              "Speaker Shirts",
+              "Gold",
+              "Silver",
+              "Swag",
+              "Other"};
+
     public IActionResult Index(string moniker)
     {
-      var sponsors = _repo.GetSponsors(moniker);
+
+      var sponsors = _repo.GetSponsors(moniker)
+                  .OrderBy(s => _levels.IndexOf(s.SponsorLevel))
+                 .ThenBy(s => Guid.NewGuid())
+                 .ToList();
+
       return View(sponsors);
     }
 
@@ -34,7 +50,11 @@ namespace CoreCodeCamp.Controllers.Web
     [HttpGet("{moniker}/Sponsors")]
     public IActionResult Sponsors(string moniker)
     {
-      var sponsors = _repo.GetSponsors(moniker);
+      var sponsors = _repo.GetSponsors(moniker)
+                  .OrderBy(s => _levels.IndexOf(s.SponsorLevel))
+                 .ThenBy(s => Guid.NewGuid())
+                 .ToList();
+
       return View(sponsors);
     }
 

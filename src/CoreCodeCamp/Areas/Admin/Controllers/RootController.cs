@@ -51,5 +51,25 @@ namespace CoreCodeCamp.Areas.Admin.Controllers
     {
       return View();
     }
+
+    [HttpGet("{moniker}/[area]/speakerlist")]
+    public FileContentResult SpeakerList(string moniker)
+    {
+      var speakers = _repo.GetSpeakers(moniker).Where(s => s.Talks.Count(t => t.Approved) > 0).ToList();
+
+      var csv = new StringBuilder();
+      csv.AppendLine("\"Name\",\"Email\",\"CompanyName\",\"PhoneNumber\",\"TwitterHandle\"");
+      foreach (var s in speakers)
+      {
+        csv.Append($@"""{s.Name}"",");
+        csv.Append($@"""{s.UserName}"",");
+        csv.Append($@"""{s.CompanyName}"",");
+        csv.Append($@"""{s.PhoneNumber}"",");
+        csv.Append($@"""{s.Twitter}"",");
+        csv.AppendLine();
+      }
+
+      return File(new UTF8Encoding().GetBytes(csv.ToString()), "text/csv", "SpeakerList.csv");
+    }
   }
 }

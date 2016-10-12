@@ -16,26 +16,33 @@
   </script>
 }
 <div class="row">
-  <div class="col-md-2 text-left">
-    <h3>Your Favorites</h3>
-    @foreach (var fav in favs)
-    {
-      <div class="well well-sm text-sm">
-        <span class="delete-star pull-right" data-id="@fav.Id" title="Remove Favorite"><i class="fa fa-close"></i></span>
-        <div><strong>@fav.Title</strong></div>
-        <div>@fav.Speaker.Name</div>
-        @if (fav.Room != null)
+  @if (favs.Count() > 0)
+  {
+    <div class="col-lg-2">
+      <div class="row">
+        <h3>Your Favorites</h3>
+        <div class="text-left">
+          @foreach (var fav in favs)
         {
-          <div class="text-sm">Room: @fav.Room.Name</div>
-        }
-        @if (fav.TimeSlot != null)
-        {
-          <div class="text-sm">Time: @fav.TimeSlot.Time</div>
-        }
+            <div class="well well-sm text-sm col-md-5 col-md-offset-1 col-lg-12 favorite-box">
+              <span class="delete-star pull-right" data-id="@fav.Id" title="Remove Favorite"><i class="fa fa-close"></i></span>
+              <div><strong><a href="Speakers/@fav.Speaker.Slug">@fav.Title</a></strong></div>
+              <div>@fav.Speaker.Name</div>
+              @if (fav.Room != null)
+          {
+                <div class="text-sm">Room: @fav.Room.Name</div>
+              }
+              @if (fav.TimeSlot != null)
+          {
+                <div class="text-sm">Time: @fav.TimeSlot.Time</div>
+              }
+            </div>
+          }
+        </div>
       </div>
-    }
-  </div>
-  <div class="col-md-10">
+    </div>
+  }
+  <div class="col-md-12 col-lg-@(favs.Count() > 0 ? "10" : "12")">
     @if (slots == null || slots[0].Count() == 0 || slots[1].Count() == 0)
     {
       <p class="lead">Full Schedule Coming Soon</p>
@@ -43,28 +50,28 @@
     else
     {
       <div class="row">
-        <div class="col-md-11 col-lg-offset-1"><h3>Schedule</h3></div>
-        <div class="col-md-1">
-          <p>7:45am-<br />8:30am</p>
+        <div class="col-lg-11 col-lg-offset-1 col-md-12 "><h3>Schedule</h3></div>
+        <div class="col-lg-1">
+          <p>7:45am-<span class="visible-lg visible-xl"> </span>8:30am</p>
         </div>
-        <div class="panel col-md-11 panel-info">
+        <div class="panel col-lg-11 col-md-12 panel-info">
           <h4>Registration and Breakfast</h4>
           <div><a href="/img/@(this.GetEventInfo().Moniker)/maps/campus.jpg" target="_blank">Building Q Atrium</a></div>
         </div>
-        <div class="col-md-1">
-          <p>8:30am-<br />9:00am</p>
+        <div class="col-lg-1">
+          <p>8:30am-<span class="visible-lg visible-xl"> </span>9:00am</p>
         </div>
-        <div class="panel col-md-11 panel-success">
+        <div class="panel col-lg-11 col-md-12 panel-success">
           <h4>Introduction and Welcome</h4>
           <div><a href="/img/@(this.GetEventInfo().Moniker)/maps/campus.jpg" target="_blank">Q202 (Auditorium)</a></div>
         </div>
 
         @foreach (var slot in slots[0])
         {
-          <div class="col-md-1 @(slot.Time.TimeOfDay == pickedTime.TimeOfDay ? "current-time" : "")">
-            <p>@slot.Time.ToString("hh:mmtt").ToLower()-<br />@slot.Time.AddHours(1).ToString("hh:mmtt").ToLower()</p>
+          <div class="col-lg-1 @(slot.Time.TimeOfDay == pickedTime.TimeOfDay ? "current-time" : "")">
+            <p>@slot.Time.ToString("hh:mmtt").ToLower()-<span class="visible-lg visible-xl"> </span>@slot.Time.AddHours(1).ToString("hh:mmtt").ToLower()</p>
           </div>
-          <div class="col-md-11">
+          <div class="col-lg-11 col-md-12 ">
             <div class="row">
               @foreach (var talk in slot.Talks)
               {
@@ -74,20 +81,20 @@
           </div>
         }
 
-        <div class="col-md-1">
-          <p>12:00pm-<br />1:00pm</p>
+        <div class="col-lg-1">
+          <p>12:00pm-<span class="visible-lg visible-xl"> </span>1:00pm</p>
         </div>
-        <div class="panel col-md-11 panel-success">
+        <div class="panel col-lg-11 panel-success">
           <h4>Lunch</h4>
           <div><a href="/img/@(this.GetEventInfo().Moniker)/maps/campus.jpg" target="_blank">Building J (Atrium)</a></div>
         </div>
 
         @foreach (var slot in slots[1])
         {
-          <div class="col-md-1 @(slot.Time.TimeOfDay == pickedTime.TimeOfDay ? "current-time" : "")">
-            <p>@slot.Time.ToString("hh:mmtt").ToLower()-<br />@slot.Time.AddHours(1).ToString("hh:mmtt").ToLower()</p>
+          <div class="col-lg-1 @(slot.Time.TimeOfDay == pickedTime.TimeOfDay ? "current-time" : "")">
+            <p>@slot.Time.ToString("hh:mmtt").ToLower()-<span class="visible-lg visible-xl"> </span>@slot.Time.AddHours(1).ToString("hh:mmtt").ToLower()</p>
           </div>
-          <div class="col-md-11">
+          <div class="col-lg-11">
             <div class="row">
               @foreach (var talk in slot.Talks)
               {
@@ -97,12 +104,29 @@
           </div>
         }
 
-        <div class="col-md-1">
-          <p>5:00pm-<br />5:30pm</p>
+        <div class="col-lg-1">
+          <p>5:00pm-<span class="visible-lg visible-xl"> </span>5:30pm</p>
         </div>
-        <div class="panel col-md-11 panel-success">
+        <div class="panel col-lg-11 panel-success">
           <h4>Wrap-up and Giveaways</h4>
           <div><a href="/img/@(this.GetEventInfo().Moniker)/maps/campus.jpg" target="_blank">Q202 (Auditorium)</a></div>
+        </div>
+
+        <div class="col-lg-1">
+          <p>5:30pm-<span class="visible-lg visible-xl"> </span>8:30pm</p>
+        </div>
+        <div class="panel col-lg-11 panel-success">
+          <h4>Attendee Party</h4>
+          <p>
+            <a href="http://www.ivision.com/"><img src="~/img/2016/sponsors/ivision.jpg" alt="iVision" class="img-responsive img-thumbnail pull-right" /></a>Don't forget
+            to come to our after party at <a href="http://www.daveandbusters.com/marietta">Dave and Busters in Marietta</a>! Come eat, play pool, beat a video game, and maybe even some bowling. Thank our sponsor, iVision for this great event!
+          </p>
+          <address class="text-left">
+            <a href="http://www.daveandbusters.com/marietta">Dave and Busters</a><br/>  
+            2215 D&B Drive<br />
+            Marietta, GA 30067<br />
+            <a href="https://www.google.com/maps?q=from++to+2215%20D&B%20Drive,%20Marietta,%20Georgia,%2030067">Directions</a>
+          </address>
         </div>
       </div>
     }

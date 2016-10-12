@@ -87,6 +87,28 @@
           }
         }
       },
+      "loggly-csharp/4.6.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "6.0.8",
+          "loggly-csharp-config": "4.6.0.2"
+        },
+        "compile": {
+          "lib/net45/Loggly.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Loggly.dll": {}
+        }
+      },
+      "loggly-csharp-config/4.6.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Loggly.Config.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Loggly.Config.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Antiforgery/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -1921,6 +1943,56 @@
           "lib/net45/Remotion.Linq.dll": {}
         }
       },
+      "Serilog/2.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Serilog.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Serilog.dll": {}
+        }
+      },
+      "Serilog.Extensions.Logging/1.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.0",
+          "Serilog": "2.0.0",
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "lib/net45/Serilog.Extensions.Logging.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Serilog.Extensions.Logging.dll": {}
+        }
+      },
+      "Serilog.Sinks.Loggly/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "9.0.1",
+          "Serilog": "2.0.0",
+          "Serilog.Sinks.PeriodicBatching": "2.0.0",
+          "loggly-csharp": "4.6.0.2"
+        },
+        "compile": {
+          "lib/net45/Serilog.Sinks.Loggly.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Serilog.Sinks.Loggly.dll": {}
+        }
+      },
+      "Serilog.Sinks.PeriodicBatching/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Serilog": "2.0.0"
+        },
+        "compile": {
+          "lib/net45/Serilog.Sinks.PeriodicBatching.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Serilog.Sinks.PeriodicBatching.dll": {}
+        }
+      },
       "SQLite/3.12.2": {
         "type": "package",
         "dependencies": {
@@ -2805,6 +2877,32 @@
         "runtimes/win7-arm/native/libuv.dll",
         "runtimes/win7-x64/native/libuv.dll",
         "runtimes/win7-x86/native/libuv.dll"
+      ]
+    },
+    "loggly-csharp/4.6.0.2": {
+      "sha512": "khQuuzc4FYHzQVo27c50DGYsTSyaCbY2G8km8qLchitMsfafWUUOZ9YJ/aUrry/4qCo3yiq0VSengSqzsTbz1w==",
+      "type": "package",
+      "path": "loggly-csharp/4.6.0.2",
+      "files": [
+        "lib/net45/Loggly.dll",
+        "lib/net45/Loggly.pdb",
+        "lib/netstandard1.5/Loggly.dll",
+        "lib/netstandard1.5/Loggly.pdb",
+        "loggly-csharp.4.6.0.2.nupkg.sha512",
+        "loggly-csharp.nuspec"
+      ]
+    },
+    "loggly-csharp-config/4.6.0.2": {
+      "sha512": "ofkWaJVITST2atlNekqRKI2S0tv/VshbwDg1LTTpVcpR07bPQJX+50f/RObkUJHYHe8PIYzWwLPBjzDqIeKfPw==",
+      "type": "package",
+      "path": "loggly-csharp-config/4.6.0.2",
+      "files": [
+        "lib/net45/Loggly.Config.dll",
+        "lib/net45/Loggly.Config.pdb",
+        "lib/netstandard1.5/Loggly.Config.dll",
+        "lib/netstandard1.5/Loggly.Config.pdb",
+        "loggly-csharp-config.4.6.0.2.nupkg.sha512",
+        "loggly-csharp-config.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Antiforgery/1.0.0": {
@@ -4484,6 +4582,60 @@
         "lib/netstandard1.0/Remotion.Linq.xml",
         "lib/portable-net45+win+wpa81+wp80/Remotion.Linq.dll",
         "lib/portable-net45+win+wpa81+wp80/Remotion.Linq.xml"
+      ]
+    },
+    "Serilog/2.0.0": {
+      "sha512": "PKR/FMxfHOhX1p3Qs54Uv9dJEC09sI91cVz39Jt/2f/BpCYHTt9F1RpogSJTFU9xxW6j9FHd+P7aBcC0qMeuqg==",
+      "type": "package",
+      "path": "Serilog/2.0.0",
+      "files": [
+        "Serilog.2.0.0.nupkg.sha512",
+        "Serilog.nuspec",
+        "lib/net45/Serilog.dll",
+        "lib/net45/Serilog.xml",
+        "lib/netstandard1.0/Serilog.dll",
+        "lib/netstandard1.0/Serilog.xml",
+        "lib/netstandard1.3/Serilog.dll",
+        "lib/netstandard1.3/Serilog.xml"
+      ]
+    },
+    "Serilog.Extensions.Logging/1.2.0": {
+      "sha512": "kAZoUF/U/X+/ep5ZytpydcURbt1tvhyArOrWct0QLW72j6cquu2JyJlzNAaKW1yBZcblx1PvzvFJADhBuaIiMQ==",
+      "type": "package",
+      "path": "Serilog.Extensions.Logging/1.2.0",
+      "files": [
+        "Serilog.Extensions.Logging.1.2.0.nupkg.sha512",
+        "Serilog.Extensions.Logging.nuspec",
+        "lib/net45/Serilog.Extensions.Logging.dll",
+        "lib/net45/Serilog.Extensions.Logging.xml",
+        "lib/netstandard1.3/Serilog.Extensions.Logging.dll",
+        "lib/netstandard1.3/Serilog.Extensions.Logging.xml"
+      ]
+    },
+    "Serilog.Sinks.Loggly/3.0.0": {
+      "sha512": "LDMIQ00+N3mkvL8PVcmsWY26VKUp9VO/zftx0p1aQBOvvUfO9Ik5UFJRdFzTp9ByeIGI/H5HFWJGgYJ0KgHxBg==",
+      "type": "package",
+      "path": "Serilog.Sinks.Loggly/3.0.0",
+      "files": [
+        "Serilog.Sinks.Loggly.3.0.0.nupkg.sha512",
+        "Serilog.Sinks.Loggly.nuspec",
+        "lib/net45/Serilog.Sinks.Loggly.dll",
+        "lib/netstandard1.5/Serilog.Sinks.Loggly.dll"
+      ]
+    },
+    "Serilog.Sinks.PeriodicBatching/2.0.0": {
+      "sha512": "gfG5MaAKdGw0CFPdoXV9I0m+s5CbUxihFeiRMD/nSPzP/S8Lmop0McQhz8o1tKBU/7SkM1UOjWsBdv5LObDBOg==",
+      "type": "package",
+      "path": "Serilog.Sinks.PeriodicBatching/2.0.0",
+      "files": [
+        "Serilog.Sinks.PeriodicBatching.2.0.0.nupkg.sha512",
+        "Serilog.Sinks.PeriodicBatching.nuspec",
+        "lib/net45/Serilog.Sinks.PeriodicBatching.dll",
+        "lib/net45/Serilog.Sinks.PeriodicBatching.xml",
+        "lib/netstandard1.1/Serilog.Sinks.PeriodicBatching.dll",
+        "lib/netstandard1.1/Serilog.Sinks.PeriodicBatching.xml",
+        "lib/netstandard1.3/Serilog.Sinks.PeriodicBatching.dll",
+        "lib/netstandard1.3/Serilog.Sinks.PeriodicBatching.xml"
       ]
     },
     "SQLite/3.12.2": {
@@ -7356,7 +7508,9 @@
       "Microsoft.Extensions.Options.ConfigurationExtensions >= 1.0.0",
       "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Tools >= 1.0.0-preview2-final",
-      "Microsoft.VisualStudio.Web.CodeGenerators.Mvc >= 1.0.0-preview2-final"
+      "Microsoft.VisualStudio.Web.CodeGenerators.Mvc >= 1.0.0-preview2-final",
+      "Serilog.Extensions.Logging >= 1.2.0",
+      "Serilog.Sinks.Loggly >= 3.0.0"
     ],
     ".NETFramework,Version=v4.6": [
       "System.Drawing >= 4.0.0"

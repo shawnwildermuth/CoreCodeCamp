@@ -7,6 +7,8 @@ using CoreCodeCamp.Data.Entities;
 using CoreCodeCamp.Models;
 using CoreCodeCamp.Models.Admin;
 using CoreCodeCamp.Services;
+using Loggly;
+using Loggly.Config;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,6 +18,8 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Events;
 
 namespace CoreCodeCamp
 {
@@ -34,6 +38,7 @@ namespace CoreCodeCamp
           .AddEnvironmentVariables();
 
       _config = builder.Build();
+
     }
 
 
@@ -97,7 +102,11 @@ namespace CoreCodeCamp
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory, CodeCampSeeder seeder, ICodeCampRepository repo)
+    public void Configure(IApplicationBuilder app, 
+      ILoggerFactory loggerFactory, 
+      CodeCampSeeder seeder, 
+      ICodeCampRepository repo,
+      IApplicationLifetime appLifetime)
     {
       loggerFactory.AddConsole(_config.GetSection("Logging"));
 
@@ -110,10 +119,14 @@ namespace CoreCodeCamp
         app.UseDatabaseErrorPage();
         app.UseStatusCodePages();
       }
-      else
+
+      if (_env.IsProduction())
       {
         app.UseStatusCodePagesWithRedirects("~/Error/{0}");
         app.UseExceptionHandler("/Error/Exception");
+
+        SetupLoggerly(loggerFactory, appLifetime);
+
       }
 
       app.UseStaticFiles();
@@ -125,6 +138,40 @@ namespace CoreCodeCamp
 
       app.UseMvc(CreateRoutes);
 
+    }
+
+    private void SetupLoggerly(ILoggerFactory loggerFactory, IApplicationLifetime appLifetime)
+    {
+      var logConfig = LogglyConfig.Instance;
+
+      // Setup Basics
+      logConfig.CustomerToken = _config["Loggerly:Token"];
+      logConfig.ApplicationName = _config["Loggerly:AppName"];
+
+      // Setup Host
+      logConfig.Transport.EndpointHostname = _config["Loggerly:EndpointHostname"];
+      logConfig.Transport.EndpointPort = 443;
+      logConfig.Transport.LogTransport = LogTransport.Https;
+
+      // Add Tag
+      var ct = new ApplicationNameTag();
+      ct.Formatter = "application-{0}";
+      logConfig.TagConfig.Tags.Add(ct);
+
+      // Setup Level to Log
+      var logLevel = _env.IsProduction() ? LogEventLevel.Warning : LogEventLevel.Debug;
+
+      // Setup Serilog
+      Log.Logger = new LoggerConfiguration()
+      .Enrich.FromLogContext()
+      .WriteTo.Loggly(logLevel)
+      .CreateLogger();
+
+      // Add Serilog
+      loggerFactory.AddSerilog();
+
+      // Ensure that log is flushed
+      appLifetime.ApplicationStopped.Register(Log.CloseAndFlush);
     }
 
     void CreateMaps(IMapperConfiguration config)

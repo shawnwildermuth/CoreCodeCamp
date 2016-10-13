@@ -5,9 +5,9 @@
 }
 @section topSection {
   <div class="col-sm-8 col-sm-offset-2 text">
-    @if (this.GetEventInfo().EventDate > DateTime.Today.AddDays(2))
+    @if (this.GetEventInfo().EventDate.ToUniversalTime().Date > DateTime.Today.AddDays(-1))
     {
-      <h1 class="wow fadeInLeftBig"><strong>@this.GetEventInfo().Name</strong> is coming @this.GetEventInfo().EventDate.Date.ToString("D")</h1>
+      <h1 class="wow fadeInLeftBig"><strong>@this.GetEventInfo().Name</strong> is coming @this.GetEventInfo().EventDate.ToUniversalTime().Date.ToString("D")</h1>
       <div class="description wow fadeInLeftBig">
         <p class="lead">
           The @this.GetEventInfo().Name is your opportunity to join your other Atlanta developer and design community members in a day of training.

@@ -9,8 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // talksForm.ts
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var talkService_1 = require("./talkService");
 var TalksForm = (function () {
     function TalksForm(talkService, router) {
@@ -23,15 +23,15 @@ var TalksForm = (function () {
     TalksForm.prototype.onDelete = function (talk) {
         this.talkService.delete(talk);
     };
-    TalksForm = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            templateUrl: "/js/app/talks/talksForm.html",
-            directives: [router_1.ROUTER_DIRECTIVES]
-        }), 
-        __metadata('design:paramtypes', [talkService_1.TalkService, router_1.Router])
-    ], TalksForm);
     return TalksForm;
 }());
+TalksForm = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        templateUrl: "/js/app/talks/talksForm.html",
+        directives: [router_1.ROUTER_DIRECTIVES]
+    }),
+    __metadata("design:paramtypes", [talkService_1.TalkService, router_1.Router])
+], TalksForm);
 exports.TalksForm = TalksForm;
 //# sourceMappingURL=talksForm.js.map

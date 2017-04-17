@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // talkService.ts
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var dataService_1 = require("../common/dataService");
 var TalkService = (function () {
     function TalkService(data) {
@@ -46,11 +46,11 @@ var TalkService = (function () {
             _this.talks.splice(_this.talks.indexOf(talk), 1);
         });
     };
-    TalkService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [dataService_1.DataService])
-    ], TalkService);
     return TalkService;
 }());
+TalkService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [dataService_1.DataService])
+], TalkService);
 exports.TalkService = TalkService;
 //# sourceMappingURL=talkService.js.map

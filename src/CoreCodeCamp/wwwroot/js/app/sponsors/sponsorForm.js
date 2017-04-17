@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // usersForm.ts
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var dataService_1 = require("../common/dataService");
 var imageUploadService_1 = require("../common/imageUploadService");
 var SponsorForm = (function () {
@@ -90,15 +90,15 @@ var SponsorForm = (function () {
             return true;
         return false;
     };
-    SponsorForm = __decorate([
-        core_1.Component({
-            selector: "sponsors-form",
-            moduleId: module.id,
-            templateUrl: "/js/app/sponsors/sponsorForm.html"
-        }), 
-        __metadata('design:paramtypes', [dataService_1.DataService, imageUploadService_1.ImageUploadService])
-    ], SponsorForm);
     return SponsorForm;
 }());
+SponsorForm = __decorate([
+    core_1.Component({
+        selector: "sponsors-form",
+        moduleId: module.id,
+        templateUrl: "/js/app/sponsors/sponsorForm.html"
+    }),
+    __metadata("design:paramtypes", [dataService_1.DataService, imageUploadService_1.ImageUploadService])
+], SponsorForm);
 exports.SponsorForm = SponsorForm;
 //# sourceMappingURL=sponsorForm.js.map

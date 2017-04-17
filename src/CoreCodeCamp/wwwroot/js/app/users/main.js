@@ -1,8 +1,8 @@
 "use strict";
 // main.ts
-var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
-var usersForm_1 = require('./usersForm');
-var http_1 = require('@angular/http');
+var platform_browser_dynamic_1 = require("@angular/platform-browser-dynamic");
+var usersForm_1 = require("./usersForm");
+var http_1 = require("@angular/http");
 var dataService_1 = require("../common/dataService");
 // Turn on Production Mode
 var buildType_1 = require("../common/buildType");

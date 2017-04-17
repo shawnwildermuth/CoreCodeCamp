@@ -14,29 +14,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // scheduleForm.ts
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var dataService_1 = require("../common/dataService");
 var baseForm_1 = require("../common/baseForm");
-var Rx_1 = require('rxjs/Rx');
+var Rx_1 = require("rxjs/Rx");
 var utcDatePipe_1 = require("../common/utcDatePipe");
 var ScheduleForm = (function (_super) {
     __extends(ScheduleForm, _super);
     function ScheduleForm(data) {
-        _super.call(this);
-        this.data = data;
-        this.talks = [];
-        this.timeSlots = [];
-        this.rooms = [];
-        this.tracks = [];
-        this.msg = "";
-        this.sort = "";
-        this.sortAsc = true;
-        this.summary = {
+        var _this = _super.call(this) || this;
+        _this.data = data;
+        _this.talks = [];
+        _this.timeSlots = [];
+        _this.rooms = [];
+        _this.tracks = [];
+        _this.msg = "";
+        _this.sort = "";
+        _this.sortAsc = true;
+        _this.summary = {
             speakers: 0,
             approved: 0,
             talks: 0
         };
-        this.loadSchedule();
+        _this.loadSchedule();
+        return _this;
     }
     ScheduleForm.prototype.updateSummary = function () {
         this.summary.approved = this.talks.filter(function (t) { return t.approved; }).length;
@@ -50,7 +51,8 @@ var ScheduleForm = (function (_super) {
             this.data.getAllTalks(),
             this.data.getRooms(),
             this.data.getTimeSlots(),
-            this.data.getTracks()]).subscribe(function (res) {
+            this.data.getTracks()
+        ]).subscribe(function (res) {
             _this.talks = res[0].json();
             _this.rooms = res[1].json();
             _this.timeSlots = res[2].json();
@@ -141,15 +143,15 @@ var ScheduleForm = (function (_super) {
             _this.updateSummary();
         }, function (e) { return _this.showError("Failed to toggle approved flag"); }, function () { return _this.isBusy = false; });
     };
-    ScheduleForm = __decorate([
-        core_1.Component({
-            selector: "schedule-form",
-            templateUrl: "/js/app/schedule/scheduleForm.html",
-            pipes: [utcDatePipe_1.UtcDatePipe]
-        }), 
-        __metadata('design:paramtypes', [dataService_1.DataService])
-    ], ScheduleForm);
     return ScheduleForm;
 }(baseForm_1.BaseForm));
+ScheduleForm = __decorate([
+    core_1.Component({
+        selector: "schedule-form",
+        templateUrl: "/js/app/schedule/scheduleForm.html",
+        pipes: [utcDatePipe_1.UtcDatePipe]
+    }),
+    __metadata("design:paramtypes", [dataService_1.DataService])
+], ScheduleForm);
 exports.ScheduleForm = ScheduleForm;
 //# sourceMappingURL=scheduleForm.js.map

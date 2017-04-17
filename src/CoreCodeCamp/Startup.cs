@@ -65,8 +65,11 @@ namespace CoreCodeCamp
       // Configure Identity (Security)
       svcs.AddIdentity<CodeCampUser, IdentityRole>(config =>
       {
+        // If you change this, you need to change the regular expression in the Vue code too!
         config.Password.RequiredLength = 8;
         config.Password.RequireDigit = true;
+        config.Password.RequireLowercase = true;
+        config.Password.RequireUppercase = true;
         config.Password.RequireNonAlphanumeric = false;
         config.User.RequireUniqueEmail = true;
         config.User.RequireUniqueEmail = true;

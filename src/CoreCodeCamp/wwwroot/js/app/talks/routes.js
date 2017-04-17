@@ -1,6 +1,6 @@
 "use strict";
 // routes.ts
-var router_1 = require('@angular/router');
+var router_1 = require("@angular/router");
 var talksForm_1 = require("./talksForm");
 var talkEditor_1 = require("./talkEditor");
 exports.talkRoutes = [

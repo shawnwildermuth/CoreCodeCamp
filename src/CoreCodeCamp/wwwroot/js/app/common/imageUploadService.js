@@ -9,8 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // fileUploadService.ts
-var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
 var dataService_1 = require("./dataService");
 var ImageUploadService = (function () {
     function ImageUploadService(http, data) {
@@ -47,11 +47,11 @@ var ImageUploadService = (function () {
             xhr.send(formData);
         });
     };
-    ImageUploadService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, dataService_1.DataService])
-    ], ImageUploadService);
     return ImageUploadService;
 }());
+ImageUploadService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http, dataService_1.DataService])
+], ImageUploadService);
 exports.ImageUploadService = ImageUploadService;
 //# sourceMappingURL=imageUploadService.js.map

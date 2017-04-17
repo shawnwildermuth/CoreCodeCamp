@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // speakerForm.ts
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var imageUploadService_1 = require("../common/imageUploadService");
 var dataService_1 = require("../common/dataService");
 var SpeakerForm = (function () {
@@ -59,15 +59,15 @@ var SpeakerForm = (function () {
             return true;
         return false;
     };
-    SpeakerForm = __decorate([
-        core_1.Component({
-            selector: "speaker-form",
-            moduleId: module.id,
-            templateUrl: "/js/app/speaker/speakerForm.html"
-        }), 
-        __metadata('design:paramtypes', [dataService_1.DataService, imageUploadService_1.ImageUploadService])
-    ], SpeakerForm);
     return SpeakerForm;
 }());
+SpeakerForm = __decorate([
+    core_1.Component({
+        selector: "speaker-form",
+        moduleId: module.id,
+        templateUrl: "/js/app/speaker/speakerForm.html"
+    }),
+    __metadata("design:paramtypes", [dataService_1.DataService, imageUploadService_1.ImageUploadService])
+], SpeakerForm);
 exports.SpeakerForm = SpeakerForm;
 //# sourceMappingURL=speakerForm.js.map

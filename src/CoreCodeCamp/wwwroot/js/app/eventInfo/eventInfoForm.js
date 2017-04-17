@@ -14,28 +14,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // scheduleForm.ts
-var core_1 = require('@angular/core');
-var common_1 = require('@angular/common');
+var core_1 = require("@angular/core");
+var common_1 = require("@angular/common");
 var dataService_1 = require("../common/dataService");
 var baseForm_1 = require("../common/baseForm");
-var Rx_1 = require('rxjs/Rx');
+var Rx_1 = require("rxjs/Rx");
 var utcDatePipe_1 = require("../common/utcDatePipe");
 var EventInfoForm = (function (_super) {
     __extends(EventInfoForm, _super);
     function EventInfoForm(data) {
-        _super.call(this);
-        this.data = data;
-        this.model = {};
-        this.location = {};
-        this.timeSlots = [];
-        this.tracks = [];
-        this.rooms = [];
-        this.newRoom = "";
-        this.newTimeSlot = "";
-        this.newTrack = "";
-        this.datePipe = new common_1.DatePipe();
-        this.msg = "";
-        this.loadEventInfo();
+        var _this = _super.call(this) || this;
+        _this.data = data;
+        _this.model = {};
+        _this.location = {};
+        _this.timeSlots = [];
+        _this.tracks = [];
+        _this.rooms = [];
+        _this.newRoom = "";
+        _this.newTimeSlot = "";
+        _this.newTrack = "";
+        _this.datePipe = new common_1.DatePipe();
+        _this.msg = "";
+        _this.loadEventInfo();
+        return _this;
     }
     EventInfoForm.prototype.loadEventInfo = function () {
         var _this = this;
@@ -134,15 +135,15 @@ var EventInfoForm = (function (_super) {
     EventInfoForm.prototype.ngAfterViewChecked = function () {
         jQuery(".datepicker").datepicker();
     };
-    EventInfoForm = __decorate([
-        core_1.Component({
-            selector: "event-info-form",
-            templateUrl: "/js/app/eventInfo/eventInfoForm.html",
-            pipes: [utcDatePipe_1.UtcDatePipe]
-        }), 
-        __metadata('design:paramtypes', [dataService_1.DataService])
-    ], EventInfoForm);
     return EventInfoForm;
 }(baseForm_1.BaseForm));
+EventInfoForm = __decorate([
+    core_1.Component({
+        selector: "event-info-form",
+        templateUrl: "/js/app/eventInfo/eventInfoForm.html",
+        pipes: [utcDatePipe_1.UtcDatePipe]
+    }),
+    __metadata("design:paramtypes", [dataService_1.DataService])
+], EventInfoForm);
 exports.EventInfoForm = EventInfoForm;
 //# sourceMappingURL=eventInfoForm.js.map

@@ -116,11 +116,11 @@ var DataService = (function () {
     DataService.prototype.deleteTrack = function (track) {
         return this.http.delete(this.baseUrl() + "tracks/" + track.id);
     };
-    DataService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
-    ], DataService);
     return DataService;
 }());
+DataService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], DataService);
 exports.DataService = DataService;
 //# sourceMappingURL=dataService.js.map

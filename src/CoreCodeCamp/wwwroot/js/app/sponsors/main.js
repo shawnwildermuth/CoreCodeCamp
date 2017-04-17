@@ -1,14 +1,14 @@
 "use strict";
 // main.ts
-var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
-var http_1 = require('@angular/http');
-var forms_1 = require('@angular/forms');
+var platform_browser_dynamic_1 = require("@angular/platform-browser-dynamic");
+var http_1 = require("@angular/http");
+var forms_1 = require("@angular/forms");
 // Turn on Production Mode
 var buildType_1 = require("../common/buildType");
 buildType_1.buildType();
-var sponsorForm_1 = require('./sponsorForm');
+var sponsorForm_1 = require("./sponsorForm");
 var dataService_1 = require("../common/dataService");
-var imageUploadService_1 = require('../common/imageUploadService');
+var imageUploadService_1 = require("../common/imageUploadService");
 platform_browser_dynamic_1.bootstrap(sponsorForm_1.SponsorForm, [forms_1.disableDeprecatedForms(),
     forms_1.provideForms(),
     http_1.HTTP_PROVIDERS,

@@ -11,6 +11,9 @@
 p {
   text-align: left;
 }
+.form-control.inline {
+  display: inline;
+}
 p.lead {
   text-align: center;
 }
@@ -107,6 +110,9 @@ a:focus {
 .footer-contact-info a:focus,
 .footer-about a:focus {
   border: none;
+}
+[v-cloak] {
+  display: none;
 }
 footer a:hover,
 footer a:focus {

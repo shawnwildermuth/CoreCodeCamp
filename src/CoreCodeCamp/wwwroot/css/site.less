@@ -16,6 +16,12 @@ p {
   text-align: left;
 }
 
+.form-control {
+  &.inline {
+    display: inline;
+  }
+}
+
 p.lead {
   text-align: center;
 }
@@ -137,6 +143,10 @@ a {
   a:hover, a:focus {
     border: none;
   }
+}
+
+[v-cloak] {
+  display: none;
 }
 
 footer {

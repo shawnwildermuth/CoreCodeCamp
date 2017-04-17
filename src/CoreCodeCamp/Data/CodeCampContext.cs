@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using CoreCodeCamp.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Data.Sqlite;
 using CoreCodeCamp.Data.Entities;
 using System.IO;
 

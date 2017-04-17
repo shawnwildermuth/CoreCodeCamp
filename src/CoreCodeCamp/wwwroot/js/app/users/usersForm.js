@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // usersForm.ts
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var dataService_1 = require("../common/dataService");
 var UsersForm = (function () {
     function UsersForm(data) {
@@ -43,14 +43,14 @@ var UsersForm = (function () {
             _this.isBusy = false;
         });
     };
-    UsersForm = __decorate([
-        core_1.Component({
-            selector: "users-form",
-            templateUrl: "/js/app/users/usersForm.html"
-        }), 
-        __metadata('design:paramtypes', [dataService_1.DataService])
-    ], UsersForm);
     return UsersForm;
 }());
+UsersForm = __decorate([
+    core_1.Component({
+        selector: "users-form",
+        templateUrl: "/js/app/users/usersForm.html"
+    }),
+    __metadata("design:paramtypes", [dataService_1.DataService])
+], UsersForm);
 exports.UsersForm = UsersForm;
 //# sourceMappingURL=usersForm.js.map

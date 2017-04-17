@@ -9,9 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // talksForm.ts
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var router_2 = require('@angular/router');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var router_2 = require("@angular/router");
 var talk_1 = require("./talk");
 var talkService_1 = require("./talkService");
 var TalkEditor = (function () {
@@ -46,15 +46,15 @@ var TalkEditor = (function () {
         }, function (err) { return _this.error = err; })
             .then(function () { return _this.isBusy = false; });
     };
-    TalkEditor = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            templateUrl: "/js/app/talks/talkEditor.html",
-            directives: [router_1.ROUTER_DIRECTIVES]
-        }), 
-        __metadata('design:paramtypes', [router_2.ActivatedRoute, talkService_1.TalkService, router_2.Router])
-    ], TalkEditor);
     return TalkEditor;
 }());
+TalkEditor = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        templateUrl: "/js/app/talks/talkEditor.html",
+        directives: [router_1.ROUTER_DIRECTIVES]
+    }),
+    __metadata("design:paramtypes", [router_2.ActivatedRoute, talkService_1.TalkService, router_2.Router])
+], TalkEditor);
 exports.TalkEditor = TalkEditor;
 //# sourceMappingURL=talkEditor.js.map

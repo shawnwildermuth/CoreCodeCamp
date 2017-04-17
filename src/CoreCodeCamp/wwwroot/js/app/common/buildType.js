@@ -1,5 +1,5 @@
 "use strict";
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 function buildType() {
     if (this.process && this.process.env.ASPNETCORE_ENVIRONMENT !== "Development") {
         core_1.enableProdMode();

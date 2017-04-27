@@ -1,21 +1,13 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "amd",
-    "moduleResolution": "node",
-    "isolatedModules": false,
-    "experimentalDecorators": true,
-    "noImplicitAny": false,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
+    "outFile": "wwwroot/lib/site/app.js",
+    "sourceMap": true,
+    "declaration": true,
+    "mapRoot": "/",
     "removeComments": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "./wwwroot",
-    "outFile": "./wwwroot/lib/app/app.js"
+    "module": "none"
   },
-  "include": [
-    "./wwwroot/app/**/*.ts"
-  ],
+  "include": [ "wwwroot/app/**/*.ts"],
   "compileOnSave": true
 }

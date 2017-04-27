@@ -6,7 +6,16 @@
 		<OutputType>Exe</OutputType>
 		<PackageId>CoreCodeCamp</PackageId>
 		<GenerateUserSecretsAttribute>false</GenerateUserSecretsAttribute>
+    <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Content Include="wwwroot\app\adminEvents\adminEvents.ts" />
+	  <Content Include="wwwroot\app\adminEvents\adminEventsView.ts" />
+	  <Content Include="wwwroot\app\common\dataService.ts" />
+	  <Content Include="wwwroot\app\join\join.ts" />
+	  <Content Include="wwwroot\app\join\joinView.ts" />
+	  <Content Include="wwwroot\js\app\common\__dummy__" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<None Update="wwwroot\\**\\*;**\\Views\\;EmailTemplates">
@@ -49,9 +58,6 @@
 		<Exec Command="gulp" />
 	</Target>
 
-	<Target Name="NpmCommands" AfterTargets="Build">
-		<Exec Command="tsc" />
-	</Target>
 
 	<ItemGroup>
 		<DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0" />

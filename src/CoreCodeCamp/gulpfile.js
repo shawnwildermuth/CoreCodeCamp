@@ -7,9 +7,17 @@ var gutil = require("gulp-util");
 
 gulp.task("min", function () {
   return gulp.src([ "wwwroot/js/site.js"])
-    .pipe(uglify())
-    .pipe(rename("site.min.js"))
+    //.pipe(uglify())
+    //.pipe(rename("site.min.js"))
     .pipe(gulp.dest("wwwroot/lib/site/"));
 });
 
-gulp.task('default', ["min"]);
+gulp.task("app", function () {
+    return gulp.src(["wwwroot/app/*.js"])
+        .pipe(concat("app.js"))
+        //.pipe(uglify())
+        //.pipe(rename("app.min.js"))
+        .pipe(gulp.dest("wwwroot/lib/site/"));
+});
+
+gulp.task('default', ["min", "app"]);

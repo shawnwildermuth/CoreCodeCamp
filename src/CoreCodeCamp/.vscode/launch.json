@@ -14,7 +14,7 @@
     },
     {
       "name": ".NET Core Launch (web)",
-      "type": "coreclr",
+      "type": "clr4",
       "request": "launch",
       "preLaunchTask": "build",
       "program": "${workspaceRoot}/bin/Debug/net46/CoreCodeCamp.exe",

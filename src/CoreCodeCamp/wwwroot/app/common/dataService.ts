@@ -16,12 +16,24 @@
     }
 
     // Events
-    public getEventInfo() {
+    public getAllEvents() {
       return this.http.get("/api/events/");
     }
 
+    public getEventInfo() {
+      return this.http.get("/api/events/" + this.moniker);
+    }
+
     public saveEventInfo(eventInfo: any) {
-      return this.http.post("/api/events", eventInfo);
+      return this.http.put("/api/events/" + this.moniker, eventInfo);
+    }
+
+    public saveEventLocation(location: any) {
+      return this.http.put("/api/events/" + this.moniker + "/location", location);
+    }
+
+    public addEventInfo(moniker: any) {
+      return this.http.post("/api/events/" + moniker, { moniker: moniker});
     }
 
     // Sponsors

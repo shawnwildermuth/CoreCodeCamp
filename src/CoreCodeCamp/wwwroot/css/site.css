@@ -8,6 +8,13 @@
   padding-left: 15px;
   padding-right: 15px;
 }
+.form-group.error .help-block {
+  color: red;
+  font-style: italic;
+}
+.form-group.error .form-control {
+  border: 1px red solid;
+}
 p {
   text-align: left;
 }

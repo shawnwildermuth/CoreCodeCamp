@@ -66,15 +66,47 @@ namespace CoreCodeCamp.Controllers.Api
       }
     }
 
-    [HttpPost("")]
-    public async Task<IActionResult> Upsert([FromBody]EventInfoViewModel vm)
+    [HttpPost("{moniker}")]
+    public async Task<IActionResult> Insert(string moniker, [FromBody]EventInfoViewModel vm)
     {
       try
       {
+        if (moniker != vm.Moniker) return BadRequest("Wrong Event with Moniker");
         var info = _repo.GetEventInfo(vm.Moniker);
-        if (info == null)
+        if (info != null)
+        {
+          return BadRequest("Cannot add duplicate moniker");
+        }
+        else
         {
           info = Mapper.Map<EventInfo>(vm);
+          info.Name = $"Event Name for {vm.Moniker}";
+          info.Location = new EventLocation();
+        }
+
+        _repo.AddOrUpdate(info);
+        await _repo.SaveChangesAsync();
+
+        return Created($"/api/events/{info.Moniker}", Mapper.Map<EventInfoViewModel>(info));
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError("Failed to upsert EventInfo. {0}", ex);
+      }
+
+      return BadRequest("Failed to save new event.");
+    }
+
+    [HttpPut("{moniker}")]
+    public async Task<IActionResult> Update(string moniker, [FromBody]EventInfoViewModel vm)
+    {
+      try
+      {
+        if (moniker != vm.Moniker) return BadRequest("Wrong Event with Moniker");
+        var info = _repo.GetEventInfo(moniker);
+        if (info == null)
+        {
+          return BadRequest("Cannot add update new event");
         }
         else
         {
@@ -92,6 +124,35 @@ namespace CoreCodeCamp.Controllers.Api
       }
 
       return BadRequest("Failed to save new event.");
+    }
+
+
+    [HttpPut("{moniker}/location")]
+    public async Task<IActionResult> UpdateLocation(string moniker, [FromBody]EventLocationViewModel vm)
+    {
+      try
+      {
+        var info = _repo.GetEventInfo(moniker);
+        if (info == null)
+        {
+          return BadRequest("Cannot update a location on a missing event");
+        }
+        else
+        {
+          Mapper.Map(vm, info.Location);
+        }
+
+        _repo.AddOrUpdate(info.Location);
+        await _repo.SaveChangesAsync();
+
+        return Ok(Mapper.Map<EventLocationViewModel>(info.Location));
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError("Failed to update location. {0}", ex);
+      }
+
+      return BadRequest("Failed to save new location.");
     }
   }
 }

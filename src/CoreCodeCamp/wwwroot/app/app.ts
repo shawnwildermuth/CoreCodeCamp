@@ -1,10 +1,10 @@
-
 module CodeCamp {
 
   // External JS Libraries
   declare var Vue: any;
   declare var VeeValidate: any;
   declare var VueResource: any;
+  declare var moment: any;
 
   export let App = {
 

@@ -10,11 +10,12 @@
 	</PropertyGroup>
 	<ItemGroup>
 	  <Content Include="wwwroot\app\adminEvents\adminEvents.ts" />
-	  <Content Include="wwwroot\app\adminEvents\adminEventsView.ts" />
 	  <Content Include="wwwroot\app\common\dataService.ts" />
 	  <Content Include="wwwroot\app\eventInfo\eventInfo.ts" />
 	  <Content Include="wwwroot\app\join\join.ts" />
 	  <Content Include="wwwroot\app\join\joinView.ts" />
+	  <Content Include="wwwroot\app\users\users.ts" />
+	  <Content Include="wwwroot\app\users\usersView.ts" />
 	  <Content Include="wwwroot\js\app\common\__dummy__" />
 	</ItemGroup>
 

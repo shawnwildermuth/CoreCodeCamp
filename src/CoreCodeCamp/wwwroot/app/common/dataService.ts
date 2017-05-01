@@ -104,6 +104,10 @@
       return this.http.put("/api/users/" + encodeURIComponent(user.userName) + "/toggleAdmin", user);
     }
 
+    public toggleConfirmation(user: any) {
+      return this.http.put("/api/users/" + encodeURIComponent(user.userName) + "/toggleconfirmation", user);
+    }
+
     // Time Slots
     public getTimeSlots() {
       return this.http.get(this.baseUrl() + "timeSlots");

@@ -4,6 +4,7 @@ module CodeCamp {
   // External JS Libraries
   declare var Vue: any;
   declare var moment: any;
+  declare var jQuery: any;
 
   export function eventInfo() {
     CodeCamp.App.bootstrap(CodeCamp.EventInfoView);
@@ -29,6 +30,7 @@ module CodeCamp {
         this.$validator.validateAll("theEvent").then(result => {
           if (result) {
             this.busy = true;
+            this.errorMessage = "";
             this.eventMessage = "";
             this.$dataService.saveEventInfo(this.theEvent).then(function () {
               this.eventMessage = "Saved...";
@@ -43,6 +45,7 @@ module CodeCamp {
         this.$validator.validateAll("vLocation").then(result => {
           if (result) {
             this.busy = true;
+            this.errorMessage = "";
             this.locationMessage = "";
             this.$dataService.saveEventLocation(this.theEvent.location).then(function () {
               this.locationMessage = "Saved...";
@@ -53,10 +56,67 @@ module CodeCamp {
         });
         return false;
       },
-      onValidateForm(scope) {
-        this.$validator.validateAll(scope).then(result => {
-        });
-        return false;
+      onSaveTrack() {
+        this.busy = true;
+        this.errorMessage = "";
+        this.$dataService.saveTrack(this.newTrack)
+          .then((result) => {
+            this.tracks.push(result.data);
+            this.newTrack = "";
+          }, () => this.errorMessage = "Failed to save track")
+          .finally(() => this.busy = false);
+      },
+
+      onSaveRoom() {
+        this.busy = true;
+        this.errorMessage = "";
+        this.$dataService.saveRoom(this.newRoom)
+          .then((result) => {
+            this.rooms.push(result.data);
+            this.newRoom = "";
+          }, (e) => {
+            this.errorMessage = "Failed to save room";
+          }).finally(() => this.busy = false);
+      },
+      onSaveTimeSlot() {
+        this.busy = true;
+        this.errorMessage = "";
+        this.$dataService.saveTimeSlot(this.newTimeSlot)
+          .then((result) => {
+            this.timeSlots.push(result.data);
+            this.newTimeSlot = "";
+          }, (e) => {
+            this.errorMessage = "Failed to save timeslot";
+          }).finally(() => this.busy = false);
+      },
+
+      onDeleteTrack(track: any) {
+        this.busy = true;
+        this.errorMessage = "";
+        this.$dataService.deleteTrack(track)
+          .then(() => this.tracks.splice(this.tracks.indexOf(track), 1),
+                () => this.errorMessage = "Failed to delete track")
+          .finally(() => this.busy = false);
+      },
+
+      onDeleteRoom(room: any) {
+        this.busy = true;
+        this.errorMessage = "";
+        this.$dataService.deleteRoom(room)
+          .then(result => {
+            this.rooms.splice(this.rooms.indexOf(room), 1);
+          }, e => this.errorMessage = "Failed to delete room")
+          .finally(() => this.busy = false);
+      },
+
+      onDeleteTimeSlot(timeSlot: any) {
+        this.busy = true;
+        this.errorMessage = "";
+        this.$dataService.deleteTimeSlot(timeSlot)
+          .then(result => {
+            this.timeSlots.splice(this.timeSlots.indexOf(timeSlot), 1);
+          }, e => this.errorMessage = "Failed to delete timeslot")
+          .finally(() => this.busy = false);
       }
     },
     computed: {
@@ -95,6 +155,13 @@ module CodeCamp {
       }
     },
     mounted() {
+      jQuery(".datepicker").datepicker({
+        dateFormat: "mm-dd-yy",
+        showOn: "button",
+        buttonImage: "/img/calendar.gif",
+        buttonImageOnly: true,
+        buttonText: "Select date"
+      });
       this.$dataService = new CodeCamp.Common.DataService(this.$http);
       Vue.Promise.all([
         this.$dataService.getEventInfo(),

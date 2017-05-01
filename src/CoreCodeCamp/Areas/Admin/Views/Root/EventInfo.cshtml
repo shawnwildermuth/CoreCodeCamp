@@ -24,7 +24,7 @@
 
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane fade in active" id="theEvent">
-
+            @************************ EventInfoView *************************@
             <form novalidate data-vv-scope="vEvent" @@submit.prevent="onValidateForm('vEvent')">
               <div class="well well-sm">
                 <div class="form-group" v-bind:class="{ error: errors.has('vEvent.name') }">
@@ -46,7 +46,7 @@
               <div class="well well-sm">
                 <div class="form-group" v-bind:class="{ error: errors.has('vEvent.eventDate') }">
                   <label class="text-danger">Event Date *</label>
-                  <input v-model.lazy="eventDate" class="form-control" name="eventDate" v-validate="'date_format:MM-DD-YYYY'" />
+                  <div><input v-model.lazy="eventDate" class="form-control datepicker" name="eventDate" v-validate="'date_format:MM-DD-YYYY'" /></div>
                   <div class="help-block">{{ errors.first('vEvent.eventDate') }}</div>
                 </div>
                 <div class="form-group" v-bind:class="{ error: errors.has('vEvent.eventLength') }">
@@ -56,12 +56,12 @@
                 </div>
                 <div class="form-group" v-bind:class="{ error: errors.has('vEvent.callForSpeakersOpened') }">
                   <label class="text-danger">Call For Speaker Opening Date *</label>
-                  <input v-model.lazy="callForSpeakersOpened" class="form-control" name="callForSpeakersOpened" v-validate="'date_format:MM-DD-YYYY'" />
+                  <div><input v-model.lazy="callForSpeakersOpened" class="form-control datepicker" name="callForSpeakersOpened" v-validate="'date_format:MM-DD-YYYY'" /></div>
                   <div class="help-block">{{ errors.first('vEvent.callForSpeakersOpened') }}</div>
                 </div>
                 <div class="form-group" v-bind:class="{ error: errors.has('vEvent.callForSpeakersClosed') }">
                   <label class="text-danger">Call For Speaker Closing Date *</label>
-                  <input v-model.lazy="callForSpeakersClosed" class="form-control" name="callForSpeakersClosed" v-validate="'date_format:MM-DD-YYYY'" />
+                  <div><input v-model.lazy="callForSpeakersClosed" class="form-control datepicker" name="callForSpeakersClosed" v-validate="'date_format:MM-DD-YYYY'" /></div>
                   <div class="help-block">{{ errors.first('vEvent.callForSpeakersClosed') }}</div>
                 </div>
               </div>
@@ -99,6 +99,7 @@
             </form>
           </div>
           <div role="tabpanel" class="tab-pane fade" id="location">
+            @************************ EventLocaitonView *************************@
             <form novalidate data-vv-scope="vLocation" @@submit.prevent="onValidateForm('vLocation')">
               <div class="well well-sm" v-if="theEvent && theEvent.location">
                 <div class="form-group">
@@ -143,23 +144,24 @@
           </div>
 
           <div role="tabpanel" class="tab-pane fade" id="tracks">
+            @************************ TracksView *************************@
             <table class="table table-condensed table-responsive table-striped">
               <thead>
                 <tr>
                   <td class="col-md-10">Name</td>
-                  <td class="col-md-2"></td>1
+                  <td class="col-md-2"></td>
                 </tr>
               </thead>
               <tr v-for="track in tracks">
                 <td>{{ track.name }}</td>
-                <td><button class="btn btn-sm btn-danger" title="Delete" (click)="deleteTrack(track)"><i class="fa fa-remove"></i></button></td>
+                <td><button class="btn btn-sm btn-danger" title="Delete" @@click="onDeleteTrack(track)"><i class="fa fa-remove"></i></button></td>
               </tr>
             </table>
-            <input v-model="newTrack" name="newTrack" /> <button class="btn btn-success" @@click="saveTrack()"><i class="fa fa-plus"></i></button>
+            <input v-model="newTrack" name="newTrack" /> <button class="btn btn-success" @@click="onSaveTrack()"><i class="fa fa-plus"></i></button>
           </div>
 
           <div role="tabpanel" class="tab-pane fade" id="slots">
-
+            @************************ SlotsView *************************@
             <table class="table table-condensed table-responsive table-striped">
               <thead>
                 <tr>
@@ -168,15 +170,15 @@
                 </tr>
               </thead>
               <tr v-for="timeSlot in timeSlots">
-                <td>{{ timeSlot.time }}</td>
-                <td><button class="btn btn-sm btn-danger" title="Delete" @@click="deleteTimeSlot(timeSlot)"><i class="fa fa-remove"></i></button></td>
+                <td>{{ timeSlot.time | formatTime }}</td>
+                <td><button class="btn btn-sm btn-danger" title="Delete" @@click="onDeleteTimeSlot(timeSlot)"><i class="fa fa-remove"></i></button></td>
               </tr>
             </table>
-            <input v-model="newTimeSlot" name="newTimeSlot" /> <button class="btn btn-success" @@click="saveTimeSlot()"><i class="fa fa-plus"></i></button>
+            <input v-model="newTimeSlot" name="newTimeSlot" /> <button class="btn btn-success" @@click="onSaveTimeSlot()"><i class="fa fa-plus"></i></button>
 
           </div>
           <div role="tabpanel" class="tab-pane fade" id="rooms">
-
+            @************************ RoomsView *************************@
             <table class="table table-condensed table-responsive table-striped">
               <thead>
                 <tr>
@@ -186,10 +188,10 @@
               </thead>
               <tr v-for="room in rooms">
                 <td>{{ room.name }}</td>
-                <td><button class="btn btn-sm btn-danger" title="Delete"><i class="fa fa-remove"></i></button></td>
+                <td><button class="btn btn-sm btn-danger" title="Delete" @@click="onDeleteRoom(room)"><i class="fa fa-remove"></i></button></td>
               </tr>
             </table>
-            <input v-model="newRoom" name="newRoom" /> <button class="btn btn-success"><i class="fa fa-plus"></i></button>
+            <input v-model="newRoom" name="newRoom" /> <button class="btn btn-success" @@click="onSaveRoom()"><i class="fa fa-plus"></i></button>
 
           </div>
         </div>

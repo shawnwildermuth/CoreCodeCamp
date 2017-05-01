@@ -17,6 +17,16 @@ module CodeCamp {
         getMessage: field => 'The ' + field + ' requires an uppercase, a lower case and a number.',
         validate: value => passwordValidation.test(value)
       });
+      Vue.filter('formatDate', function (value) {
+        if (value) {
+          return moment(String(value)).format('MM-DD-YYYY')
+        }
+      };
+      Vue.filter('formatTime', function (value) {
+        if (value) {
+          return moment(String(value)).format('hh:mm a')
+        }
+      };
     },
 
     bootstrap: function (theView: any) {

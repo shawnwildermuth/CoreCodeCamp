@@ -163,6 +163,10 @@ footer a:focus {
   line-height: normal;
   margin-top: 25px;
 }
+.datepicker {
+  width: 25%;
+  display: inline-block;
+}
 .delete-star {
   cursor: pointer;
 }

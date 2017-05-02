@@ -109,20 +109,23 @@ namespace CoreCodeCamp.Controllers.Api
         if (talk.Approved)
         {
           var user = await _userMgr.FindByNameAsync(talk.Speaker.UserName);
-          var speakerUrl = this.Url.Link("SpeakerTalkPage", new { moniker = moniker, id = talk.Speaker.Slug });
-          await _mailService.SendTemplateMailAsync(
-            "TalkAcceptance",
-            new TalkModel()
-            {
-              Name = user.Name,
-              Email = user.Email,
-              Subject = $"Invited to Speak at the {talk.Speaker.Event.Name}",
-              Talk = talk,
-              SpeakerUrl = speakerUrl
-            });
+          if (user != null)
+          {
+            var speakerUrl = this.Url.Link("SpeakerTalkPage", new { moniker = moniker, id = talk.Speaker.Slug });
+            await _mailService.SendTemplateMailAsync(
+              "TalkAcceptance",
+              new TalkModel()
+              {
+                Name = user.Name,
+                Email = user.Email,
+                Subject = $"Invited to Speak at the {talk.Speaker.Event.Name}",
+                Talk = talk,
+                SpeakerUrl = speakerUrl
+              });
+          }
         }
 
-        return Ok();
+        return Ok(true);
       }
       catch (Exception ex)
       {
@@ -211,7 +214,7 @@ namespace CoreCodeCamp.Controllers.Api
         talk.Room = room;
 
         await _repo.SaveChangesAsync();
-        return Ok(talk);
+        return Ok(true);
 
       }
       catch (Exception ex)
@@ -233,7 +236,7 @@ namespace CoreCodeCamp.Controllers.Api
         talk.TimeSlot = time;
 
         await _repo.SaveChangesAsync();
-        return Ok(talk);
+        return Ok(true);
 
       }
       catch (Exception ex)
@@ -255,7 +258,7 @@ namespace CoreCodeCamp.Controllers.Api
         talk.Track = track;
 
         await _repo.SaveChangesAsync();
-        return Ok(talk);
+        return Ok(true);
 
       }
       catch (Exception ex)
@@ -277,7 +280,7 @@ namespace CoreCodeCamp.Controllers.Api
         {
           _repo.Delete(talk);
           await _repo.SaveChangesAsync();
-          return Ok();
+          return Ok(true);
         }
         else
         {

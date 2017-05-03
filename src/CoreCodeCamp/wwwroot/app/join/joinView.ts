@@ -23,7 +23,6 @@ module CodeCamp {
     },
     methods: {
       onSubmit() {
-        window.alert("Submitting!");
         let me = this;
         this.$validator.validateAll().then(function (success) {
           if (!success) {

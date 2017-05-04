@@ -133,12 +133,12 @@ module CodeCamp {
       },
       callForSpeakersClosed: {
         get: function () {
-          return moment(this.theEvent.callForSpeakersOpened).format("MM-DD-YYYY");
+          return moment(this.theEvent.callForSpeakersClosed).format("MM-DD-YYYY");
         },
         set: function (newValue) {
           var newDate = moment(newValue, "MM-DD-YYYY");
           if (newDate.isValid()) {
-            this.theEvent.callForSpeakersOpened = newDate;
+            this.theEvent.callForSpeakersClosed = newDate;
           }
         }
       },

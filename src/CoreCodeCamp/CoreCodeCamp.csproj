@@ -9,19 +9,13 @@
     <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
 	</PropertyGroup>
 	<ItemGroup>
-	  <Content Include="wwwroot\app\adminEvents\adminEvents.ts" />
-	  <Content Include="wwwroot\app\adminSchedule\adminSchedule.ts" />
-	  <Content Include="wwwroot\app\adminSponsors\adminSponsors.ts" />
-	  <Content Include="wwwroot\app\common\dataService.ts" />
-	  <Content Include="wwwroot\app\common\imageUploadService.ts" />
-	  <Content Include="wwwroot\app\eventInfo\eventInfo.ts" />
-	  <Content Include="wwwroot\app\join\join.ts" />
-	  <Content Include="wwwroot\app\join\joinView.ts" />
-	  <Content Include="wwwroot\app\users\users.ts" />
-	  <Content Include="wwwroot\app\users\usersView.ts" />
-	  <Content Include="wwwroot\js\app\common\__dummy__" />
+	  <Content Include="wwwroot\app\callForSpeakers\callForSpeakers.ts" />
+	  <Content Include="wwwroot\app\callForSpeakers\Routes.ts" />
+	  <Content Include="wwwroot\app\callForSpeakers\speakerEditorView.ts" />
+	  <Content Include="wwwroot\app\callForSpeakers\speakerInfo.ts" />
+	  <Content Include="wwwroot\app\callForSpeakers\speakerInfoView.ts" />
+	  <Content Include="wwwroot\app\callForSpeakers\speakerTalksView.ts" />
 	</ItemGroup>
-
 	<ItemGroup>
 		<None Update="wwwroot\\**\\*;**\\Views\\;EmailTemplates">
 			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

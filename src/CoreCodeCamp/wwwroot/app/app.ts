@@ -4,6 +4,7 @@ module CodeCamp {
   declare var Vue: any;
   declare var VeeValidate: any;
   declare var VueResource: any;
+  declare var VueRouter: any;
   declare var moment: any;
 
   export let App = {
@@ -21,17 +22,17 @@ module CodeCamp {
         if (value) {
           return moment(String(value)).format('MM-DD-YYYY')
         }
-      };
+      });
       Vue.filter('formatTime', function (value) {
         if (value) {
           return moment(String(value)).format('hh:mm a')
         }
-      };
+      });
     },
 
     bootstrap: function (theView: any) {
       this.setup();
       new Vue(theView);
-    }
+    },
   }
 }

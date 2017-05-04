@@ -3,6 +3,33 @@
   ViewData["Title"] = "Speaker Info";
 }
 @section Scripts {
-  @Html.Partial("_Angular2", "speaker")
+  @Html.Partial("_VueScripts", "callForSpeakers")
 }
-<speaker-form><i class="fa-spinner fa fa-spin"></i> Loading...</speaker-form>
+
+<div id="call-for-speaker-view">
+  <div class="row">
+    <h2>Call for Speakers</h2>
+    <div>
+      <router-link to="/info">Info</router-link>
+      <router-link to="/edit">Edit</router-link>
+      <router-link to="/talks">Talks</router-link>
+    </div>
+    <hr/>
+    <div><router-view></router-view></div>
+  </div>
+
+</div>
+
+
+<script type="x-template" id="speaker-info">
+  <div><h3>Speaker Info</h3></div>
+</script>
+
+<script type="x-template" id="speaker-editor">
+  <div><h3>Speaker Editor</h3></div>
+</script>
+
+<script type="x-template" id="speaker-talks">
+  <div><h3>Speaker Talks</h3></div>
+
+</script>

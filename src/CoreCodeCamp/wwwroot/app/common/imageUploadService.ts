@@ -5,18 +5,15 @@ module CodeCamp.Common {
 
   export class ImageUploadService {
 
-    constructor(private http, private dataService) {
-    }
-
     uploadSpeaker(img: File) {
       return this.uploadImage(img, "speakers");
     }
 
-    uploadSponsor(img: File, moniker: string = this.dataService.moniker) {
+    uploadSponsor(img: File, moniker: string = CodeCamp.Common.dataService.moniker) {
       return this.uploadImage(img, "sponsors", moniker);
     }
 
-    private uploadImage(file: File, imageType: string, moniker: string = this.dataService.moniker) {
+    private uploadImage(file: File, imageType: string, moniker: string = CodeCamp.Common.dataService.moniker) {
       return new Vue.Promise((resolve, reject) => {
 
         let xhr: XMLHttpRequest = new XMLHttpRequest();
@@ -41,4 +38,6 @@ module CodeCamp.Common {
     }
 
   }
+
+  export let imageUploadService = new ImageUploadService();
 }

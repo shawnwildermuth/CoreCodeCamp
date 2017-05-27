@@ -30,7 +30,7 @@ module CodeCamp {
     methods: {
       onTogglePaid(sponsor) {
         this.busy = true;
-        this.$dataService.togglePaid(sponsor)
+        CodeCamp.Common.dataService.togglePaid(sponsor)
           .then(() => sponsor.paid = !sponsor.paid, () => this.errorMessage = "Could not toggle paid")
           .finally(() => this.busy = false);
       },
@@ -40,7 +40,7 @@ module CodeCamp {
       },
       onDelete(sponsor) {
         this.busy = true;
-        this.$dataService.deleteSponsor(sponsor)
+        CodeCamp.Common.dataService.deleteSponsor(sponsor)
           .then(() => this.sponsors.splice(this.sponsors.indexOf(sponsor), 1), () => this.errorMessage = "Could not delete sponsor")
           .finally(() => this.busy = false);
       },
@@ -54,7 +54,7 @@ module CodeCamp {
         if (old > -1) this.sponsors.splice(this.sponsors.indexOf(this.currentSponsor), 1);
         this.busy = true;
 
-        this.$dataService.saveSponsor(this.currentSponsor)
+        CodeCamp.Common.dataService.saveSponsor(this.currentSponsor)
           .then(res => {
             this.sponsors.push(res.data);
             this.currentSponsor = null;
@@ -67,7 +67,7 @@ module CodeCamp {
       onImagePicked(filePicker) {
         this.busy = true;
         let file = jQuery("#thePicker")[0].files[0];
-        this.$imageUpload.uploadSponsor(file)
+        CodeCamp.Common.imageUploadService.uploadSponsor(file)
           .then((imageUrl: any) => {
             Vue.set(this.currentSponsor, "imageUrl", imageUrl);
           }, (e) => this.errorMessage = "Failed to upload Image")
@@ -78,10 +78,7 @@ module CodeCamp {
       }
     },
     mounted() {
-      this.$dataService = new CodeCamp.Common.DataService(this.$http);
-      this.$imageUpload = new CodeCamp.Common.ImageUploadService(this.$http, this.$dataService);
-
-      this.$dataService.getSponsors()
+      CodeCamp.Common.dataService.getSponsors()
         .then((result) => {
           this.sponsors = result.data;
           this.currentSponsor = null;

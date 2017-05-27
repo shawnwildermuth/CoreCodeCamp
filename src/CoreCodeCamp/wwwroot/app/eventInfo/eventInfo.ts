@@ -32,7 +32,7 @@ module CodeCamp {
             this.busy = true;
             this.errorMessage = "";
             this.eventMessage = "";
-            this.$dataService.saveEventInfo(this.theEvent).then(function () {
+            CodeCamp.Common.dataService.saveEventInfo(this.theEvent).then(function () {
               this.eventMessage = "Saved...";
             }, function () {
               this.eventMessage = "Failed to save changes...";
@@ -47,7 +47,7 @@ module CodeCamp {
             this.busy = true;
             this.errorMessage = "";
             this.locationMessage = "";
-            this.$dataService.saveEventLocation(this.theEvent.location).then(function () {
+            CodeCamp.Common.dataService.saveEventLocation(this.theEvent.location).then(function () {
               this.locationMessage = "Saved...";
             }, function () {
               this.locationMessage = "Failed to save changes...";
@@ -59,7 +59,7 @@ module CodeCamp {
       onSaveTrack() {
         this.busy = true;
         this.errorMessage = "";
-        this.$dataService.saveTrack(this.newTrack)
+        CodeCamp.Common.dataService.saveTrack(this.newTrack)
           .then((result) => {
             this.tracks.push(result.data);
             this.newTrack = "";
@@ -70,7 +70,7 @@ module CodeCamp {
       onSaveRoom() {
         this.busy = true;
         this.errorMessage = "";
-        this.$dataService.saveRoom(this.newRoom)
+        CodeCamp.Common.dataService.saveRoom(this.newRoom)
           .then((result) => {
             this.rooms.push(result.data);
             this.newRoom = "";
@@ -81,7 +81,7 @@ module CodeCamp {
       onSaveTimeSlot() {
         this.busy = true;
         this.errorMessage = "";
-        this.$dataService.saveTimeSlot(this.newTimeSlot)
+        CodeCamp.Common.dataService.saveTimeSlot(this.newTimeSlot)
           .then((result) => {
             this.timeSlots.push(result.data);
             this.newTimeSlot = "";
@@ -93,7 +93,7 @@ module CodeCamp {
       onDeleteTrack(track: any) {
         this.busy = true;
         this.errorMessage = "";
-        this.$dataService.deleteTrack(track)
+        CodeCamp.Common.dataService.deleteTrack(track)
           .then(() => this.tracks.splice(this.tracks.indexOf(track), 1),
                 () => this.errorMessage = "Failed to delete track")
           .finally(() => this.busy = false);
@@ -102,7 +102,7 @@ module CodeCamp {
       onDeleteRoom(room: any) {
         this.busy = true;
         this.errorMessage = "";
-        this.$dataService.deleteRoom(room)
+        CodeCamp.Common.dataService.deleteRoom(room)
           .then(result => {
             this.rooms.splice(this.rooms.indexOf(room), 1);
           }, e => this.errorMessage = "Failed to delete room")
@@ -112,7 +112,7 @@ module CodeCamp {
       onDeleteTimeSlot(timeSlot: any) {
         this.busy = true;
         this.errorMessage = "";
-        this.$dataService.deleteTimeSlot(timeSlot)
+        CodeCamp.Common.dataService.deleteTimeSlot(timeSlot)
           .then(result => {
             this.timeSlots.splice(this.timeSlots.indexOf(timeSlot), 1);
           }, e => this.errorMessage = "Failed to delete timeslot")
@@ -122,12 +122,11 @@ module CodeCamp {
     computed: {
     },
     mounted() {
-      this.$dataService = new CodeCamp.Common.DataService(this.$http);
       Vue.Promise.all([
-        this.$dataService.getEventInfo(),
-        this.$dataService.getTimeSlots(),
-        this.$dataService.getRooms(),
-        this.$dataService.getTracks()
+        CodeCamp.Common.dataService.getEventInfo(),
+        CodeCamp.Common.dataService.getTimeSlots(),
+        CodeCamp.Common.dataService.getRooms(),
+        CodeCamp.Common.dataService.getTracks()
       ])
         .then(function (result) {
           this.theEvent = result[0].data;

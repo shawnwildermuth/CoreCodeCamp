@@ -15,16 +15,15 @@ module CodeCamp {
       onDeleteTalk(talk) {
         this.busy = true;
         this.errorMessage = "";
-        CodeCamp.speakerData.deleteTalk(this.$dataService, talk)
+        CodeCamp.speakerData.deleteTalk(talk)
           .then(() => { }, () => this.errorMessage = "Failed to delete talk")
           .finally(() => this.busy = false);
       }
     },
     mounted() {
       if (!this.speaker) {
-        this.$dataService = new CodeCamp.Common.DataService(this.$http);
         let _this = this;
-        CodeCamp.speakerData.getSpeaker(this.$dataService)
+        CodeCamp.speakerData.getSpeaker()
           .then(skr => {
             if (!skr) {
               CodeCamp.callForSpeakersRouter.router.push({ name: "editor" });

@@ -56,12 +56,12 @@
                 </div>
                 <div class="form-group" v-bind:class="{ error: errors.has('vEvent.callForSpeakersOpened') }">
                   <label class="text-danger">Call For Speaker Opening Date *</label>
-                  <div><datepicker v-model.lazy="callForSpeakersOpened" class="form-control" name="callForSpeakersOpened"></datepicker></div>
+                  <div><datepicker v-model.lazy="theEvent.callForSpeakersOpened" class="form-control" name="callForSpeakersOpened"></datepicker></div>
                   <div class="help-block">{{ errors.first('vEvent.callForSpeakersOpened') }}</div>
                 </div>
                 <div class="form-group" v-bind:class="{ error: errors.has('vEvent.callForSpeakersClosed') }">
                   <label class="text-danger">Call For Speaker Closing Date *</label>
-                  <div><datepicker v-model.lazy="callForSpeakersClosed" class="form-control" name="callForSpeakersClosed"></datepicker></div>
+                  <div><datepicker v-model.lazy="theEvent.callForSpeakersClosed" class="form-control" name="callForSpeakersClosed"></datepicker></div>
                   <div class="help-block">{{ errors.first('vEvent.callForSpeakersClosed') }}</div>
                 </div>
               </div>

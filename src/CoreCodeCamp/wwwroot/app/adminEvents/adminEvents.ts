@@ -24,7 +24,7 @@ module CodeCamp {
       },
 
       onAddEvent() {
-        this.$dataService.addEventInfo(this.newEventMoniker).then(function (result) {
+        CodeCamp.Common.dataService.addEventInfo(this.newEventMoniker).then(function (result) {
           this.events.splice(0, 0, result.data);
           this.currentEvent = result.data;
           this.selectedModelMoniker = result.data.moniker;
@@ -35,9 +35,7 @@ module CodeCamp {
       }
     },
     mounted() {
-      this.$dataService = new CodeCamp.Common.DataService(this.$http);
-
-      this.$dataService.getAllEvents().then(function (result) {
+      CodeCamp.Common.dataService.getAllEvents().then(function (result) {
         this.events = result.data;
         this.currentEvent = _.first(this.events);
         this.selectedModelMoniker = this.currentEvent.moniker

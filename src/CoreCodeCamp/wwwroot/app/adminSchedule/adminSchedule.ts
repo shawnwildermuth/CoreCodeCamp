@@ -39,7 +39,7 @@ module CodeCamp {
         this.userMessage = "";
         this.errorMessage = "";
         let value = this.tracks[$event.target.selectedIndex];
-        this.$dataService.updateTalkTrack(talk, value.name)
+        CodeCamp.Common.dataService.updateTalkTrack(talk, value.name)
           .then(() => this.setMsg("Saved..."),
             () => this.showError("Failed to update talk"))
           .finally(() => this.busy = false);
@@ -49,7 +49,7 @@ module CodeCamp {
         this.userMessage = "";
         this.errorMessage = "";
         let value = this.rooms[$event.target.selectedIndex];
-        this.$dataService.updateTalkRoom(talk, value.name)
+        CodeCamp.Common.dataService.updateTalkRoom(talk, value.name)
           .then(result => {
             this.setMsg("Saved...");
           },
@@ -63,7 +63,7 @@ module CodeCamp {
         this.userMessage = "";
         this.errorMessage = "";
         let value = this.timeSlots[$event.target.selectedIndex];
-        this.$dataService.updateTalkTime(talk, value.time)
+        CodeCamp.Common.dataService.updateTalkTime(talk, value.time)
           .then(() => this.setMsg("Saved..."),
           () => this.showError("Failed to update talk"))
           .finally(() => this.busy = false);
@@ -94,7 +94,7 @@ module CodeCamp {
       },
       onDelete(talk: any) {
         this.busy = true;
-        this.$dataService.deleteTalk(talk.id)
+        CodeCamp.Common.dataService.deleteTalk(talk.id)
           .then(() => {
             this.talks.splice(this.talks.indexOf(talk), 1);
             this.updateSummary();
@@ -104,7 +104,7 @@ module CodeCamp {
 
       onToggleApproved(talk: any) {
         this.busy = true;
-        this.$dataService.toggleApproved(talk)
+        CodeCamp.Common.dataService.toggleApproved(talk)
           .then(result => {
             talk.approved = !talk.approved;
             this.updateSummary();
@@ -114,12 +114,11 @@ module CodeCamp {
 
     },
     mounted() {
-      this.$dataService = new CodeCamp.Common.DataService(this.$http);
       Vue.Promise.all([
-        this.$dataService.getAllTalks(),
-        this.$dataService.getRooms(),
-        this.$dataService.getTimeSlots(),
-        this.$dataService.getTracks()
+        CodeCamp.Common.dataService.getAllTalks(),
+        CodeCamp.Common.dataService.getRooms(),
+        CodeCamp.Common.dataService.getTimeSlots(),
+        CodeCamp.Common.dataService.getTracks()
       ])
         .then(function (result) {
           this.talks = result[0].data;

@@ -10,15 +10,14 @@ namespace CodeCamp {
   export class SpeakerService {
 
     _speaker = null;
-    _dataService = null;
 
-    getSpeaker(dataService) {
+    getSpeaker() {
       let _this = this;
       return new Vue.Promise(function (resolve, reject) {
         if (this._speaker == null) {
           Vue.Promise.all([
-            dataService.getMySpeaker(),
-            dataService.getTalks()
+            CodeCamp.Common.dataService.getMySpeaker(),
+            CodeCamp.Common.dataService.getTalks()
           ])
             .then(result => {
               _this._speaker = result[0].data;
@@ -34,15 +33,15 @@ namespace CodeCamp {
       });
     }
 
-    saveSpeaker(dataService, speaker) {
+    saveSpeaker(speaker) {
       this._speaker = speaker;
-      return dataService.saveSpeaker(speaker);
+      return CodeCamp.Common.dataService.saveSpeaker(speaker);
     }
 
-    deleteTalk(dataService, talk) {
+    deleteTalk(talk) {
       let _this = this;
       return new Vue.Promise(function (resolve, reject) {
-        dataService.deleteTalk(talk.id)
+        CodeCamp.Common.dataService.deleteTalk(talk.id)
           .then(function () {
             _this._speaker.talks.splice(_this._speaker.talks.indexOf(talk), 1)
             resolve();
@@ -50,10 +49,10 @@ namespace CodeCamp {
       });
     }
 
-    saveTalk(dataService, talk) {
+    saveTalk(talk) {
       let _this = this;
       return new Vue.Promise(function (resolve, reject) {
-        dataService.saveTalk(talk)
+        CodeCamp.Common.dataService.saveTalk(talk)
           .then(function (result) {
             let resultTalk = result.body;
             let talk = _.find(_this._speaker.talks, t => t.id == resultTalk.id);

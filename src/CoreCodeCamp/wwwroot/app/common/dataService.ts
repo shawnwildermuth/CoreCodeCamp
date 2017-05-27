@@ -1,9 +1,11 @@
 ﻿module CodeCamp.Common {
 
+  declare var Vue: any;
+
   export class DataService {
 
     constructor(private http) {
-
+      
     }
 
     // Utilities
@@ -148,4 +150,6 @@
     }
 
   }
+
+  export let dataService = new DataService(Vue.http);
 }

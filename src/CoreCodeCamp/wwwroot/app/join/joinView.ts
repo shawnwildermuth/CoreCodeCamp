@@ -18,7 +18,7 @@ module CodeCamp {
     },
     computed: {
       isPristine: function () {
-        return CoreCodeCamp.Common.helpers.isPristine(this.fields);
+        return CodeCamp.Common.helpers.isPristine(this.fields);
       }
     },
     methods: {

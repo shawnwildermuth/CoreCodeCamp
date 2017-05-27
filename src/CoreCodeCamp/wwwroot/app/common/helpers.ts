@@ -1,4 +1,4 @@
-﻿namespace CoreCodeCamp.Common {
+﻿namespace CodeCamp.Common {
 
   export let helpers = {
     isPristine(fields) {

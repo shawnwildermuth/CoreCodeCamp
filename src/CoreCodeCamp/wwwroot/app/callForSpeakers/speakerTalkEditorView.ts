@@ -21,7 +21,7 @@ module CodeCamp {
           if (result) {
             this.busy = true;
             this.errorMessage = "";
-            CodeCamp.speakerData.saveTalk(this.$dataService, this.talk).then(function (result) {
+            CodeCamp.speakerData.saveTalk(this.talk).then(function (result) {
               CodeCamp.callForSpeakersRouter.router.push({ name: "info" });
             }, function () {
               this.errorMessage = "Failed to save speaker."
@@ -32,12 +32,11 @@ module CodeCamp {
     },
     computed: {
       isPristine: function () {
-        return CoreCodeCamp.Common.helpers.isPristine(this.fields);
+        return CodeCamp.Common.helpers.isPristine(this.fields);
       }
     },
     mounted() {
-      this.$dataService = new CodeCamp.Common.DataService(this.$http);
-      CodeCamp.speakerData.getSpeaker(this.$dataService)
+      CodeCamp.speakerData.getSpeaker()
         .then(function (skr) {
           if (skr) this.speaker = skr;
           let theId = this.$route.params.id;

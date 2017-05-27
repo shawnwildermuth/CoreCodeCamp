@@ -19,7 +19,7 @@
           if (result) {
             this.busy = true;
             this.errorMessage = "";
-            CodeCamp.speakerData.saveSpeaker(this.$dataService, this.speaker).then(function () {
+            CodeCamp.speakerData.saveSpeaker(this.speaker).then(function () {
               CodeCamp.callForSpeakersRouter.router.push({ name: "info" });
             }, function () {
               this.errorMessage = "Failed to save speaker."
@@ -46,9 +46,8 @@
       }
     },
     mounted() {
-      this.$dataService = new CodeCamp.Common.DataService(this.$http);
-      this.$imgService = new CodeCamp.Common.ImageUploadService(this.$http, this.$dataService);
-      CodeCamp.speakerData.getSpeaker(this.$dataService)
+      this.$imgService = new CodeCamp.Common.ImageUploadService();
+      CodeCamp.speakerData.getSpeaker()
         .then(function (skr) {
           if (skr) this.speaker = skr;
           this.busy = false;

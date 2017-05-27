@@ -32,21 +32,20 @@ namespace CoreCodeCamp.Controllers.Web
     public IActionResult Index(string moniker)
     {
       var speaker = _repo.GetSpeakerForCurrentUser(moniker, User.Identity.Name);
-      if (speaker != null) return RedirectToAction("Manage");
+      if (speaker != null) return RedirectToAction("Speaker");
       return View();
     }
 
-    [HttpGet("Manage", Name = "MySpeakerPage")]
-    public IActionResult Manage(string moniker)
+    [HttpGet("Speaker")]
+    public async Task<IActionResult> Speaker(string moniker)
     {
       var speaker = _repo.GetSpeakerForCurrentUser(moniker, User.Identity.Name);
-      if (speaker == null) return RedirectToAction("Speaker");
-      return View(speaker);
-    }
-
-    [HttpGet("Speaker")]
-    public IActionResult Speaker(string moniker)
-    {
+      if (speaker == null)
+      {
+        var user = await _userMgr.GetUserAsync(User);
+        speaker = _repo.MigrateSpeakerForCurrentUser(moniker, user);
+        if (speaker != null) await _repo.SaveChangesAsync();
+      }
       return View();
     }
 

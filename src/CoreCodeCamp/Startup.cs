@@ -182,6 +182,12 @@ namespace CoreCodeCamp
       config.CreateMap<CodeCampUser, CodeCampUserViewModel>()
         .ReverseMap();
 
+      config.CreateMap<Speaker, Speaker>()
+        .ForMember(m => m.Id, opt => opt.Ignore())
+        .ForMember(m => m.Talks, opt => opt.Ignore())
+        .ForMember(m => m.Event, opt => opt.Ignore())
+        .ForMember(m => m.UserName, opt => opt.Ignore());
+
       config.CreateMap<SpeakerViewModel, Speaker>()
         .ForMember(m => m.Talks, opt => opt.Ignore());
       config.CreateMap<Speaker, SpeakerViewModel>()

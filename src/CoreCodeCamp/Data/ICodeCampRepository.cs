@@ -20,6 +20,7 @@ namespace CoreCodeCamp.Data
 
     IEnumerable<Speaker> GetSpeakers(string moniker);
     Speaker GetSpeakerForCurrentUser(string moniker, string name);
+    Speaker MigrateSpeakerForCurrentUser(string moniker, CodeCampUser user);
     Speaker GetSpeaker(int id);
     Speaker GetSpeakerByName(string moniker, string name);
 

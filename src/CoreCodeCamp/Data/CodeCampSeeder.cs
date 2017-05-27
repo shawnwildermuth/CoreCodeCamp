@@ -85,6 +85,30 @@ namespace CoreCodeCamp.Data
           {
             new EventInfo()
             {
+              Moniker = "2017",
+              Name = "Atlanta Code Camp 2017",
+              EventDate = new DateTime(2017, 9, 17),
+              EventLength = 1,
+              Description = "The Atlanta Code Camp is awesome! The Atlanta Code Camp is awesome! The Atlanta Code Camp is awesome!",
+              IsDefault = true,
+              TwitterLink = "https://twitter.com/atlcodecamp",
+              ContactEmail = "codecamp@live.com",
+              CallForSpeakersOpened = new DateTime(2017, 5, 25),
+              CallForSpeakersClosed = new DateTime(2016, 9, 1),
+              Location = new EventLocation()
+              {
+                Facility = "Kennesaw State University",
+                Address1 = "1100 S Marietta Pkwy",
+                Address2 = "",
+                City = "Marietta",
+                StateProvince = "GA",
+                PostalCode = "30060",
+                Country = "USA",
+                Link = ""
+              }
+            },
+            new EventInfo()
+            {
               Moniker = "2016",
               Name = "Atlanta Code Camp 2016",
               EventDate = new DateTime(2016, 10, 15),
@@ -195,8 +219,21 @@ namespace CoreCodeCamp.Data
             ImageUrl = "/img/2016/sponsors/wilder-minds.jpg",
             SponsorLevel = "Silver"
           };
-
           _ctx.Add(sponsor);
+
+          sponsor = new Sponsor()
+          {
+            Name = "Wilder Minds",
+            Link = "http://wilderminds.com",
+            Event = codeCamps[1],
+            Paid = true,
+            ImageUrl = "/img/2016/sponsors/wilder-minds.jpg",
+            SponsorLevel = "Silver"
+          };
+          _ctx.Add(sponsor);
+
+
+
           _ctx.AddRange(Add2015Sponsors(codeCamps.Where(s => s.Moniker == "2015").First()));
           _ctx.AddRange(Add2014Sponsors(codeCamps.Where(s => s.Moniker == "2014").First()));
           _ctx.AddRange(Add2013Sponsors(codeCamps.Where(s => s.Moniker == "2013").First()));

@@ -4,7 +4,7 @@
     "outFile": "wwwroot/lib/site/app.js",
     "sourceMap": true,
     "declaration": true,
-    "mapRoot": "/",
+    "mapRoot": "/lib/site/",
     "removeComments": true,
     "module": "none"
   },

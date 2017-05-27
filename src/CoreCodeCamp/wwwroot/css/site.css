@@ -139,7 +139,7 @@ footer a:focus {
   padding-top: 4px;
 }
 .invalidHeadshot {
-  border-color: #ce0000;
+  box-shadow: 3px -3px 15px 0px rgba(206, 0, 0, 0.7) !important;
 }
 .ul.navbar-nav {
   font-size: 14px;

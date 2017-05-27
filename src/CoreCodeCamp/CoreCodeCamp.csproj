@@ -11,8 +11,8 @@
 	<ItemGroup>
 	  <Content Include="wwwroot\app\callForSpeakers\callForSpeakers.ts" />
 	  <Content Include="wwwroot\app\callForSpeakers\Routes.ts" />
+	  <Content Include="wwwroot\app\callForSpeakers\speakerData.ts" />
 	  <Content Include="wwwroot\app\callForSpeakers\speakerEditorView.ts" />
-	  <Content Include="wwwroot\app\callForSpeakers\speakerInfo.ts" />
 	  <Content Include="wwwroot\app\callForSpeakers\speakerInfoView.ts" />
 	  <Content Include="wwwroot\app\callForSpeakers\speakerTalksView.ts" />
 	</ItemGroup>

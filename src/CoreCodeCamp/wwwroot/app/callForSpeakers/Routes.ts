@@ -15,10 +15,10 @@ namespace CodeCamp {
     { path: "/talks", name: "talks", component: CodeCamp.SpeakerTalksView },
   ];
 
-  export function createRouter() {
-    return new VueRouter({
+  export let callForSpeakersRouter = {
+    router: new VueRouter({
       routes: routes
-    });
-  }
+    })
+  }; 
 
 }

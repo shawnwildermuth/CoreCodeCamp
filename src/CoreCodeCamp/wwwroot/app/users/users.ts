@@ -14,7 +14,7 @@ module CodeCamp {
     data: {
       users: [],
       errorMessage: "",
-      busy: true;
+      busy: true
     },
     methods: {
       onToggleAdmin(user) {

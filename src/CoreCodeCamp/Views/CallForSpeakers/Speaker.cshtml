@@ -9,26 +9,138 @@
 <div id="call-for-speaker-view">
   <div class="row">
     <h2>Call for Speakers</h2>
-    <div>
-      <router-link to="/info">Info</router-link>
-      <router-link to="/edit">Edit</router-link>
-      <router-link to="/talks">Talks</router-link>
-    </div>
-    <hr/>
     <div><router-view></router-view></div>
   </div>
 
 </div>
 
-
+@****************************Speaker Info************************@
 <script type="x-template" id="speaker-info">
-  <div><h3>Speaker Info</h3></div>
+  <div>
+    <div class="text-danger" v-if="errorMessage">{{ errorMessage }}</div>
+    <div v-if="speaker">
+      @*<h4>Speaking at the {{ speaker.event.name }}</h4>*@
+      <div class="row text-left">
+        <div class="col-md-6">
+          <router-link :to="{ name: 'editor' }" class="btn btn-sm btn-primary">Edit Speaker Details</router-link>
+          <h3>{{ speaker.name }}</h3>
+          <p class="overflow-hidden"><img class="img-responsive pull-right col-md-3" :src="speaker.imageUrl" :alt="speaker.name" />{{ speaker.bio }}</p>
+
+          <dl class="dl-horizontal">
+            <dt>Title</dt>
+            <dd>{{ speaker.title }}</dd>
+            <dt>Company</dt>
+            <dd>{{ speaker.companyName }}</dd>
+            <dt>Company Website</dt>
+            <dd>{{ speaker.companyUrl }}</dd>
+            <dt>Blog</dt>
+            <dd>{{ speaker.blog }}</dd>
+            <dt>Website</dt>
+            <dd>{{ speaker.website }}</dd>
+            <dt>Twitter Handle</dt>
+            <dd>{{ speaker.twitter }}</dd>
+            <dt>Phone Number</dt>
+            <dd>{{ speaker.phoneNumber }}</dd>
+            <dt>T-Shirt Size</dt>
+            <dd>{{ speaker.tShirtSize }}</dd>
+          </dl>
+        </div>
+        <div class="col-md-6">
+          <h3>Talks</h3>
+        </div>
+      </div>
+    </div>
+  </div>
 </script>
 
+@****************************Speaker Editor************************@
 <script type="x-template" id="speaker-editor">
-  <div><h3>Speaker Editor</h3></div>
+  <div>
+    <div class="text-danger" v-if="errorMessage">{{ errorMessage }}</div>
+    <div class="row" v-if="speaker">
+      <form novalidate>
+        <div class="col-md-6 col-lg-offset-2 text-left">
+          <div v-if="busy"><i class="fa fa-spin fa-spinner"></i> Please wait...</div>
+          <div class="well well-sm">
+            <div class="form-group" v-bind:class="{ error: errors.has('name') }">
+              <label class="text-danger">Name</label>
+              <input v-model="speaker.name" class="form-control" placeholder="Your Name" name="name" v-validate="'required|min:5'" />
+              <div class="help-block">{{ errors.first('name') }}</div>
+            </div>
+            <div class="form-group"  v-bind:class="{ error: errors.has('bio') }">
+              <label class="text-danger">Bio</label>
+              <textarea v-model="speaker.bio" cols="40" rows="6" class="form-control" name="bio" v-validate="'required|min:100'"></textarea>
+              <div class="help-block">{{ errors.first('bio') }}</div>
+            </div>
+            <div class="form-group"  v-bind:class="{ error: errors.has('phoneNumber') }">
+              <label class="text-danger">PhoneNumber</label>
+              <input v-model="speaker.phoneNumber" class="form-control" placeholder="Your Phone" name="phoneNumber" v-validate="{ rules: { required: true, regex: /^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$/ } }" />
+              <div class="help-block">{{ errors.first('phoneNumber') }}</div>
+            </div>
+          </div>
+          <div class="well well-sm">
+            <div class="form-group" >
+              <label>Company Name</label>
+              <input v-model="speaker.companyName" class="form-control" placeholder="Your Company" name="companyName" />
+            </div>
+            <div class="form-group">
+              <label>Title</label>
+              <input v-model="speaker.title" class="form-control" placeholder="Your Title" name="title" />
+            </div>
+            <div class="form-group"  v-bind:class="{ error: errors.has('companyUrl') }">
+              <label>Company Website</label>
+              <input v-model="speaker.companyUrl" class="form-control" placeholder="Company Website" name="companyUrl" v-validate="'url'" />
+              <div class="help-block">{{ errors.first('companyUrl') }}</div>
+            </div>
+          </div>
+          <div class="well well-sm">
+            <div class="form-group"  v-bind:class="{ error: errors.has('blog') }">
+              <label>Blog</label>
+              <input v-model="speaker.blog" class="form-control" placeholder="Your Blog" name="blog" v-validate="'url'" />
+              <div class="help-block">{{ errors.first('blog') }}</div>
+            </div>
+            <div class="form-group"  v-bind:class="{ error: errors.has('website') }">
+              <label>Website</label>
+              <input v-model="speaker.website" class="form-control" placeholder="Your Website" name="website" v-validate="'url'" />
+              <div class="help-block">{{ errors.first('website') }}</div>
+            </div>
+            <div class="form-group"  v-bind:class="{ error: errors.has('twitter') }">
+              <label>Twitter</label>
+              <input v-model="speaker.twitter" class="form-control" placeholder="Just your handle" name="twitter" v-validate="{ rules: { regex: /^[^@@]+$/ } }" />
+              <div class="help-block">{{ errors.first('twitter') }}</div>
+            </div>
+            <div class="form-group"  v-bind:class="{ error: errors.has('tShirtSize') }">
+              <label class="text-danger">T-Shirt Size *</label>
+              <select v-model="speaker.tShirtSize" class="form-control" name="tShirtSize" v-validate="'required'">
+                <option>Small</option>
+                <option>Medium</option>
+                <option>Large</option>
+                <option>XL</option>
+                <option>2X</option>
+              </select>
+              <div class="help-block">{{ errors.first('tShirtSize') }}</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="submit" class="btn btn-success btn-lg" value="Save" v-bind:disabled="errors.any() || !validImage()" @@click.prevent="onSaveSpeaker()" />
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="row" id="imagePicker">
+            <div><img :src="this.speaker.imageUrl ? this.speaker.imageUrl : '/img/speaker-placeholder.jpg'" alt="" class="img-responsive speaker-image" v-bind:class="{ invalidHeadshot: !validImage() }"></div>
+            <a @@click.prevent="onFilePicker()" class="btn btn-primary" href="#">Pick Headshot</a>
+            <input type="file" name="filePicker" ref="filePicker" class="hidden" accept="image/jpeg,image/png" @@change="onImagePicked()" v-validate="'required'" />
+            <div class="text-muted text-sm">Please use as square as possible. .jpg and .png only.</div>
+            <div class="text-danger" v-if="!validImage()">* Headshot required. </div>
+            <div class="text-danger" v-if="imageError">{{ imageError }}</div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </script>
 
+@****************************Speaker Talks************************@
 <script type="x-template" id="speaker-talks">
   <div><h3>Speaker Talks</h3></div>
 

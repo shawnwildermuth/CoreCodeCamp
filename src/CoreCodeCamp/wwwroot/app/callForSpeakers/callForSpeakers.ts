@@ -5,10 +5,11 @@ module CodeCamp {
 
   // External JS Libraries
   declare var Vue: any;
+  declare var VueRouter: any;
 
   export function callForSpeakers() {
     Vue.use(VueRouter);
-    CodeCamp.App.bootstrap({ router: CodeCamp.createRouter(), el: "#call-for-speaker-view" });
+    CodeCamp.App.bootstrap({ router: CodeCamp.callForSpeakersRouter.router, el: "#call-for-speaker-view" });
   }
 
 }

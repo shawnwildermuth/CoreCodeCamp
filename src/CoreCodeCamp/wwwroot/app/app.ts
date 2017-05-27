@@ -1,3 +1,6 @@
+/// <reference path="common/validators.ts" />
+/// <reference path="common/filters.ts" />
+/// <reference path="common/datepicker.ts" />
 module CodeCamp {
 
   // External JS Libraries
@@ -5,7 +8,6 @@ module CodeCamp {
   declare var VeeValidate: any;
   declare var VueResource: any;
   declare var VueRouter: any;
-  declare var moment: any;
 
   export let App = {
 
@@ -13,21 +15,9 @@ module CodeCamp {
       
       Vue.use(VeeValidate);
       Vue.use(VueResource);
-      let passwordValidation = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,25}$/;
-      VeeValidate.Validator.extend('strongPassword', {
-        getMessage: field => 'The ' + field + ' requires an uppercase, a lower case and a number.',
-        validate: value => passwordValidation.test(value)
-      });
-      Vue.filter('formatDate', function (value) {
-        if (value) {
-          return moment(String(value)).format('MM-DD-YYYY')
-        }
-      });
-      Vue.filter('formatTime', function (value) {
-        if (value) {
-          return moment(String(value)).format('hh:mm a')
-        }
-      });
+      CodeCamp.Common.createValidators();
+      CodeCamp.Common.createFilters();
+      CodeCamp.Common.createDatePicker();
     },
 
     bootstrap: function (theView: any) {

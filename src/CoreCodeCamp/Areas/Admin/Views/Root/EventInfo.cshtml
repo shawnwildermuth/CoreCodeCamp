@@ -46,7 +46,7 @@
               <div class="well well-sm">
                 <div class="form-group" v-bind:class="{ error: errors.has('vEvent.eventDate') }">
                   <label class="text-danger">Event Date *</label>
-                  <div><input v-model.lazy="eventDate" class="form-control datepicker" name="eventDate" v-validate="'date_format:MM-DD-YYYY'" /></div>
+                  <div><datepicker v-model.lazy="theEvent.eventDate" class="form-control" name="eventDate"></datepicker></div>
                   <div class="help-block">{{ errors.first('vEvent.eventDate') }}</div>
                 </div>
                 <div class="form-group" v-bind:class="{ error: errors.has('vEvent.eventLength') }">
@@ -56,12 +56,12 @@
                 </div>
                 <div class="form-group" v-bind:class="{ error: errors.has('vEvent.callForSpeakersOpened') }">
                   <label class="text-danger">Call For Speaker Opening Date *</label>
-                  <div><input v-model.lazy="callForSpeakersOpened" class="form-control datepicker" name="callForSpeakersOpened" v-validate="'date_format:MM-DD-YYYY'" /></div>
+                  <div><datepicker v-model.lazy="callForSpeakersOpened" class="form-control" name="callForSpeakersOpened"></datepicker></div>
                   <div class="help-block">{{ errors.first('vEvent.callForSpeakersOpened') }}</div>
                 </div>
                 <div class="form-group" v-bind:class="{ error: errors.has('vEvent.callForSpeakersClosed') }">
                   <label class="text-danger">Call For Speaker Closing Date *</label>
-                  <div><input v-model.lazy="callForSpeakersClosed" class="form-control datepicker" name="callForSpeakersClosed" v-validate="'date_format:MM-DD-YYYY'" /></div>
+                  <div><datepicker v-model.lazy="callForSpeakersClosed" class="form-control" name="callForSpeakersClosed"></datepicker></div>
                   <div class="help-block">{{ errors.first('vEvent.callForSpeakersClosed') }}</div>
                 </div>
               </div>

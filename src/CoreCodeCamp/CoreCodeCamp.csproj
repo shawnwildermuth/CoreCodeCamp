@@ -15,6 +15,9 @@
 	  <Content Include="wwwroot\app\callForSpeakers\speakerEditorView.ts" />
 	  <Content Include="wwwroot\app\callForSpeakers\speakerInfoView.ts" />
 	  <Content Include="wwwroot\app\callForSpeakers\speakerTalksView.ts" />
+	  <Content Include="wwwroot\app\common\datepicker.ts" />
+	  <Content Include="wwwroot\app\common\filters.ts" />
+	  <Content Include="wwwroot\app\common\validators.ts" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="wwwroot\\**\\*;**\\Views\\;EmailTemplates">

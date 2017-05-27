@@ -1,3 +1,4 @@
+/// <reference path="../common/helpers.ts" />
 module CodeCamp {
 
   // External JS Libraries
@@ -17,8 +18,7 @@ module CodeCamp {
     },
     computed: {
       isPristine: function () {
-        var val = (this.user.name == "" || this.user.email == "" || this.user.password == "" || this.user.confirmPassword == "");
-        return val;
+        return CoreCodeCamp.Common.helpers.isPristine(this.fields);
       }
     },
     methods: {

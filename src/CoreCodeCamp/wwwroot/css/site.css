@@ -163,7 +163,7 @@ footer a:focus {
   line-height: normal;
   margin-top: 25px;
 }
-.datepicker {
+datepicker {
   width: 25%;
   display: inline-block;
 }

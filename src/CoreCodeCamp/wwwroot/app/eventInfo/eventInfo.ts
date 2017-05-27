@@ -120,45 +120,6 @@ module CodeCamp {
       }
     },
     computed: {
-      //eventDate: {
-      //  get: function () {
-      //    return moment(this.theEvent.eventDate).format("MM-DD-YYYY");
-      //  },
-      //  set: function (newValue) {
-      //    var newDate = moment(newValue, "MM-DD-YYYY");
-      //    if (newDate.isValid()) {
-      //      this.theEvent.eventDate = newDate;
-      //    } else {
-      //      this.errorMessage = "Data Parsing Failed";
-      //    }
-      //  }
-      //},
-      callForSpeakersClosed: {
-        get: function () {
-          return moment(this.theEvent.callForSpeakersClosed).format("MM-DD-YYYY");
-        },
-        set: function (newValue) {
-          var newDate = moment(newValue, "MM-DD-YYYY");
-          if (newDate.isValid()) {
-            this.theEvent.callForSpeakersClosed = newDate;
-          } else {
-            this.errorMessage = "Data Parsing Failed";
-          }
-        }
-      },
-      callForSpeakersOpened: {
-        get: function () {
-          return moment(this.theEvent.callForSpeakersOpened).format("MM-DD-YYYY");
-        },
-        set: function (newValue) {
-          var newDate = moment(newValue, "MM-DD-YYYY");
-          if (newDate.isValid()) {
-            this.theEvent.callForSpeakersOpened = newDate;
-          } else {
-            this.errorMessage = "Data Parsing Failed";
-          }
-        }
-      }
     },
     mounted() {
       this.$dataService = new CodeCamp.Common.DataService(this.$http);

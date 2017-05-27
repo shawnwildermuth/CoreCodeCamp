@@ -1,7 +1,7 @@
 ﻿///<reference path="./callForSpeakers.ts" />
 ///<reference path="./speakerEditorView.ts" />
 ///<reference path="./speakerInfoView.ts" />
-///<reference path="./speakerTalksView.ts" />
+///<reference path="./speakerTalkEditorView.ts" />
 namespace CodeCamp {
 
   // External JS Libraries
@@ -12,7 +12,8 @@ namespace CodeCamp {
     { path: "/", redirect: { name: "info" } },
     { path: "/info", name: "info", component: CodeCamp.SpeakerInfoView },
     { path: "/edit", name: "editor", component: CodeCamp.SpeakerEditorView },
-    { path: "/talks", name: "talks", component: CodeCamp.SpeakerTalksView },
+    { path: "/talks/:id", name: "talkEditor", component: CodeCamp.SpeakerTalkEditorView, props: true },
+    { path: "*", redirect: { name: "info" } }
   ];
 
   export let callForSpeakersRouter = {

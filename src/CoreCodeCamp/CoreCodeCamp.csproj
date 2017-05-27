@@ -14,9 +14,12 @@
 	  <Content Include="wwwroot\app\callForSpeakers\speakerData.ts" />
 	  <Content Include="wwwroot\app\callForSpeakers\speakerEditorView.ts" />
 	  <Content Include="wwwroot\app\callForSpeakers\speakerInfoView.ts" />
-	  <Content Include="wwwroot\app\callForSpeakers\speakerTalksView.ts" />
+	  <Content Include="wwwroot\app\callForSpeakers\speakerTalkEditorView.ts" />
+	  <Content Include="wwwroot\app\callForSpeakers\speakerTalkEditView.ts" />
+	  <Content Include="wwwroot\app\callForSpeakers\talk.ts" />
 	  <Content Include="wwwroot\app\common\datepicker.ts" />
 	  <Content Include="wwwroot\app\common\filters.ts" />
+	  <Content Include="wwwroot\app\common\helpers.ts" />
 	  <Content Include="wwwroot\app\common\validators.ts" />
 	</ItemGroup>
 	<ItemGroup>

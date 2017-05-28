@@ -7,7 +7,6 @@ module CodeCamp {
   declare var Vue: any;
   declare var VeeValidate: any;
   declare var VueResource: any;
-  declare var VueRouter: any;
 
   export let App = {
 
@@ -18,6 +17,9 @@ module CodeCamp {
       CodeCamp.Common.createValidators();
       CodeCamp.Common.createFilters();
       CodeCamp.Common.createDatePicker();
+      Vue.config.errorHandler = function (err, vm, info) {
+        console.log(err);
+      }
     },
 
     bootstrap: function (theView: any) {

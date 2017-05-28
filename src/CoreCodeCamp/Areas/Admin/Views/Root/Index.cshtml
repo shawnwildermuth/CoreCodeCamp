@@ -16,11 +16,11 @@
         </div>
         <div>
           <select @@change="onEventChanged($event.target.value)" v-model="selectedModelMoniker">
-            <option v-for="camp in events" v-bind:value="camp.moniker">
+            <option v-for="camp in campEvents" v-bind:value="camp.moniker">
               {{ camp.name }}
             </option>
           </select>
-        </div>    
+        </div>
         <div v-if="errorMessage" class="text-warning">{{ errorMessage }}</div>
         <div v-if="currentEvent">
           <ul>
@@ -31,7 +31,7 @@
           </ul>
         </div>
         <div>
-          New Event Moniker (e.g. 2017): <input id="newEventName" v-model="newEventMoniker" /> <button :disabled="(!newEventMoniker || newEventMoniker.length < 2)" @@click="onAddEvent()" class="btn btn-success"><i class="fa fa-plus"></i></button>
+          New Event Moniker (e.g. 2017): <input id="newEventName" v-model="newEventMoniker" /> <button v-bind:disabled="(!newEventMoniker || newEventMoniker.length < 2)" @@click="onAddEvent()" class="btn btn-success"><i class="fa fa-plus"></i></button>
         </div>
       </div>
     </div>

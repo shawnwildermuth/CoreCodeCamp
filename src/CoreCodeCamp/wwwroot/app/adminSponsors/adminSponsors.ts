@@ -82,7 +82,7 @@ module CodeCamp {
         .then((result) => {
           this.sponsors = result.data;
           this.currentSponsor = null;
-        }, () => this.errorMessage = "Failed to load data")
+        }.bind(this), () => this.errorMessage = "Failed to load data")
         .finally(() => this.busy = false);
 
     }

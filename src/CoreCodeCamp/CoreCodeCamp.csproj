@@ -15,7 +15,6 @@
 	  <Content Include="wwwroot\app\callForSpeakers\speakerEditorView.ts" />
 	  <Content Include="wwwroot\app\callForSpeakers\speakerInfoView.ts" />
 	  <Content Include="wwwroot\app\callForSpeakers\speakerTalkEditorView.ts" />
-	  <Content Include="wwwroot\app\callForSpeakers\speakerTalkEditView.ts" />
 	  <Content Include="wwwroot\app\callForSpeakers\talk.ts" />
 	  <Content Include="wwwroot\app\common\datepicker.ts" />
 	  <Content Include="wwwroot\app\common\filters.ts" />

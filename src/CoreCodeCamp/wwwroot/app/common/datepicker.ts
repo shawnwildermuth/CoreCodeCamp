@@ -8,6 +8,7 @@
     Vue.component('datepicker', {
       props: ['value'],
       template: '<input type="text" \
+            class="v-datepicker" \
             ref="input" \
             v-bind:value="value | formatDate" \
             v-on:input="$emit(\'input\', $event.target.value)"/>',

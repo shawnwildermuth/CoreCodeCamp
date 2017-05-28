@@ -1,0 +1,8 @@
+[
+  {
+    "outputFileName": "wwwroot/lib/site/app.min.js",
+    "inputFiles": [
+      "wwwroot/lib/site/app.js"
+    ]
+  }
+]

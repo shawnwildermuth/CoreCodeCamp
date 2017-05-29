@@ -63,8 +63,15 @@ namespace CoreCodeCamp.Services
 
     public async Task SendTemplateMailAsync<T>(string templateName, T model) where T : EmailModel
     {
-      var body = await _renderer.RenderAsync($"Emails/{templateName}", model);
-      await SendMailAsync(model.Name, model.Email, model.Subject, body);
+      try
+      {
+        var body = await _renderer.RenderAsync($"Emails/{templateName}", model);
+        await SendMailAsync(model.Name, model.Email, model.Subject, body);
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError($"Failed while rendering or sending template email: {ex}");
+      }
     }
   }
 }

@@ -8,6 +8,7 @@
       return {
         busy: true,
         errorMessage: "",
+        infoMessage: "",
         speaker: {},
         imageError: "",
         filePicker: {}
@@ -19,11 +20,15 @@
           if (result) {
             this.busy = true;
             this.errorMessage = "";
+            this.infoMessage = "";
             CodeCamp.speakerData.saveSpeaker(this.speaker).then(function () {
               CodeCamp.callForSpeakersRouter.router.push({ name: "info" });
-            }, function () {
+              this.infoMessage = "Saved...";
+            }.bind(this), function () {
               this.errorMessage = "Failed to save speaker."
-            }).finally(() => this.busy = false);
+              }.bind(this)).finally(() => {
+                this.busy = false;
+              }.bind(this));
           }
         });
       },

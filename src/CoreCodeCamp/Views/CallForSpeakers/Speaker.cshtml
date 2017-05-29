@@ -145,12 +145,21 @@
             <input type="submit" class="btn btn-success btn-lg" value="Save" v-bind:disabled="errors.any() || !validImage()" @@click.prevent="onSaveSpeaker()" />
             <router-link :to="{ name: 'info'}" class="btn btn-default btn-lg">Cancel</router-link>
           </div>
+          <div>
+            <div class="text-info">{{ infoMessage }}</div>
+            <div v-if="errors.any()">
+              <div>Please fix the following errors:</div>
+              <ul>
+                <li v-for="error in errors">{{ error[0].msg }}</li>
+              </ul>
+            </div>
+          </div>
         </div>
         <div class="col-md-2">
           <div class="row" id="imagePicker">
             <div><img :src="this.speaker.imageUrl ? this.speaker.imageUrl : '/img/speaker-placeholder.jpg'" alt="" class="img-responsive speaker-image" v-bind:class="{ invalidHeadshot: !validImage() }"></div>
             <a @@click.prevent="onFilePicker()" class="btn btn-primary" href="#">Pick Headshot</a>
-            <input type="file" name="filePicker" ref="filePicker" class="hidden" accept="image/jpeg,image/png" @@change="onImagePicked()" v-validate="'required'" />
+            <input type="file" name="filePicker" ref="filePicker" class="hidden" accept="image/jpeg,image/png" @@change="onImagePicked()" />
             <div class="text-muted text-sm">Please use as square as possible. .jpg and .png only.</div>
             <div class="text-danger" v-if="!validImage()">* Headshot required. </div>
             <div class="text-danger" v-if="imageError">{{ imageError }}</div>

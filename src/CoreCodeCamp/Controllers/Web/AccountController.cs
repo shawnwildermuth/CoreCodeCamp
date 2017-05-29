@@ -109,13 +109,17 @@ namespace CoreCodeCamp.Controllers.Web
         {
           var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
           var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-          await _mailService.SendTemplateMailAsync("ConfirmEmail", new AccountConfirmModel()
+          if (!(await _mailService.SendTemplateMailAsync("ConfirmEmail", new AccountConfirmModel()
           {
             Name = model.Name,
             Email = model.Email,
             Subject = "Confirm your account",
             Callback = callbackUrl
-          });
+          })))
+          {
+            _logger.LogError($"Failed to send out confirmation email, user created but can't confirm the account.");
+            ModelState.AddModelError("", "Could not send out confirmation email, please contact us at codecamp@live.com for help.");
+          }
           _logger.LogInformation(3, "User created a new account with password.");
           return View("ResendConfirmEmailSent");
         }
@@ -228,12 +232,16 @@ namespace CoreCodeCamp.Controllers.Web
         // Send an email with this link
         var code = await _userManager.GeneratePasswordResetTokenAsync(user);
         var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-        await _mailService.SendTemplateMailAsync("ResetPassword", new AccountConfirmModel()
+        if (!await _mailService.SendTemplateMailAsync("ResetPassword", new AccountConfirmModel()
         {
           Email = model.Email,
-          Subject = "Confirm your account",
+          Subject = "Forgot Your Password",
           Callback = callbackUrl
-        });
+        }))
+        {
+          ModelState.AddModelError("", "Failed to send email. Please send an email to codecamp@live.com and we'll fix the issue.");
+          return View();
+        }
         return View("ForgotPasswordConfirmation");
       }
 

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 	<PropertyGroup>
-		<TargetFramework>net46</TargetFramework>
+		<TargetFramework>net452</TargetFramework>
 		<PreserveCompilationContext>true</PreserveCompilationContext>
 		<AssemblyName>CoreCodeCamp</AssemblyName>
 		<OutputType>Exe</OutputType>
@@ -43,6 +43,7 @@
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
+		<PackageReference Include="Sendgrid" Version="9.4.1" />
 		<PackageReference Include="Serilog.Extensions.Logging" Version="1.2.0" />
 		<PackageReference Include="Serilog.Sinks.Loggly" Version="3.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="1.1.1" />

@@ -125,7 +125,7 @@ namespace CoreCodeCamp
 
       if (_env.IsProduction())
       {
-        app.UseStatusCodePagesWithRedirects("~/Error/{0}");
+        app.UseStatusCodePagesWithRedirects("/Error/{0}");
         app.UseExceptionHandler("/Error/Exception");
 
         SetupLoggerly(loggerFactory, appLifetime);

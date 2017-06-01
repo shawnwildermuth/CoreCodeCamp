@@ -9,6 +9,10 @@
     <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Remove="Properties\PublishProfiles\atlantacodecamp-beta - FTP.pubxml" />
+	  <None Remove="Properties\PublishProfiles\atlantacodecamp-beta - Web Deploy.pubxml" />
+	</ItemGroup>
+	<ItemGroup>
 	  <Content Include="wwwroot\app\callForSpeakers\callForSpeakers.ts" />
 	  <Content Include="wwwroot\app\callForSpeakers\Routes.ts" />
 	  <Content Include="wwwroot\app\callForSpeakers\speakerData.ts" />

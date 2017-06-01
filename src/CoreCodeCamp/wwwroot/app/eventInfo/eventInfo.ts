@@ -31,14 +31,14 @@ module CodeCamp {
           if (result) {
             this.busy = true;
             this.errorMessage = "";
-            this.eventMessage = "";
+            this.eventMessage = "Please Wait...";
             CodeCamp.Common.dataService.saveEventInfo(this.theEvent).then(function () {
               this.eventMessage = "Saved...";
-            }, function () {
+            }.bind(this), function () {
               this.eventMessage = "Failed to save changes...";
-            }).finally(() => this.busy = false);
+            }.bind(this)).finally(() => this.busy = false).bind(this);
           }
-        });
+        }, function () { this.eventMessage = "Please fix any validation errors..."; });
         return false;
       },
       onSaveLocation() {
@@ -95,7 +95,7 @@ module CodeCamp {
         this.errorMessage = "";
         CodeCamp.Common.dataService.deleteTrack(track)
           .then(() => this.tracks.splice(this.tracks.indexOf(track), 1),
-                () => this.errorMessage = "Failed to delete track")
+          () => this.errorMessage = "Failed to delete track")
           .finally(() => this.busy = false);
       },
 

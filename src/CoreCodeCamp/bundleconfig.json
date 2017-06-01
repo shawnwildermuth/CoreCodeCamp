@@ -4,5 +4,11 @@
     "inputFiles": [
       "wwwroot/lib/site/app.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/site.min.js",
+    "inputFiles": [
+      "wwwroot/js/site.js"
+    ]
   }
 ]

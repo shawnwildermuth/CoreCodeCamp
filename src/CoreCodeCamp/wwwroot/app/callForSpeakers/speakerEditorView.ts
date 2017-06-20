@@ -1,4 +1,4 @@
-﻿module CodeCamp {
+﻿namespace CodeCamp {
 
   declare var Vue: any;
 
@@ -26,7 +26,7 @@
               this.infoMessage = "Saved...";
             }.bind(this), function () {
               this.errorMessage = "Failed to save speaker."
-              }.bind(this)).finally(() => {
+              }.bind(this)).finally(function () {
                 this.busy = false;
               }.bind(this));
           }

@@ -1,5 +1,5 @@
 ﻿///<reference path="../common/dataService.ts" />
-module CodeCamp {
+namespace CodeCamp {
 
   // External JS Libraries
   declare var Vue: any;

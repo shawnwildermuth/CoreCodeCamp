@@ -1,7 +1,7 @@
 ﻿///<reference path="../common/imageUploadService.ts" />
 ///<reference path="../common/dataService.ts" />
 ///<reference path="./Routes.ts" />
-module CodeCamp {
+namespace CodeCamp {
 
   // External JS Libraries
   declare var Vue: any;

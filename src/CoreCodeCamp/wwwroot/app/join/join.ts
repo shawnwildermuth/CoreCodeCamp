@@ -1,5 +1,5 @@
 ///<reference path="./joinView.ts" />
-module CodeCamp {
+namespace CodeCamp {
   export function join() {
     CodeCamp.App.bootstrap(CodeCamp.JoinView);
   }

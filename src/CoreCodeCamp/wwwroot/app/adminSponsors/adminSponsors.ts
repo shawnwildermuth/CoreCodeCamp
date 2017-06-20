@@ -1,5 +1,5 @@
 ﻿///<reference path="../common/dataService.ts" />
-module CodeCamp {
+namespace CodeCamp {
 
   // External JS Libraries
   declare var Vue: any;
@@ -79,7 +79,7 @@ module CodeCamp {
     },
     mounted() {
       CodeCamp.Common.dataService.getSponsors()
-        .then((result) => {
+        .then(function (result) {
           this.sponsors = result.data;
           this.currentSponsor = null;
         }.bind(this), () => this.errorMessage = "Failed to load data")

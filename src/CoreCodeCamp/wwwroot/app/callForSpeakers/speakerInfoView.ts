@@ -1,5 +1,5 @@
 ﻿/// <reference path="./speakerData.ts" />
-module CodeCamp {
+namespace CodeCamp {
   declare var Vue: any;
 
   export let SpeakerInfoView = {
@@ -25,7 +25,7 @@ module CodeCamp {
         let _this = this;
         CodeCamp.speakerData.getSpeaker()
           .then(skr => {
-            if (!skr) {
+            if (!skr || skr.id == 0) {
               CodeCamp.callForSpeakersRouter.router.push({ name: "editor" });
             } else {
               _this.speaker = skr;

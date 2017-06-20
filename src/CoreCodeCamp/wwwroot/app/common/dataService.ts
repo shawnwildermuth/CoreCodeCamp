@@ -1,4 +1,4 @@
-﻿module CodeCamp.Common {
+﻿namespace CodeCamp.Common {
 
   declare var Vue: any;
 

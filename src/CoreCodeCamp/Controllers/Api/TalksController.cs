@@ -68,7 +68,11 @@ namespace CoreCodeCamp.Controllers.Api
       try
       {
         var speaker = _repo.GetSpeakerForCurrentUser(moniker, User.Identity.Name);
-        return Ok(Mapper.Map<IEnumerable<TalkViewModel>>(speaker.Talks));
+        if (speaker != null && speaker.Talks != null)
+        {
+          return Ok(Mapper.Map<IEnumerable<TalkViewModel>>(speaker.Talks));
+        }
+        return Ok(Mapper.Map<IEnumerable<TalkViewModel>>(new List<Talk>()));
       }
       catch (Exception ex)
       {

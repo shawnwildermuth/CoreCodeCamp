@@ -1,7 +1,7 @@
 ﻿/// <reference path="../common/helpers.ts" />
 /// <reference path="../common/dataservice.ts" />
 /// <reference path="speakerdata.ts" />
-module CodeCamp {
+namespace CodeCamp {
   declare var Vue: any;
   declare var _: any;
 

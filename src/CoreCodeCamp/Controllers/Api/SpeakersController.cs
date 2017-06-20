@@ -52,7 +52,14 @@ namespace CoreCodeCamp.Controllers.Api
       try
       {
         var speaker = _repo.GetSpeakerForCurrentUser(moniker, User.Identity.Name);
-        if (speaker == null) speaker = new Speaker();
+        if (speaker == null)
+        {
+          speaker = new Speaker()
+          {
+            Talks = new List<Talk>(),
+            UserName = User.Identity.Name
+          };
+        }
         return Ok(Mapper.Map<SpeakerViewModel>(speaker));
       }
       catch (Exception ex)

@@ -9,6 +9,7 @@
     <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Remove="Properties\PublishProfiles\atlantacodecamp - Web Deploy.pubxml" />
 	  <None Remove="Properties\PublishProfiles\atlantacodecamp-beta - FTP.pubxml" />
 	  <None Remove="Properties\PublishProfiles\atlantacodecamp-beta - Web Deploy.pubxml" />
 	</ItemGroup>

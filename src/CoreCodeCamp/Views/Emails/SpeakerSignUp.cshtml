@@ -1,18 +1,19 @@
+@model CoreCodeCamp.Models.Emails.SpeakerModel
 @{
   Layout = "Emails/_Layout";
 }
 
-<h2>{0} Speaker Signup</h2>
+<h2>@Model.Event.Name Speaker Signup</h2>
 <br />
-<p>{3},</p>
+<p>@Model.Speaker.Name,</p>
 <p>
-  Thank you for signing up as a speaker to the {0}!
-  We'll be accepting session submissions through {1} and will let you know
+  Thank you for signing up as a speaker to the @Model.Event.Name!
+  We'll be accepting session submissions through @Model.Event.CallForSpeakersClosed.ToShortDateString(). and will let you know
   once your sessions have been reviewed and/or accepted. You can always
   manage your submissions by visiting your speaker page at:
 </p>
 <ul>
-  <li><a href="{2}">Your Speaker Page</a></li>
+  <li><a href="@Model.SpeakerUrl">Your Speaker Page</a></li>
 </ul>
 <p>We look forward to having you speak at the {0}</p>
 <br />

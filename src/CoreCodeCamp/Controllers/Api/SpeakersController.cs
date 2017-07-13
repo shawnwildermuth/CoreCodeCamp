@@ -122,7 +122,8 @@ namespace CoreCodeCamp.Controllers.Api
                 Email = user.Email,
                 Subject = $"Speaking at the {speaker.Event.Name}",
                 Speaker = speaker,
-                SpeakerUrl = speakerUrl
+                SpeakerUrl = speakerUrl,
+                Event = speaker.Event
               });
           }
           else

@@ -142,7 +142,8 @@ namespace CoreCodeCamp.Controllers.Api
           ModelState.AddModelError("", $"Failed to Save: {ex.Message}");
         }
       }
-      return BadRequest("Failed to save Speaker");
+      _logger.LogError("Failed to get update speaker because of bad Model State: {0}", ModelState);
+      return BadRequest($"Failed to save Speaker: ModelState has Errors: #{ModelState.ErrorCount}");
 
     }
   }

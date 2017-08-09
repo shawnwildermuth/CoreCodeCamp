@@ -6,7 +6,7 @@
   @Html.Partial("_VueScripts", "adminEvents")
 }
 <div class="row text-left">
-  <div class="col-lg-4 col-lg-offset-4">
+  <div class="col-lg-6 col-lg-offset-3">
     <h2>@ViewData["Title"]</h2>
     <div class="col-md-12">
       <div><a asp-area="Admin" asp-controller="Root" asp-action="Users">Users</a></div>
@@ -27,7 +27,8 @@
             <li><a :href="'/' + currentEvent.moniker + '/admin/eventinfo'">{{ currentEvent.moniker }} Event Information</a></li>
             <li><a :href="'/' + currentEvent.moniker + '/admin/schedule'">{{ currentEvent.moniker }} Schedule</a></li>
             <li><a :href="'/' + currentEvent.moniker + '/admin/sponsors'">{{ currentEvent.moniker }} Sponsors</a></li>
-            <li><a :href="'/' + currentEvent.moniker + '/admin/speakerlist'">Download Speaker List for {{ currentEvent.moniker }}</a></li>
+            <li><a :href="'/' + currentEvent.moniker + '/admin/speakerlist'">Download Approved Speaker List for {{ currentEvent.moniker }}</a></li>
+            <li><a :href="'/' + currentEvent.moniker + '/admin/submissionlist'">Download Submitted Talks List for {{ currentEvent.moniker }}</a></li>
           </ul>
         </div>
         <div>

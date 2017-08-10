@@ -94,7 +94,7 @@ namespace CoreCodeCamp.Areas.Admin.Controllers
         csv.Append($@"""{t.Level}"",");
         csv.Append($@"""{t.Prerequisites}"",");
         csv.Append($@"""{t.Approved}"",");
-        csv.Append($@"""{t.Abstract}""");
+        csv.Append($@"""{t.Abstract.Replace(Environment.NewLine, " ")}""");
         csv.AppendLine();
       }
 

@@ -19,16 +19,16 @@ namespace CoreCodeCamp.Services
       _renderer = renderer;
     }
 
-    public Task SendMailAsync(string name, string email, string subject, string msg)
+    public Task<bool> SendMailAsync(string name, string email, string subject, string msg)
     {
       _logger.LogInformation($"Mail Sending to {name}/{email} for {subject}: {Environment.NewLine}{msg}");
-      return Task.FromResult(0);
+      return Task.FromResult(true);
     }
 
-    public async Task SendTemplateMailAsync<T>(string templateName, T model) where T : EmailModel
+    public async Task<bool> SendTemplateMailAsync<T>(string templateName, T model) where T : EmailModel
     {
       var body = await _renderer.RenderAsync($"Emails/{templateName}", model);
-      await SendMailAsync(model.Name, model.Email, model.Subject, body);
+      return await SendMailAsync(model.Name, model.Email, model.Subject, body);
     }
   }
 }

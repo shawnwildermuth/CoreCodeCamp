@@ -52,7 +52,14 @@ namespace CoreCodeCamp.Controllers.Api
       try
       {
         var speaker = _repo.GetSpeakerForCurrentUser(moniker, User.Identity.Name);
-        if (speaker == null) speaker = new Speaker();
+        if (speaker == null)
+        {
+          speaker = new Speaker()
+          {
+            Talks = new List<Talk>(),
+            UserName = User.Identity.Name
+          };
+        }
         return Ok(Mapper.Map<SpeakerViewModel>(speaker));
       }
       catch (Exception ex)
@@ -115,7 +122,8 @@ namespace CoreCodeCamp.Controllers.Api
                 Email = user.Email,
                 Subject = $"Speaking at the {speaker.Event.Name}",
                 Speaker = speaker,
-                SpeakerUrl = speakerUrl
+                SpeakerUrl = speakerUrl,
+                Event = speaker.Event
               });
           }
           else
@@ -134,7 +142,8 @@ namespace CoreCodeCamp.Controllers.Api
           ModelState.AddModelError("", $"Failed to Save: {ex.Message}");
         }
       }
-      return BadRequest("Failed to save Speaker");
+      _logger.LogError("Failed to get update speaker because of bad Model State: {0}", ModelState);
+      return BadRequest($"Failed to save Speaker: ModelState has Errors: #{ModelState.ErrorCount}");
 
     }
   }

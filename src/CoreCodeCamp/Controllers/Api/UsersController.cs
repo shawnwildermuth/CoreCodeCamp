@@ -24,8 +24,8 @@ namespace CoreCodeCamp.Controllers.Api
     private SignInManager<CodeCampUser> _signInMgr;
     private UserManager<CodeCampUser> _userMgr;
 
-    public UsersController(ICodeCampRepository repo, 
-      UserManager<CodeCampUser> userMgr, 
+    public UsersController(ICodeCampRepository repo,
+      UserManager<CodeCampUser> userMgr,
       SignInManager<CodeCampUser> signInMgr,
       ILogger<UsersController> logger)
     {
@@ -75,31 +75,63 @@ namespace CoreCodeCamp.Controllers.Api
     [HttpPut("{name}/toggleAdmin")]
     public async Task<IActionResult> ToggleAdmin(string name, [FromBody]CodeCampUserViewModel vm)
     {
-      if (ModelState.IsValid)
+      try
       {
-        var user = await _userMgr.FindByNameAsync(name);
-
-        if (user != null)
+        if (ModelState.IsValid)
         {
-          var isAdmin = await _userMgr.IsInRoleAsync(user, Consts.ADMINROLE);
-          IdentityResult result;
-          if (isAdmin)
-          {
-            result = await _userMgr.RemoveFromRoleAsync(user, Consts.ADMINROLE);
-          }
-          else
-          {
-            result = await _userMgr.AddToRoleAsync(user, Consts.ADMINROLE);
-          }
+          var user = await _userMgr.FindByNameAsync(name);
 
-          if (result.Succeeded)
+          if (user != null)
           {
-            return Ok(!isAdmin);
+            var isAdmin = await _userMgr.IsInRoleAsync(user, Consts.ADMINROLE);
+            IdentityResult result;
+            if (isAdmin)
+            {
+              result = await _userMgr.RemoveFromRoleAsync(user, Consts.ADMINROLE);
+            }
+            else
+            {
+              result = await _userMgr.AddToRoleAsync(user, Consts.ADMINROLE);
+            }
+
+            if (result.Succeeded)
+            {
+              return Ok(!isAdmin);
+            }
           }
         }
       }
+      catch (Exception ex)
+      {
+        _logger.LogError("Exception thrown while toggling admin: {0}", ex);
+      }
 
       return BadRequest("Could not update roles.");
+    }
+
+    [HttpPut("{name}/toggleConfirmation")]
+    public async Task<IActionResult> ToggleConfirmation(string name, [FromBody]CodeCampUserViewModel vm)
+    {
+      try
+      {
+        if (ModelState.IsValid)
+        {
+          var user = await _userMgr.FindByNameAsync(name);
+
+          if (user != null)
+          {
+            user.EmailConfirmed = !user.EmailConfirmed;
+            await _userMgr.UpdateAsync(user);
+            return Ok(user.EmailConfirmed);
+          }
+        }
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError("Exception thrown while toggling confirmation: {0}", ex);
+      }
+
+      return BadRequest("Could not toggle email confirmation.");
     }
 
   }

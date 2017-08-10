@@ -1,26 +1,13 @@
 {
-  "compileOnSave": true,
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
+    "outFile": "wwwroot/lib/site/app.js",
     "sourceMap": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "removeComments": false,
-    "noImplicitAny": false,
-    "suppressImplicitAnyIndexErrors": true
+    "declaration": true,
+    "mapRoot": "/lib/site/",
+    "removeComments": true,
+    "module": "none"
   },
-  "exclude": [
-    "node_modules",
-    "typings/main",
-    "typings/main.d.ts",
-    "wwwroot/lib",
-    "bin",
-    "obj"
-  ],
-  "include": [
-    "wwwroot/js/app/*.ts",
-    "wwwroot/js/app/**/*.ts",
-    "wwwroot/js/app/**/**/*.ts"
-  ]
+  "include": [ "wwwroot/app/**/*.ts"],
+  "compileOnSave": true
 }

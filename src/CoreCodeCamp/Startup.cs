@@ -65,8 +65,11 @@ namespace CoreCodeCamp
       // Configure Identity (Security)
       svcs.AddIdentity<CodeCampUser, IdentityRole>(config =>
       {
+        // If you change this, you need to change the regular expression in the Vue code too!
         config.Password.RequiredLength = 8;
         config.Password.RequireDigit = true;
+        config.Password.RequireLowercase = true;
+        config.Password.RequireUppercase = true;
         config.Password.RequireNonAlphanumeric = false;
         config.User.RequireUniqueEmail = true;
         config.User.RequireUniqueEmail = true;
@@ -122,7 +125,7 @@ namespace CoreCodeCamp
 
       if (_env.IsProduction())
       {
-        app.UseStatusCodePagesWithRedirects("~/Error/{0}");
+        app.UseStatusCodePagesWithRedirects("/Error/{0}");
         app.UseExceptionHandler("/Error/Exception");
 
         SetupLoggerly(loggerFactory, appLifetime);
@@ -178,6 +181,12 @@ namespace CoreCodeCamp
     {
       config.CreateMap<CodeCampUser, CodeCampUserViewModel>()
         .ReverseMap();
+
+      config.CreateMap<Speaker, Speaker>()
+        .ForMember(m => m.Id, opt => opt.Ignore())
+        .ForMember(m => m.Talks, opt => opt.Ignore())
+        .ForMember(m => m.Event, opt => opt.Ignore())
+        .ForMember(m => m.UserName, opt => opt.Ignore());
 
       config.CreateMap<SpeakerViewModel, Speaker>()
         .ForMember(m => m.Talks, opt => opt.Ignore());

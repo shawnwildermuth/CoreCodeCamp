@@ -71,5 +71,34 @@ namespace CoreCodeCamp.Areas.Admin.Controllers
 
       return File(new UTF8Encoding().GetBytes(csv.ToString()), "text/csv", "SpeakerList.csv");
     }
+
+    [HttpGet("{moniker}/[area]/submissionlist")]
+    public FileContentResult SubmissionList(string moniker)
+    {
+      var talks = _repo.GetTalks(moniker).ToList();
+
+      var csv = new StringBuilder();
+      csv.AppendLine(@"""Title"",""SpeakerName"",""SpeakerCompanyName"",""SpeakerPhoneNumber"",""SpeakerTwitterHandle"",""SpeakerTitle"",""SpeakerWebsite"",""SpeakerBlog"",""Audience"",""Category"",""Level"",""Prerequisites"",""Approved"",""Abstract""");
+      foreach (var t in talks)
+      {
+        csv.Append($@"""{t.Title}"",");
+        csv.Append($@"""{t.Speaker.Name}"",");
+        csv.Append($@"""{t.Speaker.CompanyName}"",");
+        csv.Append($@"""{t.Speaker.PhoneNumber}"",");
+        csv.Append($@"""{t.Speaker.Twitter}"",");
+        csv.Append($@"""{t.Speaker.Title}"",");
+        csv.Append($@"""{t.Speaker.Website}"",");
+        csv.Append($@"""{t.Speaker.Blog}"",");
+        csv.Append($@"""{t.Audience}"",");
+        csv.Append($@"""{t.Category}"",");
+        csv.Append($@"""{t.Level}"",");
+        csv.Append($@"""{t.Prerequisites}"",");
+        csv.Append($@"""{t.Approved}"",");
+        csv.Append($@"""{t.Abstract}""");
+        csv.AppendLine();
+      }
+
+      return File(new UTF8Encoding().GetBytes(csv.ToString()), "text/csv", "SubmissionList.csv");
+    }
   }
 }

@@ -92,7 +92,7 @@ namespace CoreCodeCamp.Controllers.Api
         sponsor.Paid = !sponsor.Paid;
         await _repo.SaveChangesAsync();
 
-        return Ok();
+        return Ok(true);
       }
       catch (Exception ex)
       {
@@ -113,7 +113,7 @@ namespace CoreCodeCamp.Controllers.Api
         _repo.Delete(sponsor);
         await _repo.SaveChangesAsync();
 
-        return Ok();
+        return Ok(true);
       }
       catch (Exception ex)
       {

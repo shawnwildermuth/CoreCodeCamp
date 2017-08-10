@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CoreCodeCamp", "CoreCodeCamp\CoreCodeCamp.xproj", "{299B7F36-3CBB-488C-901E-B1ABAF1D85E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCodeCamp", "CoreCodeCamp\CoreCodeCamp.csproj", "{299B7F36-3CBB-488C-901E-B1ABAF1D85E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using CoreCodeCamp.Models.Emails;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using System.Net;
 
 namespace CoreCodeCamp.Services
 {
@@ -29,42 +32,47 @@ namespace CoreCodeCamp.Services
       _renderer = renderer;
     }
 
-    public async Task SendMailAsync(string name, string email, string subject, string msg)
+    public async Task<bool> SendMailAsync(string name, string email, string subject, string msg)
     {
       try
       {
         var key = _config["MailService:ApiKey"];
+        var client = new SendGridClient(key);
+        var mail = MailHelper.CreateSingleEmail(new EmailAddress(_config["MailService:FromEmail"]),
+          new EmailAddress(email),
+          subject,
+          "",
+          msg);
 
-        var uri = $"https://api.sendgrid.com/api/mail.send.json";
-        var post = new KeyValuePair<string, string>[]
-              {
-                new KeyValuePair<string, string>("api_user", _config["MailService:ApiUser"]),
-                new KeyValuePair<string, string>("api_key", _config["MailService:ApiKey"]),
-                new KeyValuePair<string, string>("to", email),
-                new KeyValuePair<string, string>("toname", name),
-                new KeyValuePair<string, string>("subject", subject),
-                new KeyValuePair<string, string>("html", msg),
-                new KeyValuePair<string, string>("from", _config["MailService:FromEmail"])
-              };
-
-        var client = new HttpClient();
-        var response = await client.PostAsync(uri, new FormUrlEncodedContent(post));
-        if (!response.IsSuccessStatusCode)
+        var response = await client.SendEmailAsync(mail);
+        if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created && response.StatusCode != HttpStatusCode.Accepted)
         {
-          var result = await response.Content.ReadAsStringAsync();
-          _logger.LogError($"Failed to send message via SendGrid: {Environment.NewLine}Body: {post}{Environment.NewLine}Result: {result}");
+          var result = await response.Body.ReadAsStringAsync();
+          _logger.LogError($"Failed to send message via SendGrid: {Environment.NewLine}Key: {key}{Environment.NewLine}Result: {result}");
+          return false;
         }
       }
       catch (Exception ex)
       {
         _logger.LogError("Exception Thrown sending message via SendGrid", ex);
+        return false;
       }
+
+      return true;
     }
 
-    public async Task SendTemplateMailAsync<T>(string templateName, T model) where T : EmailModel
+    public async Task<bool> SendTemplateMailAsync<T>(string templateName, T model) where T : EmailModel
     {
-      var body = await _renderer.RenderAsync($"Emails/{templateName}", model);
-      await SendMailAsync(model.Name, model.Email, model.Subject, body);
+      try
+      {
+        var body = await _renderer.RenderAsync($"Emails/{templateName}", model);
+        return await SendMailAsync(model.Name, model.Email, model.Subject, body);
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError($"Failed while rendering or sending template email: {ex}");
+        return false;
+      }
     }
   }
 }

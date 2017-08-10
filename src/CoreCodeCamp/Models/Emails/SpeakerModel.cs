@@ -11,5 +11,6 @@ namespace CoreCodeCamp.Models.Emails
   {
     public Speaker Speaker { get; internal set; }
     public string SpeakerUrl { get; internal set; }
+    public EventInfo Event { get; internal set; }
   }
 }

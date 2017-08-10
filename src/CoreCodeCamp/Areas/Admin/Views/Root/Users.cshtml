@@ -1,5 +1,37 @@
 @section Scripts {
-  @Html.Partial("_Angular2", "users")
+  @Html.Partial("_VueScripts", "users")
 }
 <h2>Users</h2>
-<users-form><i class="fa fa-spinner fa-spin"></i> Loading...</users-form>
+<div id="users-view">
+
+  <div class="row">
+    <div><span v-show="busy"><i class="fa fa-spin fa-spinner"></i> Please wait...</span></div>
+    <div v-show="errorMessage" class="text-danger">{{ errorMessage }}</div>
+    <table class="table table-striped table-bordered table-hover col-md-12">
+      <thead>
+        <tr>
+          <td>Name</td>
+          <td>UserName</td>
+          <td>Email</td>
+          <td>Email Confirmed</td>
+          <td>Toggle</td>
+          <td>Is Admin?</td>
+          <td>Toggle</td>
+        </tr>
+      </thead>
+      <tr v-for="user in users">
+        <td>{{user.name}}</td>
+        <td>{{user.userName}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.isEmailConfirmed}}</td>
+        <td>
+          <button class="btn btn-sm btn-primary" @@click="onToggleConfirmation(user)" title="Toggle Confirmation"><i class="fa fa-check"></i> Confirm</button>
+        </td>
+        <td>{{ user.isAdmin ? "Yes" : "No" }}</td>
+        <td>
+          <button class="btn btn-sm btn-primary" @@click="onToggleAdmin(user)" title="Toggle Admin"><i class="fa fa-check"></i> Admin</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

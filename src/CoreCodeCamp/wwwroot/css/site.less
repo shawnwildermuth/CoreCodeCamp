@@ -12,8 +12,26 @@ body {
   padding-right: 15px;
 }
 
+.form-group.error {
+  .help-block {
+    color: red;
+    font-style: italic;
+  }
+
+  .form-control {
+    border: 1px red solid;
+  }
+
+}
+
 p {
   text-align: left;
+}
+
+.form-control {
+  &.inline {
+    display: inline;
+  }
 }
 
 p.lead {
@@ -139,6 +157,10 @@ a {
   }
 }
 
+[v-cloak] {
+  display: none;
+}
+
 footer {
   a:hover, a:focus {
     color: @themeColor;
@@ -160,7 +182,7 @@ footer {
 }
 
 .invalidHeadshot {
-  border-color: #ce0000;
+  box-shadow: 3px -3px 15px 0px rgba(206,0,0,0.7) !important;
 }
 
 .ul.navbar-nav {
@@ -188,6 +210,11 @@ footer {
 .speaker {
   line-height: normal;
   margin-top: 25px;
+}
+
+.v-datepicker {
+  width: 25%;
+  display: inline-block;
 }
 
 .delete-star {
@@ -314,7 +341,8 @@ body {
   }
 
   .schedule-item-container {
-    padding: 1px; 
+    padding: 1px;
+
     .schedule-item {
       min-height: 150px;
     }

@@ -8,8 +8,18 @@
   padding-left: 15px;
   padding-right: 15px;
 }
+.form-group.error .help-block {
+  color: red;
+  font-style: italic;
+}
+.form-group.error .form-control {
+  border: 1px red solid;
+}
 p {
   text-align: left;
+}
+.form-control.inline {
+  display: inline;
 }
 p.lead {
   text-align: center;
@@ -108,6 +118,9 @@ a:focus {
 .footer-about a:focus {
   border: none;
 }
+[v-cloak] {
+  display: none;
+}
 footer a:hover,
 footer a:focus {
   color: #ce0000;
@@ -126,7 +139,7 @@ footer a:focus {
   padding-top: 4px;
 }
 .invalidHeadshot {
-  border-color: #ce0000;
+  box-shadow: 3px -3px 15px 0px rgba(206, 0, 0, 0.7) !important;
 }
 .ul.navbar-nav {
   font-size: 14px;
@@ -149,6 +162,10 @@ footer a:focus {
 .speaker {
   line-height: normal;
   margin-top: 25px;
+}
+.v-datepicker {
+  width: 25%;
+  display: inline-block;
 }
 .delete-star {
   cursor: pointer;

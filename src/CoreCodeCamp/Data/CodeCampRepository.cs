@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using CoreCodeCamp.Data.Entities;
 using CoreCodeCamp.Models;
 using Microsoft.EntityFrameworkCore;
@@ -294,6 +295,35 @@ namespace CoreCodeCamp.Data
       };
 
       return results;
+    }
+
+    public Speaker MigrateSpeakerForCurrentUser(string moniker, CodeCampUser user)
+    {
+      var speaker = GetSpeakerForCurrentUser(moniker, user.UserName);
+      if (speaker != null) return speaker; // Failsafe
+
+      // Test for user name otherwise use slug for older speakers
+      var slug = user.Name.Replace(" ", "-");
+
+      var oldSpeaker = _ctx.Speakers
+        .Where(s => s.UserName == user.UserName || s.Slug.ToLower() == slug.ToLower())
+        .OrderByDescending(s => s.Event.EventDate)
+        .FirstOrDefault();
+
+      // Not an old speaker
+      if (oldSpeaker == null) return null;
+
+      speaker = new Speaker();
+      Mapper.Map(oldSpeaker, speaker);
+
+      var currentEvent = GetEventInfo(moniker);
+      speaker.Event = currentEvent;
+      speaker.UserName = user.UserName;
+
+      AddOrUpdate(speaker);
+
+      return speaker;
+
     }
   }
 }

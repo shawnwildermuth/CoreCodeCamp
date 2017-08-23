@@ -1,13 +1,21 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using CoreCodeCamp.Models
+@using CoreCodeCamp.Data
 
 @inject SignInManager<CodeCampUser> SignInManager
 @inject UserManager<CodeCampUser> UserManager
+@inject ICodeCampRepository Repository
 
 @if (SignInManager.IsSignedIn(User))
 {
   var userName = (await UserManager.FindByNameAsync(UserManager.GetUserName(User)))?.Name;
   <ul class="nav navbar-nav navbar-right auth-nav">
+    @if (Repository.GetSpeakerForCurrentUser(this.GetEventInfo().Moniker, User.Identity.Name) != null)
+    {
+      <li>
+        <a asp-area="" asp-controller="CallForSpeakers" asp-action="Speaker" asp-route-moniker="@this.GetEventInfo().Moniker" title="Your Talks">Your Talks</a>
+      </li>
+    }
     <li>
       <a asp-area="" asp-controller="Manage" asp-action="Index" asp-route-moniker="" title="Manage">Your Acct</a>
     </li>

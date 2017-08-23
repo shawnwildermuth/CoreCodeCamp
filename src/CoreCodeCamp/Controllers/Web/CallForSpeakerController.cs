@@ -32,7 +32,7 @@ namespace CoreCodeCamp.Controllers.Web
     public IActionResult Index(string moniker)
     {
       var speaker = _repo.GetSpeakerForCurrentUser(moniker, User.Identity.Name);
-      if (speaker != null) return RedirectToAction("Speaker");
+      if (speaker != null) return RedirectToAction("Speaker");  
       return View();
     }
 

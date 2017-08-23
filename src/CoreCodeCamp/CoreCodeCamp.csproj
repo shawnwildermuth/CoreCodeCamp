@@ -1,77 +1,66 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-	<PropertyGroup>
-		<TargetFramework>net452</TargetFramework>
-		<PreserveCompilationContext>true</PreserveCompilationContext>
-		<AssemblyName>CoreCodeCamp</AssemblyName>
-		<OutputType>Exe</OutputType>
-		<PackageId>CoreCodeCamp</PackageId>
-		<GenerateUserSecretsAttribute>false</GenerateUserSecretsAttribute>
+  <PropertyGroup>
+    <TargetFramework>net452</TargetFramework>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <AssemblyName>CoreCodeCamp</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>CoreCodeCamp</PackageId>
+    <GenerateUserSecretsAttribute>false</GenerateUserSecretsAttribute>
     <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
-	</PropertyGroup>
-	<ItemGroup>
-	  <None Remove="Properties\PublishProfiles\atlantacodecamp - Web Deploy.pubxml" />
-	  <None Remove="Properties\PublishProfiles\atlantacodecamp-beta - FTP.pubxml" />
-	  <None Remove="Properties\PublishProfiles\atlantacodecamp-beta - Web Deploy.pubxml" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Content Include="wwwroot\app\callForSpeakers\callForSpeakers.ts" />
-	  <Content Include="wwwroot\app\callForSpeakers\Routes.ts" />
-	  <Content Include="wwwroot\app\callForSpeakers\speakerData.ts" />
-	  <Content Include="wwwroot\app\callForSpeakers\speakerEditorView.ts" />
-	  <Content Include="wwwroot\app\callForSpeakers\speakerInfoView.ts" />
-	  <Content Include="wwwroot\app\callForSpeakers\speakerTalkEditorView.ts" />
-	  <Content Include="wwwroot\app\callForSpeakers\talk.ts" />
-	  <Content Include="wwwroot\app\common\datepicker.ts" />
-	  <Content Include="wwwroot\app\common\filters.ts" />
-	  <Content Include="wwwroot\app\common\helpers.ts" />
-	  <Content Include="wwwroot\app\common\validators.ts" />
-	</ItemGroup>
-	<ItemGroup>
-		<None Update="wwwroot\\**\\*;**\\Views\\;EmailTemplates">
-			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-		</None>
-	</ItemGroup>
-	
+    <TypeScriptToolsVersion>latest</TypeScriptToolsVersion>
+  </PropertyGroup>
+
   <ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="1.1.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="1.1.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="1.1.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="1.1.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.1.1" />
-		<PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="1.1.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.1" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="1.1.1" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.1" />
-		<PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.1" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
-		<PackageReference Include="Sendgrid" Version="9.4.1" />
-		<PackageReference Include="Serilog.Extensions.Logging" Version="1.2.0" />
-		<PackageReference Include="Serilog.Sinks.Loggly" Version="3.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="1.1.1" />
-		<PackageReference Include="AutoMapper" Version="5.0.0-beta-1" />
-		<PackageReference Include="CsvHelper" Version="2.15.0.2" />
-		<PackageReference Include="ImageProcessor.Web" Version="4.6.3" />
-	</ItemGroup>
+    <None Remove="Properties\PublishProfiles\atlantacodecamp - Web Deploy.pubxml" />
+    <None Remove="Properties\PublishProfiles\atlantacodecamp-beta - FTP.pubxml" />
+    <None Remove="Properties\PublishProfiles\atlantacodecamp-beta - Web Deploy.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="wwwroot\\**\\*;**\\Views\\;EmailTemplates">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
-		<Reference Include="System.Drawing" />
-		<Reference Include="System" />
-		<Reference Include="Microsoft.CSharp" />
-	</ItemGroup>
-	<Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
-		<Exec Command="npm install" />
-		<Exec Command="bower install" />
-		<Exec Command="gulp" />
-	</Target>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
+    <PackageReference Include="Sendgrid" Version="9.4.1" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="1.2.0" />
+    <PackageReference Include="Serilog.Sinks.Loggly" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="1.1.1" />
+    <PackageReference Include="AutoMapper" Version="5.0.0-beta-1" />
+    <PackageReference Include="CsvHelper" Version="2.15.0.2" />
+    <PackageReference Include="ImageProcessor.Web" Version="4.6.3" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
+    <Reference Include="System.Drawing" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
+    <Exec Command="npm install" />
+    <Exec Command="bower install" />
+    <Exec Command="gulp" />
+  </Target>
 
 
-	<ItemGroup>
-		<DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0" />
-		<DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
-		<DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="1.0.0" />
-	</ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
+    <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="1.0.0" />
+  </ItemGroup>
 </Project>

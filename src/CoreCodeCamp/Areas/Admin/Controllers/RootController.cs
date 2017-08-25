@@ -58,7 +58,7 @@ namespace CoreCodeCamp.Areas.Admin.Controllers
       var speakers = _repo.GetSpeakers(moniker).Where(s => s.Talks.Count(t => t.Approved) > 0).ToList();
 
       var csv = new StringBuilder();
-      csv.AppendLine("\"Name\",\"Email\",\"CompanyName\",\"PhoneNumber\",\"TwitterHandle\"");
+      csv.AppendLine("\"Name\",\"Email\",\"CompanyName\",\"PhoneNumber\",\"TwitterHandle\",\"TShirtSize\"");
       foreach (var s in speakers)
       {
         csv.Append($@"""{s.Name}"",");
@@ -66,6 +66,7 @@ namespace CoreCodeCamp.Areas.Admin.Controllers
         csv.Append($@"""{s.CompanyName}"",");
         csv.Append($@"""{s.PhoneNumber}"",");
         csv.Append($@"""{s.Twitter}"",");
+        csv.Append($@"""{s.TShirtSize}""");
         csv.AppendLine();
       }
 
@@ -78,7 +79,7 @@ namespace CoreCodeCamp.Areas.Admin.Controllers
       var talks = _repo.GetTalks(moniker).ToList();
 
       var csv = new StringBuilder();
-      csv.AppendLine(@"""Title"",""SpeakerName"",""SpeakerCompanyName"",""SpeakerPhoneNumber"",""SpeakerTwitterHandle"",""SpeakerTitle"",""SpeakerWebsite"",""SpeakerBlog"",""Audience"",""Category"",""Level"",""Prerequisites"",""Approved"",""Abstract""");
+      csv.AppendLine(@"""Title"",""SpeakerName"",""SpeakerCompanyName"",""SpeakerPhoneNumber"",""SpeakerTwitterHandle"",""SpeakerTitle"",""SpeakerWebsite"",""SpeakerBlog"",""TShirtSize"",""Audience"",""Category"",""Level"",""Prerequisites"",""Approved"",""Abstract""");
       foreach (var t in talks)
       {
         csv.Append($@"""{t.Title}"",");
@@ -89,6 +90,7 @@ namespace CoreCodeCamp.Areas.Admin.Controllers
         csv.Append($@"""{t.Speaker.Title}"",");
         csv.Append($@"""{t.Speaker.Website}"",");
         csv.Append($@"""{t.Speaker.Blog}"",");
+        csv.Append($@"""{t.Speaker.TShirtSize}"",");
         csv.Append($@"""{t.Audience}"",");
         csv.Append($@"""{t.Category}"",");
         csv.Append($@"""{t.Level}"",");

@@ -20,6 +20,14 @@
         {
           <a asp-action="Register" asp-controller="Root" asp-area="" class="btn btn-lg btn-success">Register for @this.GetEventInfo().Name</a>
         }
+        @if (this.GetEventInfo().CallForSpeakersClosed >= DateTime.Today)
+        {
+          <div class="vertical-spacer">&nbsp;</div>
+          <div>
+            <p class="lead">The call for speakers is open until @(this.GetEventInfo().CallForSpeakersClosed.ToLongDateString()) <br/>Think you have a great talk to share with the community? Sign up here:</p>
+            <a asp-action="Index" asp-controller="CallForSpeakers" class="btn btn-lg btn-primary">Call for Speakers</a>
+          </div>
+        }
       </div>
     }
     else

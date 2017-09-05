@@ -97,22 +97,22 @@ a:focus {
 .features-box .features-box-icon {
   color: #ce0000;
 }
-.sponsor-benefit-table td {
+.xspnr-benefit-table td {
   text-align: center;
 }
-.sponsor-box {
+.xspnr-box {
   height: 160px;
   margin-bottom: 5px;
 }
-.sponsor-box img {
+.xspnr-box img {
   border: 1px solid #eee;
   margin: 0 auto;
   max-height: 100px;
 }
-.sponsor-box .sponsor-box-logo {
+.xspnr-box .xspnr-box-logo {
   min-height: 115px;
 }
-.sponsor-box .sponsor-box-level {
+.xspnr-box .xspnr-box-level {
   margin-top: 5px;
   background: #eee;
   text-align: center;

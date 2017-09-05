@@ -3,9 +3,9 @@
   <div class="row">
     @foreach (var s in Model.Where(s => s.Paid))
     {
-      <div class="col-md-4 sponsor-box  wow fadeInLeft">
-        <div class="sponsor-box-logo"><a href="@s.Link" target="_blank"><img src="@s.ImageUrl" alt="@s.Name" class="thumbnail" /></a></div>
-        <div class="sponsor-box-level">@s.SponsorLevel Sponsor</div>
+      <div class="col-md-4 xspnr-box  wow fadeInLeft">
+        <div class="xspnr-box-logo"><a href="@s.Link" target="_blank"><img src="@s.ImageUrl" alt="@s.Name" class="thumbnail" /></a></div>
+        <div class="xspnr-box-level">@s.SponsorLevel Sponsor</div>
       </div>
     }
   </div>

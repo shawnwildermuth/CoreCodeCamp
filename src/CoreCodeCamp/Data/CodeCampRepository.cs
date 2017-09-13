@@ -279,7 +279,7 @@ namespace CoreCodeCamp.Data
       var talks = GetTalks(moniker).ToList();
 
       var slots = from t in talks
-                  where t.TimeSlot != null && t.Room != null
+                  where t.TimeSlot != null && t.Room != null && t.Approved
                   orderby t.TimeSlot.Time, t.Room.Name
                   group t by t.TimeSlot.Time into g
                   select new ScheduleModel()

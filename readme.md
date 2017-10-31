@@ -10,5 +10,5 @@ The project uses the following technologies:
 * ASP.NET Core 1.0
 * .NET Core
 * Bootstrap 3.0
-* Angular2
+* Vue 2
 * TypeScript

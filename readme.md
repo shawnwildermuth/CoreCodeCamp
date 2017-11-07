@@ -1,14 +1,13 @@
-#CoreCodeCamp
+# CoreCodeCamp
 
 The purpose of this project is to create a project for running a Code Camp 
 or other small, local development event. This project will be used for the
 Atlanta Code Camp in 2016.
 
-##Technologies
+## Technologies
 
 The project uses the following technologies:
-* ASP.NET Core 1.0
-* .NET Core
-* Bootstrap 3.0
+* ASP.NET Core 2.0
+* Bootstrap 4.0
 * Vue 2
 * TypeScript

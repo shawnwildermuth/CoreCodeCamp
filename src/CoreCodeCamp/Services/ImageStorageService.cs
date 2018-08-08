@@ -21,11 +21,12 @@ namespace CoreCodeCamp.Services
 
     public async Task<string> StoreImage(string filename, byte[] image)
     {
-      var filenameonly = Path.GetFileName(filename);
+      var url = string.Concat(_config["BlobService:StorageUrl"], filename);
 
-      var url = string.Concat(_config["BlobService:StorageUrl"], filenameonly);
+      var acct = _config["BlobService:Account"];
+      var key = _config["BlobService:Key"];
 
-      var creds = new StorageCredentials(_config["BlobStorage:Account"], _config["BlobStorage:Key"]);
+      var creds = new StorageCredentials(acct, key);
       var blob = new CloudBlockBlob(new Uri(url), creds);
 
       bool shouldUpload = true;

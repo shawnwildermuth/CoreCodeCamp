@@ -52,6 +52,8 @@ namespace CoreCodeCamp
       svcs.AddTransient<CodeCampSeeder>();
       svcs.AddTransient<ViewRenderer>();
 
+      svcs.AddTransient<IImageStorageService, ImageStorageService>();
+
       svcs.AddAutoMapper();
 
       // Configure Identity (Security)

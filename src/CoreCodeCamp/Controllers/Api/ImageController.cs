@@ -22,11 +22,13 @@ namespace CoreCodeCamp.Controllers.Api
   {
     private IHostingEnvironment _env;
     private ILogger<ImageController> _logger;
+    private readonly IImageStorageService _imageService;
 
-    public ImageController(IHostingEnvironment env, ILogger<ImageController> logger)
+    public ImageController(IHostingEnvironment env, ILogger<ImageController> logger, IImageStorageService imageService)
     {
       _env = env;
       _logger = logger;
+      _imageService = imageService;
     }
 
     [HttpPost("sponsors")]
@@ -59,37 +61,20 @@ namespace CoreCodeCamp.Controllers.Api
       }
 
       // Get Path to the speaker directory
-      var path = Path.Combine(_env.WebRootPath, "img", imagePath);
-
-
-      // Make sure the directory exists
-      Directory.CreateDirectory(path);
-      var filePath = Path.Combine(path, Request.Form.Files[0].FileName);
-
-      // Ensure file doesn't exist
-      while (System.IO.File.Exists(filePath))
-      {
-        filePath = Path.Combine(path, Path.ChangeExtension(Path.GetRandomFileName(), Path.GetExtension(filePath)));
-      }
+      var path = Path.Combine("img", imagePath, Request.Form.Files[0].FileName).Replace("\\", "/").ToLower();
 
       using (var newStream = ResizeImage(Request.Form.Files[0].OpenReadStream(), size))
-      using (var stream = System.IO.File.Create(filePath))
       {
         // Write It
         newStream.Position = 0;
-        await newStream.CopyToAsync(stream);
-        await stream.FlushAsync();
-        stream.Close();
-
-        // Calculate the URL
-        var imageUrl = $"/img/{imagePath}/{Path.GetFileName(filePath)}";
+        var imageUrl = await _imageService.StoreImage(path, newStream.ToArray());
 
         return Created(imageUrl, new { succeeded = true });
       }
 
     }
 
-    private Stream ResizeImage(Stream stream, Size size)
+    private MemoryStream ResizeImage(Stream stream, Size size)
     {
       MemoryStream outStream = new MemoryStream();
 

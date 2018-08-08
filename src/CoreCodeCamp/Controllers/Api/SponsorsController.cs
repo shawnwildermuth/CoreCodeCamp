@@ -16,14 +16,17 @@ namespace CoreCodeCamp.Controllers.Api
 {
   [Route("{moniker}/api/sponsors")]
   [Authorize(Roles = Consts.ADMINROLE)]
+  [ApiController]
   public class SponsorsController : Controller
   {
     private ICodeCampRepository _repo;
     private ILogger<SponsorsController> _logger;
+    private readonly IMapper _mapper;
 
-    public SponsorsController(ICodeCampRepository repo, ILogger<SponsorsController> logger)
+    public SponsorsController(ICodeCampRepository repo, ILogger<SponsorsController> logger, IMapper mapper)
     {
       _logger = logger;
+      _mapper = mapper;
       _repo = repo;
     }
 
@@ -33,7 +36,7 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        return Ok(Mapper.Map<IEnumerable<SponsorViewModel>>(_repo.GetSponsors(moniker)));
+        return Ok(_mapper.Map<IEnumerable<SponsorViewModel>>(_repo.GetSponsors(moniker)));
       }
       catch (Exception ex)
       {
@@ -53,18 +56,18 @@ namespace CoreCodeCamp.Controllers.Api
 
           if (sponsor == null) // new
           {
-            sponsor = Mapper.Map<Sponsor>(vm);
+            sponsor = _mapper.Map<Sponsor>(vm);
             var eventInfo = _repo.GetEventInfo(moniker);
             sponsor.Event = eventInfo;
             _repo.AddOrUpdate(sponsor);
 
             await _repo.SaveChangesAsync();
 
-            return Created($"/{moniker}/api/sponsors/{vm.Id}", Mapper.Map<SponsorViewModel>(sponsor));
+            return Created($"/{moniker}/api/sponsors/{vm.Id}", _mapper.Map<SponsorViewModel>(sponsor));
           }
           else
           {
-            Mapper.Map<SponsorViewModel, Sponsor>(vm, sponsor);
+            _mapper.Map<SponsorViewModel, Sponsor>(vm, sponsor);
             _repo.AddOrUpdate(sponsor);
             await _repo.SaveChangesAsync();
 

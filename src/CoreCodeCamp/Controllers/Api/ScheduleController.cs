@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CoreCodeCamp.Controllers.Api
 {
+  [ApiController]
   public class ScheduleController : Controller
   {
     private ILogger<ScheduleController> _logger;

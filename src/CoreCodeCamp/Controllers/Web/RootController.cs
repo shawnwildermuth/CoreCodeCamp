@@ -15,7 +15,7 @@ namespace CoreCodeCamp.Controllers.Web
 {
   public class RootController : MonikerControllerBase
   {
-    public RootController(ICodeCampRepository repo, ILogger<RootController> logger) : base(repo, logger)
+    public RootController(ICodeCampRepository repo, ILogger<RootController> logger, IMapper mapper) : base(repo, logger, mapper)
     {
     }
 
@@ -77,8 +77,8 @@ namespace CoreCodeCamp.Controllers.Web
         if (!speaker.Talks.Any(t => t.Approved)) return RedirectToAction("Speakers");
       }
 
-      var vm = Mapper.Map<SpeakerViewModel>(speaker);
-      vm.Talks = Mapper.Map<ICollection<TalkViewModel>>(speaker.Talks.Where(t => t.Approved).ToList());
+      var vm = _mapper.Map<SpeakerViewModel>(speaker);
+      vm.Talks = _mapper.Map<ICollection<TalkViewModel>>(speaker.Talks.Where(t => t.Approved).ToList());
 
       if (User.Identity.IsAuthenticated)
       {
@@ -96,7 +96,7 @@ namespace CoreCodeCamp.Controllers.Web
     public IActionResult Sessions(string moniker)
     {
       var talks = _repo.GetTalks(moniker).Where(t => t.Approved).ToList();
-      var sessions = Mapper.Map<List<TalkViewModel>>(talks);
+      var sessions = _mapper.Map<List<TalkViewModel>>(talks);
 
       if (User.Identity.IsAuthenticated)
       {

@@ -22,7 +22,8 @@ namespace CoreCodeCamp.Controllers.Web
 
     public CallForSpeakersController(ICodeCampRepository repo,
       UserManager<CodeCampUser> userMgr,
-      ILogger<CallForSpeakersController> logger) : base(repo, logger)
+      ILogger<CallForSpeakersController> logger,
+      IMapper mapper) : base(repo, logger, mapper)
     {
       _userMgr = userMgr;
     }

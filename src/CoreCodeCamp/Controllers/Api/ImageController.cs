@@ -17,6 +17,7 @@ using SixLabors.ImageSharp.Processing;
 namespace CoreCodeCamp.Controllers.Api
 {
   [Route("{moniker}/api/images")]
+  [ApiController]
   public class ImageController : Controller
   {
     private IHostingEnvironment _env;
@@ -75,7 +76,10 @@ namespace CoreCodeCamp.Controllers.Api
       using (var stream = System.IO.File.Create(filePath))
       {
         // Write It
+        newStream.Position = 0;
         await newStream.CopyToAsync(stream);
+        await stream.FlushAsync();
+        stream.Close();
 
         // Calculate the URL
         var imageUrl = $"/img/{imagePath}/{Path.GetFileName(filePath)}";
@@ -93,7 +97,7 @@ namespace CoreCodeCamp.Controllers.Api
       {
         var options = new ResizeOptions()
         {
-          Mode = ResizeMode.Max,
+          Mode = ResizeMode.Min,
           Size = new SixLabors.Primitives.Size(size.Width, size.Height)
         };
 

@@ -10,6 +10,7 @@ using CoreCodeCamp.Models;
 using CoreCodeCamp.Models.ManageViewModels;
 using CoreCodeCamp.Data;
 using CoreCodeCamp.Data.Entities;
+using AutoMapper;
 
 namespace CoreCodeCamp.Controllers.Web
 {
@@ -24,7 +25,8 @@ namespace CoreCodeCamp.Controllers.Web
       UserManager<CodeCampUser> userManager,
       SignInManager<CodeCampUser> signInManager,
       ILogger<ManageController> logger,
-      ICodeCampRepository repo) : base(repo, logger)
+      ICodeCampRepository repo,
+      IMapper mapper) : base(repo, logger, mapper)
     {
       _userManager = userManager;
       _signInManager = signInManager;

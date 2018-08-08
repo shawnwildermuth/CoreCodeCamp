@@ -14,22 +14,25 @@ namespace CoreCodeCamp.Controllers.Api
 {
   [Route("{moniker}/api/me")]
   [Authorize]
+  [ApiController]
   public class MeController : Controller
   {
     private ILogger<MeController> _logger;
+    private readonly IMapper _mapper;
     private ICodeCampRepository _repo;
 
-    public MeController(ICodeCampRepository repo, ILogger<MeController> logger)
+    public MeController(ICodeCampRepository repo, ILogger<MeController> logger, IMapper mapper)
     {
       _repo = repo;
       _logger = logger;
+      _mapper = mapper;
     }
 
     [HttpGet("favorites")]
     public IActionResult GetFavorites(string moniker)
     {
       var favs = _repo.GetUserWithFavoriteTalksForEvent(User.Identity.Name, moniker);
-      return Ok(Mapper.Map<IEnumerable<FavoriteTalkViewModel>>(favs));
+      return Ok(_mapper.Map<IEnumerable<FavoriteTalkViewModel>>(favs));
     }
 
     [HttpPut("favorites/{talkId:int}")]

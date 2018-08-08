@@ -194,15 +194,15 @@ namespace CoreCodeCamp.Controllers.Web
     {
       if (userId == null || code == null)
       {
-        return View("ResendConfirmCode");
+        return View("ResendConfirmEmail");
       }
       var user = await _userManager.FindByIdAsync(userId);
       if (user == null)
       {
-        return View("ResendConfirmCode");
+        return View("ResendConfirmEmail");
       }
       var result = await _userManager.ConfirmEmailAsync(user, code);
-      return View(result.Succeeded ? "ConfirmEmail" : "ResendConfirmCode");
+      return View(result.Succeeded ? "ConfirmEmail" : "ResendConfirmEmail");
     }
 
     //

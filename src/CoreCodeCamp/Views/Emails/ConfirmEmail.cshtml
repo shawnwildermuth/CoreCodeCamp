@@ -9,9 +9,9 @@
   Thank you for signing up to the Atlanta Code Camp website. Before you can add items to your favorite sessions list, you'll
   need to confirm your account. Please just follow this link to confirm your email:
 </p>
-<ul><li><a href='@Model.Callback'>Confirm Your Email</a></li></ul>
+<ul><li><a href='@Html.Raw(Model.Callback)'>Confirm Your Email</a></li></ul>
 <p>If that link doesn't work, please copy and paste this address directly in your browser:</p>
-<div>@Model.Callback</div>
+<div>@Html.Raw(@Model.Callback)</div>
 <br />
 <br />
 <div>Thanks!</div>

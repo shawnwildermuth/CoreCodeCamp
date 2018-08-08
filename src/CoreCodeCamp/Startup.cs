@@ -70,7 +70,8 @@ namespace CoreCodeCamp
         config.SignIn.RequireConfirmedEmail = true;
         config.Lockout.MaxFailedAccessAttempts = 10;
       })
-          .AddEntityFrameworkStores<CodeCampContext>();
+          .AddEntityFrameworkStores<CodeCampContext>()
+          .AddDefaultTokenProviders();
 
       svcs.AddMvc(opt =>
       {

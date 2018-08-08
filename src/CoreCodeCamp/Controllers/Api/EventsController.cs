@@ -102,28 +102,31 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        if (moniker != vm.Moniker) return BadRequest("Wrong Event with Moniker");
-        var info = _repo.GetEventInfo(moniker);
-        if (info == null)
+        if (ModelState.IsValid)
         {
-          return BadRequest("Cannot add update new event");
-        }
-        else
-        {
-          Mapper.Map(vm, info);
-        }
+          if (moniker != vm.Moniker) return BadRequest("Wrong Event with Moniker");
+          var info = _repo.GetEventInfo(moniker);
+          if (info == null)
+          {
+            return BadRequest("Cannot add update new event");
+          }
+          else
+          {
+            Mapper.Map(vm, info);
+          }
 
-        _repo.AddOrUpdate(info);
-        await _repo.SaveChangesAsync();
+          _repo.AddOrUpdate(info);
+          await _repo.SaveChangesAsync();
 
-        return Ok(Mapper.Map<EventInfoViewModel>(info));
+          return Ok(Mapper.Map<EventInfoViewModel>(info));
+        }
       }
       catch (Exception ex)
       {
         _logger.LogError("Failed to upsert EventInfo. {0}", ex);
       }
 
-      return BadRequest("Failed to save new event.");
+      return BadRequest("Failed to update event.");
     }
 
 

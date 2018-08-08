@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CoreCodeCamp.Services;
-using ImageProcessor;
-using ImageProcessor.Imaging;
-using ImageProcessor.Imaging.Formats;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Processing;
 
 namespace CoreCodeCamp.Controllers.Api
 {
@@ -54,7 +54,7 @@ namespace CoreCodeCamp.Controllers.Api
       var extension = Path.GetExtension(Request.Form.Files[0].FileName).ToLower();
       if (!(new[] { ".jpg", ".png", ".jpeg" }.Any(s => extension == s)))
       {
-        return BadRequest("File msut be .jpg or .png");
+        return BadRequest("File must be .jpg or .png");
       }
 
       // Get Path to the speaker directory
@@ -89,20 +89,23 @@ namespace CoreCodeCamp.Controllers.Api
     {
       MemoryStream outStream = new MemoryStream();
 
-      using (ImageFactory imageFactory = new ImageFactory())
+      using (var image = Image.Load(stream))
       {
+        var options = new ResizeOptions()
+        {
+          Mode = ResizeMode.Max,
+          Size = new SixLabors.Primitives.Size(size.Width, size.Height)
+        };
+
         // Load, resize, set the format, and quality and save an image.
-        imageFactory.Load(stream)
-                    .Resize(new ResizeLayer(size))
-                    .Format(new JpegFormat())
-                    .Quality(70)
-                    .BackgroundColor(Color.White)
-                    .Save(outStream);
+        image.Mutate(x => x
+          .Resize(options));
+
+        image.Save(outStream, new JpegEncoder() { Quality = 70 });
+
+        return outStream;
       }
 
-      return outStream;
     }
-
-
   }
 }

@@ -12,6 +12,7 @@ using Loggly.Config;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -26,27 +27,16 @@ namespace CoreCodeCamp
   public class Startup
   {
     IHostingEnvironment _env;
-    IConfigurationRoot _config;
 
     public Startup(IHostingEnvironment env)
     {
       _env = env;
-
-      var builder = new ConfigurationBuilder()
-          .SetBasePath(env.ContentRootPath)
-          .AddJsonFile("appsettings.json", false, true)
-          .AddEnvironmentVariables();
-
-      _config = builder.Build();
-
     }
 
 
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection svcs)
     {
-      svcs.AddSingleton(f => _config);
-
       if (_env.IsProduction())
       {
         svcs.AddScoped<IMailService, SendGridMailService>();
@@ -62,6 +52,8 @@ namespace CoreCodeCamp
       svcs.AddTransient<CodeCampSeeder>();
       svcs.AddTransient<ViewRenderer>();
 
+      svcs.AddAutoMapper();
+
       // Configure Identity (Security)
       svcs.AddIdentity<CodeCampUser, IdentityRole>(config =>
       {
@@ -75,25 +67,8 @@ namespace CoreCodeCamp
         config.User.RequireUniqueEmail = true;
         config.SignIn.RequireConfirmedEmail = true;
         config.Lockout.MaxFailedAccessAttempts = 10;
-        config.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents()
-        {
-          OnRedirectToLogin = async ctx =>
-          {
-            if (ctx.Request.Path.Value.Contains("/api/") &&
-              ctx.Response.StatusCode == 200)
-            {
-              ctx.Response.StatusCode = 401;
-            }
-            else
-            {
-              ctx.Response.Redirect(ctx.RedirectUri);
-            }
-            await Task.Yield();
-          }
-        };
       })
-          .AddEntityFrameworkStores<CodeCampContext>()
-          .AddDefaultTokenProviders();
+          .AddEntityFrameworkStores<CodeCampContext>();
 
       svcs.AddMvc(opt =>
       {
@@ -101,21 +76,18 @@ namespace CoreCodeCamp
         {
           opt.Filters.Add(new RequireHttpsAttribute());
         }
-      });
+      }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, 
       ILoggerFactory loggerFactory, 
-      CodeCampSeeder seeder, 
-      ICodeCampRepository repo,
+      IConfiguration config,
       IApplicationLifetime appLifetime)
     {
-      loggerFactory.AddConsole(_config.GetSection("Logging"));
+      loggerFactory.AddConsole(config.GetSection("Logging"));
 
-      Mapper.Initialize(CreateMaps);
-
-      if (_env.IsDevelopment() || _config["SiteSettings:ShowErrors"].ToLower() == "true")
+      if (_env.IsDevelopment() || config["SiteSettings:ShowErrors"].ToLower() == "true")
       {
         loggerFactory.AddDebug(LogLevel.Information);
         app.UseDeveloperExceptionPage();
@@ -128,31 +100,28 @@ namespace CoreCodeCamp
         app.UseStatusCodePagesWithRedirects("/Error/{0}");
         app.UseExceptionHandler("/Error/Exception");
 
-        SetupLoggerly(loggerFactory, appLifetime);
+        SetupLoggerly(loggerFactory, appLifetime, config);
 
       }
 
       app.UseStaticFiles();
 
-      app.UseIdentity();
-
-      // Need seed data before we create the routes!
-      seeder.SeedAsync().Wait();
+      app.UseAuthentication();
 
       app.UseMvc(CreateRoutes);
 
     }
 
-    private void SetupLoggerly(ILoggerFactory loggerFactory, IApplicationLifetime appLifetime)
+    private void SetupLoggerly(ILoggerFactory loggerFactory, IApplicationLifetime appLifetime, IConfiguration config)
     {
       var logConfig = LogglyConfig.Instance;
 
       // Setup Basics
-      logConfig.CustomerToken = _config["Loggerly:Token"];
-      logConfig.ApplicationName = _config["Loggerly:AppName"];
+      logConfig.CustomerToken = config["Loggerly:Token"];
+      logConfig.ApplicationName = config["Loggerly:AppName"];
 
       // Setup Host
-      logConfig.Transport.EndpointHostname = _config["Loggerly:EndpointHostname"];
+      logConfig.Transport.EndpointHostname = config["Loggerly:EndpointHostname"];
       logConfig.Transport.EndpointPort = 443;
       logConfig.Transport.LogTransport = LogTransport.Https;
 
@@ -175,47 +144,6 @@ namespace CoreCodeCamp
 
       // Ensure that log is flushed
       appLifetime.ApplicationStopped.Register(Log.CloseAndFlush);
-    }
-
-    void CreateMaps(IMapperConfiguration config)
-    {
-      config.CreateMap<CodeCampUser, CodeCampUserViewModel>()
-        .ReverseMap();
-
-      config.CreateMap<Speaker, Speaker>()
-        .ForMember(m => m.Id, opt => opt.Ignore())
-        .ForMember(m => m.Talks, opt => opt.Ignore())
-        .ForMember(m => m.Event, opt => opt.Ignore())
-        .ForMember(m => m.UserName, opt => opt.Ignore());
-
-      config.CreateMap<SpeakerViewModel, Speaker>()
-        .ForMember(m => m.Talks, opt => opt.Ignore());
-      config.CreateMap<Speaker, SpeakerViewModel>()
-        .ForMember(m => m.Talks, opt => opt.Ignore())
-        .ForMember(m => m.SpeakerLink, opt => opt.MapFrom(s => s.Event == null ? "" : $"/{s.Event.Moniker}/Speakers/{s.Name.Replace(" ", "-")}"))
-        .ForMember(m => m.Email, opt => opt.MapFrom(s => s.UserName));
-
-      config.CreateMap<Talk, TalkViewModel>()
-        .ForMember(m => m.Room, opt => opt.MapFrom(t => t.Room.Name))
-        .ForMember(m => m.Time, opt => opt.MapFrom(t => t.TimeSlot.Time))
-        .ForMember(m => m.Track, opt => opt.MapFrom(t => t.Track.Name));
-
-      config.CreateMap<TalkViewModel, Talk>()
-        .ForMember(m => m.Room, opt => opt.Ignore())
-        .ForMember(m => m.TimeSlot, opt => opt.Ignore())
-        .ForMember(m => m.Track, opt => opt.Ignore());
-
-      config.CreateMap<Sponsor, SponsorViewModel>().ReverseMap();
-
-      config.CreateMap<Talk, FavoriteTalkViewModel>()
-        .ForMember(dest => dest.Room, opt => opt.MapFrom(s => s.Room.Name))
-        .ForMember(dest => dest.Time, opt => opt.MapFrom(s => s.TimeSlot.Time))
-        .ForMember(dest => dest.SpeakerName, opt => opt.MapFrom(s => s.Speaker.Name))
-        .ForMember(dest => dest.Title, opt => opt.MapFrom(s => s.Title))
-        .ForMember(dest => dest.Abstract, opt => opt.MapFrom(s => s.Abstract));
-
-      config.CreateMap<EventInfo, EventInfoViewModel>().ReverseMap();
-      config.CreateMap<EventLocation, EventLocationViewModel>().ReverseMap();
     }
 
     void CreateRoutes(IRouteBuilder routes)

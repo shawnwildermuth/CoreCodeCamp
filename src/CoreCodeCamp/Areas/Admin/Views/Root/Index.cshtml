@@ -3,7 +3,7 @@
   ViewData["Title"] = "Administration";
 }
 @section Scripts {
-  @Html.Partial("_VueScripts", "adminEvents")
+  @await Html.PartialAsync("_VueScripts", "adminEvents")
 }
 <div class="row text-left">
   <div class="col-lg-6 col-lg-offset-3">

@@ -151,6 +151,7 @@ node_modules/
 **/PublishScripts/
 /*.csv
 /*.cmd
+**/.vs/
 
 #############
 ## Windows detritus
@@ -171,3 +172,4 @@ $RECYCLE.BIN/
 
 
 *.ide
+

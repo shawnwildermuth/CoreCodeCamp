@@ -13,10 +13,12 @@ namespace CoreCodeCamp.Data
   public class CodeCampRepository : ICodeCampRepository
   {
     private CodeCampContext _ctx;
+    private readonly IMapper _mapper;
 
-    public CodeCampRepository(CodeCampContext ctx)
+    public CodeCampRepository(CodeCampContext ctx, IMapper mapper)
     {
       _ctx = ctx;
+      _mapper = mapper;
     }
 
     public void AddOrUpdate(object entity)
@@ -314,7 +316,7 @@ namespace CoreCodeCamp.Data
       if (oldSpeaker == null) return null;
 
       speaker = new Speaker();
-      Mapper.Map(oldSpeaker, speaker);
+      _mapper.Map(oldSpeaker, speaker);
 
       var currentEvent = GetEventInfo(moniker);
       speaker.Event = currentEvent;

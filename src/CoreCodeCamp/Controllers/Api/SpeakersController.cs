@@ -15,27 +15,34 @@ using Microsoft.Extensions.Logging;
 namespace CoreCodeCamp.Controllers.Api
 {
   [Route("{moniker}/api/speakers")]
+  [ApiController]
   public class SpeakersController : Controller
   {
     private ICodeCampRepository _repo;
     private ILogger<SpeakersController> _logger;
     private IMailService _mailService;
     private UserManager<CodeCampUser> _userMgr;
+    private readonly IMapper _mapper;
 
-    public SpeakersController(ICodeCampRepository repo, ILogger<SpeakersController> logger, IMailService mailService, UserManager<CodeCampUser> userMgr)
+    public SpeakersController(ICodeCampRepository repo, 
+      ILogger<SpeakersController> logger, 
+      IMailService mailService, 
+      UserManager<CodeCampUser> userMgr,
+      IMapper mapper)
     {
       _repo = repo;
       _logger = logger;
       _mailService = mailService;
       _userMgr = userMgr;
+      _mapper = mapper;
     }
 
     [HttpGet("")]
-    public IActionResult Get(string moniker)
+    public ActionResult<IEnumerable<Speaker>> Get(string moniker)
     {
       try
       {
-        return Ok(Mapper.Map<IEnumerable<SpeakerViewModel>>(_repo.GetSpeakers(moniker)));
+        return Ok(_mapper.Map<IEnumerable<SpeakerViewModel>>(_repo.GetSpeakers(moniker)));
       }
       catch (Exception ex)
       {
@@ -47,7 +54,7 @@ namespace CoreCodeCamp.Controllers.Api
 
     [HttpGet("me")]
     [Authorize]
-    public IActionResult GetCurrent(string moniker)
+    public ActionResult<SpeakerViewModel> GetCurrent(string moniker)
     {
       try
       {
@@ -60,7 +67,7 @@ namespace CoreCodeCamp.Controllers.Api
             UserName = User.Identity.Name
           };
         }
-        return Ok(Mapper.Map<SpeakerViewModel>(speaker));
+        return _mapper.Map<SpeakerViewModel>(speaker);
       }
       catch (Exception ex)
       {
@@ -75,7 +82,7 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        return Ok(Mapper.Map<SpeakerViewModel>(_repo.GetSpeaker(id)));
+        return Ok(_mapper.Map<SpeakerViewModel>(_repo.GetSpeaker(id)));
       }
       catch (Exception ex)
       {
@@ -107,7 +114,7 @@ namespace CoreCodeCamp.Controllers.Api
         {
           if (speaker == null)
           {
-            speaker = Mapper.Map<Speaker>(model);
+            speaker = _mapper.Map<Speaker>(model);
             speaker.UserName = userName;
             speaker.Event = _repo.GetEventInfo(moniker);
 
@@ -128,13 +135,13 @@ namespace CoreCodeCamp.Controllers.Api
           }
           else
           {
-            Mapper.Map<SpeakerViewModel, Speaker>(model, speaker);
+            _mapper.Map<SpeakerViewModel, Speaker>(model, speaker);
           }
 
           _repo.AddOrUpdate(speaker);
           await _repo.SaveChangesAsync();
 
-          return Ok(Mapper.Map<SpeakerViewModel>(speaker));
+          return Ok(_mapper.Map<SpeakerViewModel>(speaker));
         }
         catch (Exception ex)
         {

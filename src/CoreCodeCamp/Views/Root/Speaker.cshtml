@@ -14,6 +14,6 @@
   <h3>Sessions</h3>
   @foreach (var talk in Model.Talks)
   {
-    @Html.Partial("_Session", Tuple.Create(talk, true))
+    @await Html.PartialAsync("_Session", Tuple.Create(talk, true))
   }
 </div>

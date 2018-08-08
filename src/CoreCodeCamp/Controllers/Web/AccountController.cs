@@ -14,6 +14,7 @@ using CoreCodeCamp.Data;
 using CoreCodeCamp.Data.Entities;
 using CoreCodeCamp.Services;
 using CoreCodeCamp.Models.Emails;
+using AutoMapper;
 
 namespace CoreCodeCamp.Controllers.Web
 {
@@ -29,7 +30,8 @@ namespace CoreCodeCamp.Controllers.Web
         SignInManager<CodeCampUser> signInManager,
         ILogger<AccountController> logger,
         IMailService mailService,
-        ICodeCampRepository repo) : base(repo, logger)
+        ICodeCampRepository repo,
+        IMapper mapper) : base(repo, logger, mapper)
     {
       _userManager = userManager;
       _signInManager = signInManager;

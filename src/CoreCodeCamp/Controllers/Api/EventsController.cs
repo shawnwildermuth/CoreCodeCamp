@@ -14,16 +14,19 @@ using Microsoft.Extensions.Logging;
 namespace CoreCodeCamp.Controllers.Api
 {
   [Authorize]
+  [ApiController]
   [Route("api/events")]
   public class EventsController : Controller
   {
     private ICodeCampRepository _repo;
     private ILogger<EventsController> _logger;
+    private readonly IMapper _mapper;
 
-    public EventsController(ICodeCampRepository repo, ILogger<EventsController> logger)
+    public EventsController(ICodeCampRepository repo, ILogger<EventsController> logger, IMapper mapper)
     {
       _repo = repo;
       _logger = logger;
+      _mapper = mapper;
     }
 
     [HttpGet("")]
@@ -36,7 +39,7 @@ namespace CoreCodeCamp.Controllers.Api
           .OrderByDescending(e => e.Moniker)
           .ToArray();
 
-        return Ok(Mapper.Map<IEnumerable<EventInfoViewModel>>(events));
+        return Ok(_mapper.Map<IEnumerable<EventInfoViewModel>>(events));
       }
       catch (Exception ex)
       {
@@ -56,7 +59,7 @@ namespace CoreCodeCamp.Controllers.Api
           .Where(e => e.Moniker == moniker)
           .FirstOrDefault();
 
-        return Ok(Mapper.Map<EventInfoViewModel>(info));
+        return Ok(_mapper.Map<EventInfoViewModel>(info));
       }
       catch (Exception ex)
       {
@@ -71,23 +74,24 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        if (moniker != vm.Moniker) return BadRequest("Wrong Event with Moniker");
-        var info = _repo.GetEventInfo(vm.Moniker);
-        if (info != null)
-        {
-          return BadRequest("Cannot add duplicate moniker");
-        }
-        else
-        {
-          info = Mapper.Map<EventInfo>(vm);
-          info.Name = $"Event Name for {vm.Moniker}";
-          info.Location = new EventLocation();
-        }
 
-        _repo.AddOrUpdate(info);
-        await _repo.SaveChangesAsync();
+          if (moniker != vm.Moniker) return BadRequest("Wrong Event with Moniker");
+          var info = _repo.GetEventInfo(vm.Moniker);
+          if (info != null)
+          {
+            return BadRequest("Cannot add duplicate moniker");
+          }
+          else
+          {
+            info = _mapper.Map<EventInfo>(vm);
+            info.Name = $"Event Name for {vm.Moniker}";
+            info.Location = new EventLocation();
+          }
 
-        return Created($"/api/events/{info.Moniker}", Mapper.Map<EventInfoViewModel>(info));
+          _repo.AddOrUpdate(info);
+          await _repo.SaveChangesAsync();
+
+          return Created($"/api/events/{info.Moniker}", _mapper.Map<EventInfoViewModel>(info));
       }
       catch (Exception ex)
       {
@@ -102,28 +106,31 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        if (moniker != vm.Moniker) return BadRequest("Wrong Event with Moniker");
-        var info = _repo.GetEventInfo(moniker);
-        if (info == null)
+        if (ModelState.IsValid)
         {
-          return BadRequest("Cannot add update new event");
-        }
-        else
-        {
-          Mapper.Map(vm, info);
-        }
+          if (moniker != vm.Moniker) return BadRequest("Wrong Event with Moniker");
+          var info = _repo.GetEventInfo(moniker);
+          if (info == null)
+          {
+            return BadRequest("Cannot add update new event");
+          }
+          else
+          {
+            _mapper.Map(vm, info);
+          }
 
-        _repo.AddOrUpdate(info);
-        await _repo.SaveChangesAsync();
+          _repo.AddOrUpdate(info);
+          await _repo.SaveChangesAsync();
 
-        return Ok(Mapper.Map<EventInfoViewModel>(info));
+          return Ok(_mapper.Map<EventInfoViewModel>(info));
+        }
       }
       catch (Exception ex)
       {
         _logger.LogError("Failed to upsert EventInfo. {0}", ex);
       }
 
-      return BadRequest("Failed to save new event.");
+      return BadRequest("Failed to update event.");
     }
 
 
@@ -139,13 +146,13 @@ namespace CoreCodeCamp.Controllers.Api
         }
         else
         {
-          Mapper.Map(vm, info.Location);
+          _mapper.Map(vm, info.Location);
         }
 
         _repo.AddOrUpdate(info.Location);
         await _repo.SaveChangesAsync();
 
-        return Ok(Mapper.Map<EventLocationViewModel>(info.Location));
+        return Ok(_mapper.Map<EventLocationViewModel>(info.Location));
       }
       catch (Exception ex)
       {

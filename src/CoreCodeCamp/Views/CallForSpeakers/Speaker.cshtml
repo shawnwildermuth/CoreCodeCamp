@@ -3,7 +3,7 @@
   ViewData["Title"] = "Speaker Info";
 }
 @section Scripts {
-  @Html.Partial("_VueScripts", "callForSpeakers")
+  @await Html.PartialAsync("_VueScripts", "callForSpeakers")
 }
 
 <div id="call-for-speaker-view">

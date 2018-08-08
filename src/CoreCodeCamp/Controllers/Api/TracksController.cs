@@ -14,6 +14,7 @@ namespace CoreCodeCamp.Controllers.Api
 {
   [Authorize(Roles = Consts.ADMINROLE)]
   [Route("{moniker}/api/tracks")]
+  [ApiController]
   public class TracksController : Controller
   {
     private ICodeCampRepository _repo;

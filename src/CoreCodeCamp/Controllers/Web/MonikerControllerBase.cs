@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using CoreCodeCamp.Data;
 using CoreCodeCamp.Data.Entities;
 using CoreCodeCamp.Services;
@@ -16,12 +17,14 @@ namespace CoreCodeCamp.Controllers.Web
   {
     protected ICodeCampRepository _repo;
     protected ILogger _logger;
+    protected IMapper _mapper;
     protected EventInfo _theEvent;
 
-    public MonikerControllerBase(ICodeCampRepository repo, ILogger logger)
+    public MonikerControllerBase(ICodeCampRepository repo, ILogger logger, IMapper mapper)
     {
       _repo = repo;
       _logger = logger;
+      _mapper = mapper;
     }
 
     public override void OnActionExecuting(ActionExecutingContext context)

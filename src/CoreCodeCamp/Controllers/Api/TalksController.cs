@@ -17,20 +17,26 @@ using Microsoft.Extensions.Logging;
 namespace CoreCodeCamp.Controllers.Api
 {
   [Authorize]
+  [ApiController]
   public class TalksController : Controller
   {
     private ICodeCampRepository _repo;
     private UserManager<CodeCampUser> _userMgr;
     private ILogger<TalksController> _logger;
     private IMailService _mailService;
+    private readonly IMapper _mapper;
 
-    public TalksController(ICodeCampRepository repo, UserManager<CodeCampUser> userMgr, ILogger<TalksController> logger, IMailService mailService)
+    public TalksController(ICodeCampRepository repo, 
+      UserManager<CodeCampUser> userMgr, 
+      ILogger<TalksController> logger, 
+      IMailService mailService,
+      IMapper mapper)
     {
       _logger = logger;
       _repo = repo;
       _userMgr = userMgr;
       _mailService = mailService;
-
+      _mapper = mapper;
     }
 
     [HttpGet("{moniker}/api/talks")]
@@ -39,7 +45,7 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        var talks = Mapper.Map<IEnumerable<TalkViewModel>>(_repo.GetTalks(moniker));
+        var talks = _mapper.Map<IEnumerable<TalkViewModel>>(_repo.GetTalks(moniker));
 
         // Update Vote Counts
         var counts = _repo.GetTalkCounts(moniker);
@@ -70,9 +76,9 @@ namespace CoreCodeCamp.Controllers.Api
         var speaker = _repo.GetSpeakerForCurrentUser(moniker, User.Identity.Name);
         if (speaker != null && speaker.Talks != null)
         {
-          return Ok(Mapper.Map<IEnumerable<TalkViewModel>>(speaker.Talks));
+          return Ok(_mapper.Map<IEnumerable<TalkViewModel>>(speaker.Talks));
         }
-        return Ok(Mapper.Map<IEnumerable<TalkViewModel>>(new List<Talk>()));
+        return Ok(_mapper.Map<IEnumerable<TalkViewModel>>(new List<Talk>()));
       }
       catch (Exception ex)
       {
@@ -89,7 +95,7 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        return Ok(Mapper.Map<TalkViewModel>(_repo.GetTalk(id)));
+        return Ok(_mapper.Map<TalkViewModel>(_repo.GetTalk(id)));
       }
       catch (Exception ex)
       {
@@ -148,7 +154,7 @@ namespace CoreCodeCamp.Controllers.Api
         var speaker = _repo.GetSpeaker(id);
         foreach (var t in speaker.Talks) t.Speaker = null; // Trim Speaker when returning just the talks
 
-        return Ok(Mapper.Map<IEnumerable<TalkViewModel>>(speaker.Talks));
+        return Ok(_mapper.Map<IEnumerable<TalkViewModel>>(speaker.Talks));
       }
       catch (Exception ex)
       {
@@ -176,17 +182,17 @@ namespace CoreCodeCamp.Controllers.Api
 
         if (talk == null)
         {
-          talk = Mapper.Map<Talk>(vm);
+          talk = _mapper.Map<Talk>(vm);
           speaker.Talks.Add(talk);
         }
         else
         {
-          talk = Mapper.Map(vm, talk);
+          talk = _mapper.Map(vm, talk);
         }
 
         await _repo.SaveChangesAsync();
 
-        return Ok(Mapper.Map<TalkViewModel>(talk));
+        return Ok(_mapper.Map<TalkViewModel>(talk));
       }
       catch (Exception ex)
       {

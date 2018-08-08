@@ -14,6 +14,7 @@ namespace CoreCodeCamp.Controllers.Api
 {
   [Authorize(Roles = Consts.ADMINROLE)]
   [Route("{moniker}/api/timeslots")]
+  [ApiController]
   public class TimeSlotsController : Controller
   {
     private ICodeCampRepository _repo;

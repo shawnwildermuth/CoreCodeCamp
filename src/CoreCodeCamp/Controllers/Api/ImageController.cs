@@ -6,26 +6,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CoreCodeCamp.Services;
-using ImageProcessor;
-using ImageProcessor.Imaging;
-using ImageProcessor.Imaging.Formats;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Processing;
 
 namespace CoreCodeCamp.Controllers.Api
 {
   [Route("{moniker}/api/images")]
+  [ApiController]
   public class ImageController : Controller
   {
     private IHostingEnvironment _env;
     private ILogger<ImageController> _logger;
+    private readonly IImageStorageService _imageService;
 
-    public ImageController(IHostingEnvironment env, ILogger<ImageController> logger)
+    public ImageController(IHostingEnvironment env, ILogger<ImageController> logger, IImageStorageService imageService)
     {
       _env = env;
       _logger = logger;
+      _imageService = imageService;
     }
 
     [HttpPost("sponsors")]
@@ -54,55 +57,44 @@ namespace CoreCodeCamp.Controllers.Api
       var extension = Path.GetExtension(Request.Form.Files[0].FileName).ToLower();
       if (!(new[] { ".jpg", ".png", ".jpeg" }.Any(s => extension == s)))
       {
-        return BadRequest("File msut be .jpg or .png");
+        return BadRequest("File must be .jpg or .png");
       }
 
       // Get Path to the speaker directory
-      var path = Path.Combine(_env.WebRootPath, "img", imagePath);
-
-
-      // Make sure the directory exists
-      Directory.CreateDirectory(path);
-      var filePath = Path.Combine(path, Request.Form.Files[0].FileName);
-
-      // Ensure file doesn't exist
-      while (System.IO.File.Exists(filePath))
-      {
-        filePath = Path.Combine(path, Path.ChangeExtension(Path.GetRandomFileName(), Path.GetExtension(filePath)));
-      }
+      var path = Path.Combine("img", imagePath, Request.Form.Files[0].FileName).Replace("\\", "/").ToLower();
 
       using (var newStream = ResizeImage(Request.Form.Files[0].OpenReadStream(), size))
-      using (var stream = System.IO.File.Create(filePath))
       {
         // Write It
-        await newStream.CopyToAsync(stream);
-
-        // Calculate the URL
-        var imageUrl = $"/img/{imagePath}/{Path.GetFileName(filePath)}";
+        newStream.Position = 0;
+        var imageUrl = await _imageService.StoreImage(path, newStream.ToArray());
 
         return Created(imageUrl, new { succeeded = true });
       }
 
     }
 
-    private Stream ResizeImage(Stream stream, Size size)
+    private MemoryStream ResizeImage(Stream stream, Size size)
     {
       MemoryStream outStream = new MemoryStream();
 
-      using (ImageFactory imageFactory = new ImageFactory())
+      using (var image = Image.Load(stream))
       {
+        var options = new ResizeOptions()
+        {
+          Mode = ResizeMode.Min,
+          Size = new SixLabors.Primitives.Size(size.Width, size.Height)
+        };
+
         // Load, resize, set the format, and quality and save an image.
-        imageFactory.Load(stream)
-                    .Resize(new ResizeLayer(size))
-                    .Format(new JpegFormat())
-                    .Quality(70)
-                    .BackgroundColor(Color.White)
-                    .Save(outStream);
+        image.Mutate(x => x
+          .Resize(options));
+
+        image.Save(outStream, new JpegEncoder() { Quality = 70 });
+
+        return outStream;
       }
 
-      return outStream;
     }
-
-
   }
 }

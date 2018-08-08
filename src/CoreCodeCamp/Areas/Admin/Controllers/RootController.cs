@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using CoreCodeCamp.Controllers.Web;
 using CoreCodeCamp.Data;
 using CoreCodeCamp.Services;
@@ -16,8 +17,8 @@ namespace CoreCodeCamp.Areas.Admin.Controllers
   [Area("Admin")]
   public class RootController : MonikerControllerBase
   {
-    public RootController(ICodeCampRepository repo, ILogger<RootController> logger)
-     : base(repo, logger)
+    public RootController(ICodeCampRepository repo, ILogger<RootController> logger, IMapper mapper)
+     : base(repo, logger, mapper)
     {
 
     }

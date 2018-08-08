@@ -2,14 +2,36 @@
   "version": "1.0.0",
   "name": "asp.net",
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "bootstrap": "3.3.6",
+    "font-awesome": "v4.7.0",
+    "jquery": "1.9.1",
+    "jquery-backstretch": "git+https://github.com/jquery-backstretch/jquery-backstretch.git",
+    "jquery-ui-dist": "1.12.1",
+    "jquery-validation": "1.14.0",
+    "jquery-validation-unobtrusive": "3.2.6",
+    "jquery-waypoints": "2.0.5",
+    "lodash": "~4.13.1",
+    "moment": "~2.18.1",
+    "retina.js": "1.1.0",
+    "typicons.font": "https://github.com/stephenhutchings/typicons.font.git",
+    "vee-validate": "2.0.0-rc.5",
+    "vue": "v2.3.3",
+    "vue-resource": "1.3.3",
+    "vue-router": "~2.5.3",
+    "wowjs": "1.1.2"
+  },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-uglify": "~1.5.3",
-    "gulp-concat": "~2.6.0",
-    "gulp-rename": "~1.2.2",
     "gulp-bower-files": "~0.2.7",
-    "gulp-util": "~3.0.7"
+    "gulp-concat": "~2.6.0",
+    "gulp-rename": "^1.2.3",
+    "gulp-rimraf": "0.2.2",
+    "gulp-uglify": "~1.5.3",
+    "gulp-util": "~3.0.7",
+    "merge-stream": "1.0.1"
   },
-  "scripts": {}
+  "engines": {
+    "yarn": ">= 1.0.0"
+  }
 }

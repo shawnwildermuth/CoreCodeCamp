@@ -1,5 +1,5 @@
 @section Scripts {
-  @Html.Partial("_VueScripts", "users")
+  @await Html.PartialAsync("_VueScripts", "users")
 }
 <h2>Users</h2>
 <div id="users-view">

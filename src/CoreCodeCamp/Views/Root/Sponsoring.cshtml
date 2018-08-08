@@ -2,6 +2,6 @@
     ViewData["Title"] = "Sponsor Us";
 }
 <div class="row text-left">
-  @Html.Partial($"_Sponsoring{Html.GetMoniker()}")
+  @await Html.PartialAsync($"_Sponsoring{Html.GetMoniker()}")
   <p class="lead">You can get the complete Sponsorship Packet in PDF form here: <a href="/downloads/@Html.GetMoniker()/sponsorship-packet.pdf" target="_blank">Sponsorship Packet</a></p>
 </div>

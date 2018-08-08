@@ -1,5 +1,5 @@
 @section Scripts {
-  @Html.Partial("_VueScripts", "adminSponsors")
+  @await Html.PartialAsync("_VueScripts", "adminSponsors")
 }
 <h2>Sponsors</h2>
 <div id="sponsors-view">
@@ -40,17 +40,17 @@
           <form novalidate>
             <div v-if="busy"><i class="fa fa-spin fa-spinner"></i> Please wait...</div>
             <div class="text-danger">{{ errorMessage }}</div>
-            <div class="form-group" v-bind:class="{ 'has-error': errors.has('name') }" >
+            <div class="form-group" v-bind:class="{ 'has-error': errors.has('name') }">
               <label class="text-danger">Sponsor Name *</label>
               <input v-model="currentSponsor.name" class="form-control" placeholder="Sponsor Name" name="name" v-validate="'required|min:5'" />
               <div class="help-block">{{ errors.first('name') }}</div>
             </div>
-            <div class="form-group"  v-bind:class="{ 'has-error': errors.has('link') }" >
+            <div class="form-group" v-bind:class="{ 'has-error': errors.has('link') }">
               <label class="text-danger">Link *</label>
               <input v-model="currentSponsor.link" class="form-control" placeholder="Sponsor Website Link" name="link" v-validate="'required|url'" />
               <div class="help-block">{{ errors.first('link') }}</div>
             </div>
-            <div class="form-group"  v-bind:class="{ 'has-error': errors.has('sponsorLevel') }" >
+            <div class="form-group" v-bind:class="{ 'has-error': errors.has('sponsorLevel') }">
               <label class="text-danger">Sponsor Level *</label>
               <select v-model="currentSponsor.sponsorLevel" class="form-control" name="sponsorLevel" v-validate="'required'">
                 <option>Silver</option>
@@ -74,7 +74,7 @@
             </div>
             <div class="form-group">
               <button @@click.prevent="onSave()" class="btn btn-success" v-bind:disabled="errors.any() || !validImage">Save</button>
-   
+
               <a @@click="onCancel()" class="btn btn-default">Cancel</a>
             </div>
           </form>

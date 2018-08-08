@@ -80,8 +80,8 @@ namespace CoreCodeCamp
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, 
-      ILoggerFactory loggerFactory, 
+    public void Configure(IApplicationBuilder app,
+      ILoggerFactory loggerFactory,
       IConfiguration config,
       IApplicationLifetime appLifetime)
     {
@@ -89,7 +89,6 @@ namespace CoreCodeCamp
 
       if (_env.IsDevelopment() || config["SiteSettings:ShowErrors"].ToLower() == "true")
       {
-        loggerFactory.AddDebug(LogLevel.Information);
         app.UseDeveloperExceptionPage();
         app.UseDatabaseErrorPage();
         app.UseStatusCodePages();
@@ -105,6 +104,11 @@ namespace CoreCodeCamp
       }
 
       app.UseStaticFiles();
+      if (_env.IsDevelopment())
+      {
+        // For dev, just use Node Modules
+        app.UseNodeModules(_env);
+      }
 
       app.UseAuthentication();
 

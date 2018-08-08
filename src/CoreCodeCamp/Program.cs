@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CoreCodeCamp.Data;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,12 +15,9 @@ namespace CoreCodeCamp
   {
     public static void Main(string[] args)
     {
-      var host = new WebHostBuilder()
-          .UseKestrel()
-          .UseContentRoot(Directory.GetCurrentDirectory())
-          .UseIISIntegration()
-          .UseStartup<Startup>()
-          .Build();
+      var host = WebHost.CreateDefaultBuilder(args)
+                   .UseStartup<Startup>()
+                   .Build();
 
       Seed(host).Wait();
 

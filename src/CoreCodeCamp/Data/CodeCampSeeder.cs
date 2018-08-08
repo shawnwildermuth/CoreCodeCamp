@@ -18,7 +18,7 @@ namespace CoreCodeCamp.Data
 {
   public class CodeCampSeeder
   {
-    private IConfigurationRoot _config;
+    private IConfiguration _config;
     private CodeCampContext _ctx;
     private RoleManager<IdentityRole> _roleManager;
     private UserManager<CodeCampUser> _userManager;
@@ -27,7 +27,7 @@ namespace CoreCodeCamp.Data
     public CodeCampSeeder(CodeCampContext ctx,
       UserManager<CodeCampUser> userManager,
       RoleManager<IdentityRole> roleManager,
-      IConfigurationRoot config,
+      IConfiguration config,
       IHostingEnvironment env)
     {
       _env = env;

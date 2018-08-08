@@ -82,7 +82,7 @@
   </div>
 </div>
 @section moreSections {
-  <div class="more-features-2-container section-container section-container-gray-bg">
-    @Html.Partial("_Sponsors", Model)
-  </div>
+<div class="more-features-2-container section-container section-container-gray-bg">
+  @await Html.PartialAsync("_Sponsors", Model)
+</div>
 }

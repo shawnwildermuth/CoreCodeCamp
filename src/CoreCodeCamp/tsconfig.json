@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "outFile": "wwwroot/lib/site/app.js",
+    "outFile": "wwwroot/js/app.js",
     "sourceMap": true,
     "declaration": true,
-    "mapRoot": "/lib/site/",
+    "mapRoot": "/js/",
     "removeComments": true,
     "module": "none"
   },

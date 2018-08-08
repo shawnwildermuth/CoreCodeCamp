@@ -14,9 +14,9 @@ namespace CoreCodeCamp.Data
 {
   public class CodeCampContext : IdentityDbContext<CodeCampUser>
   {
-    private IConfigurationRoot _config;
+    private IConfiguration _config;
 
-    public CodeCampContext(IConfigurationRoot config, DbContextOptions<CodeCampContext> options)
+    public CodeCampContext(IConfiguration config, DbContextOptions<CodeCampContext> options)
         : base(options)
     {
       _config = config;

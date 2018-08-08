@@ -24,6 +24,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="OdeToCode.UseNodeModules" Version="1.0.6" />
     
     <PackageReference Include="Sendgrid" Version="9.9.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.2" />

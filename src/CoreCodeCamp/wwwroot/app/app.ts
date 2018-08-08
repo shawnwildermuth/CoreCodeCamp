@@ -2,7 +2,7 @@
 /// <reference path="common/filters.ts" />
 /// <reference path="common/datepicker.ts" />
 
-namespace CodeCamp {
+namespace CodeCamp { 
 
   // External JS Libraries
   declare var Vue: any;

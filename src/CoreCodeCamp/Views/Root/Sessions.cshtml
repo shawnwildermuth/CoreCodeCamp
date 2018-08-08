@@ -17,7 +17,7 @@
   {
     foreach (var talk in Model)
     {
-      @Html.Partial("_Session", Tuple.Create(talk, false))
+      <partial name="_Session" model="Tuple.Create(talk, false)" />
     }
   }
 </div>

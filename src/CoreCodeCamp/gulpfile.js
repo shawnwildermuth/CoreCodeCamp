@@ -12,4 +12,52 @@ gulp.task("min", function () {
     .pipe(gulp.dest("wwwroot/lib/site/"));
 });
 
-gulp.task('default', ["min"]);
+// Dependency Dirs
+var deps = {
+  "jquery": {
+    "dist/*": ""
+  },
+  "bootstrap": {
+    "dist/**/*": ""
+  },
+  "lodash": {
+    "lodash*.*": ""
+  },
+  "respond.js": {
+    "dest/*": ""
+  },
+  "tether": {
+    "dist/**/*": ""
+  },
+  "vue": {
+    "dist/*": ""
+  },
+  "vee-validate": {
+    "dist/*": ""
+  },
+  "vue-resource": {
+    "dist/*": ""
+  }
+};
+
+gulp.task("clean", function (cb) {
+  return rimraf("wwwroot/lib/", cb);
+});
+
+gulp.task("scripts", function () {
+
+  var streams = [];
+
+  for (var prop in deps) {
+    console.log("Prepping Scripts for: " + prop);
+    for (var itemProp in deps[prop]) {
+      streams.push(gulp.src("node_modules/" + prop + "/" + itemProp)
+        .pipe(gulp.dest("wwwroot/lib/" + prop + "/" + deps[prop][itemProp])));
+    }
+  }
+
+  return merge(streams);
+
+});
+
+gulp.task('default', ["min", "scripts"]);

@@ -10,10 +10,10 @@
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,100,300,500">
 
   <environment names="Development">
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/lib/jquery-ui/themes/blitzer/jquery-ui.css" rel="stylesheet" />
-    <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="~/lib/typeicons/src/font/typicons.css" rel="stylesheet" />
+    <link href="~/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/node_modules/jquery-ui-dist/jquery-ui.css" rel="stylesheet" />
+    <link href="~/node_modules/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/node_modules/typeicons/src/font/typicons.css" rel="stylesheet" />
 
     <link href="~/template/css/animate.css" rel="stylesheet">
     <link href="~/template/css/style.css" rel="stylesheet">
@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
           asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
           asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-    <link href="~/lib/jquery-ui/themes/blitzer/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/lib/jquery-ui-dist/jquery-ui.min.css" rel="stylesheet" />
     <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/lib/typeicons/src/font/typicons.min.css" rel="stylesheet" />
 
@@ -108,7 +108,7 @@
       <div class="row">
         <div class="col-sm-4 footer-about wow fadeInUp">
           <h3>Other Events</h3>
-          @Html.Partial("_OtherEvents")
+          @await Html.PartialAsync("_OtherEvents")
         </div>
         <div class="col-sm-4 footer-contact-info wow fadeInDown">
           <h3>@this.GetEventInfo().Name</h3>
@@ -151,13 +151,13 @@
   </footer>
 
   <environment names="Development">
-    <script src="~/lib/jquery/jquery.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/node_modules/jquery/jquery.js"></script>
+    <script src="~/node_modules/bootstrap/dist/js/bootstrap.js"></script>
 
-    <script src="~/lib/jquery-backstretch/jquery.backstretch.js"></script>
-    <script src="~/lib/wow/dist/wow.js"></script>
-    <script src="~/lib/retina.js/src/retina.js"></script>
-    <script src="~/lib/waypoints/waypoints.js"></script>
+    <script src="~/node_modules/jquery-backstretch/jquery.backstretch.js"></script>
+    <script src="~/node_modules/wowjs/dist/wow.js"></script>
+    <script src="~/node_modules/retina.js/src/retina.js"></script>
+    <script src="~/node_modules/jquery-waypoints/waypoints.js"></script>
 
     <script src="~/template/js/scripts.js"></script>
 

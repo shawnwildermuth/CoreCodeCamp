@@ -4,6 +4,9 @@ var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var rename = require("gulp-rename");
 var gutil = require("gulp-util");
+var rimraf = require("gulp-rimraf");
+var merge = require("merge-stream");
+
 
 gulp.task("min", function () {
   return gulp.src([ "wwwroot/js/site.js"])
@@ -15,19 +18,43 @@ gulp.task("min", function () {
 // Dependency Dirs
 var deps = {
   "jquery": {
-    "dist/*": ""
+    "jquery*.js": ""
+  },
+  "jquery-ui-dist": {
+    "jquery-ui*.*": ""
+  },
+  "jquery-backstretch": {
+    "jquery.backstretch.*": ""
+  },
+  "jquery-validation": {
+    "jquery-validation*.*": ""
+  },
+  "jquery-validation-unobtrusive": {
+    "*.js": ""
+  },
+  "jquery-waypoints": {
+    "waypoints*.js": ""
   },
   "bootstrap": {
     "dist/**/*": ""
   },
+  "font-awesome": {
+    "*": ""
+  },
+  "typicons.font": {
+    "src/font/*": ""
+  },
+  "wowjs": {
+    "dist/*": ""
+  },
+  "retina.js": {
+    "src/*": ""
+  },
   "lodash": {
     "lodash*.*": ""
   },
-  "respond.js": {
-    "dest/*": ""
-  },
-  "tether": {
-    "dist/**/*": ""
+  "moment": {
+    "**/*.js": ""
   },
   "vue": {
     "dist/*": ""
@@ -37,12 +64,15 @@ var deps = {
   },
   "vue-resource": {
     "dist/*": ""
+  },
+  "vue-router": {
+    "dist/*": ""
   }
 };
 
 gulp.task("clean", function (cb) {
-  return rimraf("wwwroot/lib/", cb);
-});
+  return gulp.src('./wwwroot/lib', { read: false }) // much faster
+    .pipe(rimraf());});
 
 gulp.task("scripts", function () {
 

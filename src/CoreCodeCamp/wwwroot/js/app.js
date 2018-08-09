@@ -558,8 +558,8 @@ var CodeCamp;
                         CodeCamp.speakerData.saveSpeaker(_this.speaker).then(function () {
                             CodeCamp.callForSpeakersRouter.router.push({ name: "info" });
                             this.infoMessage = "Saved...";
-                        }.bind(_this), function () {
-                            this.errorMessage = "Failed to save speaker.";
+                        }.bind(_this), function (err) {
+                            this.errorMessage = "Failed to save speaker. Please check your input fields for errors.";
                         }.bind(_this)).finally(function () {
                             this.busy = false;
                         }.bind(_this));

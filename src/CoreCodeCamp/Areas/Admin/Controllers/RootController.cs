@@ -80,11 +80,12 @@ namespace CoreCodeCamp.Areas.Admin.Controllers
       var talks = _repo.GetTalks(moniker).ToList();
 
       var csv = new StringBuilder();
-      csv.AppendLine(@"""Title"",""SpeakerName"",""SpeakerCompanyName"",""SpeakerPhoneNumber"",""SpeakerTwitterHandle"",""SpeakerTitle"",""SpeakerWebsite"",""SpeakerBlog"",""TShirtSize"",""Audience"",""Category"",""Level"",""Prerequisites"",""Approved"",""Abstract""");
+      csv.AppendLine(@"""Title"",""SpeakerName"",""Email"", ""SpeakerCompanyName"",""SpeakerPhoneNumber"",""SpeakerTwitterHandle"",""SpeakerTitle"",""SpeakerWebsite"",""SpeakerBlog"",""TShirtSize"",""Audience"",""Category"",""Level"",""Prerequisites"",""Approved"",""Abstract""");
       foreach (var t in talks)
       {
         csv.Append($@"""{t.Title}"",");
         csv.Append($@"""{t.Speaker.Name}"",");
+        csv.Append($@"""{t.Speaker.UserName}"",");
         csv.Append($@"""{t.Speaker.CompanyName}"",");
         csv.Append($@"""{t.Speaker.PhoneNumber}"",");
         csv.Append($@"""{t.Speaker.Twitter}"",");

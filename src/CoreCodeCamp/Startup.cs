@@ -26,6 +26,7 @@ namespace CoreCodeCamp
 {
   public class Startup
   {
+    private const string IGNORE_STATUS_CODE_PAGES = "IgnoreStatusCodePages";
     IHostingEnvironment _env;
 
     public Startup(IHostingEnvironment env)
@@ -86,7 +87,8 @@ namespace CoreCodeCamp
     public void Configure(IApplicationBuilder app,
       ILoggerFactory loggerFactory,
       IConfiguration config,
-      IApplicationLifetime appLifetime)
+      IApplicationLifetime appLifetime,
+      ILogger<Startup> logger)
     {
       loggerFactory.AddConsole(config.GetSection("Logging"));
 
@@ -99,14 +101,44 @@ namespace CoreCodeCamp
 
       if (_env.IsProduction())
       {
-        app.UseStatusCodePagesWithRedirects("/Error/{0}");
+        app.UseStatusCodePages(new StatusCodePagesOptions()
+        {
+          HandleAsync = ctx =>
+          {
+            // Ignore if from Static Files
+            if (ctx.HttpContext.Response.StatusCode != 404 &&
+            ctx.HttpContext.Items.ContainsKey(IGNORE_STATUS_CODE_PAGES) &&
+            ((bool)ctx.HttpContext.Items[IGNORE_STATUS_CODE_PAGES]))
+            {
+              logger.LogInformation($"Ignoring File Not Found from Static Files: {ctx.HttpContext.Request.Path}");
+            }
+            else
+            {
+              ctx.HttpContext.Response.Redirect("/error/404");
+            }
+
+            return ctx.Next.Invoke(ctx.HttpContext);
+          }
+        });
+
         app.UseExceptionHandler("/Error/Exception");
 
         SetupLoggerly(loggerFactory, appLifetime, config);
 
       }
 
-      app.UseStaticFiles();
+      app.UseStaticFiles(new StaticFileOptions()
+      {
+        OnPrepareResponse = ctx =>
+        {
+          if (ctx.Context.Response.StatusCode == 404)
+          {
+            // Mark this as ignore
+            ctx.Context.Items.Add(IGNORE_STATUS_CODE_PAGES, true);
+          }
+        }
+      });
+
       if (_env.IsDevelopment())
       {
         // For dev, just use Node Modules

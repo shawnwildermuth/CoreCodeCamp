@@ -7,14 +7,6 @@ var gutil = require("gulp-util");
 var rimraf = require("gulp-rimraf");
 var merge = require("merge-stream");
 
-
-gulp.task("min", function () {
-  return gulp.src([ "wwwroot/js/site.js"])
-    .pipe(uglify())
-    .pipe(rename("site.min.js"))
-    .pipe(gulp.dest("wwwroot/lib/site/"));
-});
-
 // Dependency Dirs
 var deps = {
   "jquery": {
@@ -27,7 +19,7 @@ var deps = {
     "jquery.backstretch.*": ""
   },
   "jquery-validation": {
-    "jquery-validation*.*": ""
+    "dist/**/*": ""
   },
   "jquery-validation-unobtrusive": {
     "*.js": ""
@@ -39,7 +31,7 @@ var deps = {
     "dist/**/*": ""
   },
   "font-awesome": {
-    "*": ""
+    "**/*": ""
   },
   "typicons.font": {
     "src/font/*": ""
@@ -90,4 +82,4 @@ gulp.task("scripts", function () {
 
 });
 
-gulp.task('default', ["min", "scripts"]);
+gulp.task('default', ["scripts"]);

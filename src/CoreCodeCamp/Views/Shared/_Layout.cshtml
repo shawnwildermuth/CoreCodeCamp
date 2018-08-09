@@ -23,11 +23,11 @@
   </environment>
   <environment names="Staging,Production">
     <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
-          asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+          asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
           asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-    <link href="~/lib/jquery-ui-dist/jquery-ui.min.css" rel="stylesheet" />
-    <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="~/lib/typicons.font/typicons.min.css" rel="stylesheet" />
+    <link href="~/lib/jquery-ui-dist/jquery-ui.min.css" asp-append-version="true" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/font-awesome.min.css" asp-append-version="true" rel="stylesheet" />
+    <link href="~/lib/typicons.font/typicons.css" asp-append-version="true" rel="stylesheet" />
 
     <link href="~/template/css/animate.css" rel="stylesheet">
     <link href="~/template/css/style.css" rel="stylesheet">
@@ -174,22 +174,22 @@
             asp-fallback-test="window.jQuery">
     </script>
     <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
-            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+            asp-fallback-src="~/lib/bootstrap/js/bootstrap.min.js"
             asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
     </script>
 
-    <script src="~/lib/jquery-backstretch/jquery.backstretch.min.js"></script>
-    <script src="~/lib/wow/dist/wow.min.js"></script>
-    <script src="~/lib/retina.js/src/retina.js"></script>
-    <script src="~/lib/waypoints/waypoints.min.js"></script>
+    <script src="~/lib/jquery-backstretch/jquery.backstretch.min.js" asp-append-version="true" ></script>
+    <script src="~/lib/wowjs/wow.min.js" asp-append-version="true" ></script>
+    <script src="~/lib/retina.js/retina.js" asp-append-version="true" ></script>
+    <script src="~/lib/jquery-waypoints/waypoints.min.js" asp-append-version="true" ></script>
 
-    <script src="~/template/js/scripts.js"></script>
+    <script src="~/template/js/scripts.js" asp-append-version="true" ></script>
 
     <!--[if lt IE 10]>
         <script src="~/template/js/placeholder.js"></script>
     <![endif]-->
 
-    <script src="~/lib/site/site.min.js" asp-append-version="true"></script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
   </environment>
 
   @RenderSection("scripts", required: false)

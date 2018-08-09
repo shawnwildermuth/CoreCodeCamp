@@ -24,8 +24,8 @@
             CodeCamp.speakerData.saveSpeaker(this.speaker).then(function () {
               CodeCamp.callForSpeakersRouter.router.push({ name: "info" });
               this.infoMessage = "Saved...";
-            }.bind(this), function () {
-              this.errorMessage = "Failed to save speaker."
+            }.bind(this), function (err) {
+              this.errorMessage = "Failed to save speaker. Please check your input fields for errors."
               }.bind(this)).finally(function () {
                 this.busy = false;
               }.bind(this));

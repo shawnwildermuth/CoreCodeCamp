@@ -60,8 +60,8 @@ namespace CodeCamp {
               _this._speaker.talks.push(resultTalk);
             }
             resolve();
-          }, function () {
-            reject();
+          }, function (err) {
+            reject(err.data);
           });
       });
     }

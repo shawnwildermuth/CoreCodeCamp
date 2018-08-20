@@ -23,8 +23,8 @@ namespace CodeCamp {
             this.errorMessage = "";
             CodeCamp.speakerData.saveTalk(this.talk).then(function (result) {
               CodeCamp.callForSpeakersRouter.router.push({ name: "info" });
-            }, function () {
-              this.errorMessage = "Failed to save speaker."
+            }, function (err) {
+              this.errorMessage = "Failed to save speaker: " + err.bodyText;
             }).then(() => this.busy = false);
           }
         });

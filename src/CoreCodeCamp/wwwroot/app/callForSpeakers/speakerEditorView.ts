@@ -21,12 +21,16 @@
             this.busy = true;
             this.errorMessage = "";
             this.infoMessage = "";
-            CodeCamp.speakerData.saveSpeaker(this.speaker).then(function () {
-              CodeCamp.callForSpeakersRouter.router.push({ name: "info" });
-              this.infoMessage = "Saved...";
-            }.bind(this), function (err) {
-              this.errorMessage = "Failed to save speaker. Please check your input fields for errors."
-              }.bind(this)).finally(function () {
+            CodeCamp.speakerData.saveSpeaker(this.speaker)
+              .then(function () {
+                CodeCamp.callForSpeakersRouter.router.push({ name: "info" });
+                this.infoMessage = "Saved...";
+              }.bind(this),
+                function (err) {
+                  this.errorMessage = "Failed to save speaker. Please check your input fields for errors: " + CodeCamp.Common.dataService.formatError(err);
+                }.bind(this))
+
+              .finally(function () {
                 this.busy = false;
               }.bind(this));
           }
@@ -57,10 +61,10 @@
           if (skr) this.speaker = skr;
           this.busy = false;
         }.bind(this),
-        function () {
-          this.errorMessage = "Failed to load speaker";
-          this.busy = false;
-        }.bind(this));
+          function () {
+            this.errorMessage = "Failed to load speaker";
+            this.busy = false;
+          }.bind(this));
     }
   }
 }

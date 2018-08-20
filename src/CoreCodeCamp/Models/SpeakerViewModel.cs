@@ -16,7 +16,6 @@ namespace CoreCodeCamp.Models
     public string Name { get; set; }
 
     [StringLength(255)]
-    [Url(ErrorMessage = "Must be a valid URL (starting with http or https)")]
     [Display(Name = "Company Website", Description = "Your company's website.")]
     public string Website { get; set; }
 
@@ -26,7 +25,6 @@ namespace CoreCodeCamp.Models
     public string Twitter { get; set; }
 
     [StringLength(255)]
-    [Url(ErrorMessage = "Must be a valid URL (starting with http or https)")]
     [Display(Name = "Your Blog (if any)", Description = "A web address.")]
     public string Blog { get; set; }
 
@@ -47,7 +45,6 @@ namespace CoreCodeCamp.Models
     public string CompanyName { get; set; }
 
     [StringLength(255)]
-    [Url(ErrorMessage = "Must be a valid URL (starting with http or https)")]
     [Display(Name = "Company Website", Description = "Company URL")]
     public string CompanyUrl { get; set; }
 

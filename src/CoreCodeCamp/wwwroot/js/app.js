@@ -208,6 +208,18 @@ var CodeCamp;
             DataService.prototype.deleteTrack = function (track) {
                 return this.http.delete(this.baseUrl() + "tracks/" + track.id);
             };
+            DataService.prototype.formatError = function (err) {
+                var msg = "";
+                if (!err.body)
+                    msg = "Unknown Error";
+                else {
+                    for (var key in err.body) {
+                        var item = err.body[key];
+                        msg += "<br/>" + key + ":" + item[0];
+                    }
+                }
+                return msg;
+            };
             return DataService;
         }());
         Common.DataService = DataService;
@@ -555,12 +567,14 @@ var CodeCamp;
                         _this.busy = true;
                         _this.errorMessage = "";
                         _this.infoMessage = "";
-                        CodeCamp.speakerData.saveSpeaker(_this.speaker).then(function () {
+                        CodeCamp.speakerData.saveSpeaker(_this.speaker)
+                            .then(function () {
                             CodeCamp.callForSpeakersRouter.router.push({ name: "info" });
                             this.infoMessage = "Saved...";
                         }.bind(_this), function (err) {
-                            this.errorMessage = "Failed to save speaker. Please check your input fields for errors.";
-                        }.bind(_this)).finally(function () {
+                            this.errorMessage = "Failed to save speaker. Please check your input fields for errors: " + CodeCamp.Common.dataService.formatError(err);
+                        }.bind(_this))
+                            .finally(function () {
                             this.busy = false;
                         }.bind(_this));
                     }
@@ -651,8 +665,8 @@ var CodeCamp;
                         _this._speaker.talks.push(resultTalk);
                     }
                     resolve();
-                }, function () {
-                    reject();
+                }, function (err) {
+                    reject(err.data);
                 });
             });
         };
@@ -732,8 +746,8 @@ var CodeCamp;
                         _this.errorMessage = "";
                         CodeCamp.speakerData.saveTalk(_this.talk).then(function (result) {
                             CodeCamp.callForSpeakersRouter.router.push({ name: "info" });
-                        }, function () {
-                            this.errorMessage = "Failed to save speaker.";
+                        }, function (err) {
+                            this.errorMessage = "Failed to save speaker: " + err.bodyText;
                         }).then(function () { return _this.busy = false; });
                     }
                 });

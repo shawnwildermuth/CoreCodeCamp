@@ -149,6 +149,18 @@
       return this.http.delete(this.baseUrl() + "tracks/" + track.id);
     }
 
+    public formatError(err) {
+      let msg = "";
+      if (!err.body) msg = "Unknown Error";
+      else {
+        for (var key in err.body) {
+          let item = err.body[key];
+          msg += "<br/>" + key + ":" + item[0];
+        }
+      }
+
+      return msg;
+    }
   }
 
   export let dataService = new DataService(Vue.http);

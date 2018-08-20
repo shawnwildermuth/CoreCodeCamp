@@ -50,6 +50,7 @@ declare namespace CodeCamp.Common {
         getTracks(): any;
         saveTrack(track: any): any;
         deleteTrack(track: any): any;
+        formatError(err: any): string;
     }
     let dataService: DataService;
 }

@@ -8,6 +8,42 @@
     <h1>@Model.Name</h1>
     <div class="divider-1 wow fadeInleft"></div>
     <p class="wow fadeInUp">@Model.Bio</p>
+    <div class="speaker-info wow fadeInUp">
+      <dl class="dl-horizontal">
+        @if (!String.IsNullOrWhiteSpace(Model.Title))
+        {
+          <dt>Title</dt>
+          <dd>@Model.Title</dd>
+        }
+        @if (!String.IsNullOrWhiteSpace(Model.CompanyName))
+        {
+          <dt>Company</dt>
+          @if (!String.IsNullOrWhiteSpace(Model.CompanyUrl))
+          {
+            <dd><a href="@Model.CompanyUrl" target="_blank">@Model.CompanyName</a></dd>
+          }
+          else
+          {
+            <dd>@Model.CompanyName</dd>
+          }
+        }
+        @if (!String.IsNullOrWhiteSpace(Model.Website))
+        {
+          <dt>Website</dt>
+          <dd><a href="@Model.Website" target="_blank">@Model.Website</a></dd>
+        }
+        @if (!String.IsNullOrWhiteSpace(Model.Blog))
+        {
+          <dt>Blog</dt>
+          <dd><a href="@Model.Blog" target="_blank">@Model.Blog</a></dd>
+        }
+        @if (!String.IsNullOrWhiteSpace(Model.Twitter))
+        {
+          <dt>Twitter</dt>
+          <dd><a href="https://twitter.com/@Model.Twitter" target="_blank">@@@Model.Twitter</a></dd>
+        }
+      </dl>
+    </div>
   </div>
 </div>
 <div class="row">

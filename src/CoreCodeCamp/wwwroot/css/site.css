@@ -160,6 +160,10 @@ footer a:focus {
   margin-top: 3px;
   padding: 0 10px;
 }
+.speaker-info {
+  text-align: left;
+  display: flex;
+}
 .speaker-image {
   max-height: 200px;
   border-radius: 255px;

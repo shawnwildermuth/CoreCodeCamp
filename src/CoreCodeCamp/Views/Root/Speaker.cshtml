@@ -4,7 +4,7 @@
 }
 <div class="row">
   <div class="col-md-12 speaker wow fadeInLeft">
-    <img src="@Model.ImageUrl" alt="@Model.Name" class="img-responsive img-circle pull-right" />
+    <img src="@Model.ImageUrl" alt="@Model.Name" class="speaker-image larger pull-right" onerror='this.src = "/img/no-image-available.jpg";' />
     <h1>@Model.Name</h1>
     <div class="divider-1 wow fadeInleft"></div>
     <p class="wow fadeInUp">@Model.Bio</p>

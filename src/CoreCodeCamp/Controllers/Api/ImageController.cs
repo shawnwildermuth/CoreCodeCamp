@@ -82,7 +82,7 @@ namespace CoreCodeCamp.Controllers.Api
       {
         var options = new ResizeOptions()
         {
-          Mode = ResizeMode.Min,
+          Mode = ResizeMode.Pad,
           Size = new SixLabors.Primitives.Size(size.Width, size.Height)
         };
 

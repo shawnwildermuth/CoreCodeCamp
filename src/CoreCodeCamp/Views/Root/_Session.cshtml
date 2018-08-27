@@ -18,8 +18,8 @@
       </div>
       @if (!suppress)
       {
-        <div class="pull-right" style="width: 150px;">
-          <a asp-controller="Root" asp-action="Speaker" asp-route-id="@(talk.Speaker.Name.Replace(" ", "-"))"><img src="@talk.Speaker.ImageUrl" alt="@talk.Speaker.Name" class="img-responsive img-thumbnail" /></a>
+        <div class="pull-right" style="width: 200px;">
+          <a asp-controller="Root" asp-action="Speaker" asp-route-id="@(talk.Speaker.Name.Replace(" ", "-"))"><img src="@talk.Speaker.ImageUrl" alt="@talk.Speaker.Name" class="speaker-image" onerror='this.src = "/img/no-image-available.jpg"'  /></a>
           <p class="text-center"><a asp-controller="Root" asp-action="Speaker" asp-route-id="@(talk.Speaker.Name.Replace(" ", "-"))">@talk.Speaker.Name</a></p>
         </div>
       }

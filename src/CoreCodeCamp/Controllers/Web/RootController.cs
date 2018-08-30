@@ -144,5 +144,11 @@ namespace CoreCodeCamp.Controllers.Web
 
       return View();
     }
-  }
+
+      [HttpGet("codeofconduct")]
+      public IActionResult CodeOfConduct()
+      {
+          return View();
+      }
+    }
 }

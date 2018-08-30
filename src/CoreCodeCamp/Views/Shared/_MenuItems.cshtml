@@ -17,6 +17,7 @@
 <li class="@Html.GetActiveMenuItem("Root", "Speakers")"><a asp-area="" asp-controller="Root" asp-action="Speakers">Speakers</a></li>
 <li class="@Html.GetActiveMenuItem("Root", "Sessions")"><a asp-area="" asp-controller="Root" asp-action="Sessions" asp-route-moniker="@this.GetEventInfo().Moniker">Sessions</a></li>
 <li class="@Html.GetActiveMenuItem("Root", "Schedule")"><a asp-area="" asp-controller="Root" asp-action="Schedule" asp-route-moniker="@this.GetEventInfo().Moniker">Schedule</a></li>
+<li class="@Html.GetActiveMenuItem("Root", "CodeofConduct")"><a asp-area="" asp-controller="Root" asp-action="CodeOfConduct">Code of Conduct</a></li>
 @if (codeCampUser != null && signInMgr.IsSignedIn(User) && await userMgr.IsInRoleAsync(codeCampUser, Consts.ADMINROLE))
 {
   <li><a asp-area="Admin" asp-controller="Root" asp-action="Index">Admin</a></li>

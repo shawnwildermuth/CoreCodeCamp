@@ -72,7 +72,7 @@
       <div class="navbar-collapse collapse">
         @await Html.PartialAsync("_LoginPartial")
         <ul class="nav navbar-nav">
-          @await Html.PartialAsync("_MenuItems")
+          @await Html.PartialAsync("_MenuItems", false)
         </ul>
       </div>
       <span  id="topBar"></span>
@@ -135,15 +135,15 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-3 footer-copyright">
+        <div class="col-sm-2 footer-copyright">
           &copy; <a asp-controller="Root" asp-action="Index" asp-route-moniker="@(this.GetEventInfo().Moniker)">Atlanta Code Camp</a>
         </div>
         <div class="col-md-3 footer-copyright">
           <p>Source code available on <a href="http://github.com/shawnwildermuth/corecodecamp">Github</a></p>
         </div>
-        <div class="col-sm-6 footer-menu">
+        <div class="col-sm-7 footer-menu">
           <ul>
-            @await Html.PartialAsync("_MenuItems")
+            @await Html.PartialAsync("_MenuItems", true)
           </ul>
         </div>
       </div>

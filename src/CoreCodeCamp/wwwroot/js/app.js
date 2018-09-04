@@ -164,13 +164,16 @@ var CodeCamp;
                 return this.http.put(this.baseUrl() + "talks/" + talk.id + "/toggleApproved", talk);
             };
             DataService.prototype.updateTalkRoom = function (talk, value) {
-                return this.http.put(this.baseUrl() + "talks/" + talk.id + "/room", { room: value });
+                talk.room = value;
+                return this.http.put(this.baseUrl() + "talks/" + talk.id + "/room", talk);
             };
             DataService.prototype.updateTalkTime = function (talk, value) {
-                return this.http.put(this.baseUrl() + "talks/" + talk.id + "/time", { time: value });
+                talk.time = value;
+                return this.http.put(this.baseUrl() + "talks/" + talk.id + "/time", talk);
             };
             DataService.prototype.updateTalkTrack = function (talk, value) {
-                return this.http.put(this.baseUrl() + "talks/" + talk.id + "/track", { track: value });
+                talk.track = value;
+                return this.http.put(this.baseUrl() + "talks/" + talk.id + "/track", talk);
             };
             DataService.prototype.getUsers = function () {
                 return this.http.get("/api/users");

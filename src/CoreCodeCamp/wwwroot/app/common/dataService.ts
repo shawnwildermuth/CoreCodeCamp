@@ -86,15 +86,18 @@
     }
 
     public updateTalkRoom(talk: any, value: any) {
-      return this.http.put(this.baseUrl() + "talks/" + talk.id + "/room", { room: value });
+      talk.room = value;
+      return this.http.put(this.baseUrl() + "talks/" + talk.id + "/room", talk);
     }
 
     public updateTalkTime(talk: any, value: any) {
-      return this.http.put(this.baseUrl() + "talks/" + talk.id + "/time", { time: value });
+      talk.time = value;
+      return this.http.put(this.baseUrl() + "talks/" + talk.id + "/time", talk);
     }
 
     public updateTalkTrack(talk: any, value: any) {
-      return this.http.put(this.baseUrl() + "talks/" + talk.id + "/track", { track: value });
+      talk.track = value;
+      return this.http.put(this.baseUrl() + "talks/" + talk.id + "/track", talk);
     }
 
     // Users

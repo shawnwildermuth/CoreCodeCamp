@@ -20,7 +20,7 @@
           <dt>Company</dt>
           @if (!String.IsNullOrWhiteSpace(Model.CompanyUrl))
           {
-            <dd><a href="@Model.CompanyUrl" target="_blank">@Model.CompanyName</a></dd>
+            <dd><a href="@Html.MakeUrlAbsolute(Model.CompanyUrl)" target="_blank">@Model.CompanyName</a></dd>
           }
           else
           {
@@ -30,12 +30,12 @@
         @if (!String.IsNullOrWhiteSpace(Model.Website))
         {
           <dt>Website</dt>
-          <dd><a href="@Model.Website" target="_blank">@Model.Website</a></dd>
+          <dd><a href="@Html.MakeUrlAbsolute(@Model.Website)" target="_blank">@Model.Website</a></dd>
         }
         @if (!String.IsNullOrWhiteSpace(Model.Blog))
         {
           <dt>Blog</dt>
-          <dd><a href="@Model.Blog" target="_blank">@Model.Blog</a></dd>
+          <dd><a href="@Html.MakeUrlAbsolute(@Model.Blog)" target="_blank">@Model.Blog</a></dd>
         }
         @if (!String.IsNullOrWhiteSpace(Model.Twitter))
         {

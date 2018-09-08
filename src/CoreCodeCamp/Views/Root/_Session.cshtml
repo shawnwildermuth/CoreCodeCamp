@@ -41,11 +41,11 @@
           <dt>Time</dt>
           <dd>@(talk.Time == DateTime.MinValue ? "" : talk.Time.ToShortTimeString())</dd>
         }
-        @if (!string.IsNullOrWhiteSpace(talk.Track))
+        @*@if (!string.IsNullOrWhiteSpace(talk.Track))
         {
           <dt>Track</dt>
           <dd>@talk.Track</dd>
-        }
+        }*@
       </dl>
     </div>
   </div>

@@ -27,5 +27,16 @@ namespace CoreCodeCamp.Extensions
 
       return new HtmlString("");
     }
+
+    public static HtmlString MakeUrlAbsolute<T>(this IHtmlHelper<T> html, string url)
+    {
+      if (url.ToLower().StartsWith("http://") || 
+        url.ToLower().StartsWith("https://"))
+      {
+        return new HtmlString(url);
+      }
+
+      return new HtmlString(string.Concat("http://", url));
+    }
   }
 }

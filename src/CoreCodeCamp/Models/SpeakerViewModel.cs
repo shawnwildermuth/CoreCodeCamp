@@ -48,12 +48,10 @@ namespace CoreCodeCamp.Models
     [Display(Name = "Company Website", Description = "Company URL")]
     public string CompanyUrl { get; set; }
 
-    [Required]
     [Phone]
     [Display(Name = "Phone", Description = "Your phone number in case we need to get a hold of you.")]
     public string PhoneNumber { get; set; }
 
-    [Required]
     [Display(Name = "T-Shirt Size", Description = "For an event shirt!")]
     public string TShirtSize { get; set; }
 

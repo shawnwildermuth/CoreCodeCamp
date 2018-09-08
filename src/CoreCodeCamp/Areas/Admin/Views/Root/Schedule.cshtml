@@ -24,12 +24,12 @@
                   <i class="fa" :class="{ 'icon-enabled': sort == 'category', 'fa-sort-asc': sort == 'category' && sortAsc, 'fa-sort-desc': sort == 'category' && !sortAsc }"></i>
                 </span>
               </td>
-              <td class="col-lg-1">
+              @*<td class="col-lg-1">
                 <span @@click="onSort('track')" title="Sort" class="click-cursor" :class="{ 'text-bold': sort == 'track' }">
                   Track
                   <i class="fa" :class="{ 'icon-enabled': sort == 'track', 'fa-sort-asc': sort == 'track' && sortAsc, 'fa-sort-desc': sort == 'track' && !sortAsc }"></i>
                 </span>
-              </td>
+              </td>*@
               <td class="col-lg-1">
                 <span @@click="onSort('room')" title="Sort" class="click-cursor" :class="{ 'text-bold': sort == 'room' }">
                   Room
@@ -61,11 +61,11 @@
             <tr>
               <td>{{talk.title}}</td>
               <td>{{talk.category}}</td>
-              <td>
+              @*<td>
                 <select v-model="talk.track" @@change="onTrackChanged(talk, $event)">
                   <option v-for="t in tracks">{{ t.name }}</option>
                 </select>
-              </td>
+              </td>*@
               <td>
                 <select v-model="talk.room" @@change="onRoomChanged(talk, $event)">
                   <option v-for="t in rooms">{{ t.name }}</option>
@@ -79,7 +79,7 @@
               <td>{{ talk.approved ? "Yes" : "No" }}</td>
               <td>{{ talk.votes }}</td>
               <td>
-                <div class="btn-group">
+                <div class="btn-group ">
                   <button class="btn btn-sm btn-primary" @@click="onToggleApproved(talk)" title="Toggle Approved"><i class="fa fa-check"></i></button>
                   <button class="btn btn-sm btn-danger" @@click="onDelete(talk)" title="Delete"><i class="fa fa-remove"></i></button>
                 </div>
@@ -87,7 +87,7 @@
             </tr>
             <tr>
               <td>Speaker: <a :href="talk.speaker.speakerLink" target="_blank">{{talk.speaker.name}}</a> (<a :href="'mailto:' + talk.speaker.email + '?subject=Atlanta Code Camp'">email</a>)</td>
-              <td class="table-abstract" colspan="7"><p>{{ talk.abstract }}</p></td>
+              <td class="table-abstract" colspan="6"><p>{{ talk.abstract }}</p></td>
             </tr>
           </tbody>
         </table>

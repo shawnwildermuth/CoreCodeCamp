@@ -31,6 +31,10 @@ module.exports = {
     sponsors: {
       entry: "Client/admin/sponsors.js",
       filenameHashing: false
+    },
+    callforspeakers: {
+      entry: "Client/callforspeakers.js",
+      filenameHashing: false
     }
   }
 }

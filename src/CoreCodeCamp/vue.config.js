@@ -10,19 +10,27 @@ module.exports = {
   pages: {
     join: {
       entry: "Client/join.js",
-      filenameHashing: false,
+      filenameHashing: false
     },
     admin: { 
-      entry: "Client/admin.js",
-      filenameHashing: false,
+      entry: "Client/admin/admin.js",
+      filenameHashing: false
     },
     eventInfo: {
-      entry: "Client/eventInfo.js",
-      filenameHashing: false,
+      entry: "Client/admin/eventInfo.js",
+      filenameHashing: false
     },
     users: {
-      entry: "Client/users.js",
-      filenameHashing: false,
+      entry: "Client/admin/users.js",
+      filenameHashing: false
+    },
+    schedule: {
+      entry: "Client/admin/schedule.js",
+      filenameHashing: false
+    },
+    sponsors: {
+      entry: "Client/admin/sponsors.js",
+      filenameHashing: false
     }
   }
 }

@@ -1,4 +1,4 @@
-﻿// bootstrap.js
+﻿// mount.js
 import Vue from "vue";
 import VeeValidate from "vee-validate";
 import VueResource from "vue-resource";
@@ -6,7 +6,7 @@ import validators from "./validators";
 import filters from "./filters";
 import datePicker from "./datepicker";
 
-export default function bootstrap(theView, el) {
+export default function mount(theView, el) {
 
   Vue.config.productionTip = false;
   Vue.use(VeeValidate);

@@ -1,6 +1,6 @@
 import Vue from "vue";
-import bootstrap from "./common/bootstrap";
-import dataService from "./common/dataService";
+import mount from "../common/mount";
+import dataService from "../common/dataService";
 
 let theView = {
   data: {
@@ -137,4 +137,4 @@ let theView = {
   }
 };
 
-bootstrap(theView, "#event-info-view");
+mount(theView, "#event-info-view");

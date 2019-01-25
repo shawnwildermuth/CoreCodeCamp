@@ -1,7 +1,7 @@
 import Vue from "vue";
 import _ from "lodash";
-import bootstrap from "./common/bootstrap";
-import dataService from "./common/dataService";
+import mount from "../common/mount";
+import dataService from "../common/dataService";
 
 let theView = {
   data: {
@@ -43,4 +43,4 @@ let theView = {
 };
 
 
-bootstrap(theView, "#events-view"); 
+mount(theView, "#events-view"); 

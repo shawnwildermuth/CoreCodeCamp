@@ -1,8 +1,7 @@
 // External JS Libraries
-import Vue from "vue";
 import _ from "lodash";
-import dataService from "./common/dataService";
-import bootstrap from "./common/bootstrap";
+import mount from "../common/mount";
+import dataService from "../common/dataService";
 
 let theView = {
   data: {
@@ -40,6 +39,4 @@ let theView = {
   }
 };
 
-bootstrap(theView, "#users-view");
-
-
+mount(theView, "#users-view");

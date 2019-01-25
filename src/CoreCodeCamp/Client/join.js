@@ -1,5 +1,5 @@
 ﻿import Vue from 'vue';
-import bootstrap from "./common/bootstrap";
+import mount from "./common/mount";
 import helpers from "./common/helpers";
 
 let theView = {
@@ -35,6 +35,4 @@ let theView = {
 
 };
 
-
-
-bootstrap(theView, "#view-join"); 
+mount(theView, "#view-join"); 

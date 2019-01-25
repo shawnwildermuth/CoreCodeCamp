@@ -4,7 +4,7 @@ import VeeValidate from "vee-validate";
 import VueResource from "vue-resource";
 import validators from "./validators";
 import filters from "./filters";
-//import datePicker from "./datepicker";
+import datePicker from "./datepicker";
 
 export default function bootstrap(theView, el) {
 
@@ -13,7 +13,7 @@ export default function bootstrap(theView, el) {
   Vue.use(VueResource);
   validators();
   filters();
-  //datePicker();
+  datePicker();
   Vue.config.errorHandler = function (err, vm, info) {
     console.log(err);
   };

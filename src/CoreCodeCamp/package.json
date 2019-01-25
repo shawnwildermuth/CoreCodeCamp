@@ -12,7 +12,7 @@
     "font-awesome": "v4.7.0",
     "jquery": "3.3.1",
     "jquery-backstretch": "git+https://github.com/jquery-backstretch/jquery-backstretch.git",
-    "jquery-ui-dist": "1.12.1",
+    "jquery-ui": "^1.12.1",
     "jquery-validation": "1.14.0",
     "jquery-validation-unobtrusive": "3.2.6",
     "jquery-waypoints": "2.0.5",

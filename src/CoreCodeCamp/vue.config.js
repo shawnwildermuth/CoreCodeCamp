@@ -8,7 +8,17 @@ module.exports = {
   filenameHashing: false,
   runtimeCompiler: true,
   pages: {
-    join: "Client/join.js",
-    admin: "Client/admin.js"
+    join: {
+      entry: "Client/join.js",
+      filenameHashing: false,
+    },
+    admin: { 
+      entry: "Client/admin.js",
+      filenameHashing: false,
+    },
+    eventInfo: {
+      entry: "Client/eventInfo.js",
+      filenameHashing: false,
+    }
   }
 }

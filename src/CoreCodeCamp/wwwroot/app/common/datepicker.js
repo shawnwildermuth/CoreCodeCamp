@@ -1,9 +1,7 @@
-﻿namespace CodeCamp.Common {
+﻿import Vue from "vue";
+const $ = require("jquery");
 
-  declare var Vue: any;
-  declare var $: any;
-
-  export function createDatePicker() {
+export default function createDatePicker() {
 
     Vue.component('datepicker', {
       props: ['value'],
@@ -40,4 +38,3 @@
     });
   }
 
-}

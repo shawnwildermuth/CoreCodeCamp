@@ -80,7 +80,7 @@ namespace CoreCodeCamp
         {
           opt.Filters.Add(new RequireHttpsAttribute());
         }
-      }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+      }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,8 +90,6 @@ namespace CoreCodeCamp
       IApplicationLifetime appLifetime,
       ILogger<Startup> logger)
     {
-      loggerFactory.AddConsole(config.GetSection("Logging"));
-
       if (_env.IsDevelopment() || config["SiteSettings:ShowErrors"].ToLower() == "true")
       {
         app.UseDeveloperExceptionPage();

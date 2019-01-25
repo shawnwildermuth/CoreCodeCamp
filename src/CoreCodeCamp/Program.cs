@@ -8,6 +8,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace CoreCodeCamp
 {
@@ -16,23 +17,11 @@ namespace CoreCodeCamp
     public static void Main(string[] args)
     {
       var host = WebHost.CreateDefaultBuilder(args)
-                   .UseStartup<Startup>()
-                   .Build();
-
-      //Seed(host).Wait();
+        .UseStartup<Startup>()
+        .Build();
 
       host.Run();
     }
 
-    private static async Task Seed(IWebHost host)
-    {
-      IConfiguration config = host.Services.GetService<IConfiguration>();
-      IServiceScopeFactory scopeFactory = host.Services.GetService<IServiceScopeFactory>();
-      using (var scope = scopeFactory.CreateScope())
-      {
-        var initializer = scope.ServiceProvider.GetService<CodeCampSeeder>();
-        await initializer.SeedAsync();
-      }
-    }
   }
 }

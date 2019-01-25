@@ -2,12 +2,13 @@
 // vue.config.js
 module.exports = {
   pluginOptions: {
-    sourceDir: "wwwroot/app/"
+    sourceDir: "Client"
   },
   outputDir: "wwwroot/js/app/",
   filenameHashing: false,
   runtimeCompiler: true,
   pages: {
-    join: "wwwroot/app/join.js"
+    join: "Client/join.js",
+    admin: "Client/admin.js"
   }
 }

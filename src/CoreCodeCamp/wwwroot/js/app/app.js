@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "af725c68eef7d83f96c5";
+/******/ 	var hotCurrentHash = "64acd47b0fe96fc763c2";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -788,30 +788,30 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return hotCreateRequire(2)(__webpack_require__.s = 2);
+/******/ 	return hotCreateRequire(3)(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./wwwroot/app/main.js":
-/*!*****************************!*\
-  !*** ./wwwroot/app/main.js ***!
-  \*****************************/
+/***/ "./Client/main.js":
+/*!************************!*\
+  !*** ./Client/main.js ***!
+  \************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("// app.js\nlet notused = \"\";//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi93d3dyb290L2FwcC9tYWluLmpzLmpzIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLy4vd3d3cm9vdC9hcHAvbWFpbi5qcz9mMDAzIl0sInNvdXJjZXNDb250ZW50IjpbIi8vIGFwcC5qc1xyXG5sZXQgbm90dXNlZCA9IFwiXCI7Il0sIm1hcHBpbmdzIjoiQUFBQTtBQUNBIiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./wwwroot/app/main.js\n");
+eval("// app.js\nlet notused = \"\";//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9DbGllbnQvbWFpbi5qcy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL0NsaWVudC9tYWluLmpzP2NhYzEiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gYXBwLmpzXHJcbmxldCBub3R1c2VkID0gXCJcIjsiXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0EiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./Client/main.js\n");
 
 /***/ }),
 
-/***/ 2:
-/*!***********************************!*\
-  !*** multi ./wwwroot/app/main.js ***!
-  \***********************************/
+/***/ 3:
+/*!******************************!*\
+  !*** multi ./Client/main.js ***!
+  \******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./wwwroot\app/main.js */"./wwwroot/app/main.js");
+module.exports = __webpack_require__(/*! ./Client/main.js */"./Client/main.js");
 
 
 /***/ })

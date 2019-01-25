@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "af725c68eef7d83f96c5";
+/******/ 	var hotCurrentHash = "64acd47b0fe96fc763c2";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -792,6 +792,66 @@
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./Client/common/bootstrap.js":
+/*!************************************!*\
+  !*** ./Client/common/bootstrap.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return bootstrap; });\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.esm.js\");\n/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vee-validate */ \"./node_modules/vee-validate/dist/vee-validate.esm.js\");\n/* harmony import */ var vue_resource__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-resource */ \"./node_modules/vue-resource/dist/vue-resource.esm.js\");\n/* harmony import */ var _validators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./validators */ \"./Client/common/validators.js\");\n/* harmony import */ var _filters__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./filters */ \"./Client/common/filters.js\");\n// bootstrap.js\n\n\n\n\n //import datePicker from \"./datepicker\";\n\nfunction bootstrap(theView, el) {\n  vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"].config.productionTip = false;\n  vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"].use(vee_validate__WEBPACK_IMPORTED_MODULE_1__[\"default\"]);\n  vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"].use(vue_resource__WEBPACK_IMPORTED_MODULE_2__[\"default\"]);\n  Object(_validators__WEBPACK_IMPORTED_MODULE_3__[\"default\"])();\n  Object(_filters__WEBPACK_IMPORTED_MODULE_4__[\"default\"])(); //datePicker();\n\n  vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"].config.errorHandler = function (err, vm, info) {\n    console.log(err);\n  };\n\n  new vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"](theView).$mount(el);\n}//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9DbGllbnQvY29tbW9uL2Jvb3RzdHJhcC5qcy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL0NsaWVudC9jb21tb24vYm9vdHN0cmFwLmpzPzAyYmQiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gYm9vdHN0cmFwLmpzXHJcbmltcG9ydCBWdWUgZnJvbSBcInZ1ZVwiO1xyXG5pbXBvcnQgVmVlVmFsaWRhdGUgZnJvbSBcInZlZS12YWxpZGF0ZVwiO1xyXG5pbXBvcnQgVnVlUmVzb3VyY2UgZnJvbSBcInZ1ZS1yZXNvdXJjZVwiO1xyXG5pbXBvcnQgdmFsaWRhdG9ycyBmcm9tIFwiLi92YWxpZGF0b3JzXCI7XHJcbmltcG9ydCBmaWx0ZXJzIGZyb20gXCIuL2ZpbHRlcnNcIjtcclxuLy9pbXBvcnQgZGF0ZVBpY2tlciBmcm9tIFwiLi9kYXRlcGlja2VyXCI7XHJcblxyXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBib290c3RyYXAodGhlVmlldywgZWwpIHtcclxuXHJcbiAgVnVlLmNvbmZpZy5wcm9kdWN0aW9uVGlwID0gZmFsc2U7XG4gIFZ1ZS51c2UoVmVlVmFsaWRhdGUpO1xyXG4gIFZ1ZS51c2UoVnVlUmVzb3VyY2UpO1xyXG4gIHZhbGlkYXRvcnMoKTtcclxuICBmaWx0ZXJzKCk7XHJcbiAgLy9kYXRlUGlja2VyKCk7XHJcbiAgVnVlLmNvbmZpZy5lcnJvckhhbmRsZXIgPSBmdW5jdGlvbiAoZXJyLCB2bSwgaW5mbykge1xyXG4gICAgY29uc29sZS5sb2coZXJyKTtcclxuICB9O1xyXG4gIG5ldyBWdWUodGhlVmlldykuJG1vdW50KGVsKTtcclxufSJdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUVBO0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFBQTtBQUNBIiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./Client/common/bootstrap.js\n");
+
+/***/ }),
+
+/***/ "./Client/common/filters.js":
+/*!**********************************!*\
+  !*** ./Client/common/filters.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return createFilters; });\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.esm.js\");\n/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ \"./node_modules/moment/moment.js\");\n/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);\n\n\nfunction createFilters() {\n  vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"].filter('formatDate', function (value) {\n    let dt = null;\n\n    if (typeof value === 'string') {\n      dt = moment__WEBPACK_IMPORTED_MODULE_1___default()(value);\n\n      if (!dt.isValid()) {\n        dt = moment__WEBPACK_IMPORTED_MODULE_1___default()(value, 'MM-DD-YYYY');\n      }\n    } else if (value) {\n      dt = moment__WEBPACK_IMPORTED_MODULE_1___default()(String(value));\n    }\n\n    if (dt) {\n      return dt.format('MM-DD-YYYY');\n    }\n  });\n  vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"].filter('formatTime', function (value) {\n    if (value) {\n      return moment__WEBPACK_IMPORTED_MODULE_1___default()(String(value)).format('hh:mm a');\n    }\n  });\n}//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9DbGllbnQvY29tbW9uL2ZpbHRlcnMuanMuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9DbGllbnQvY29tbW9uL2ZpbHRlcnMuanM/MzliYiJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgVnVlIGZyb20gXCJ2dWVcIjtcclxuaW1wb3J0IG1vbWVudCBmcm9tIFwibW9tZW50XCI7XHJcblxyXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBjcmVhdGVGaWx0ZXJzKCkge1xyXG5cclxuICBWdWUuZmlsdGVyKCdmb3JtYXREYXRlJywgZnVuY3Rpb24gKHZhbHVlKSB7XHJcbiAgICBsZXQgZHQgPSBudWxsO1xyXG4gICAgaWYgKHR5cGVvZiB2YWx1ZSA9PT0gJ3N0cmluZycpIHtcclxuICAgICAgZHQgPSBtb21lbnQodmFsdWUpO1xyXG4gICAgICBpZiAoIWR0LmlzVmFsaWQoKSkge1xyXG4gICAgICAgIGR0ID0gbW9tZW50KHZhbHVlLCAnTU0tREQtWVlZWScpO1xyXG4gICAgICB9XHJcbiAgICB9IGVsc2UgaWYgKHZhbHVlKSB7XHJcbiAgICAgIGR0ID0gbW9tZW50KFN0cmluZyh2YWx1ZSkpO1xyXG4gICAgfVxyXG5cclxuICAgIGlmIChkdCkge1xyXG4gICAgICByZXR1cm4gZHQuZm9ybWF0KCdNTS1ERC1ZWVlZJyk7XHJcbiAgICB9XHJcbiAgfSk7XHJcbiAgVnVlLmZpbHRlcignZm9ybWF0VGltZScsIGZ1bmN0aW9uICh2YWx1ZSkge1xyXG4gICAgaWYgKHZhbHVlKSB7XHJcbiAgICAgIHJldHVybiBtb21lbnQoU3RyaW5nKHZhbHVlKSkuZm9ybWF0KCdoaDptbSBhJylcclxuICAgIH1cclxuICB9KTtcclxuXHJcbn1cclxuIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUVBO0FBRUE7QUFDQTtBQUNBO0FBQUE7QUFDQTtBQUNBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFFQSIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./Client/common/filters.js\n");
+
+/***/ }),
+
+/***/ "./Client/common/helpers.js":
+/*!**********************************!*\
+  !*** ./Client/common/helpers.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  isPristine(fields) {\n    return Object.keys(fields).every(field => {\n      return fields[field] && fields[field].pristine;\n    });\n  }\n\n});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9DbGllbnQvY29tbW9uL2hlbHBlcnMuanMuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9DbGllbnQvY29tbW9uL2hlbHBlcnMuanM/ZjU4MSJdLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgZGVmYXVsdCB7XHJcbiAgaXNQcmlzdGluZShmaWVsZHMpIHtcclxuICAgIHJldHVybiBPYmplY3Qua2V5cyhmaWVsZHMpLmV2ZXJ5KGZpZWxkID0+IHtcclxuICAgICAgcmV0dXJuIGZpZWxkc1tmaWVsZF0gJiYgZmllbGRzW2ZpZWxkXS5wcmlzdGluZTtcclxuICAgIH0pO1xyXG4gIH1cclxufTtcclxuIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBTkEiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./Client/common/helpers.js\n");
+
+/***/ }),
+
+/***/ "./Client/common/validators.js":
+/*!*************************************!*\
+  !*** ./Client/common/validators.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return createValidators; });\n/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate */ \"./node_modules/vee-validate/dist/vee-validate.esm.js\");\n\nfunction createValidators() {\n  let passwordValidation = /^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,25}$/;\n  vee_validate__WEBPACK_IMPORTED_MODULE_0__[\"default\"].Validator.extend('strongPassword', {\n    getMessage: field => 'The ' + field + ' requires an uppercase, a lower case and a number.',\n    validate: value => passwordValidation.test(value)\n  });\n}//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9DbGllbnQvY29tbW9uL3ZhbGlkYXRvcnMuanMuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9DbGllbnQvY29tbW9uL3ZhbGlkYXRvcnMuanM/ODA3MyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgVmVlVmFsaWRhdGUgZnJvbSBcInZlZS12YWxpZGF0ZVwiO1xyXG5cclxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gY3JlYXRlVmFsaWRhdG9ycygpIHtcclxuXHJcbiAgbGV0IHBhc3N3b3JkVmFsaWRhdGlvbiA9IC9eKD89LipcXGQpKD89LipbYS16XSkoPz0uKltBLVpdKS57OCwyNX0kLztcclxuICBWZWVWYWxpZGF0ZS5WYWxpZGF0b3IuZXh0ZW5kKCdzdHJvbmdQYXNzd29yZCcsIHtcclxuICAgIGdldE1lc3NhZ2U6IGZpZWxkID0+ICdUaGUgJyArIGZpZWxkICsgJyByZXF1aXJlcyBhbiB1cHBlcmNhc2UsIGEgbG93ZXIgY2FzZSBhbmQgYSBudW1iZXIuJyxcclxuICAgIHZhbGlkYXRlOiB2YWx1ZSA9PiBwYXNzd29yZFZhbGlkYXRpb24udGVzdCh2YWx1ZSlcclxuICB9KTtcclxufVxyXG4iXSwibWFwcGluZ3MiOiJBQUFBO0FBQUE7QUFBQTtBQUFBO0FBRUE7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUZBO0FBSUEiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./Client/common/validators.js\n");
+
+/***/ }),
+
+/***/ "./Client/join.js":
+/*!************************!*\
+  !*** ./Client/join.js ***!
+  \************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.esm.js\");\n/* harmony import */ var _common_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./common/bootstrap */ \"./Client/common/bootstrap.js\");\n/* harmony import */ var _common_helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./common/helpers */ \"./Client/common/helpers.js\");\n\n\n\nlet theView = {\n  data: {\n    user: {\n      name: \"\",\n      email: \"\",\n      password: \"\",\n      confirmPassword: \"\"\n    },\n    errorMessage: \"\"\n  },\n  computed: {\n    isPristine: function () {\n      return _common_helpers__WEBPACK_IMPORTED_MODULE_2__[\"default\"].isPristine(this.fields);\n    }\n  },\n  methods: {\n    onSubmit() {\n      let me = this;\n      this.$validator.validateAll().then(function (success) {\n        if (!success) {\n          me.errorMessage = \"Please fix validation Issues\";\n          return false;\n        }\n      });\n    },\n\n    created() {\n      this.$set(this, 'errors', this.$validator.errorBag);\n    }\n\n  }\n};\nObject(_common_bootstrap__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(theView, \"#view-join\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9DbGllbnQvam9pbi5qcy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL0NsaWVudC9qb2luLmpzPzgwYTciXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFZ1ZSBmcm9tICd2dWUnO1xyXG5pbXBvcnQgYm9vdHN0cmFwIGZyb20gXCIuL2NvbW1vbi9ib290c3RyYXBcIjtcclxuaW1wb3J0IGhlbHBlcnMgZnJvbSBcIi4vY29tbW9uL2hlbHBlcnNcIjtcclxuXHJcbmxldCB0aGVWaWV3ID0ge1xyXG4gIGRhdGE6IHtcclxuICAgIHVzZXI6IHtcclxuICAgICAgbmFtZTogXCJcIixcclxuICAgICAgZW1haWw6IFwiXCIsXHJcbiAgICAgIHBhc3N3b3JkOiBcIlwiLFxyXG4gICAgICBjb25maXJtUGFzc3dvcmQ6IFwiXCJcclxuICAgIH0sXHJcbiAgICBlcnJvck1lc3NhZ2U6IFwiXCJcclxuICB9LFxyXG4gIGNvbXB1dGVkOiB7XHJcbiAgICBpc1ByaXN0aW5lOiBmdW5jdGlvbiAoKSB7XHJcbiAgICAgIHJldHVybiBoZWxwZXJzLmlzUHJpc3RpbmUodGhpcy5maWVsZHMpO1xyXG4gICAgfVxyXG4gIH0sXHJcbiAgbWV0aG9kczoge1xyXG4gICAgb25TdWJtaXQoKSB7XHJcbiAgICAgIGxldCBtZSA9IHRoaXM7XHJcbiAgICAgIHRoaXMuJHZhbGlkYXRvci52YWxpZGF0ZUFsbCgpLnRoZW4oZnVuY3Rpb24gKHN1Y2Nlc3MpIHtcclxuICAgICAgICBpZiAoIXN1Y2Nlc3MpIHtcclxuICAgICAgICAgIG1lLmVycm9yTWVzc2FnZSA9IFwiUGxlYXNlIGZpeCB2YWxpZGF0aW9uIElzc3Vlc1wiO1xyXG4gICAgICAgICAgcmV0dXJuIGZhbHNlO1xyXG4gICAgICAgIH1cclxuICAgICAgfSk7XHJcbiAgICB9LFxyXG4gICAgY3JlYXRlZCgpIHtcclxuICAgICAgdGhpcy4kc2V0KHRoaXMsICdlcnJvcnMnLCB0aGlzLiR2YWxpZGF0b3IuZXJyb3JCYWcpXHJcbiAgICB9XHJcblxyXG4gIH1cclxuXHJcbn07XHJcblxyXG5cclxuXHJcbmJvb3RzdHJhcCh0aGVWaWV3LCBcIiN2aWV3LWpvaW5cIik7ICJdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUpBO0FBTUE7QUFQQTtBQVNBO0FBQ0E7QUFDQTtBQUNBO0FBSEE7QUFLQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFiQTtBQWZBO0FBbUNBIiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./Client/join.js\n");
+
+/***/ }),
 
 /***/ "./node_modules/moment/locale sync recursive ^\\.\\/.*$":
 /*!**************************************************!*\
@@ -2138,62 +2198,14 @@ eval("module.exports = function(module) {\n\tif (!module.webpackPolyfill) {\n\t\
 
 /***/ }),
 
-/***/ "./wwwroot/app/common/bootstrap.js":
-/*!*****************************************!*\
-  !*** ./wwwroot/app/common/bootstrap.js ***!
-  \*****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return bootstrap; });\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.esm.js\");\n/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vee-validate */ \"./node_modules/vee-validate/dist/vee-validate.esm.js\");\n/* harmony import */ var vue_resource__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-resource */ \"./node_modules/vue-resource/dist/vue-resource.esm.js\");\n/* harmony import */ var _validators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./validators */ \"./wwwroot/app/common/validators.js\");\n/* harmony import */ var _filters__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./filters */ \"./wwwroot/app/common/filters.js\");\n// bootstrap.js\n\n\n\n\n //import datePicker from \"./datepicker\";\n\nfunction bootstrap(theView, el) {\n  vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"].config.productionTip = false;\n  vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"].use(vee_validate__WEBPACK_IMPORTED_MODULE_1__[\"default\"]);\n  vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"].use(vue_resource__WEBPACK_IMPORTED_MODULE_2__[\"default\"]);\n  Object(_validators__WEBPACK_IMPORTED_MODULE_3__[\"default\"])();\n  Object(_filters__WEBPACK_IMPORTED_MODULE_4__[\"default\"])(); //datePicker();\n\n  vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"].config.errorHandler = function (err, vm, info) {\n    console.log(err);\n  };\n\n  new vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"](theView).$mount(el);\n}//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi93d3dyb290L2FwcC9jb21tb24vYm9vdHN0cmFwLmpzLmpzIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLy4vd3d3cm9vdC9hcHAvY29tbW9uL2Jvb3RzdHJhcC5qcz80NTU4Il0sInNvdXJjZXNDb250ZW50IjpbIi8vIGJvb3RzdHJhcC5qc1xyXG5pbXBvcnQgVnVlIGZyb20gXCJ2dWVcIjtcclxuaW1wb3J0IFZlZVZhbGlkYXRlIGZyb20gXCJ2ZWUtdmFsaWRhdGVcIjtcclxuaW1wb3J0IFZ1ZVJlc291cmNlIGZyb20gXCJ2dWUtcmVzb3VyY2VcIjtcclxuaW1wb3J0IHZhbGlkYXRvcnMgZnJvbSBcIi4vdmFsaWRhdG9yc1wiO1xyXG5pbXBvcnQgZmlsdGVycyBmcm9tIFwiLi9maWx0ZXJzXCI7XHJcbi8vaW1wb3J0IGRhdGVQaWNrZXIgZnJvbSBcIi4vZGF0ZXBpY2tlclwiO1xyXG5cclxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gYm9vdHN0cmFwKHRoZVZpZXcsIGVsKSB7XHJcblxyXG4gIFZ1ZS5jb25maWcucHJvZHVjdGlvblRpcCA9IGZhbHNlO1xuICBWdWUudXNlKFZlZVZhbGlkYXRlKTtcclxuICBWdWUudXNlKFZ1ZVJlc291cmNlKTtcclxuICB2YWxpZGF0b3JzKCk7XHJcbiAgZmlsdGVycygpO1xyXG4gIC8vZGF0ZVBpY2tlcigpO1xyXG4gIFZ1ZS5jb25maWcuZXJyb3JIYW5kbGVyID0gZnVuY3Rpb24gKGVyciwgdm0sIGluZm8pIHtcclxuICAgIGNvbnNvbGUubG9nKGVycik7XHJcbiAgfTtcclxuICBuZXcgVnVlKHRoZVZpZXcpLiRtb3VudChlbCk7XHJcbn0iXSwibWFwcGluZ3MiOiJBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFFQTtBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQUE7QUFDQSIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./wwwroot/app/common/bootstrap.js\n");
-
-/***/ }),
-
-/***/ "./wwwroot/app/common/filters.js":
-/*!***************************************!*\
-  !*** ./wwwroot/app/common/filters.js ***!
-  \***************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return createFilters; });\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.esm.js\");\n/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ \"./node_modules/moment/moment.js\");\n/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);\n\n\nfunction createFilters() {\n  vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"].filter('formatDate', function (value) {\n    let dt = null;\n\n    if (typeof value === 'string') {\n      dt = moment__WEBPACK_IMPORTED_MODULE_1___default()(value);\n\n      if (!dt.isValid()) {\n        dt = moment__WEBPACK_IMPORTED_MODULE_1___default()(value, 'MM-DD-YYYY');\n      }\n    } else if (value) {\n      dt = moment__WEBPACK_IMPORTED_MODULE_1___default()(String(value));\n    }\n\n    if (dt) {\n      return dt.format('MM-DD-YYYY');\n    }\n  });\n  vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"].filter('formatTime', function (value) {\n    if (value) {\n      return moment__WEBPACK_IMPORTED_MODULE_1___default()(String(value)).format('hh:mm a');\n    }\n  });\n}//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi93d3dyb290L2FwcC9jb21tb24vZmlsdGVycy5qcy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL3d3d3Jvb3QvYXBwL2NvbW1vbi9maWx0ZXJzLmpzP2FhNzkiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFZ1ZSBmcm9tIFwidnVlXCI7XHJcbmltcG9ydCBtb21lbnQgZnJvbSBcIm1vbWVudFwiO1xyXG5cclxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gY3JlYXRlRmlsdGVycygpIHtcclxuXHJcbiAgVnVlLmZpbHRlcignZm9ybWF0RGF0ZScsIGZ1bmN0aW9uICh2YWx1ZSkge1xyXG4gICAgbGV0IGR0ID0gbnVsbDtcclxuICAgIGlmICh0eXBlb2YgdmFsdWUgPT09ICdzdHJpbmcnKSB7XHJcbiAgICAgIGR0ID0gbW9tZW50KHZhbHVlKTtcclxuICAgICAgaWYgKCFkdC5pc1ZhbGlkKCkpIHtcclxuICAgICAgICBkdCA9IG1vbWVudCh2YWx1ZSwgJ01NLURELVlZWVknKTtcclxuICAgICAgfVxyXG4gICAgfSBlbHNlIGlmICh2YWx1ZSkge1xyXG4gICAgICBkdCA9IG1vbWVudChTdHJpbmcodmFsdWUpKTtcclxuICAgIH1cclxuXHJcbiAgICBpZiAoZHQpIHtcclxuICAgICAgcmV0dXJuIGR0LmZvcm1hdCgnTU0tREQtWVlZWScpO1xyXG4gICAgfVxyXG4gIH0pO1xyXG4gIFZ1ZS5maWx0ZXIoJ2Zvcm1hdFRpbWUnLCBmdW5jdGlvbiAodmFsdWUpIHtcclxuICAgIGlmICh2YWx1ZSkge1xyXG4gICAgICByZXR1cm4gbW9tZW50KFN0cmluZyh2YWx1ZSkpLmZvcm1hdCgnaGg6bW0gYScpXHJcbiAgICB9XHJcbiAgfSk7XHJcblxyXG59XHJcbiJdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQ0E7QUFFQTtBQUVBO0FBQ0E7QUFDQTtBQUFBO0FBQ0E7QUFDQTtBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBRUEiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./wwwroot/app/common/filters.js\n");
-
-/***/ }),
-
-/***/ "./wwwroot/app/common/validators.js":
-/*!******************************************!*\
-  !*** ./wwwroot/app/common/validators.js ***!
-  \******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return createValidators; });\n/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate */ \"./node_modules/vee-validate/dist/vee-validate.esm.js\");\n\nfunction createValidators() {\n  let passwordValidation = /^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,25}$/;\n  vee_validate__WEBPACK_IMPORTED_MODULE_0__[\"default\"].Validator.extend('strongPassword', {\n    getMessage: field => 'The ' + field + ' requires an uppercase, a lower case and a number.',\n    validate: value => passwordValidation.test(value)\n  });\n}//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi93d3dyb290L2FwcC9jb21tb24vdmFsaWRhdG9ycy5qcy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL3d3d3Jvb3QvYXBwL2NvbW1vbi92YWxpZGF0b3JzLmpzP2E4MzYiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFZlZVZhbGlkYXRlIGZyb20gXCJ2ZWUtdmFsaWRhdGVcIjtcclxuXHJcbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIGNyZWF0ZVZhbGlkYXRvcnMoKSB7XHJcblxyXG4gIGxldCBwYXNzd29yZFZhbGlkYXRpb24gPSAvXig/PS4qXFxkKSg/PS4qW2Etel0pKD89LipbQS1aXSkuezgsMjV9JC87XHJcbiAgVmVlVmFsaWRhdGUuVmFsaWRhdG9yLmV4dGVuZCgnc3Ryb25nUGFzc3dvcmQnLCB7XHJcbiAgICBnZXRNZXNzYWdlOiBmaWVsZCA9PiAnVGhlICcgKyBmaWVsZCArICcgcmVxdWlyZXMgYW4gdXBwZXJjYXNlLCBhIGxvd2VyIGNhc2UgYW5kIGEgbnVtYmVyLicsXHJcbiAgICB2YWxpZGF0ZTogdmFsdWUgPT4gcGFzc3dvcmRWYWxpZGF0aW9uLnRlc3QodmFsdWUpXHJcbiAgfSk7XHJcbn1cclxuIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUVBO0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFGQTtBQUlBIiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./wwwroot/app/common/validators.js\n");
-
-/***/ }),
-
-/***/ "./wwwroot/app/join.js":
-/*!*****************************!*\
-  !*** ./wwwroot/app/join.js ***!
-  \*****************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.esm.js\");\n/* harmony import */ var _common_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./common/bootstrap */ \"./wwwroot/app/common/bootstrap.js\");\n!(function webpackMissingModule() { var e = new Error(\"Cannot find module '../common/helpers'\"); e.code = 'MODULE_NOT_FOUND'; throw e; }());\n\n\n\nlet theView = {\n  data: {\n    user: {\n      name: \"\",\n      email: \"\",\n      password: \"\",\n      confirmPassword: \"\"\n    },\n    errorMessage: \"\"\n  },\n  computed: {\n    isPristine: function () {\n      return !(function webpackMissingModule() { var e = new Error(\"Cannot find module '../common/helpers'\"); e.code = 'MODULE_NOT_FOUND'; throw e; }()).isPristine(this.fields);\n    }\n  },\n  methods: {\n    onSubmit() {\n      let me = this;\n      this.$validator.validateAll().then(function (success) {\n        if (!success) {\n          me.errorMessage = \"Please fix validation Issues\";\n          return false;\n        }\n      });\n    },\n\n    created() {\n      this.$set(this, 'errors', this.$validator.errorBag);\n    }\n\n  }\n};\nObject(_common_bootstrap__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(theView, \"#view-join\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi93d3dyb290L2FwcC9qb2luLmpzLmpzIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLy4vd3d3cm9vdC9hcHAvam9pbi5qcz81NmIxIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBWdWUgZnJvbSAndnVlJztcbmltcG9ydCBib290c3RyYXAgZnJvbSBcIi4vY29tbW9uL2Jvb3RzdHJhcFwiO1xuaW1wb3J0IGhlbHBlcnMgZnJvbSBcIi4uL2NvbW1vbi9oZWxwZXJzXCI7XHJcblxubGV0IHRoZVZpZXcgPSB7XHJcbiAgZGF0YToge1xyXG4gICAgdXNlcjoge1xyXG4gICAgICBuYW1lOiBcIlwiLFxyXG4gICAgICBlbWFpbDogXCJcIixcclxuICAgICAgcGFzc3dvcmQ6IFwiXCIsXHJcbiAgICAgIGNvbmZpcm1QYXNzd29yZDogXCJcIlxyXG4gICAgfSxcclxuICAgIGVycm9yTWVzc2FnZTogXCJcIlxyXG4gIH0sXHJcbiAgY29tcHV0ZWQ6IHtcclxuICAgIGlzUHJpc3RpbmU6IGZ1bmN0aW9uICgpIHtcclxuICAgICAgcmV0dXJuIGhlbHBlcnMuaXNQcmlzdGluZSh0aGlzLmZpZWxkcyk7XHJcbiAgICB9XHJcbiAgfSxcclxuICBtZXRob2RzOiB7XHJcbiAgICBvblN1Ym1pdCgpIHtcclxuICAgICAgbGV0IG1lID0gdGhpcztcclxuICAgICAgdGhpcy4kdmFsaWRhdG9yLnZhbGlkYXRlQWxsKCkudGhlbihmdW5jdGlvbiAoc3VjY2Vzcykge1xyXG4gICAgICAgIGlmICghc3VjY2Vzcykge1xyXG4gICAgICAgICAgbWUuZXJyb3JNZXNzYWdlID0gXCJQbGVhc2UgZml4IHZhbGlkYXRpb24gSXNzdWVzXCI7XHJcbiAgICAgICAgICByZXR1cm4gZmFsc2U7XHJcbiAgICAgICAgfVxyXG4gICAgICB9KTtcclxuICAgIH0sXHJcbiAgICBjcmVhdGVkKCkge1xyXG4gICAgICB0aGlzLiRzZXQodGhpcywgJ2Vycm9ycycsIHRoaXMuJHZhbGlkYXRvci5lcnJvckJhZylcclxuICAgIH1cclxuXHJcbiAgfVxyXG5cclxufTtcclxuXG5cblxuYm9vdHN0cmFwKHRoZVZpZXcsIFwiI3ZpZXctam9pblwiKTsgIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQ0E7QUFDQTtBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBSkE7QUFNQTtBQVBBO0FBU0E7QUFDQTtBQUNBO0FBQ0E7QUFIQTtBQUtBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQWJBO0FBZkE7QUFtQ0EiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./wwwroot/app/join.js\n");
-
-/***/ }),
-
 /***/ 0:
-/*!***********************************!*\
-  !*** multi ./wwwroot/app/join.js ***!
-  \***********************************/
+/*!******************************!*\
+  !*** multi ./Client/join.js ***!
+  \******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\projects\CoreCodeCamp\src\CoreCodeCamp\wwwroot\app\join.js */"./wwwroot/app/join.js");
+module.exports = __webpack_require__(/*! D:\projects\CoreCodeCamp\src\CoreCodeCamp\Client\join.js */"./Client/join.js");
 
 
 /***/ }),

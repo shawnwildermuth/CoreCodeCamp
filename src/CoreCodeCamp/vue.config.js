@@ -19,6 +19,10 @@ module.exports = {
     eventInfo: {
       entry: "Client/eventInfo.js",
       filenameHashing: false,
+    },
+    users: {
+      entry: "Client/users.js",
+      filenameHashing: false,
     }
   }
 }

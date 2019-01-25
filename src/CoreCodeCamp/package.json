@@ -42,4 +42,5 @@
     "gulp-util": "~3.0.7",
     "merge-stream": "1.0.1"
   }
+, "-vs-binding":{"ProjectOpened":["watch"]}
 }

@@ -41,48 +41,50 @@ namespace CoreCodeCamp.Data
     {
       try
       {
-        if (_env.IsDevelopment() && _config["Data:IterateDatabase"].ToLower() == "true")
+        if (_env.IsDevelopment())
         {
-          await _ctx.Database.EnsureDeletedAsync();
-          await _ctx.Database.EnsureCreatedAsync();
-        }
-
-        var admin = await _userManager.FindByEmailAsync(_config["Admin:SuperUser:Email"]);
-
-        // If no Admin, then we haven't seeded the database
-        if (admin == null)
-        {
-          admin = new CodeCampUser()
+          if (_config["Data:IterateDatabase"].ToLower() == "true")
           {
-            UserName = _config["Admin:SuperUser:Email"],
-            Email = _config["Admin:SuperUser:Email"],
-            Name = _config["Admin:SuperUser:Name"],
-            EmailConfirmed = true
-          };
-
-          // Create Super User
-          if (!(await _userManager.CreateAsync(admin, _config["Admin:SuperUser:TempPassword"])).Succeeded)
-          {
-            throw new InvalidOperationException("Failed to create Super User");
+            await _ctx.Database.EnsureDeletedAsync();
+            await _ctx.Database.EnsureCreatedAsync();
           }
 
-          if (!(await _roleManager.CreateAsync(new IdentityRole(Consts.ADMINROLE))).Succeeded)
+          var admin = await _userManager.FindByEmailAsync(_config["Admin:SuperUser:Email"]);
+
+          // If no Admin, then we haven't seeded the database
+          if (admin == null)
           {
-            throw new InvalidOperationException("Failed to create Admin Role");
+            admin = new CodeCampUser()
+            {
+              UserName = _config["Admin:SuperUser:Email"],
+              Email = _config["Admin:SuperUser:Email"],
+              Name = _config["Admin:SuperUser:Name"],
+              EmailConfirmed = true
+            };
+
+            // Create Super User
+            if (!(await _userManager.CreateAsync(admin, _config["Admin:SuperUser:TempPassword"])).Succeeded)
+            {
+              throw new InvalidOperationException("Failed to create Super User");
+            }
+
+            if (!(await _roleManager.CreateAsync(new IdentityRole(Consts.ADMINROLE))).Succeeded)
+            {
+              throw new InvalidOperationException("Failed to create Admin Role");
+            }
+
+            // Add to Admin Role
+            if (!(await _userManager.AddToRoleAsync(admin, Consts.ADMINROLE)).Succeeded)
+            {
+              throw new InvalidOperationException("Failed to update Super User Role");
+            }
           }
 
-          // Add to Admin Role
-          if (!(await _userManager.AddToRoleAsync(admin, Consts.ADMINROLE)).Succeeded)
+          EventInfo[] codeCamps;
+          if (!_ctx.CodeCampEvents.Any())
           {
-            throw new InvalidOperationException("Failed to update Super User Role");
-          }
-        }
-
-        EventInfo[] codeCamps;
-        if (!_ctx.CodeCampEvents.Any())
-        {
-          codeCamps = new EventInfo[]
-          {
+            codeCamps = new EventInfo[]
+            {
             new EventInfo()
             {
               Moniker = "2017",
@@ -197,53 +199,54 @@ namespace CoreCodeCamp.Data
                 Link = ""
               }
             }
-          };
+            };
 
-          _ctx.AddRange(codeCamps);
+            _ctx.AddRange(codeCamps);
 
-          await _ctx.SaveChangesAsync();
-        }
-        else
-        {
-          codeCamps = _ctx.CodeCampEvents.ToArray();
-        }
-
-        if (!_ctx.Sponsors.Any())
-        {
-          var sponsor = new Sponsor()
+            await _ctx.SaveChangesAsync();
+          }
+          else
           {
-            Name = "Wilder Minds",
-            Link = "http://wilderminds.com",
-            Event = codeCamps[0],
-            Paid = true,
-            ImageUrl = "/img/2016/sponsors/wilder-minds.jpg",
-            SponsorLevel = "Silver"
-          };
-          _ctx.Add(sponsor);
+            codeCamps = _ctx.CodeCampEvents.ToArray();
+          }
 
-          sponsor = new Sponsor()
+          if (!_ctx.Sponsors.Any())
           {
-            Name = "Wilder Minds",
-            Link = "http://wilderminds.com",
-            Event = codeCamps[1],
-            Paid = true,
-            ImageUrl = "/img/2016/sponsors/wilder-minds.jpg",
-            SponsorLevel = "Silver"
-          };
-          _ctx.Add(sponsor);
+            var sponsor = new Sponsor()
+            {
+              Name = "Wilder Minds",
+              Link = "http://wilderminds.com",
+              Event = codeCamps[0],
+              Paid = true,
+              ImageUrl = "/img/2016/sponsors/wilder-minds.jpg",
+              SponsorLevel = "Silver"
+            };
+            _ctx.Add(sponsor);
+
+            sponsor = new Sponsor()
+            {
+              Name = "Wilder Minds",
+              Link = "http://wilderminds.com",
+              Event = codeCamps[1],
+              Paid = true,
+              ImageUrl = "/img/2016/sponsors/wilder-minds.jpg",
+              SponsorLevel = "Silver"
+            };
+            _ctx.Add(sponsor);
 
 
 
-          _ctx.AddRange(Add2015Sponsors(codeCamps.Where(s => s.Moniker == "2015").First()));
-          _ctx.AddRange(Add2014Sponsors(codeCamps.Where(s => s.Moniker == "2014").First()));
-          _ctx.AddRange(Add2013Sponsors(codeCamps.Where(s => s.Moniker == "2013").First()));
+            _ctx.AddRange(Add2015Sponsors(codeCamps.Where(s => s.Moniker == "2015").First()));
+            _ctx.AddRange(Add2014Sponsors(codeCamps.Where(s => s.Moniker == "2014").First()));
+            _ctx.AddRange(Add2013Sponsors(codeCamps.Where(s => s.Moniker == "2013").First()));
 
-          await _ctx.SaveChangesAsync();
-        }
+            await _ctx.SaveChangesAsync();
+          }
 
-        if (!_ctx.Speakers.Any())
-        {
-          await Migrate();
+          if (!_ctx.Speakers.Any())
+          {
+            await Migrate();
+          }
         }
       }
       catch (Exception ex)

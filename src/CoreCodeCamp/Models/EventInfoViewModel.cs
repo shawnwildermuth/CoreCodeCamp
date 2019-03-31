@@ -13,6 +13,7 @@ namespace CoreCodeCamp.Models
     public string FacebookLink { get; set; }
     public string TwitterLink { get; set; }
     public string InstagramLink { get; set; }
+    public string LinkedinLink { get; set; }
     public string RegistrationLink { get; set; }
 
     public DateTime CallForSpeakersOpened { get; set; }

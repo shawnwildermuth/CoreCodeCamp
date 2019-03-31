@@ -131,6 +131,10 @@
             {
               <a href="@this.GetEventInfo().InstagramLink"><i class="fa fa-instagram"></i></a>
             }
+            @if (!string.IsNullOrWhiteSpace(this.GetEventInfo().LinkedinLink))
+            {
+                <a href="@this.GetEventInfo().LinkedinLink"><i class="fa fa-linkedin"></i></a>
+            }
           </p>
         </div>
       </div>

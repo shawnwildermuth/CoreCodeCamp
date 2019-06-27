@@ -1,9 +1,5 @@
-/// <binding Clean='default' />
+/// <binding Clean='default, clean' ProjectOpened='default' />
 var gulp = require('gulp');
-var uglify = require('gulp-uglify');
-var concat = require('gulp-concat');
-var rename = require("gulp-rename");
-var gutil = require("gulp-util");
 var rimraf = require("gulp-rimraf");
 var merge = require("merge-stream");
 
@@ -82,4 +78,4 @@ gulp.task("scripts", function () {
 
 });
 
-gulp.task('default', ["scripts"]);
+gulp.task('default', gulp.series(["scripts"]));

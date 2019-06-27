@@ -41,6 +41,6 @@
 
   <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
     <Exec Command="npm install" />
-    <Exec Command="gulp" />
+    <Exec Command="gulp scripts" />
   </Target>
 </Project>

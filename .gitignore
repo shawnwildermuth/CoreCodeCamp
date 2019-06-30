@@ -152,6 +152,7 @@ node_modules/
 /*.csv
 /*.cmd
 **/.vs/
+**/wwwroot/js/app/
 
 #############
 ## Windows detritus

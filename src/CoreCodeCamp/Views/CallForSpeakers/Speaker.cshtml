@@ -150,10 +150,10 @@
           </div>
           <div>
             <div class="text-info">{{ infoMessage }}</div>
-            <div v-if="errors.any()">
+            <div v-if="errorMessage">
               <div>Please fix the following errors:</div>
               <ul>
-                <li v-for="error in errors">{{ error[0].msg }}</li>
+                <li>{{ errorMessage }}</li>
               </ul>
             </div>
           </div>

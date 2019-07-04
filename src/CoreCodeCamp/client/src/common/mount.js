@@ -14,8 +14,9 @@ export default function mount(theView, el) {
   validators();
   filters();
   datePicker();
-  Vue.config.errorHandler = function (err, vm, info) {
+  Vue.config.errorHandler = function (err) {
     console.log(err);
   };
+
   new Vue(theView).$mount(el);
 }

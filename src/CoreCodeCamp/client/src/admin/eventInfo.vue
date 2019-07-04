@@ -1,0 +1,341 @@
+<template>
+  <div>
+    <h2>Event Info</h2>
+    <div id="event-info-view" v-cloak>
+      <div v-if="busy"><i class="fa fa-spinner fa-spin"></i> Loading...</div>
+      <div class="row text-left">
+
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+
+            <div class="text-danger" v-if="errorMessage">{{ errorMessage }}</div>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#theEvent" aria-controls="theEvent" role="tab" data-toggle="tab">Event</a></li>
+              <li role="presentation"><a href="#location" aria-controls="location" role="tab" data-toggle="tab">Location</a></li>
+              <li role="presentation"><a href="#tracks" aria-controls="tracks" role="tab" data-toggle="tab">Tracks</a></li>
+              <li role="presentation"><a href="#slots" aria-controls="slots" role="tab" data-toggle="tab">Time Slots</a></li>
+              <li role="presentation"><a href="#rooms" aria-controls="rooms" role="tab" data-toggle="tab">Rooms</a></li>
+            </ul>
+
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane fade in active" id="theEvent">
+                @************************ EventInfoView *************************@
+                <form novalidate data-vv-scope="vEvent" @@submit.prevent="onValidateForm('vEvent')">
+                  <div class="well well-sm">
+                    <div class="form-group" v-bind:class="{ error: errors.has('vEvent.name') }">
+                      <label class="text-danger">Name *</label>
+                      <input v-model="theEvent.name" class="form-control" placeholder="Your Name" name="name" autofocus v-validate="'required|min:5'" />
+                      <div class="help-block">{{ errors.first('vEvent.name') }}</div>
+                    </div>
+                    <div class="form-group" v-bind:class="{ error: errors.first('vEvent.description') }">
+                      <label class="text-danger">Description *</label>
+                      <textarea v-model="theEvent.description" cols="40" rows="6" class="form-control" name="description" v-validate="'required|min:100'"></textarea>
+                      <div class="help-block">{{ errors.first('vEvent.description') }}</div>
+                    </div>
+                    <div class="form-group" v-bind:class="{ error: errors.has('vEvent.moniker') }">
+                      <label class="text-danger">Moniker *</label>
+                      <input v-model="theEvent.moniker" class="form-control" placeholder="The prefix for the website." name="moniker" v-validate="{ rules: { required: true, regex: /^[a-zA-Z0-9-_]+$/ } }" />
+                      <div class="help-block">{{ errors.first('vEvent.moniker') }}</div>
+                    </div>
+                  </div>
+                  <div class="well well-sm">
+                    <div class="form-group" v-bind:class="{ error: errors.has('vEvent.eventDate') }">
+                      <label class="text-danger">Event Date *</label>
+                      <div><datepicker v-model.lazy="theEvent.eventDate" class="form-control" name="eventDate"></datepicker></div>
+                      <div class="help-block">{{ errors.first('vEvent.eventDate') }}</div>
+                    </div>
+                    <div class="form-group" v-bind:class="{ error: errors.has('vEvent.eventLength') }">
+                      <label class="text-danger">Event Length *</label>
+                      <input v-model.number="theEvent.eventLength" class="form-control " name="eventLength" v-validate="'min_value:1'" />
+                      <div class="help-block">{{ errors.first('vEvent.eventLength') }}</div>
+                    </div>
+                    <div class="form-group" v-bind:class="{ error: errors.has('vEvent.callForSpeakersOpened') }">
+                      <label class="text-danger">Call For Speaker Opening Date *</label>
+                      <div><datepicker v-model.lazy="theEvent.callForSpeakersOpened" class="form-control" name="callForSpeakersOpened"></datepicker></div>
+                      <div class="help-block">{{ errors.first('vEvent.callForSpeakersOpened') }}</div>
+                    </div>
+                    <div class="form-group" v-bind:class="{ error: errors.has('vEvent.callForSpeakersClosed') }">
+                      <label class="text-danger">Call For Speaker Closing Date *</label>
+                      <div><datepicker v-model.lazy="theEvent.callForSpeakersClosed" class="form-control" name="callForSpeakersClosed"></datepicker></div>
+                      <div class="help-block">{{ errors.first('vEvent.callForSpeakersClosed') }}</div>
+                    </div>
+                  </div>
+                  <div class="well well-sm">
+                    <div class="form-group" v-bind:class="{ error: errors.has('vEvent.contactEmail') }">
+                      <label class="text-danger">Contact Email *</label>
+                      <input v-model="theEvent.contactEmail" class="form-control" placeholder="Contact Email" name="contactEmail" v-validate="'email'" />
+                      <div class="help-block">{{ errors.first('vEvent.contactEmail') }}</div>
+                    </div>
+                    <div class="form-group" v-bind:class="{ error: errors.has('vEvent.facebookLink') }">
+                      <label>Facebook Link</label>
+                      <input v-model="theEvent.facebookLink" class="form-control" placeholder="Link to a Faceboook Page" name="facebookLink" v-validate="'url'" />
+                      <div class="help-block">{{ errors.first('vEvent.facebookLink') }}</div>
+                    </div>
+                    <div class="form-group" v-bind:class="{ error: errors.has('vEvent.twitterLink') }">
+                      <label>Twitter Link</label>
+                      <input v-model="theEvent.twitterLink" class="form-control" placeholder="Link to Twitter" name="twitterLink" v-validate="'url'" />
+                      <div class="help-block">{{ errors.first('vEvent.twitterLink') }}</div>
+                    </div>
+                    <div class="form-group" v-bind:class="{ error: errors.has('vEvent.instagramLink') }">
+                      <label>Instagram Link</label>
+                      <input v-model="theEvent.instagramLink" class="form-control" placeholder="Link to Instagram" name="instagramLink" v-validate="'url'" />
+                      <div class="help-block">{{ errors.first('vEvent.instagramLink') }}</div>
+                    </div>
+                    <div class="form-group">
+                      <label>EventBrite ID</label>
+                      <input v-model="theEvent.registrationLink" class="form-control" placeholder="Link to Meetup or EventBrite" name="registrationLink" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <input type="button" class="btn btn-success btn-lg" value="Save" v-bind:disabled="errors.any('vEvent')" @@click="onSaveEvent()" />
+                    <p class="text-success" v-if="eventMessage">{{ eventMessage }}</p>
+                  </div>
+
+                </form>
+              </div>
+              <div role="tabpanel" class="tab-pane fade" id="location">
+                @************************ EventLocationView *************************@
+                <form novalidate data-vv-scope="vLocation" @@submit.prevent="onValidateForm('vLocation')">
+                  <div class="well well-sm" v-if="theEvent && theEvent.location">
+                    <div class="form-group">
+                      <label>Facility Name</label>
+                      <input v-model="theEvent.location.facility" class="form-control" placeholder="Name of the facility" name="facility" />
+                    </div>
+                    <div class="form-group">
+                      <label>Address</label>
+                      <input v-model="theEvent.location.address1" class="form-control" placeholder="Address" name="address1" />
+                    </div>
+                    <div class="form-group">
+                      <label>Address (2nd Line)</label>
+                      <input v-model="theEvent.location.address2" class="form-control" placeholder="" name="address2" />
+                    </div>
+                    <div class="form-group">
+                      <label>City</label>
+                      <input v-model="theEvent.location.city" class="form-control" placeholder="City" name="city" />
+                    </div>
+                    <div class="form-group">
+                      <label>State</label>
+                      <input v-model="theEvent.location.stateProvince" class="form-control" placeholder="State" name="stateProvince" />
+                    </div>
+                    <div class="form-group">
+                      <label>Postal Code</label>
+                      <input v-model="theEvent.location.postalCode" class="form-control" placeholder="e.g. 12345" name="postalCode" />
+                    </div>
+                    <div class="form-group">
+                      <label>Country</label>
+                      <input v-model="theEvent.location.country" class="form-control" placeholder="USA" name="country" />
+                    </div>
+                    <div class="form-group" v-bind:class="{ error: errors.has('vLocation.link') }">
+                      <label>Facility Web URL</label>
+                      <input v-model="theEvent.location.link" class="form-control" placeholder="A web address" name="link" v-validate="'url'" />
+                      <div class="help-block">{{ errors.first('vLocation.link') }}</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <input type="button" class="btn btn-success btn-lg" value="Save" v-bind:disabled="errors.any('vLocation')" @@click="onSaveLocation()" />
+                    <p class="text-success" v-if="locationMessage">{{ locationMessage }}</p>
+                  </div>
+                </form>
+              </div>
+
+              <div role="tabpanel" class="tab-pane fade" id="tracks">
+                @************************ TracksView *************************@
+                <table class="table table-condensed table-responsive table-striped">
+                  <thead>
+                    <tr>
+                      <td class="col-md-10">Name</td>
+                      <td class="col-md-2"></td>
+                    </tr>
+                  </thead>
+                  <!-- <tr v-for="track in tracks">
+                  <td>{{ track.name }}</td>
+                  <td><button class="btn btn-sm btn-danger" title="Delete" @@click="onDeleteTrack(track)"><i class="fa fa-remove"></i></button></td>
+                </tr> -->
+                </table>
+                <input v-model="newTrack" name="newTrack" /> <button class="btn btn-success" @@click="onSaveTrack()"><i class="fa fa-plus"></i></button>
+              </div>
+
+              <div role="tabpanel" class="tab-pane fade" id="slots">
+                @************************ SlotsView *************************@
+                <table class="table table-condensed table-responsive table-striped">
+                  <thead>
+                    <tr>
+                      <td class="col-md-10">Time</td>
+                      <td class="col-md-2"></td>
+                    </tr>
+                  </thead>
+                  <tr v-for="timeSlot in timeSlots">
+                    <td>{{ timeSlot.time | formatTime }}</td>
+                    <td><button class="btn btn-sm btn-danger" title="Delete" @@click="onDeleteTimeSlot(timeSlot)"><i class="fa fa-remove"></i></button></td>
+                  </tr>
+                </table>
+                <input v-model="newTimeSlot" name="newTimeSlot" /> <button class="btn btn-success" @@click="onSaveTimeSlot()"><i class="fa fa-plus"></i></button>
+
+              </div>
+              <div role="tabpanel" class="tab-pane fade" id="rooms">
+                @************************ RoomsView *************************@
+                <table class="table table-condensed table-responsive table-striped">
+                  <thead>
+                    <tr>
+                      <td class="col-md-10">Name</td>
+                      <td class="col-md-2"></td>
+                    </tr>
+                  </thead>
+                  <tr v-for="room in rooms">
+                    <td>{{ room.name }}</td>
+                    <td><button class="btn btn-sm btn-danger" title="Delete" @@click="onDeleteRoom(room)"><i class="fa fa-remove"></i></button></td>
+                  </tr>
+                </table>
+                <input v-model="newRoom" name="newRoom" /> <button class="btn btn-success" @@click="onSaveRoom()"><i class="fa fa-plus"></i></button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import Vue from "vue";
+import mount from "../common/mount";
+import dataService from "../common/dataService";
+
+export default {
+  data: {
+    busy: true,
+    theEvent: {},
+    errorMessage: "",
+    eventMessage: "",
+    locationMessage: "",
+    rooms: [],
+    timeSlots: [],
+    tracks: [],
+    newRoom: "",
+    newTrack: "",
+    newTimeSlot: ""
+  },
+  methods: {
+    onSaveEvent() {
+      this.$validator.validateAll("theEvent").then(result => {
+        if (result) {
+          this.busy = true;
+          this.errorMessage = "";
+          this.eventMessage = "Please Wait...";
+          dataService.saveEventInfo(this.theEvent).then(function () {
+            this.eventMessage = "Saved...";
+          }.bind(this), function () {
+            this.eventMessage = "Failed to save changes...";
+          }.bind(this)).finally(() => this.busy = false).bind(this);
+        }
+      }, function () {
+        this.eventMessage = "Please fix any validation errors...";
+      });
+      return false;
+    },
+    onSaveLocation() {
+      this.$validator.validateAll("vLocation").then(result => {
+        if (result) {
+          this.busy = true;
+          this.errorMessage = "";
+          this.locationMessage = "";
+          dataService.saveEventLocation(this.theEvent.location).then(function () {
+            this.locationMessage = "Saved...";
+          }, function () {
+            this.locationMessage = "Failed to save changes...";
+          }).finally(() => this.busy = false);
+        }
+      });
+      return false;
+    },
+    onSaveTrack() {
+      this.busy = true;
+      this.errorMessage = "";
+      dataService.saveTrack(this.newTrack)
+        .then((result) => {
+          this.tracks.push(result.data);
+          this.newTrack = "";
+        }, () => this.errorMessage = "Failed to save track")
+        .finally(() => this.busy = false);
+    },
+
+    onSaveRoom() {
+      this.busy = true;
+      this.errorMessage = "";
+      dataService.saveRoom(this.newRoom)
+        .then((result) => {
+          this.rooms.push(result.data);
+          this.newRoom = "";
+        }, (e) => {
+          this.errorMessage = "Failed to save room";
+        }).finally(() => this.busy = false);
+    },
+    onSaveTimeSlot() {
+      this.busy = true;
+      this.errorMessage = "";
+      dataService.saveTimeSlot(this.newTimeSlot)
+        .then((result) => {
+          this.timeSlots.push(result.data);
+          this.newTimeSlot = "";
+        }, (e) => {
+          this.errorMessage = "Failed to save timeslot";
+        }).finally(() => this.busy = false);
+    },
+
+    onDeleteTrack(track) {
+      this.busy = true;
+      this.errorMessage = "";
+      dataService.deleteTrack(track)
+        .then(() => this.tracks.splice(this.tracks.indexOf(track), 1),
+          () => this.errorMessage = "Failed to delete track")
+        .finally(() => this.busy = false);
+    },
+
+    onDeleteRoom(room) {
+      this.busy = true;
+      this.errorMessage = "";
+      dataService.deleteRoom(room)
+        .then(result => {
+          this.rooms.splice(this.rooms.indexOf(room), 1);
+        }, e => this.errorMessage = "Failed to delete room")
+        .finally(() => this.busy = false);
+    },
+
+    onDeleteTimeSlot(timeSlot) {
+      this.busy = true;
+      this.errorMessage = "";
+      dataService.deleteTimeSlot(timeSlot)
+        .then(result => {
+          this.timeSlots.splice(this.timeSlots.indexOf(timeSlot), 1);
+        }, e => this.errorMessage = "Failed to delete timeslot")
+        .finally(() => this.busy = false);
+    }
+  },
+  computed: {},
+  mounted() {
+    Vue.Promise.all([
+        dataService.getEventInfo(),
+        dataService.getTracks(),
+        dataService.getRooms(),
+        dataService.getTimeSlots(),
+      ])
+      .then(function (result) {
+        this.theEvent = result[0].data;
+        this.timeSlots = result[1].data;
+        this.rooms = result[2].data;
+        this.tracks = result[3].data;
+      }.bind(this), function () {
+        this.errorMessage = "Failed to load data";
+      }.bind(this))
+      .finally(function () {
+        this.busy = false;
+        this.$validator.validateAll('vEvent').then(() => {}).catch(() => {});
+        this.$validator.validateAll('vLocation').then(() => {}).catch(() => {});
+      }.bind(this));
+
+  }
+};
+</script>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using CoreCodeCamp.Data;
@@ -55,7 +56,7 @@ namespace CoreCodeCamp
 
       svcs.AddTransient<IImageStorageService, ImageStorageService>();
 
-      svcs.AddAutoMapper();
+      svcs.AddAutoMapper(Assembly.GetEntryAssembly());
 
       // Configure Identity (Security)
       svcs.AddIdentity<CodeCampUser, IdentityRole>(config =>
@@ -80,6 +81,7 @@ namespace CoreCodeCamp
         {
           opt.Filters.Add(new RequireHttpsAttribute());
         }
+        opt.EnableEndpointRouting = false;
       }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
     }
 

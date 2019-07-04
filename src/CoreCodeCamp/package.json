@@ -2,17 +2,12 @@
   "version": "1.0.0",
   "name": "asp.net",
   "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "watch": "vue-cli-service build --mode development --watch"
-  },
   "dependencies": {
     "bootstrap": "3.4.0",
     "font-awesome": "v4.7.0",
-    "jquery": "3.3.1",
-    "jquery-backstretch": "git+https://github.com/jquery-backstretch/jquery-backstretch.git",
-    "jquery-ui": "^1.12.1",
+    "jquery": "2.2.4",  
+    "jquery-backstretch": "2.1.17",
+    "jquery-ui-dist": "1.12.1",
     "jquery-validation": "1.14.0",
     "jquery-validation-unobtrusive": "3.2.6",
     "jquery-waypoints": "2.0.5",
@@ -27,14 +22,7 @@
     "wowjs": "1.1.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.3.0",
-    "@babel/plugin-proposal-class-properties": "7.3.0",
-    "@vue/cli-service": "^3.3.1",
-    "less": "^3.0.4",
-    "less-loader": "^4.1.0",
-    "vue-cli-plugin-source-dir": "0.1.0",
-    "vue-template-compiler": "2.5.22",
-    "gulp": "^3.9.1",
+    "gulp": "4.0.2",
     "gulp-bower-files": "~0.2.7",
     "gulp-concat": "~2.6.0",
     "gulp-rename": "^1.2.3",
@@ -42,10 +30,5 @@
     "gulp-uglify": "~1.5.3",
     "gulp-util": "~3.0.7",
     "merge-stream": "1.0.1"
-  },
-  "-vs-binding": {
-    "ProjectOpened": [
-      "watch"
-    ]
   }
 }

@@ -5,6 +5,8 @@ import SpeakerInfoView from "./speakerInfoView";
 import SpeakerEditorView from "./speakerEditorView";
 import SpeakerTalkEditorView from "./speakerTalkEditorView";
 
+Vue.use(VueRouter);
+
 let routes = [
   { path: "/", redirect: { name: "info" } },
   { path: "/info", name: "info", component: SpeakerInfoView },

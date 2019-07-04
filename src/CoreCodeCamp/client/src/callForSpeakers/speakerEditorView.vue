@@ -77,7 +77,7 @@
             <div v-if="errors.any()">
               <div>Please fix the following errors:</div>
               <ul>
-                <li v-for="(error, id) in errors" :key="id">{{ error[0].msg }}</li>
+                <li v-for="(error, id) in errors" :key="id">{{ error && error.length && error[0].msg ? error[0].msg : error }}</li>
               </ul>
             </div>
           </div>

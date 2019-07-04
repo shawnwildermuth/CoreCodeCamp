@@ -135,7 +135,7 @@ namespace CoreCodeCamp.Controllers.Api
           }
         }
 
-        return Ok(true);
+        return Ok(talk.Approved);
       }
       catch (Exception ex)
       {

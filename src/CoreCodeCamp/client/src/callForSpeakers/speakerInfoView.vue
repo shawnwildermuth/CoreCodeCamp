@@ -96,7 +96,7 @@ export default {
     onDeleteTalk(talk) {
       this.busy = true;
       this.errorMessage = "";
-      CodeCamp.speakerData
+      speakerData
         .deleteTalk(talk)
         .then(() => {}, () => (this.errorMessage = "Failed to delete talk"))
         .finally(() => (this.busy = false));

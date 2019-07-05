@@ -53,5 +53,31 @@ export default {
           this.commit("clearBusy");
         });
     }
-  }
+  },
+  async addCamp({ commit }, camp) {
+    let svc = new AdminDataService();
+    var response = await svc.addEventInfo(camp);
+    commit("addCamp", response.data);
+    commit("setCurrentCamp", response.data);
+  },
+  updateCamp({ commit }, camp) {
+    let svc = new AdminDataService(camp.moniker);
+    let promise = Vue.Promise((res, rej) => {
+      svc.saveEventInfo(camp)
+        .then(() => {
+          svc.saveEventLocation(camp.location)
+            .then(() => {
+              commit("updateCamp", camp);
+              commit("setCurrentCamp", camp);
+              res();
+            })
+            .catch(e => rej(e));
+        })
+        .catch(err => {
+          rej(err);
+        });
+    });
+
+    return promise;
+  },
 }

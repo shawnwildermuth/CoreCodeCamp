@@ -105,7 +105,6 @@
 </template>
 
 <script>
-import Vue from "vue";
 import speakerData from "./speakerData";
 import routes from "./routes";
 import helpers from "../common/helpers";
@@ -129,10 +128,10 @@ export default {
           speakerData
             .saveTalk(this.talk)
             .then(
-              function(result) {
+              () => {
                 routes.router.push({ name: "info" });
               },
-              function(err) {
+              (err) => {
                 this.errorMessage = "Failed to save speaker: " + err.bodyText;
               }
             )
@@ -142,7 +141,7 @@ export default {
     }
   },
   computed: {
-    isPristine: function() {
+    isPristine: () => {
       return helpers.isPristine(this.fields);
     }
   },

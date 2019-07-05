@@ -98,12 +98,9 @@
 </template>
 
 <script>
-import Vue from "vue";
 import speakerData from "./speakerData";
 import dataService from "../common/dataService";
 import routes from "./routes";
-import helpers from "../common/helpers";
-import _ from "lodash";
 import imageUploadService from "../common/imageUploadService";
 
 export default {
@@ -139,9 +136,9 @@ export default {
             )
 
             .finally(
-              function() {
+              () => {
                 this.busy = false;
-              }.bind(this)
+              }
             );
         }
       });
@@ -174,14 +171,14 @@ export default {
   },
   mounted() {
     speakerData.getSpeaker().then(
-      function(skr) {
+      (skr) => {
         if (skr) this.speaker = skr;
         this.busy = false;
-      }.bind(this),
-      function() {
+      },
+      () => {
         this.errorMessage = "Failed to load speaker";
         this.busy = false;
-      }.bind(this)
+      }
     );
   }
 };

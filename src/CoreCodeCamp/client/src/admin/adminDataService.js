@@ -36,8 +36,8 @@ class AdminDataService {
     return this.http.put("/api/events/" + this.moniker + "/location", location);
   }
 
-  addEventInfo(moniker) {
-    return this.http.post("/api/events/" + moniker, { moniker: moniker });
+  addEventInfo(moniker, eventInfo) {
+    return this.http.post("/api/events/" + eventInfo.moniker, eventInfo);
   }
 
   // Sponsors

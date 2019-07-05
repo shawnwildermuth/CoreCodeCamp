@@ -12,19 +12,19 @@
     </div>
     <ul class="nav nav-tabs" role="tabpanel" aria-label="Tabs">
       <li>
-        <router-link to="admin">Camp Info</router-link>
+        <router-link :to="{ name: 'admin' }">Camp Info</router-link>
       </li>
       <li>
-        <router-link to="users">Users</router-link>
+        <router-link :to="{ name: 'users' }">Users</router-link>
       </li>
       <li>
-        <router-link to="talks">Talks</router-link>
+        <router-link :to="{ name: 'talks' }">Talks</router-link>
       </li>
       <li>
-        <router-link to="schedule">Scheduling</router-link>
+        <router-link :to="{ name: 'schedule' }">Scheduling</router-link>
       </li>
       <li>
-        <router-link to="sponsors">Sponsors</router-link>
+        <router-link :to="{ name: 'sponsors' }">Sponsors</router-link>
       </li>
     </ul>
     <div class="panel panel-default">

@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 export default {
   setCamps(state, camps) { state.camps = camps },
   setCurrentCamp(state, camp) { state.currentCamp = camp; },
@@ -14,4 +16,9 @@ export default {
   setUserConfirmation(state, { user, value }) { user.isEmailConfirmed = value; },
   setTalkApproved(state, {talk, value}) { talk.approved = value; },
   setTalkSort(state, value) { state.talkSort = value; },
+  addCamp(state, value) { state.camps.push(value); },
+  updateCamp(state, camp) {
+    var index = _.findIndex(state.camps, c => c.id);
+    if (index > -1) state.camps.splice(index, 1, camp); 
+  }
 }

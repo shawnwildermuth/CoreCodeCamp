@@ -54,5 +54,14 @@
 </div>
 
 @section Scripts {
-  <script src="~/js/app/join.js"></script>
+  <environment names="Development">
+    <script src="~/js/app/join.js"></script>
+  </environment>
+  <environment names="Staging,Production">
+    <script src="~/js/app/js/chunk-vendors.js"></script>
+    <script src="~/js/app/js/join.js"></script>
+  </environment>
+}
+@section Head {
+  <link href="~/js/app/css/chunk-vendors.css" rel="stylesheet" />
 }

@@ -3,9 +3,17 @@
   ViewData["Title"] = "Speaker Info";
 }
 @section Scripts {
-  <script src="/js/app/callforspeakers.js"></script>
+  <environment names="Development">
+    <script src="/js/app/callforspeakers.js"></script>
+  </environment>
+  <environment names="Staging,Production">
+    <script src="~/js/app/js/chunk-vendors.js"></script>
+    <script src="/js/app/js/callforspeakers.js"></script>
+  </environment>
 }
-
+@section Head {
+  <link href="~/js/app/css/chunk-vendors.css" rel="stylesheet" />
+}
 <div id="call-for-speaker-view">
   <div class="row">
     <h2>Call for Speakers</h2>

@@ -3,7 +3,17 @@
   ViewData["Title"] = "Administration";
 }
 @section Scripts {
-  <script src="/js/app/admin.js"></script>
+  <environment names="Development">
+    <script src="/js/app/admin.js"></script>
+  </environment>
+  <environment names="Staging,Production">
+    <script src="~/js/app/js/chunk-vendors.js"></script>
+    <script src="/js/app/js/admin.js"></script>
+  </environment>
+}
+@section Head {
+  <link href="~/js/app/css/chunk-vendors.css" rel="stylesheet" />
+  <link href="~/js/app/css/admin.css" rel="stylesheet" />
 }
 <h2>Admin Page</h2>
 <div id="admin-view">

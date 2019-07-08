@@ -5,7 +5,7 @@
   "dependencies": {
     "bootstrap": "3.4.0",
     "font-awesome": "v4.7.0",
-    "jquery": "2.2.4",  
+    "jquery": "2.2.4",
     "jquery-backstretch": "2.1.17",
     "jquery-ui-dist": "1.12.1",
     "jquery-validation": "1.14.0",

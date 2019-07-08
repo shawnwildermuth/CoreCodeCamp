@@ -3,7 +3,7 @@ import _ from "lodash";
 import AdminDataService from "../adminDataService";
 
 export default {
-  loadCamps({commit}) {
+  loadCamps({ commit }) {
     commit("setBusy");
     commit("setError", "");
     let dataService = new AdminDataService();
@@ -24,7 +24,7 @@ export default {
     };
     commit("setSummary", summary);
   },
-  setCampFromMoniker({state, commit, dispatch}, moniker) {
+  setCampFromMoniker({ state, commit, dispatch }, moniker) {
     let camp = _.find(state.camps, c => c.moniker == moniker);
     if (camp) {
       let dataService = new AdminDataService(camp.moniker);
@@ -55,11 +55,17 @@ export default {
         });
     }
   },
-  async addCamp({ commit }, camp) {
+  addCamp({ commit }, camp) {
     let svc = new AdminDataService();
-    var response = await svc.addEventInfo(camp);
-    commit("addCamp", response.data);
-    commit("setCurrentCamp", response.data);
+    commit("setError", "");
+    commit("setBusy");
+    svc.addEventInfo(camp.moniker, camp)
+      .then(response => {
+        commit("addCamp", response.data);
+        commit("setCurrentCamp", response.data);
+      })
+      .catch(() => commit("setError", "Failed to update camp"))
+      .finally(() => commit("clearBusy"));
   },
   updateCamp({ commit }, camp) {
     let svc = new AdminDataService(camp.moniker);

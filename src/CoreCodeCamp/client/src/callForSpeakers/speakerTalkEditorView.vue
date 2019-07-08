@@ -141,7 +141,7 @@ export default {
     }
   },
   computed: {
-    isPristine: () => {
+    isPristine() {
       return helpers.isPristine(this.fields);
     }
   },

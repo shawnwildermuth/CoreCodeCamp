@@ -248,7 +248,7 @@ export default {
   },
   computed: mapState(["currentCamp"]),
   methods: {
-    ...mapActions(["updateCamp", "saveCamp"]),
+    ...mapActions(["updateCamp", "addCamp"]),
     onSave: function() {
       this.$validator.validateAll("theEvent").then(
         result => {
@@ -259,7 +259,7 @@ export default {
                 this.$router.push("/");
               });
             } else {
-              this.saveCamp(this.theEvent).then(() => {
+              this.addCamp(this.theEvent).then(() => {
                 this.campMessage = "Saved...";
                 this.$router.push("/");
               });

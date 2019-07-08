@@ -42,5 +42,7 @@
   <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
     <Exec Command="npm install" />
     <Exec Command="gulp scripts" />
+    <Exec Command="npm install" WorkingDirectory="$(MSBuildProjectDirectory)\\client" />
+    <Exec Command="npm run build" WorkingDirectory="$(MSBuildProjectDirectory)\\client" />
   </Target>
 </Project>

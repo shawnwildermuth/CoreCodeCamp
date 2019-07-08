@@ -1,6 +1,7 @@
 ﻿<template>
   <div>
-    <h3>Talks</h3>
+    <h3>Schedule</h3>
+    <p>Will be completed by close of Call for Speakers</p>
     <!-- <div class="col-md-12">
       <div v-show="busy"><i class="fa fa-spin fa-spinner"></i> Please wait...</div>
       <span v-show="errorMessage" class="text-danger">{{ errorMessage }}</span>

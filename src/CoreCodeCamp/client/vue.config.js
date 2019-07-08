@@ -3,6 +3,7 @@ module.exports = {
   outputDir: "../wwwroot/js/app/",
   filenameHashing: false,
   runtimeCompiler: true,
+  productionSourceMap: false,
   pages: {
     join: {
       entry: "src/join.js",

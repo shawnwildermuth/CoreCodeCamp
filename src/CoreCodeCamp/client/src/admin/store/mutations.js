@@ -7,6 +7,7 @@ export default {
   setCurrentCamp(state, camp) { state.currentCamp = camp; },
   setBusy(state) { state.isBusy = true; },
   clearBusy(state) { state.isBusy = false; },
+  setError(state, errorState) { state.errorState = errorState; },
   setTalks(state, talks) { state.talks = talks },
   setRooms(state, rooms) { state.rooms = rooms },
   setTracks(state, tracks) { state.tracks = tracks },
@@ -25,6 +26,10 @@ export default {
   deleteSponsor(state, sponsor) {
     var index = _.findIndex(state.sponsors, s => s.id == sponsor.id);
     if (index > -1) state.sponsors.splice(index, 1);
+  },
+  updateSponsor(state, sponsor) {
+    var index = _.findIndex(state.sponsors, s => s.id == sponsor.id);
+    if (index > -1) state.sponsors.splice(index, 1, sponsor);
   },
   addCamp(state, value) { state.camps.push(value); },
   updateCamp(state, camp) {

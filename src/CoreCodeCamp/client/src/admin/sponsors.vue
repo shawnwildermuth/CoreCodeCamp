@@ -3,7 +3,7 @@
     <h3>Sponsors</h3>
     <div v-cloak>
       <div>
-        <button class="btn btn-success" @click="onNew()">New Sponsor</button>
+        <router-link class="btn btn-success" :to="{ name: 'sponsorEditor', params: { type: 'new' } }">New Sponsor</router-link>
       </div>
       <table class="table table-striped table-bordered table-hover">
         <thead>
@@ -23,7 +23,7 @@
                   class="btn btn-primary"
                   @click="toggleSponsorPaid(sponsor)"
                 >Toggle Paid</button>
-                <button class="btn btn-primary" @click="onEdit(sponsor)">Edit</button>
+                <router-link class="btn btn-primary" :to="{ name: 'sponsorEditor', params: { type: 'edit',  id: sponsor.id } }">Edit</router-link>
                 <button class="btn btn-danger" @click="deleteSponsor(sponsor)">Delete</button>
               </div>
             </td>
@@ -39,25 +39,9 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   computed: {
-    validImage: function() {
-      return this.currentSponsor &&
-        this.currentSponsor.imageUrl &&
-        this.currentSponsor.imageUrl.length > 0
-        ? true
-        : false;
-    },
     ...mapState(["sponsors"])
   },
   methods: {
-    onEdit(sponsor) {
-      sponsor();
-      // this.currentSponsor = sponsor;
-      // this.$validator.validateAll();
-    },
-    // onNew() {
-    //   this.currentSponsor = {};
-    //   this.$validator.validateAll();
-    // },
     ...mapActions(["deleteSponsor", "toggleSponsorPaid"])
   }
 };

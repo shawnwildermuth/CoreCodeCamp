@@ -42,10 +42,12 @@ namespace CoreCodeCamp
       if (_env.IsProduction())
       {
         svcs.AddScoped<IMailService, SendGridMailService>();
+        svcs.AddTransient<IImageStorageService, ImageStorageService>();
       }
       else
       {
         svcs.AddScoped<IMailService, DebugMailService>();
+        svcs.AddTransient<IImageStorageService, DebugImageStorageService>();
       }
 
       // Add framework services.
@@ -54,7 +56,7 @@ namespace CoreCodeCamp
       svcs.AddTransient<CodeCampSeeder>();
       svcs.AddTransient<ViewRenderer>();
 
-      svcs.AddTransient<IImageStorageService, ImageStorageService>();
+
 
       svcs.AddAutoMapper(Assembly.GetEntryAssembly());
 

@@ -7,6 +7,7 @@ import CampEditor from "./campEditor";
 import Schedule from "./schedule";
 import Sponsors from "./sponsors";
 import Users from "./users";
+import SponsorEditor from "./sponsorEditor";
 
 Vue.use(VueRouter);
 
@@ -16,6 +17,7 @@ let routes = [
   { path: "/camp/edit/:type", name: "campEditor", component: CampEditor },
   { path: "/schedule", name: "schedule", component: Schedule},
   { path: "/sponsors", name: "sponsors", component: Sponsors },
+  { path: "/sponsors/edit/:type", name: "sponsorEditor", component: SponsorEditor, props: true },
   { path: "/users", name: "users", component: Users},
   { path: "*", redirect: { name: "admin" } }
 ];

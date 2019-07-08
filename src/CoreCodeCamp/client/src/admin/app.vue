@@ -3,7 +3,7 @@
     <div class="wait-cursor" v-if="isBusy">
       <i class="fa fa-gear fa-spin"></i> Please Wait...
     </div>
-    <div class="alert alert-warning" v-if="error">{{ error }}</div>
+    <div class="alert alert-warning" v-if="errorState">{{ errorState }}</div>
     <div>
       <label>Pick a Camp:</label>
       <select @changed="onCampChange()" v-model="moniker">
@@ -43,7 +43,7 @@ export default {
       moniker: ""
     };
   },
-  computed: mapState(["error", "camps", "isBusy"]),
+  computed: mapState(["errorState", "camps", "isBusy"]),
   mounted() {
     this.loadCamps().then(() => {
       this.setCampFromMoniker(this.camps[0].moniker);

@@ -1,174 +1,64 @@
 <template>
   <div>
-    <h2>Sponsors</h2>
-    <div id="sponsors-view">
-
-      <div class="row" v-cloak>
-        <div class="col-md-6 text-left">
-          <div v-if="busy"><i class="fa fa-spin fa-spinner"></i> Please wait...</div>
-          <div v-if="errorMessage" class="text-danger">{{ errorMessage }}</div>
-          <div class="row">
-            <table class="table table-striped table-bordered table-hover table-condensed">
-              <thead>
-                <tr>
-                  <td class="col-md-6">Name</td>
-                  <td class="col-md-2">Paid?</td>
-                  <td class="col-md-4"></td>
-                </tr>
-              </thead>
-              <tr v-for="sponsor in sponsors">
-                <td>{{sponsor.name}}</td>
-                <td>{{sponsor.paid ? "Yes" : "No" }}</td>
-                <td>
-                  <div class="btn-group">
-                    <button class="btn btn-sm btn-primary" @@click="onTogglePaid(sponsor)">Toggle Paid</button>
-                    <button class="btn btn-sm btn-primary" @@click="onEdit(sponsor)">Edit</button>
-                    <button class="btn btn-sm btn-danger" @@click="onDelete(sponsor)">Delete</button>
-                  </div>
-                </td>
-              </tr>
-            </table>
-            <div class="row">
-              <button class="btn btn-success" @@click="onNew()">New Sponsor</button>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 text-left">
-          <div class="row " v-if="currentSponsor">
-            <div class="well">
-              <form novalidate>
-                <div v-if="busy"><i class="fa fa-spin fa-spinner"></i> Please wait...</div>
-                <div class="text-danger">{{ errorMessage }}</div>
-                <div class="form-group" v-bind:class="{ 'has-error': errors.has('name') }">
-                  <label class="text-danger">Sponsor Name *</label>
-                  <input v-model="currentSponsor.name" class="form-control" placeholder="Sponsor Name" name="name" v-validate="'required|min:5'" />
-                  <div class="help-block">{{ errors.first('name') }}</div>
-                </div>
-                <div class="form-group" v-bind:class="{ 'has-error': errors.has('link') }">
-                  <label class="text-danger">Link *</label>
-                  <input v-model="currentSponsor.link" class="form-control" placeholder="Sponsor Website Link" name="link" v-validate="'required|url'" />
-                  <div class="help-block">{{ errors.first('link') }}</div>
-                </div>
-                <div class="form-group" v-bind:class="{ 'has-error': errors.has('sponsorLevel') }">
-                  <label class="text-danger">Sponsor Level *</label>
-                  <select v-model="currentSponsor.sponsorLevel" class="form-control" name="sponsorLevel" v-validate="'required'">
-                    <option>Silver</option>
-                    <option>Gold</option>
-                    <option>Platinum</option>
-                    <option>Swag</option>
-                    <option>Attendee Party</option>
-                    <option>Speaker Dinner</option>
-                    <option>Attendee Shirts</option>
-                    <option>Speaker Shirts</option>
-                  </select>
-                  <div class="help-block">{{ errors.first('sponsorLevel') }}</div>
-                </div>
-                <div class="form-group" id="imagePicker">
-                  <div><img :src="currentSponsor.imageUrl ? currentSponsor.imageUrl : '/img/sponsor-placeholder.jpg'" alt="" class="img-responsive img-thumbnail" :class="{ invalidHeadshot: !validImage }"></div>
-                  <a @@click="onShowPicker()" class="btn btn-primary" href="#">Pick Logo</a>
-                  <input type="file" id="thePicker" class="hidden" accept=".jpg; .jpeg; .png;" @@change="onImagePicked()" />
-                  <div class="text-muted text-sm">.jpg and .png only. Will be resized to 300x88 pixels.</div>
-                  <div class="text-danger" v-if="!validImage">* Logo required. </div>
-                  <div class="text-danger" v-if="imageError">{{ imageError }}</div>
-                </div>
-                <div class="form-group">
-                  <button @@click.prevent="onSave()" class="btn btn-success" v-bind:disabled="errors.any() || !validImage">Save</button>
-
-                  <a @@click="onCancel()" class="btn btn-default">Cancel</a>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+    <h3>Sponsors</h3>
+    <div v-cloak>
+      <div>
+        <button class="btn btn-success" @click="onNew()">New Sponsor</button>
       </div>
-
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th class="col-md-8">Name</th>
+            <th class="col-md-1">Paid?</th>
+            <th class="col-md-3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="sponsor in sponsors" :key="sponsor.name">
+            <td>{{sponsor.name}}</td>
+            <td>{{sponsor.paid ? "Yes" : "No" }}</td>
+            <td class="text-center">
+              <div class="btn-group">
+                <button
+                  class="btn btn-primary"
+                  @click="toggleSponsorPaid(sponsor)"
+                >Toggle Paid</button>
+                <button class="btn btn-primary" @click="onEdit(sponsor)">Edit</button>
+                <button class="btn btn-danger" @click="deleteSponsor(sponsor)">Delete</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
 <script>
 // External JS Libraries
-import Vue from "vue";
-const $ = require("jquery");
-import mount from "../common/mount";
-import dataService from "../common/dataService";
-import imageUploadService from "../common/imageUploadService";
+import { mapState, mapActions } from "vuex";
 
 export default {
-  data: {
-    busy: true,
-    sponsors: [],
-    currentSponsor: null,
-    errorMessage: "",
-    userMessage: "",
-    imageError: ""
-  },
   computed: {
-    validImage: function () {
-      return (this.currentSponsor && this.currentSponsor.imageUrl && this.currentSponsor.imageUrl.length > 0) ? true : false;
+    validImage: function() {
+      return this.currentSponsor &&
+        this.currentSponsor.imageUrl &&
+        this.currentSponsor.imageUrl.length > 0
+        ? true
+        : false;
     },
-    isPristine: function () {
-      return
-    }
+    ...mapState(["sponsors"])
   },
   methods: {
-    onTogglePaid(sponsor) {
-      this.busy = true;
-      dataService.togglePaid(sponsor)
-        .then(() => sponsor.paid = !sponsor.paid, () => this.errorMessage = "Could not toggle paid")
-        .finally(() => this.busy = false);
-    },
     onEdit(sponsor) {
-      this.currentSponsor = sponsor;
-      this.$validator.validateAll();
+      sponsor();
+      // this.currentSponsor = sponsor;
+      // this.$validator.validateAll();
     },
-    onDelete(sponsor) {
-      this.busy = true;
-      dataService.deleteSponsor(sponsor)
-        .then(() => this.sponsors.splice(this.sponsors.indexOf(sponsor), 1), () => this.errorMessage = "Could not delete sponsor")
-        .finally(() => this.busy = false);
-    },
-    onNew() {
-      this.currentSponsor = {};
-      this.$validator.validateAll();
-    },
-    onSave() {
-
-      var old = this.sponsors.indexOf(this.currentSponsor);
-      if (old > -1) this.sponsors.splice(this.sponsors.indexOf(this.currentSponsor), 1);
-      this.busy = true;
-
-      dataService.saveSponsor(this.currentSponsor)
-        .then(res => {
-          this.sponsors.push(res.data);
-          this.currentSponsor = null;
-        }, () => this.errorMessage = "Could not save sponsor")
-        .finally(() => this.busy = false);
-    },
-    onCancel() {
-      this.currentSponsor = null;
-    },
-    onImagePicked(filePicker) {
-      this.busy = true;
-      let file = $("#thePicker")[0].files[0];
-      imageUploadService.uploadSponsor(file)
-        .then((imageUrl) => {
-          Vue.set(this.currentSponsor, "imageUrl", imageUrl);
-        }, (e) => this.errorMessage = "Failed to upload Image")
-        .finally(() => this.busy = false);
-    },
-    onShowPicker() {
-      $("#thePicker").click();
-    }
-  },
-  mounted() {
-    dataService.getSponsors()
-      .then(result => {
-        this.sponsors = result.data;
-        this.currentSponsor = null;
-      }, () => this.errorMessage = "Failed to load data")
-      .finally(() => this.busy = false);
-
+    // onNew() {
+    //   this.currentSponsor = {};
+    //   this.$validator.validateAll();
+    // },
+    ...mapActions(["deleteSponsor", "toggleSponsorPaid"])
   }
 };
-
 </script>

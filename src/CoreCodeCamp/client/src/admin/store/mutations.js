@@ -1,7 +1,9 @@
 import _ from "lodash";
 
 export default {
-  setCamps(state, camps) { state.camps = camps },
+  setCamps(state, camps) {
+    state.camps = camps
+  },
   setCurrentCamp(state, camp) { state.currentCamp = camp; },
   setBusy(state) { state.isBusy = true; },
   clearBusy(state) { state.isBusy = false; },
@@ -14,11 +16,19 @@ export default {
   setUsers(state, users) { state.users = users },
   setUserAdmin(state, { user, value }) { user.isAdmin = value; },
   setUserConfirmation(state, { user, value }) { user.isEmailConfirmed = value; },
-  setTalkApproved(state, {talk, value}) { talk.approved = value; },
+  setTalkApproved(state, { talk, value }) { talk.approved = value; },
   setTalkSort(state, value) { state.talkSort = value; },
+  setSponsorIsPaid(state, { sponsor, value }) {
+    sponsor.paid = value;
+  },
+  addSponsor(state, sponsor) { state.sponsors.push(sponsor); },
+  deleteSponsor(state, sponsor) {
+    var index = _.findIndex(state.sponsors, s => s.id == sponsor.id);
+    if (index > -1) state.sponsors.splice(index, 1);
+  },
   addCamp(state, value) { state.camps.push(value); },
   updateCamp(state, camp) {
-    var index = _.findIndex(state.camps, c => c.id);
-    if (index > -1) state.camps.splice(index, 1, camp); 
+    var index = _.findIndex(state.camps, c => c.id == camp.id);
+    if (index > -1) state.camps.splice(index, 1, camp);
   }
 }

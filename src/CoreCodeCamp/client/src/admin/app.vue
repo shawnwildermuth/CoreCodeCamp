@@ -1,7 +1,7 @@
 ﻿<template>
   <div class="text-left">
-    <div class="alert alert-info" v-if="isBusy">
-      <i class="fa fa-gear fa-spin"></i> Loading...
+    <div class="wait-cursor" v-if="isBusy">
+      <i class="fa fa-gear fa-spin"></i> Please Wait...
     </div>
     <div class="alert alert-warning" v-if="error">{{ error }}</div>
     <div>
@@ -69,10 +69,21 @@ export default {
 }
 .nav-tabs > li a {
   color: #ffffff;
-  background-color: #888;
+  background-color: #4444ff;
 }
-.nav-tabs li a.router-link-active {
+.nav-tabs li a.router-link-active.router-link-exact-active {
   color: #222;
-  background-color: #eee;
+  background-color: #aaaaff;
+}
+
+.wait-cursor {
+  background: rgba(0, 0, 0, 0.1);
+  position: absolute;
+  z-index: 999;
+  top: 35px;
+  padding: 10px;
+  left: 1px;
+  font-size: 33px;
+  color: #222;
 }
 </style>

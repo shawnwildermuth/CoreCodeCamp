@@ -46,7 +46,6 @@
         <div>
           <img
             :src="theSponsor.imageUrl ? theSponsor.imageUrl : '/img/sponsor-placeholder.jpg'"
-            alt
             class="img-responsive img-thumbnail"
             :class="{ invalidHeadshot: !validImage }"
           />
@@ -114,7 +113,7 @@ export default {
   methods: {
     onImagePicked() {
       let file = $("#thePicker")[0].files[0];
-      imageUploadService.uploadSponsor(file).then(
+      imageUploadService.uploadSponsor(file, this.$store.state.currentCamp.moniker).then(
         imageUrl => {
           Vue.set(this.theSponsor, "imageUrl", imageUrl);
         },

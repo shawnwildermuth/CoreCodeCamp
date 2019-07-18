@@ -42,11 +42,18 @@ namespace CoreCodeCamp
       if (_env.IsProduction())
       {
         svcs.AddScoped<IMailService, SendGridMailService>();
-        svcs.AddTransient<IImageStorageService, ImageStorageService>();
       }
       else
       {
         svcs.AddScoped<IMailService, DebugMailService>();
+      }
+
+      if (_env.IsProduction() || _env.IsStaging())
+      {
+        svcs.AddTransient<IImageStorageService, ImageStorageService>();
+      }
+      else
+      {
         svcs.AddTransient<IImageStorageService, DebugImageStorageService>();
       }
 

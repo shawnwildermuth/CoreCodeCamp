@@ -35,5 +35,15 @@ export default {
   updateCamp(state, camp) {
     var index = _.findIndex(state.camps, c => c.id == camp.id);
     if (index > -1) state.camps.splice(index, 1, camp);
+  },
+  addRoom(state, value) { state.rooms.push(value); },
+  removeRoom(state, room) { 
+    var index = _.findIndex(state.rooms, c => c.id === room.id);
+    if (index > -1) state.rooms.splice(index, 1);
+  },
+  setRoomName(state, value) { value.room.name = value.value; },
+  addTimeslot(state, value) { state.timeSlots.push(value); },
+  updateTimeslot(state, value) {
+    value.timeslot.time = value.value; 
   }
 }

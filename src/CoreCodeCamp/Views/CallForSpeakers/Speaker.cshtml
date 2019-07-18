@@ -7,12 +7,14 @@
     <script src="/js/app/callforspeakers.js"></script>
   </environment>
   <environment names="Staging,Production">
-    <script src="~/js/app/js/chunk-vendors.js"></script>
-    <script src="/js/app/js/callforspeakers.js"></script>
+    <script src="~/js/app/js/chunk-vendors.js" asp-append-version="true" ></script>
+    <script src="/js/app/js/callforspeakers.js" asp-append-version="true" ></script>
   </environment>
 }
 @section Head {
-  <link href="~/js/app/css/chunk-vendors.css" rel="stylesheet" />
+  <environment names="Staging,Production">
+    <link href="~/js/app/css/chunk-vendors.css" rel="stylesheet" asp-append-version="true" />
+  </environment>
 }
 <div id="call-for-speaker-view">
   <div class="row">

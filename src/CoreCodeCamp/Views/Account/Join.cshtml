@@ -58,10 +58,12 @@
     <script src="~/js/app/join.js"></script>
   </environment>
   <environment names="Staging,Production">
-    <script src="~/js/app/js/chunk-vendors.js"></script>
-    <script src="~/js/app/js/join.js"></script>
+    <script src="~/js/app/js/chunk-vendors.js" asp-append-version="true"></script>
+    <script src="~/js/app/js/join.js" asp-append-version="true"></script>
   </environment>
 }
 @section Head {
-  <link href="~/js/app/css/chunk-vendors.css" rel="stylesheet" />
+  <environment names="Staging,Production">
+    <link href="~/js/app/css/chunk-vendors.css" rel="stylesheet" asp-append-version="true" />
+  </environment>
 }

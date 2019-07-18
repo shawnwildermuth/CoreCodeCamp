@@ -87,6 +87,10 @@ class AdminDataService {
     return this.http.put(this.baseUrl() + "talks/" + talk.id + "/toggleApproved", talk);
   }
 
+  updateRoomName(room, name) {
+    return this.http.put(this.baseUrl() + `rooms/${room.id}`, { id: room.id, name: name});
+  }
+
   updateTalkRoom(talk, value) {
     talk.room = value;
     return this.http.put(this.baseUrl() + "talks/" + talk.id + "/room", talk);
@@ -124,6 +128,10 @@ class AdminDataService {
     return this.http.post(this.baseUrl() + "timeSlots", { time: timeSlot });
   }
 
+  updateTimeSlot(timeSlot, value) {
+    return this.http.put(this.baseUrl() + `timeSlots/${timeSlot.id}`, { id: timeSlot.id, time: value });
+  }
+
   deleteTimeSlot(timeSlot) {
     return this.http.delete(this.baseUrl() + "timeSlots/" + timeSlot.id);
   }
@@ -133,8 +141,8 @@ class AdminDataService {
     return this.http.get(this.baseUrl() + "rooms");
   }
 
-  saveRoom(room) {
-    return this.http.post(this.baseUrl() + "rooms", { name: room });
+  saveRoom(name) {
+    return this.http.post(this.baseUrl() + "rooms", { name });
   }
 
   deleteRoom(room) {

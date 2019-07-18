@@ -25,6 +25,11 @@ export default {
     commit("setSummary", summary);
   },
   setCampFromMoniker({ state, commit, dispatch }, moniker) {
+ 
+    // Save to local storage to come back to same year every time
+    console.log(`Moniker: ${moniker}`)
+    if (localStorage) localStorage.setItem("moniker", moniker);
+
     let camp = _.find(state.camps, c => c.moniker == moniker);
     if (camp) {
       let dataService = new AdminDataService(camp.moniker);

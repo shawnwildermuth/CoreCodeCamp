@@ -24,8 +24,8 @@
                 :data-target="'#talk' + talk.id"
                 class="collapsed pull-right"
               >
-                <i class="fa fa-plus show-collapsed"></i>
-                <i class="fa fa-minus show-not-collapsed"></i>
+                <i class="fa fa-expand show-collapsed"> More</i>
+                <i class="fa fa-compress show-not-collapsed"> Less</i>
               </button>
             </td>
           </tr>

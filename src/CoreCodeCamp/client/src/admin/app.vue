@@ -21,7 +21,10 @@
         <router-link :to="{ name: 'talks' }">Talks</router-link>
       </li>
       <li>
-        <router-link :to="{ name: 'schedule' }">Scheduling</router-link>
+        <router-link :to="{ name: 'scheduleSetup' }">Rooms and Timeslots</router-link>
+      </li>
+      <li>
+        <router-link :to="{ name: 'schedule' }">Talk Scheduling</router-link>
       </li>
       <li>
         <router-link :to="{ name: 'sponsors' }">Sponsors</router-link>
@@ -46,8 +49,14 @@ export default {
   computed: mapState(["errorState", "camps", "isBusy"]),
   mounted() {
     this.loadCamps().then(() => {
-      this.setCampFromMoniker(this.camps[0].moniker);
-      this.moniker = this.camps[0].moniker;
+      let currentMoniker = this.camps[0].moniker;
+      if (localStorage &&
+        localStorage.hasOwnProperty("moniker")) {
+        currentMoniker = localStorage.getItem("moniker");
+      }
+
+      this.setCampFromMoniker(currentMoniker);
+      this.moniker = currentMoniker;
     });
   },
   watch: {

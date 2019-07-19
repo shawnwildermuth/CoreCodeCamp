@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using CoreCodeCamp.Data;
@@ -47,15 +48,24 @@ namespace CoreCodeCamp
         svcs.AddScoped<IMailService, DebugMailService>();
       }
 
+      if (_env.IsProduction() || _env.IsStaging())
+      {
+        svcs.AddTransient<IImageStorageService, ImageStorageService>();
+      }
+      else
+      {
+        svcs.AddTransient<IImageStorageService, DebugImageStorageService>();
+      }
+
       // Add framework services.
       svcs.AddDbContext<CodeCampContext>();
       svcs.AddScoped<ICodeCampRepository, CodeCampRepository>();
       svcs.AddTransient<CodeCampSeeder>();
       svcs.AddTransient<ViewRenderer>();
 
-      svcs.AddTransient<IImageStorageService, ImageStorageService>();
 
-      svcs.AddAutoMapper();
+
+      svcs.AddAutoMapper(Assembly.GetEntryAssembly());
 
       // Configure Identity (Security)
       svcs.AddIdentity<CodeCampUser, IdentityRole>(config =>
@@ -80,7 +90,8 @@ namespace CoreCodeCamp
         {
           opt.Filters.Add(new RequireHttpsAttribute());
         }
-      }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+        opt.EnableEndpointRouting = false;
+      }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,8 +101,6 @@ namespace CoreCodeCamp
       IApplicationLifetime appLifetime,
       ILogger<Startup> logger)
     {
-      loggerFactory.AddConsole(config.GetSection("Logging"));
-
       if (_env.IsDevelopment() || config["SiteSettings:ShowErrors"].ToLower() == "true")
       {
         app.UseDeveloperExceptionPage();

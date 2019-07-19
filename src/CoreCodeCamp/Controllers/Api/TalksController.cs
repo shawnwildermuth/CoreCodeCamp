@@ -135,6 +135,29 @@ namespace CoreCodeCamp.Controllers.Api
           }
         }
 
+        return Ok(talk.Approved);
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError("Failed to toggle the 'approved' talk: {0}", ex);
+      }
+
+      return BadRequest("Could not change Approved.");
+    }
+
+    [HttpPut("{moniker}/api/talks/{id}/unassign")]
+    public async Task<IActionResult> Unassign(string moniker, int id)
+    {
+      try
+      {
+        var talk = _repo.GetTalk(id);
+        if (talk.Speaker.Event.Moniker != moniker) return BadRequest("Bad Event for this Talk");
+
+        talk.TimeSlot = null;
+        talk.Room = null;
+        talk.Track = null;
+        await _repo.SaveChangesAsync();
+
         return Ok(true);
       }
       catch (Exception ex)
@@ -144,6 +167,7 @@ namespace CoreCodeCamp.Controllers.Api
 
       return BadRequest("Could not change Approved.");
     }
+
 
     [HttpGet("{moniker}/api/speakers/{id:int}/talks")]
     [AllowAnonymous]
@@ -212,6 +236,7 @@ namespace CoreCodeCamp.Controllers.Api
       }
       return BadRequest("Couldn't Save");
     }
+
 
     [HttpPut("{moniker}/api/talks/{id:int}/room")]
     public async Task<IActionResult> UpdateRoom(string moniker, int id, [FromBody]TalkViewModel model)

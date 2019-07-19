@@ -59,6 +59,35 @@ namespace CoreCodeCamp.Controllers.Api
       return BadRequest("Failed to save TimeSlot");
     }
 
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> Update(string moniker, int id, [FromBody]TimeSlot model)
+    {
+      if (ModelState.IsValid)
+      {
+        try
+        {
+          var eventInfo = _repo.GetEventInfo(moniker);
+          if (eventInfo != null)
+          {
+            var slot = _repo.GetTimeSlot(moniker, id);
+            if (slot == null || slot.Id != id) return BadRequest();
+
+            slot.Time = model.Time.ToLocalTime();
+
+            await _repo.SaveChangesAsync();
+
+            return Ok(slot);
+          }
+        }
+        catch (Exception ex)
+        {
+          _logger.LogError("Failed to update a timeslot: {0}", ex);
+        }
+      }
+
+      return BadRequest("Failed to update TimeSlot");
+    }
+
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(string moniker, int id)
     {

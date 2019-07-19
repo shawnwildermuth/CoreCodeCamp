@@ -11,7 +11,6 @@
 
   <environment names="Development">
     <link href="~/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/node_modules/jquery-ui-dist/jquery-ui.css" rel="stylesheet" />
     <link href="~/node_modules/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link href="~/node_modules/typicons.font/src/font/typicons.css" rel="stylesheet" />
 
@@ -22,10 +21,9 @@
     <link rel="stylesheet" href="~/css/site.css" />
   </environment>
   <environment names="Staging,Production">
-    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.4.0/css/bootstrap.min.css"
           asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
           asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-    <link href="~/lib/jquery-ui-dist/jquery-ui.min.css" asp-append-version="true" rel="stylesheet" />
     <link href="~/lib/font-awesome/css/font-awesome.min.css" asp-append-version="true" rel="stylesheet" />
     <link href="~/lib/typicons.font/typicons.css" asp-append-version="true" rel="stylesheet" />
 
@@ -151,7 +149,7 @@
   </footer>
 
   <environment names="Development">
-    <script src="~/node_modules/jquery/jquery.js"></script>
+    <script src="~/node_modules/jquery/dist/jquery.js"></script>
     <script src="~/node_modules/bootstrap/dist/js/bootstrap.js"></script>
 
     <script src="~/node_modules/jquery-backstretch/jquery.backstretch.js"></script>
@@ -169,11 +167,11 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
   </environment>
   <environment names="Staging,Production">
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.1.min.js"
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.4.min.js"
             asp-fallback-src="~/lib/jquery/jquery.min.js"
             asp-fallback-test="window.jQuery">
     </script>
-    <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+    <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.4.0/bootstrap.min.js"
             asp-fallback-src="~/lib/bootstrap/js/bootstrap.min.js"
             asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
     </script>

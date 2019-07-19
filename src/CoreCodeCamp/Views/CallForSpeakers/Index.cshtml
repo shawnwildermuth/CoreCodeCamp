@@ -22,7 +22,7 @@
       }
       else if (this.GetEventInfo().CallForSpeakersOpened <= DateTime.Today && this.GetEventInfo().CallForSpeakersClosed > DateTime.Today)
       {
-        <a asp-action="Speaker" class="btn btn-lg btn-success">Apply to Speak</a>
+        <a asp-action="Speaker" asp-controller="CallForSpeakers" class="btn btn-lg btn-success">Apply to Speak</a>
       }
       else
       {

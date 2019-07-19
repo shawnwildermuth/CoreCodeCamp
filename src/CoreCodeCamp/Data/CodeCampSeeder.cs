@@ -701,11 +701,16 @@ namespace CoreCodeCamp.Data
       var speakerFile = Path.Combine(_env.ContentRootPath, @"..\..\speakers.csv");
       if (File.Exists(speakerFile))
       {
-        var oldSpeakers = new CsvReader(File.OpenText(speakerFile));
-
-        while (oldSpeakers.Read())
+        using (var oldSpeakers = new CsvReader(File.OpenText(speakerFile)))
         {
-          _ctx.Add(MigrateSpeaker(oldSpeakers));
+          if (oldSpeakers.Read())
+          {
+            oldSpeakers.ReadHeader();
+            while (oldSpeakers.Read())
+            {
+              _ctx.Add(MigrateSpeaker(oldSpeakers));
+            }
+          }
         }
       }
 
@@ -740,12 +745,18 @@ namespace CoreCodeCamp.Data
       var talkFile = Path.Combine(_env.ContentRootPath, @"..\..\talks.csv");
       if (File.Exists(talkFile))
       {
-        var oldTalks = new CsvReader(File.OpenText(talkFile));
-        while (oldTalks.Read())
+        using (var oldTalks = new CsvReader(File.OpenText(talkFile)))
         {
-          if (Int32.Parse(oldTalks.GetField("Speaker_Id")) == speakerId)
+          if (oldTalks.Read())
           {
-            result.Add(MigrateTalk(oldTalks, camp));
+            oldTalks.ReadHeader();
+            while (oldTalks.Read())
+            {
+              if (Int32.Parse(oldTalks.GetField("Speaker_Id")) == speakerId)
+              {
+                result.Add(MigrateTalk(oldTalks, camp));
+              }
+            }
           }
         }
       }

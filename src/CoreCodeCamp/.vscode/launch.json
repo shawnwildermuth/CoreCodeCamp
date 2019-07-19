@@ -6,9 +6,9 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceRoot}/bin/Debug/<target-framework>/<project-name.dll>",
+      "program": "${workspaceFolder}/bin/Debug/netcoreapp2.2/CoreCodeCamp.exe",
       "args": [],
-      "cwd": "${workspaceRoot}",
+      "cwd": "${workspaceFolder}",
       "stopAtEntry": false,
       "console": "internalConsole"
     },

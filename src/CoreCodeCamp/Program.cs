@@ -8,6 +8,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace CoreCodeCamp
 {
@@ -16,10 +17,10 @@ namespace CoreCodeCamp
     public static void Main(string[] args)
     {
       var host = WebHost.CreateDefaultBuilder(args)
-                   .UseStartup<Startup>()
-                   .Build();
+        .UseStartup<Startup>()
+        .Build();
 
-      Seed(host).Wait();
+      //Seed(host).Wait();
 
       host.Run();
     }

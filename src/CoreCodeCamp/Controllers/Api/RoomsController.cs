@@ -58,6 +58,25 @@ namespace CoreCodeCamp.Controllers.Api
       return BadRequest("Failed to save Room");
     }
 
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> Update(string moniker, int id, [FromBody] Room model)
+    {
+      try
+      {
+        var room = _repo.GetRoom(moniker, id);
+        if (room.Id != id || string.IsNullOrWhiteSpace(model.Name)) return BadRequest();
+        room.Name = model.Name;
+        await _repo.SaveChangesAsync();
+        return Ok(room);
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError("Failed to update Room: {0}", ex);
+      }
+
+      return BadRequest("Failed to update Room");
+    }
+
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(string moniker, int id)
     {

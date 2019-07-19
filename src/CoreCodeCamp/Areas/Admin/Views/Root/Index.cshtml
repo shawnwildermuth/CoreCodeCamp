@@ -3,38 +3,21 @@
   ViewData["Title"] = "Administration";
 }
 @section Scripts {
-  @await Html.PartialAsync("_VueScripts", "adminEvents")
+  <environment names="Development">
+    <script src="/js/app/admin.js"></script>
+  </environment>
+  <environment names="Staging,Production">
+    <script src="~/js/app/js/chunk-vendors.js" asp-append-version="true"></script>
+    <script src="/js/app/js/admin.js" asp-append-version="true"></script>
+  </environment>
 }
-<div class="row text-left">
-  <div class="col-lg-6 col-lg-offset-3">
-    <h2>@ViewData["Title"]</h2>
-    <div class="col-md-12">
-      <div><a asp-area="Admin" asp-controller="Root" asp-action="Users">Users</a></div>
-      <div id="events-view" v-cloak>
-        <div>
-          <label>Camps:</label>
-        </div>
-        <div>
-          <select @@change="onEventChanged($event.target.value)" v-model="selectedModelMoniker">
-            <option v-for="camp in campEvents" v-bind:value="camp.moniker">
-              {{ camp.name }}
-            </option>
-          </select>
-        </div>
-        <div v-if="errorMessage" class="text-warning">{{ errorMessage }}</div>
-        <div v-if="currentEvent">
-          <ul>
-            <li><a :href="'/' + currentEvent.moniker + '/admin/eventinfo'">{{ currentEvent.moniker }} Event Information</a></li>
-            <li><a :href="'/' + currentEvent.moniker + '/admin/schedule'">{{ currentEvent.moniker }} Schedule</a></li>
-            <li><a :href="'/' + currentEvent.moniker + '/admin/sponsors'">{{ currentEvent.moniker }} Sponsors</a></li>
-            <li><a :href="'/' + currentEvent.moniker + '/admin/speakerlist'">Download Approved Speaker List for {{ currentEvent.moniker }}</a></li>
-            <li><a :href="'/' + currentEvent.moniker + '/admin/submissionlist'">Download Submitted Talks List for {{ currentEvent.moniker }}</a></li>
-          </ul>
-        </div>
-        <div>
-          New Event Moniker (e.g. 2017): <input id="newEventName" v-model="newEventMoniker" /> <button v-bind:disabled="(!newEventMoniker || newEventMoniker.length < 2)" @@click="onAddEvent()" class="btn btn-success"><i class="fa fa-plus"></i></button>
-        </div>
-      </div>
-    </div>
-  </div>
+@section Head {
+  <environment names="Staging,Production">
+    <link href="~/js/app/css/chunk-vendors.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/js/app/css/admin.css" rel="stylesheet" asp-append-version="true" />
+  </environment>
+}
+<h2>Admin Page</h2>
+<div id="admin-view">
+  <h3><i class="fa fa-gear fa-spin"></i> Loading...</h3>
 </div>

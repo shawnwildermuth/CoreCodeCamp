@@ -11,7 +11,7 @@
     "jquery-validation": "1.14.0",
     "jquery-validation-unobtrusive": "3.2.6",
     "jquery-waypoints": "2.0.5",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "moment": "^2.24.0",
     "retina.js": "1.1.0",
     "typicons.font": "2.0.9",

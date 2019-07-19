@@ -28,9 +28,7 @@ export default function createDatePicker() {
           buttonText: "Select date",
           onClose: this.onClose
         });
-      } else {
-        console.log("Date Picker isn't install correctly");
-      }
+      } 
     },
 
     methods: {

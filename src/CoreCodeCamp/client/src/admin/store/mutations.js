@@ -11,7 +11,7 @@ export default {
   setTalks(state, talks) { state.talks = talks },
   setRooms(state, rooms) { state.rooms = rooms },
   setTracks(state, tracks) { state.tracks = tracks },
-  setTimeSlots(state, timeSlots) { state.timeSlots = timeSlots },
+  setTimeSlots(state, timeslots) { state.timeslots = timeslots },
   setSummary(state, summary) { state.summary = summary },
   setSponsors(state, sponsors) { state.sponsors = sponsors },
   setUsers(state, users) { state.users = users },
@@ -42,8 +42,17 @@ export default {
     if (index > -1) state.rooms.splice(index, 1);
   },
   setRoomName(state, value) { value.room.name = value.value; },
-  addTimeslot(state, value) { state.timeSlots.push(value); },
+  addTimeslot(state, value) { state.timeslots.push(value); },
   updateTimeslot(state, value) {
     value.timeslot.time = value.value; 
+  },
+  updateTalk(state, value) { 
+    value.talk.room = value.room.name;
+    value.talk.time = value.timeslot.time;
+  },
+  unassignTalk(state, value) { 
+    value.room = "";
+    value.time = new Date();
   }
+
 }

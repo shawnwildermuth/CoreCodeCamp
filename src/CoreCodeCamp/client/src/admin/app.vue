@@ -1,7 +1,9 @@
 ﻿<template>
   <div class="text-left">
     <div class="wait-cursor" v-if="isBusy">
-      <i class="fa fa-gear fa-spin"></i> Please Wait...
+      <div class="message">
+        <i class="fa fa-gear fa-spin"></i> Please Wait...
+      </div>
     </div>
     <div class="alert alert-warning" v-if="errorState">{{ errorState }}</div>
     <div>
@@ -50,8 +52,7 @@ export default {
   mounted() {
     this.loadCamps().then(() => {
       let currentMoniker = this.camps[0].moniker;
-      if (localStorage &&
-        localStorage.hasOwnProperty("moniker")) {
+      if (localStorage && localStorage.hasOwnProperty("moniker")) {
         currentMoniker = localStorage.getItem("moniker");
       }
 
@@ -68,6 +69,9 @@ export default {
     ...mapActions(["setCampFromMoniker", "loadCamps"]),
     onCampChange() {
       this.setCampFromMoniker(this.moniker);
+    },
+    testClick() {
+      this.$forceUpdate();
     }
   }
 };
@@ -86,13 +90,22 @@ export default {
 }
 
 .wait-cursor {
-  background: rgba(0, 0, 0, 0.1);
-  position: absolute;
+  background: rgba(0, 0, 0, 0.8);
   z-index: 999;
-  top: 35px;
-  padding: 10px;
-  left: 1px;
+  position: fixed; /* Sit on top of the page content */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+.wait-cursor .message {
   font-size: 33px;
-  color: #222;
+  color: #eee;
+  text-align: center;
+  margin-top: 500px;
 }
 </style>

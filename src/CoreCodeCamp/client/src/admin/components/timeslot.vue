@@ -1,50 +1,46 @@
 <template>
-  <div>
-    <div class="row">
-      <div class="col-md-9">
-        <div>
-          <talk-item></talk-item>
+  <div class="time-slot">
+    <drop @drop="onDrop">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="pull-right">{{ timeslot.time | formatTime }}</div>
+        </div>
+        <div class="col-md-9">
+          <div>
+            <talk-item v-if="talk" :talk="talk"></talk-item>
+          </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <button class="btn btn-sm pull-right">
-          <i class="fa fa-times"></i>
-        </button>
-        <label-edit :text="theTime" @text-updated="onTimeUpdated"></label-edit>
-      </div>
-    </div>
+    </drop>
   </div>
 </template>
 
 <script>
-import labelEdit from "./labelEdit";
-import moment from "moment";
-import { mapActions } from "vuex";
 import talkItem from "./talkItem";
+import { mapState, mapActions } from "vuex";
 
 export default {
-  props: ["timeSlot"],
-  components: { labelEdit, talkItem },
+  props: ["timeslot", "room", "talk"],
+  components: { talkItem },
   methods: {
-    ...mapActions(["updateTimeslot"]),
-    onTimeUpdated(text) {
-      let time = moment(text, "hh:mma");
-      let date = moment(this.timeSlot.time).set({
-        hour: time.hour(),
-        minute: time.minute()
-      });
-      this.updateTimeslot({ timeslot: this.timeSlot, value: date });
+    ...mapActions(["assignRoom","swapRooms"]),
+    onDrop(talk) {
+      if (this.talk != null) {
+        this.swapRooms({droppedTalk: talk, existingTalk: this.talk, room: this.room, timeslot: this.timeslot});
+      } else {
+        this.assignRoom({ talk, room: this.room, timeslot: this.timeslot});
+      }
     }
   },
   computed: {
-    theTime: {
-      get: function() {
-        return moment(this.timeSlot.time).format("hh:mma");
-      }
-    }
+    ...mapState(["talks"])
   }
 };
 </script>
 
-<style>
+<style scoped>
+.time-slot {
+  margin: 0 1px;
+  border: 1px solid #eee;
+}
 </style>

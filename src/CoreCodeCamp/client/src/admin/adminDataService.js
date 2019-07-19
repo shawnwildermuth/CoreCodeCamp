@@ -1,4 +1,5 @@
 import Vue from "vue";
+import _ from "lodash";
 
 class AdminDataService {
 
@@ -92,18 +93,24 @@ class AdminDataService {
   }
 
   updateTalkRoom(talk, value) {
-    talk.room = value;
-    return this.http.put(this.baseUrl() + "talks/" + talk.id + "/room", talk);
+    let update = _.cloneDeep(talk);
+    update.room = value.name;
+    return this.http.put(this.baseUrl() + "talks/" + talk.id + "/room", update);
   }
 
   updateTalkTime(talk, value) {
-    talk.time = value;
-    return this.http.put(this.baseUrl() + "talks/" + talk.id + "/time", talk);
+    let update = _.cloneDeep(talk);
+    update.time = value.time;
+    return this.http.put(this.baseUrl() + "talks/" + talk.id + "/time", update);
   }
 
   updateTalkTrack(talk, value) {
     talk.track = value;
     return this.http.put(this.baseUrl() + "talks/" + talk.id + "/track", talk);
+  }
+
+  unassignTalk(talk) {
+    return this.http.put(this.baseUrl() + "talks/" + talk.id + "/unassign");
   }
 
   // Users
@@ -121,19 +128,19 @@ class AdminDataService {
 
   // Time Slots
   getTimeSlots() {
-    return this.http.get(this.baseUrl() + "timeSlots");
+    return this.http.get(this.baseUrl() + "timeslots");
   }
 
-  saveTimeSlot(timeSlot) {
-    return this.http.post(this.baseUrl() + "timeSlots", { time: timeSlot });
+  saveTimeSlot(timeslot) {
+    return this.http.post(this.baseUrl() + "timeslots", { time: timeslot });
   }
 
-  updateTimeSlot(timeSlot, value) {
-    return this.http.put(this.baseUrl() + `timeSlots/${timeSlot.id}`, { id: timeSlot.id, time: value });
+  updateTimeSlot(timeslot, value) {
+    return this.http.put(this.baseUrl() + `timeslots/${timeslot.id}`, { id: timeslot.id, time: value });
   }
 
-  deleteTimeSlot(timeSlot) {
-    return this.http.delete(this.baseUrl() + "timeSlots/" + timeSlot.id);
+  deleteTimeSlot(timeslot) {
+    return this.http.delete(this.baseUrl() + "timeslots/" + timeslot.id);
   }
 
   // Rooms

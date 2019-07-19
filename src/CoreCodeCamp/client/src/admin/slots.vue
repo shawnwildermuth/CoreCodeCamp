@@ -7,10 +7,10 @@
           <td class="col-md-2"></td>
         </tr>
       </thead>
-      <tr v-for="timeSlot in timeSlots">
-        <td>{{ timeSlot.time | formatTime }}</td>
+      <tr v-for="timeslot in timeslots">
+        <td>{{ timeslot.time | formatTime }}</td>
         <td>
-          <button class="btn btn-sm btn-danger" title="Delete" @@click="onDeleteTimeSlot(timeSlot)">
+          <button class="btn btn-sm btn-danger" title="Delete" @@click="onDeleteTimeSlot(timeslot)">
             <i class="fa fa-remove"></i>
           </button>
         </td>

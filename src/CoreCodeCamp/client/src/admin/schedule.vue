@@ -1,36 +1,26 @@
 ﻿<template>
   <div>
-    <schedule-toolbar></schedule-toolbar>
+    <talk-modal></talk-modal>
     <h3>Schedule</h3>
     <div class="row">
       <div class="col-md-6">
-        <draggable
-          class="schedule-talk-list drop-target"
-          v-model="talks"
-          v-bind="dragOptions"
-          group="talks"
-          :move="onMoveToUnassigned"
-        >
-          <talk-item class="talk-item" :talk="talk" v-for="talk in talks" :key="talk.name" />
-        </draggable>
+        <drop @drop="onDrop" class="schedule-talk-list">
+          <talk-item
+            class="talk-item"
+            :talk="talk"
+            v-for="talk in unassignedTracks"
+            :key="talk.name"
+          />
+        </drop>
       </div>
       <div class="col-md-6">
-        <div v-for="room in rooms" :key="room.id" class="room-container">
-          <div>
-            <span class="pull-right">
-              <button class="btn btn-sm"><i class="fa fa-times" @click="onRoomDeleted(room)"></i></button>
-            </span>
-            <label-edit :text="room.name" @text-updated="onRoomUpdated" :src="room" />
-          </div>
-          <draggable
-            class="drop-target"
-            group="talks"
-            v-bind="dragOptions"
-            :move="onMoveToTimeslot"
-            :drop="onDropOnTimeslot">
-            <timeslot v-for="slot in timeSlots" :key="slot.id" :timeSlot="slot" />
-          </draggable>
-        </div>
+        <room-view
+          v-for="room in rooms"
+          :key="room.id"
+          :timeslots="timeslots"
+          :room="room"
+          class="room-container"
+        ></room-view>
       </div>
     </div>
   </div>
@@ -39,59 +29,41 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import TalkItem from "./components/talkItem";
-import ScheduleToolbar from "./components/scheduleToolbar";
-import Timeslot from "./components/timeslot";
-import draggable from "vuedraggable";
-import LabelEdit from "./components/labelEdit";
+import TalkModal from "./components/talkModal";
+import RoomView from "./components/roomView";
+import _ from "lodash";
 
 export default {
-  // data: () => {
-  //   return {
-
-  //   };
-  // },
+  data() {
+    return {
+      dragValid: true
+    };
+  },
   computed: {
-    dragOptions() {
-      return {
-        dropzoneSelector: ".",
-        draggableSelector: "talk-item"
-      };
+    unassignedTracks() {
+      return _.filter(this.talks, t => !t.room && !t.timeslot && t.approved);
     },
-    ...mapState(["tracks", "rooms", "talks", "timeSlots"])
+    ...mapState(["rooms", "talks", "timeslots"])
   },
   components: {
     TalkItem,
-    LabelEdit,
-    ScheduleToolbar,
-    Timeslot,
-    draggable
+    TalkModal,
+    RoomView
   },
   methods: {
-    ...mapActions(["updateRoomName", "deleteRoom"]),
-    onMoveToUnassigned({ relatedContext, draggedContext }) {
-      // Allow if assigned
-      return false;
-    },
-    onMoveToTimeslot({ relatedContext, draggedContext }) {
-      // allow if unassigned
-      const payload = draggedContext.element;
-      console.log(`Dropping: ${payload.title}`);
-      return !payload.room || !payload.time;
-    },
-    onDropOnTimeslot() {},
-    onRoomUpdated(text, src) {
-      this.updateRoomName({room: src, name: text});
-    },
-    onRoomDeleted(room) {
-      this.deleteRoom(room);
+    ...mapActions(["unassignTalk"]),
+    onDrop(talk) {
+      console.log(`Talk dropped: ${talk.title}`)
+      this.unassignTalk(talk);
     }
   }
 };
 </script>
-<style>
+<style scoped>
 .schedule-talk-list {
   overflow-y: scroll;
-  height: 400px;
+  overflow-x: hidden;
+  min-height: 600px;
   border: 1px solid #ccc;
   padding: 1px;
 }
@@ -99,10 +71,5 @@ export default {
 .schedule-talk-list .talk-item {
   padding: 1px;
   border: 1px #666 dotted;
-}
-
-.room-container {
-   border: 1px dotted #888;
-   margin: 1px;
 }
 </style>

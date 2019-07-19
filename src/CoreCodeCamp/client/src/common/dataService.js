@@ -113,15 +113,15 @@ class DataService {
 
   // Time Slots
   getTimeSlots() {
-    return this.http.get(this.baseUrl() + "timeSlots");
+    return this.http.get(this.baseUrl() + "timeslots");
   }
 
-  saveTimeSlot(timeSlot) {
-    return this.http.post(this.baseUrl() + "timeSlots", { time: timeSlot });
+  saveTimeSlot(timeslot) {
+    return this.http.post(this.baseUrl() + "timeslots", { time: timeslot });
   }
 
-  deleteTimeSlot(timeSlot) {
-    return this.http.delete(this.baseUrl() + "timeSlots/" + timeSlot.id);
+  deleteTimeSlot(timeslot) {
+    return this.http.delete(this.baseUrl() + "timeslots/" + timeslot.id);
   }
 
   // Rooms

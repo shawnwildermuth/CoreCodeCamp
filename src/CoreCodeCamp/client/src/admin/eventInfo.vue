@@ -166,9 +166,9 @@
                       <td class="col-md-2"></td>
                     </tr>
                   </thead>
-                  <tr v-for="timeSlot in timeSlots">
-                    <td>{{ timeSlot.time | formatTime }}</td>
-                    <td><button class="btn btn-sm btn-danger" title="Delete" @@click="onDeleteTimeSlot(timeSlot)"><i class="fa fa-remove"></i></button></td>
+                  <tr v-for="timeslot in timeslots">
+                    <td>{{ timeslot.time | formatTime }}</td>
+                    <td><button class="btn btn-sm btn-danger" title="Delete" @@click="onDeleteTimeSlot(timeslot)"><i class="fa fa-remove"></i></button></td>
                   </tr>
                 </table>
                 <input v-model="newTimeSlot" name="newTimeSlot" /> <button class="btn btn-success" @@click="onSaveTimeSlot()"><i class="fa fa-plus"></i></button>
@@ -212,7 +212,7 @@ export default {
     eventMessage: "",
     locationMessage: "",
     rooms: [],
-    timeSlots: [],
+    timeslots: [],
     tracks: [],
     newRoom: "",
     newTrack: "",
@@ -278,7 +278,7 @@ export default {
       this.errorMessage = "";
       dataService.saveTimeSlot(this.newTimeSlot)
         .then((result) => {
-          this.timeSlots.push(result.data);
+          this.timeslots.push(result.data);
           this.newTimeSlot = "";
         }, (e) => {
           this.errorMessage = "Failed to save timeslot";
@@ -304,12 +304,12 @@ export default {
         .finally(() => this.busy = false);
     },
 
-    onDeleteTimeSlot(timeSlot) {
+    onDeleteTimeSlot(timeslot) {
       this.busy = true;
       this.errorMessage = "";
-      dataService.deleteTimeSlot(timeSlot)
+      dataService.deleteTimeSlot(timeslot)
         .then(result => {
-          this.timeSlots.splice(this.timeSlots.indexOf(timeSlot), 1);
+          this.timeslots.splice(this.timeslots.indexOf(timeslot), 1);
         }, e => this.errorMessage = "Failed to delete timeslot")
         .finally(() => this.busy = false);
     }
@@ -324,7 +324,7 @@ export default {
       ])
       .then(function (result) {
         this.theEvent = result[0].data;
-        this.timeSlots = result[1].data;
+        this.timeslots = result[1].data;
         this.rooms = result[2].data;
         this.tracks = result[3].data;
       }.bind(this), function () {

@@ -5,7 +5,7 @@ export default {
   isBusy: false,
   talks: [],
   rooms: [],
-  timeSlots: [],
+  timeslots: [],
   tracks: [],
   sponsors: [],
   users: [],

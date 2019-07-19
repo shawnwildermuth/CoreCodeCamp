@@ -1,5 +1,7 @@
 import AdminDataService from "../adminDataService";
 import moment from "moment";
+import Vue from "vue";
+import _ from "lodash";
 
 export default {
   updateRoomName({state, commit}, value) {
@@ -71,6 +73,56 @@ export default {
       .catch(() => commit("setError", "Failed to delete Room"))
       .finally(() => commit("clearBusy"));
   },
+  assignRoom({state, commit}, data) {
+    let svc = new AdminDataService(state.currentCamp.moniker);
+    commit("setError", "");
+    commit("setBusy");
+    return Vue.Promise.all([
+      svc.updateTalkRoom(data.talk, data.room),
+      svc.updateTalkTime(data.talk, data.timeslot)
+    ])
+      .then(results => {
+        if (results[0] && results[1]) {
+          commit("updateTalk", data);
+        }
+      }, () => {
+        commit("setError", "Failed assign Room");
+      })
+      .finally(() => {
+        commit("clearBusy");
+      });
+  },
+  unassignTalk({state, commit}, talk) {
+    let svc = new AdminDataService(state.currentCamp.moniker);
+    commit("setError", "");
+    commit("setBusy");
+    svc.unassignTalk(talk)
+      .then(() => {
+        commit("unassignTalk", talk);
+      }, () => {
+        commit("setError", "Failed to unassign Talk");
+      })
+      .finally(() => {
+        commit("clearBusy");
+      });
 
+  },
+  swapRooms({state, dispatch}, {droppedTalk, existingTalk, room, timeslot}) {
+
+    if (!droppedTalk.room || droppedTalk.room.length == 0 ) {
+      dispatch("unassignTalk", existingTalk);
+    } else {
+      dispatch("assignRoom", {
+        talk: existingTalk, 
+        room: _.find(state.rooms, r => r.name == droppedTalk.room), 
+        timeslot: _.find(state.timeslots, r => r.time == droppedTalk.time), 
+      });
+    }
+    dispatch("assignRoom", { 
+      talk: droppedTalk,
+      room,
+      timeslot
+    });
+  }
 
 }

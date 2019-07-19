@@ -14,7 +14,7 @@
     </button>
     <h3>Time Slots</h3>
     <div class="item-list">
-      <div v-for="slot in timeSlots" :key="slot.id">
+      <div v-for="slot in timeslots" :key="slot.id">
         <button class="btn btn-sm pull-right"><i class="fa fa-times red" @click="onDeleteSlot(slot)"></i></button>
         <label-edit :text="formatTime(slot.time)" @text-updated="onSlotChange" :src="slot"></label-edit>
       </div>
@@ -32,7 +32,7 @@ import moment from "moment";
 
 export default {
   components: { labelEdit },
-  computed: mapState(["rooms", "timeSlots"]),
+  computed: mapState(["rooms", "timeslots"]),
   methods: {
     ...mapActions(["updateRoomName", "deleteRoom", "addRoom", "addTimeslot", "updateTimeslot", "deleteTimeslot"]),
     onDeleteRoom(room) {

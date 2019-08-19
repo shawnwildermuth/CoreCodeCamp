@@ -3,7 +3,7 @@
   "name": "asp.net",
   "private": true,
   "dependencies": {
-    "bootstrap": "3.4.0",
+    "bootstrap": "3.4.1",
     "font-awesome": "v4.7.0",
     "jquery": "2.2.4",
     "jquery-backstretch": "2.1.17",

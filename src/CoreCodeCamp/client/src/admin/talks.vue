@@ -7,7 +7,7 @@
           <th class="col-md-5"><sortableHeader label="Title" :sortInfo="talkSort" columnName="title" sortAction="sortTalks"></sortableHeader></th>
           <th class="col-md-2"><sortableHeader label="Speaker" :sortInfo="talkSort" columnName="speaker" sortAction="sortTalks"></sortableHeader></th>
           <th class="col-md-2"><sortableHeader label="Category" :sortInfo="talkSort" columnName="category" sortAction="sortTalks"></sortableHeader></th>
-          <th class="col-md-2"><sortableHeader label="Approved?" :sortInfo="talkSort" columnName="approved" sortAction="sortTalks"></sortableHeader></th>
+          <th class="col-md-2"><sortableHeader label="Approve" :sortInfo="talkSort" columnName="approved" sortAction="sortTalks"></sortableHeader></th>
           <th class="col-md-1"></th>
         </tr>
       </thead>
@@ -17,7 +17,12 @@
             <td>{{ talk.title }}</td>
             <td>{{ talk.speaker.name }}</td>
             <td>{{ talk.category }}</td>
-            <td>{{ talk.approved ? "Yes" : "No" }}</td>
+            <td>
+              <button class="btn btn-sm btn-primary"
+                      @click="toggleApprove(talk)">
+                {{ talk.approved ? "Approved" : "Submitted" }} <small>(Click to Change)</small>
+              </button>
+            </td>
             <td>
               <button
                 data-toggle="collapse"
@@ -49,7 +54,7 @@ export default {
   computed: mapState(["talks", "talkSort"]),
   components: { talkBlock, sortableHeader },
   methods: {
-    ...mapActions(["sortTalks"])
+    ...mapActions(["sortTalks", "toggleApprove"])
   }
 };
 </script>

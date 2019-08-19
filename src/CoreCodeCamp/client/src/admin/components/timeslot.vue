@@ -2,10 +2,10 @@
   <div class="time-slot">
     <drop @drop="onDrop">
       <div class="row">
-        <div class="col-md-3">
-          <div class="pull-right">{{ timeslot.time | formatTime }}</div>
+        <div class="col-md-2">
+          <div class="pull-right"><small>{{ timeslot.time | formatTime }}</small></div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-10">
           <div>
             <talk-item v-if="talk" :talk="talk"></talk-item>
           </div>

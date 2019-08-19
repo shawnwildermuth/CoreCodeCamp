@@ -1,4 +1,5 @@
 ﻿import Vue from "vue";
+import _ from "lodash";
 
 class DataService {
 
@@ -156,7 +157,17 @@ class DataService {
     else {
       for (var key in err.body) {
         let item = err.body[key];
-        msg += "<br/>" + key + ":" + item[0];
+        msg += "<br/>" + key + ":";
+
+        if (Array.isArray(item)) {
+          Array.forEach(item, i => msg += `${i}, `);
+        } else if (typeof item === "object") {
+          for(let p in item) {
+            msg += `${item[p]}, `;
+          }
+        } else {
+          msg += item;
+        }
       }
     }
 

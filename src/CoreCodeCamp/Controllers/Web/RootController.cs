@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -7,6 +8,7 @@ using CoreCodeCamp.Data;
 using CoreCodeCamp.Data.Entities;
 using CoreCodeCamp.Models;
 using CoreCodeCamp.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
@@ -15,8 +17,10 @@ namespace CoreCodeCamp.Controllers.Web
 {
   public class RootController : MonikerControllerBase
   {
-    public RootController(ICodeCampRepository repo, ILogger<RootController> logger, IMapper mapper) : base(repo, logger, mapper)
+    public RootController(ICodeCampRepository repo, ILogger<RootController> logger, IMapper mapper, IHostingEnvironment env) 
+      : base(repo, logger, mapper)
     {
+      _env = env;
     }
 
     List<string> _levels = new List<string> { "Platinum",
@@ -29,6 +33,7 @@ namespace CoreCodeCamp.Controllers.Web
               "Silver",
               "Swag",
               "Other"};
+    private readonly IHostingEnvironment _env;
 
     public IActionResult Index(string moniker)
     {
@@ -37,6 +42,10 @@ namespace CoreCodeCamp.Controllers.Web
                   .OrderBy(s => _levels.IndexOf(s.SponsorLevel))
                  .ThenBy(s => Guid.NewGuid())
                  .ToList();
+
+      var urlToSpk = Path.Combine("img", moniker, "keynote-speaker.jpg");
+      var fileInfo = _env.WebRootFileProvider.GetFileInfo(urlToSpk);
+      ViewBag.HasSpeaker = fileInfo.Exists;
 
       return View(sponsors);
     }

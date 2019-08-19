@@ -160,6 +160,26 @@ footer a:focus {
   margin-top: 3px;
   padding: 0 10px;
 }
+.inner-box {
+  color: #222;
+  background-color: white;
+  border: 1px solid #888;
+  border-radius: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px 10px 25px;
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(255, 255, 255, 0.3);
+  -moz-box-shadow: 3px 3px 5px 0px rgba(255, 255, 255, 0.3);
+  box-shadow: 3px 3px 5px 0px rgba(255, 255, 255, 0.3);
+}
+.inner-box h2,
+.inner-box h3,
+.inner-box h4 {
+  color: #222;
+}
+.thick-space {
+  margin-top: 90px;
+}
 .speaker-info {
   text-align: left;
   display: flex;

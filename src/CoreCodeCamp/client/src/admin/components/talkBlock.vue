@@ -20,7 +20,7 @@
         <button
           class="btn btn-sm btn-primary"
           @click="toggleApprove(talk)"
-        >{{ talk.approved ? "Disapprove" : "Approve" }}</button>
+        >{{ talk.approved ? "Unapprove" : "Approve" }}</button>
       </div>
     </div>
   </div>

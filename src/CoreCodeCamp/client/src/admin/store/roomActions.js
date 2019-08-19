@@ -76,7 +76,6 @@ export default {
   assignRoom({state, commit}, data) {
     let svc = new AdminDataService(state.currentCamp.moniker);
     commit("setError", "");
-    commit("setBusy");
     return Vue.Promise.all([
       svc.updateTalkRoom(data.talk, data.room),
       svc.updateTalkTime(data.talk, data.timeslot)
@@ -87,23 +86,16 @@ export default {
         }
       }, () => {
         commit("setError", "Failed assign Room");
-      })
-      .finally(() => {
-        commit("clearBusy");
       });
   },
   unassignTalk({state, commit}, talk) {
     let svc = new AdminDataService(state.currentCamp.moniker);
     commit("setError", "");
-    commit("setBusy");
     svc.unassignTalk(talk)
       .then(() => {
         commit("unassignTalk", talk);
       }, () => {
         commit("setError", "Failed to unassign Talk");
-      })
-      .finally(() => {
-        commit("clearBusy");
       });
 
   },

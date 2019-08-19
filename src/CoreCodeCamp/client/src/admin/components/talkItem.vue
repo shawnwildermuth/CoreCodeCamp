@@ -4,9 +4,9 @@
           effect-allowed="move"
           >
       <div class="row">
-        <div class="col-md-10 title">{{ talk.title }}</div>
-        <div class="col-md-2">
-          <button class="btn btn-sm btn-success pull-right" @click="onShowTalk">
+        <div class="col-md-11 title" :title="talk.title">{{ talk.title }}<br/><small>by: {{ talk.speaker.name }} - {{ talk.category }}</small></div>
+        <div class="col-md-1">
+          <button class="btn btn-xs btn-success pull-right" @click="onShowTalk">
             <i class="fa fa-question"></i>
           </button>
         </div>
@@ -29,6 +29,7 @@ export default {
 <style scoped>
 .talk-item {
   cursor: pointer;
+  line-height: initial;
 }
 .talk-item .title {
   text-overflow: ellipsis;

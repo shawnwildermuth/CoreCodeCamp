@@ -130,7 +130,8 @@ namespace CoreCodeCamp.Controllers.Api
                 Email = user.Email,
                 Subject = $"Invited to Speak at the {talk.Speaker.Event.Name}",
                 Talk = talk,
-                SpeakerUrl = speakerUrl
+                SpeakerUrl = speakerUrl,
+                Moniker = moniker
               });
           }
         }

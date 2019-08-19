@@ -17,7 +17,7 @@ export default {
     commit("setError", "");
     commit("setBusy");
     return svc.saveSponsor(sponsor)
-      .then(() => commit("addSponsor", sponsor))
+      .then(res => commit("addSponsor", res.data))
       .catch(() => commit("setError", "Failed to save sponsor"))
       .finally(() => commit("clearBusy"));
   },

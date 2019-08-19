@@ -19,20 +19,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace CoreCodeCamp
 {
   public class Startup
   {
     private const string IGNORE_STATUS_CODE_PAGES = "IgnoreStatusCodePages";
-    IHostingEnvironment _env;
+    IWebHostEnvironment _env;
+    IHostingEnvironment _hostingEnv; // Remove before 3.1
 
-    public Startup(IHostingEnvironment env)
+    public Startup(IWebHostEnvironment env, IHostingEnvironment hostingEnv)
     {
       _env = env;
+      _hostingEnv = hostingEnv;
     }
 
 
@@ -70,8 +74,8 @@ namespace CoreCodeCamp
       // Configure Identity (Security)
       svcs.AddIdentity<CodeCampUser, IdentityRole>(config =>
       {
-        // If you change this, you need to change the regular expression in the Vue code too!
-        config.Password.RequiredLength = 8;
+    // If you change this, you need to change the regular expression in the Vue code too!
+    config.Password.RequiredLength = 8;
         config.Password.RequireDigit = true;
         config.Password.RequireLowercase = true;
         config.Password.RequireUppercase = true;
@@ -84,27 +88,19 @@ namespace CoreCodeCamp
           .AddEntityFrameworkStores<CodeCampContext>()
           .AddDefaultTokenProviders();
 
-      svcs.AddMvc(opt =>
-      {
-        if (_env.IsProduction())
-        {
-          opt.Filters.Add(new RequireHttpsAttribute());
-        }
-        opt.EnableEndpointRouting = false;
-      }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+      svcs.AddControllersWithViews();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app,
       ILoggerFactory loggerFactory,
       IConfiguration config,
-      IApplicationLifetime appLifetime,
+      IHostApplicationLifetime appLifetime,
       ILogger<Startup> logger)
     {
       if (_env.IsDevelopment() || config["SiteSettings:ShowErrors"].ToLower() == "true")
       {
         app.UseDeveloperExceptionPage();
-        app.UseDatabaseErrorPage();
         app.UseStatusCodePages();
       }
 
@@ -151,16 +147,25 @@ namespace CoreCodeCamp
       if (_env.IsDevelopment())
       {
         // For dev, just use Node Modules
-        app.UseNodeModules(_env);
+        app.UseNodeModules(_hostingEnv);
       }
 
       app.UseAuthentication();
+      app.UseAuthorization();
+      app.UseHttpsRedirection();
 
-      app.UseMvc(CreateRoutes);
+      app.UseEndpoints(endpoints =>
+      {
+        this.CreateRoutes(endpoints);
+        endpoints.MapControllers();
+        //endpoints.MapRazorPages();
+      });
+
+      //app.UseMvc(CreateRoutes);
 
     }
 
-    private void SetupLoggerly(ILoggerFactory loggerFactory, IApplicationLifetime appLifetime, IConfiguration config)
+    private void SetupLoggerly(ILoggerFactory loggerFactory, IHostApplicationLifetime appLifetime, IConfiguration config)
     {
       var logConfig = LogglyConfig.Instance;
 
@@ -194,17 +199,17 @@ namespace CoreCodeCamp
       appLifetime.ApplicationStopped.Register(Log.CloseAndFlush);
     }
 
-    void CreateRoutes(IRouteBuilder routes)
+    void CreateRoutes(IEndpointRouteBuilder enpoints)
     {
-      routes.MapRoute(
-        name: "Events",
-        template: string.Concat("{moniker}/{controller=Root}/{action=Index}/{id?}")
+      enpoints.MapControllerRoute(
+        "Events",
+        string.Concat("{moniker}/{controller=Root}/{action=Index}/{id?}")
         );
 
-      routes.MapRoute(
-        name: "Default",
-        template: "{controller=Root}/{action=Index}/{id?}"
-        );
+      enpoints.MapControllerRoute(
+         "Default",
+        "{controller=Root}/{action=Index}/{id?}"
+      );
 
     }
   }

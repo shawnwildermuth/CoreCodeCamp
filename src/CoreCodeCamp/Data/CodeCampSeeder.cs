@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 
 namespace CoreCodeCamp.Data
 {
@@ -22,13 +23,13 @@ namespace CoreCodeCamp.Data
     private CodeCampContext _ctx;
     private RoleManager<IdentityRole> _roleManager;
     private UserManager<CodeCampUser> _userManager;
-    private IHostingEnvironment _env;
+    private IWebHostEnvironment _env;
 
     public CodeCampSeeder(CodeCampContext ctx,
       UserManager<CodeCampUser> userManager,
       RoleManager<IdentityRole> roleManager,
       IConfiguration config,
-      IHostingEnvironment env)
+      IWebHostEnvironment env)
     {
       _env = env;
       _ctx = ctx;

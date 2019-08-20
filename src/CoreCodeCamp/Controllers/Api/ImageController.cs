@@ -88,7 +88,8 @@ namespace CoreCodeCamp.Controllers.Api
 
         // Load, resize, set the format, and quality and save an image.
         image.Mutate(x => x
-          .Resize(options));
+          .Resize(options)
+          .BackgroundColor(new SixLabors.ImageSharp.PixelFormats.Rgba32(255, 255, 255, 255)));
 
         image.Save(outStream, new JpegEncoder() { Quality = 70 });
 

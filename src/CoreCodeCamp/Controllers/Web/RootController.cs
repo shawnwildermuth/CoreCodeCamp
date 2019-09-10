@@ -123,6 +123,13 @@ namespace CoreCodeCamp.Controllers.Web
 
       var slots = _repo.GetTalksInSlots(moniker);
 
+      var categories = slots.SelectMany(s => s.ToList())
+      .SelectMany(s => s.Talks)
+      .Select(t => t.Category)
+      .OrderBy(t => t)
+      .Distinct()
+      .ToList();
+
       DateTime pickedSlot = DateTime.MinValue;
 
       if (slots.Count() > 0)
@@ -143,7 +150,7 @@ namespace CoreCodeCamp.Controllers.Web
           }
         }
       }
-      return View(Tuple.Create(slots, favorites, pickedSlot));
+      return View(Tuple.Create(slots, favorites, pickedSlot, categories));
     }
 
     [HttpGet("{moniker}/Register")]

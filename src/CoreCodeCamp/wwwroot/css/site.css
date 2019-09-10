@@ -222,18 +222,22 @@ footer a:focus {
 .navbar-nav.auth-nav > li > a {
   font-size: 12px;
 }
-.schedule-item-container {
-  margin: 0px;
+.schedule-item-container,
+.schedule-item-legend {
+  /*margin: 0px;*/
   padding: 2px;
   font-family: Roboto, Helvetica, Arial, sans-serif;
 }
-.schedule-item-container a {
+.schedule-item-container a,
+.schedule-item-legend a {
   color: black;
 }
-.schedule-item-container a:hover {
+.schedule-item-container a:hover,
+.schedule-item-legend a:hover {
   text-decoration: none;
 }
-.schedule-item-container .schedule-item {
+.schedule-item-container .schedule-item,
+.schedule-item-legend .schedule-item {
   border-top: 1px solid rgba(206, 0, 0, 0.25);
   border-bottom: 1px solid rgba(206, 0, 0, 0.25);
   margin: 2px;
@@ -241,64 +245,96 @@ footer a:focus {
   min-height: 150px;
   background-color: rgba(128, 128, 128, 0.2);
 }
-.schedule-item-container .schedule-item:hover {
+.schedule-item-container .schedule-item:hover,
+.schedule-item-legend .schedule-item:hover {
   background-color: rgba(128, 128, 128, 0.4);
 }
-.schedule-item-container .schedule-item-general-discussion {
+.schedule-item-container .legend,
+.schedule-item-legend .legend {
+  border: 1px solid #ccc;
+}
+.schedule-item-container .schedule-item-general-discussion,
+.schedule-item-legend .schedule-item-general-discussion {
   background-color: rgba(0, 0, 255, 0.2);
 }
-.schedule-item-container .schedule-item-general-discussion:hover {
+.schedule-item-container .schedule-item-general-discussion:hover,
+.schedule-item-legend .schedule-item-general-discussion:hover {
   background-color: rgba(0, 0, 255, 0.4);
 }
-.schedule-item-container .schedule-item-design-ux-ui {
+.schedule-item-container .schedule-item-design-ux-ui,
+.schedule-item-legend .schedule-item-design-ux-ui {
   background-color: rgba(255, 192, 203, 0.2);
 }
-.schedule-item-container .schedule-item-design-ux-ui:hover {
+.schedule-item-container .schedule-item-design-ux-ui:hover,
+.schedule-item-legend .schedule-item-design-ux-ui:hover {
   background-color: rgba(255, 192, 203, 0.4);
 }
-.schedule-item-container .schedule-item-cloud-development {
+.schedule-item-container .schedule-item-cloud-development,
+.schedule-item-legend .schedule-item-cloud-development {
+  background-color: rgba(0, 255, 255, 0.2);
+}
+.schedule-item-container .schedule-item-cloud-development:hover,
+.schedule-item-legend .schedule-item-cloud-development:hover {
+  background-color: rgba(0, 255, 255, 0.4);
+}
+.schedule-item-container .schedule-item-client-development,
+.schedule-item-legend .schedule-item-client-development {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.schedule-item-container .schedule-item-client-development:hover,
+.schedule-item-legend .schedule-item-client-development:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.schedule-item-container .schedule-item-database-development,
+.schedule-item-legend .schedule-item-database-development {
   background-color: rgba(0, 128, 0, 0.2);
 }
-.schedule-item-container .schedule-item-cloud-development:hover {
+.schedule-item-container .schedule-item-database-development:hover,
+.schedule-item-legend .schedule-item-database-development:hover {
   background-color: rgba(0, 128, 0, 0.4);
 }
-.schedule-item-container .schedule-item-database-development {
-  background-color: rgba(0, 128, 0, 0.2);
-}
-.schedule-item-container .schedule-item-database-development:hover {
-  background-color: rgba(0, 128, 0, 0.4);
-}
-.schedule-item-container .schedule-item-it-topics {
+.schedule-item-container .schedule-item-it-topics,
+.schedule-item-legend .schedule-item-it-topics {
   background-color: rgba(255, 0, 0, 0.2);
 }
-.schedule-item-container .schedule-item-it-topics:hover {
+.schedule-item-container .schedule-item-it-topics:hover,
+.schedule-item-legend .schedule-item-it-topics:hover {
   background-color: rgba(255, 0, 0, 0.4);
 }
-.schedule-item-container .schedule-item-web-development {
+.schedule-item-container .schedule-item-web-development,
+.schedule-item-legend .schedule-item-web-development {
   background-color: rgba(255, 165, 0, 0.2);
 }
-.schedule-item-container .schedule-item-web-development:hover {
+.schedule-item-container .schedule-item-web-development:hover,
+.schedule-item-legend .schedule-item-web-development:hover {
   background-color: rgba(255, 165, 0, 0.4);
 }
-.schedule-item-container .schedule-item-mobile-development {
+.schedule-item-container .schedule-item-mobile-development,
+.schedule-item-legend .schedule-item-mobile-development {
   background-color: rgba(128, 0, 128, 0.2);
 }
-.schedule-item-container .schedule-item-mobile-development:hover {
+.schedule-item-container .schedule-item-mobile-development:hover,
+.schedule-item-legend .schedule-item-mobile-development:hover {
   background-color: rgba(128, 0, 128, 0.4);
 }
-.schedule-item-container .schedule-item-career-advancement {
+.schedule-item-container .schedule-item-career-advancement,
+.schedule-item-legend .schedule-item-career-advancement {
   background-color: rgba(255, 255, 0, 0.2);
 }
-.schedule-item-container .schedule-item-career-advancement:hover {
+.schedule-item-container .schedule-item-career-advancement:hover,
+.schedule-item-legend .schedule-item-career-advancement:hover {
   background-color: rgba(255, 255, 0, 0.4);
 }
-.schedule-item-container .schedule-item-professional-development {
+.schedule-item-container .schedule-item-professional-development,
+.schedule-item-legend .schedule-item-professional-development {
   background-color: rgba(210, 180, 140, 0.2);
 }
-.schedule-item-container .schedule-item-professional-development:hover {
+.schedule-item-container .schedule-item-professional-development:hover,
+.schedule-item-legend .schedule-item-professional-development:hover {
   background-color: rgba(210, 180, 140, 0.4);
 }
-.schedule-item-container .schedule-item-properties {
+.schedule-item-container .schedule-item-properties,
+.schedule-item-legend .schedule-item-properties {
   line-height: normal;
   font-size: small;
 }

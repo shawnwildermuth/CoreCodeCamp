@@ -291,8 +291,8 @@ footer {
 }
 
 
-.schedule-item-container {
-  margin: 0px;
+.schedule-item-container, .schedule-item-legend {
+  /*margin: 0px;*/
   padding: 2px;
   font-family: Roboto,Helvetica,Arial,sans-serif;
 
@@ -313,6 +313,9 @@ footer {
     .backstyle(gray);
   }
 
+  .legend {
+    border: 1px solid #ccc;
+  }
 
   .schedule-item-general-discussion {
     .backstyle(blue);
@@ -323,7 +326,11 @@ footer {
   }
 
   .schedule-item-cloud-development {
-    .backstyle(green);
+    .backstyle(cyan);
+  }
+
+  .schedule-item-client-development {
+    .backstyle(black);
   }
 
   .schedule-item-database-development {

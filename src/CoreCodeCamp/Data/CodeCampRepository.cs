@@ -240,6 +240,7 @@ namespace CoreCodeCamp.Data
       return user.FavoriteTalks
         .Where(t => t.Talk.Speaker.Event.Moniker == moniker)
         .Select(t => t.Talk)
+        .OrderBy(t => t.TimeSlot.Time)
         .ToList();
     }
 

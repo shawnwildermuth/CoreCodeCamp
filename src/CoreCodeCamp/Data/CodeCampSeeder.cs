@@ -43,7 +43,7 @@ namespace CoreCodeCamp.Data
       {
         if (_env.IsDevelopment())
         {
-          if (_config["Data:IterateDatabase"].ToLower() == "true")
+          if (_config.GetValue<bool>("Data:IterateDatabase"))
           {
             await _ctx.Database.EnsureDeletedAsync();
             await _ctx.Database.EnsureCreatedAsync();

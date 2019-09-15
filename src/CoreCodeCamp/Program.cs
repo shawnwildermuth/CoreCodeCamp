@@ -20,14 +20,18 @@ namespace CoreCodeCamp
         .UseStartup<Startup>()
         .Build();
 
-      //Seed(host).Wait();
+      IConfiguration config = host.Services.GetService<IConfiguration>();
+      var shouldSeed = config.GetValue<bool>("Data:SeedDatabase");
+      if (shouldSeed)
+      {
+        Seed(host).Wait();
+      }
 
       host.Run();
     }
 
     private static async Task Seed(IWebHost host)
     {
-      IConfiguration config = host.Services.GetService<IConfiguration>();
       IServiceScopeFactory scopeFactory = host.Services.GetService<IServiceScopeFactory>();
       using (var scope = scopeFactory.CreateScope())
       {

@@ -373,3 +373,8 @@ body {
     min-height: 150px;
   }
 }
+@media (max-width: 991px) {
+  .speaker-image.larger {
+    max-height: 100px;
+  }
+}

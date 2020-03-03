@@ -8,6 +8,7 @@
     <GenerateUserSecretsAttribute>false</GenerateUserSecretsAttribute>
     <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>latest</TypeScriptToolsVersion>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,6 +29,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
     <PackageReference Include="OdeToCode.UseNodeModules" Version="1.0.6" />
     
     <PackageReference Include="Sendgrid" Version="9.11.0" />
@@ -46,7 +48,7 @@
 
   <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
     <Exec Command="npm install" />
-    <Exec Command="gulp scripts" />
+    <Exec Command="node_modules/.bin/gulp scripts" />
     <Exec Command="npm install" WorkingDirectory="$(MSBuildProjectDirectory)\\client" />
     <Exec Command="npm run build" WorkingDirectory="$(MSBuildProjectDirectory)\\client" />
   </Target>

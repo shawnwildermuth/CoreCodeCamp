@@ -12,12 +12,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    
     - name: Docker Login
       uses: Azure/docker-login@v1
       with:
         # Container registry username
-        username: # default is 
+        username: ${{ secrets.DOCKER_USER_NAME }} 
         # Container registry password
-        password: # default is 
+        password: ${{ secrets.DOCKER_PASSWORD }}
         # Container registry server url
-        login-server: # default is https://index.docker.io/v1/      
+        login-server: https://atlantacodecampregistry.azurecr.io
+
+    - name: Building Docker Image
+      working-directory: ./src/CoreCodeCamp
+      run: docker build .. -f ./Dockerfile -t atlantacodecampregistry.azurecr.io/atlcc:latest
+
+    - name: Push the Image
+      working-directory: ./src/CoreCodeCamp 
+      run: docker push atlantacodecampregistry.azurecr.io/atlcc:latest

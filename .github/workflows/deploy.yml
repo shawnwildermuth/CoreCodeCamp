@@ -1,0 +1,23 @@
+name: CodeCamp-Deploy
+
+on:
+  push: 
+    tags: 
+      - 'v*'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker Login
+      uses: Azure/docker-login@v1
+      with:
+        # Container registry username
+        username: # default is 
+        # Container registry password
+        password: # default is 
+        # Container registry server url
+        login-server: # default is https://index.docker.io/v1/      

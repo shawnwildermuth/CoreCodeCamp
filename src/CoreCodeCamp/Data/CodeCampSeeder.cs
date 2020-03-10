@@ -43,7 +43,7 @@ namespace CoreCodeCamp.Data
       {
         if (_env.IsDevelopment())
         {
-          if (_config["Data:IterateDatabase"].ToLower() == "true")
+          if (_config.GetValue<bool>("Data:IterateDatabase"))
           {
             await _ctx.Database.EnsureDeletedAsync();
             await _ctx.Database.EnsureCreatedAsync();
@@ -234,11 +234,9 @@ namespace CoreCodeCamp.Data
             };
             _ctx.Add(sponsor);
 
-
-
-            _ctx.AddRange(Add2015Sponsors(codeCamps.Where(s => s.Moniker == "2015").First()));
-            _ctx.AddRange(Add2014Sponsors(codeCamps.Where(s => s.Moniker == "2014").First()));
-            _ctx.AddRange(Add2013Sponsors(codeCamps.Where(s => s.Moniker == "2013").First()));
+            _ctx.AddRange(Add2015Sponsors(codeCamps.First(s => s.Moniker == "2015")));
+            _ctx.AddRange(Add2014Sponsors(codeCamps.First(s => s.Moniker == "2014")));
+            _ctx.AddRange(Add2013Sponsors(codeCamps.First(s => s.Moniker == "2013")));
 
             await _ctx.SaveChangesAsync();
           }
@@ -697,8 +695,7 @@ namespace CoreCodeCamp.Data
 
     private async Task Migrate()
     {
-
-      var speakerFile = Path.Combine(_env.ContentRootPath, @"..\..\speakers.csv");
+      var speakerFile = Path.Combine(_env.ContentRootPath, @"..\..\testdata\speakers.csv");
       if (File.Exists(speakerFile))
       {
         using (var oldSpeakers = new CsvReader(File.OpenText(speakerFile)))
@@ -742,7 +739,7 @@ namespace CoreCodeCamp.Data
     {
       var result = new List<Talk>();
 
-      var talkFile = Path.Combine(_env.ContentRootPath, @"..\..\talks.csv");
+      var talkFile = Path.Combine(_env.ContentRootPath, @"..\..\testdata\talks.csv");
       if (File.Exists(talkFile))
       {
         using (var oldTalks = new CsvReader(File.OpenText(talkFile)))

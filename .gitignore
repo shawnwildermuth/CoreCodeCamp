@@ -175,3 +175,5 @@ $RECYCLE.BIN/
 *.ide
 
 **/wwwroot/js/app
+
+!/testdata/*.csv

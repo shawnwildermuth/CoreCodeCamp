@@ -240,6 +240,7 @@ namespace CoreCodeCamp.Data
       return user.FavoriteTalks
         .Where(t => t.Talk.Speaker.Event.Moniker == moniker)
         .Select(t => t.Talk)
+        .OrderBy(t => t.TimeSlot.Time)
         .ToList();
     }
 
@@ -290,6 +291,7 @@ namespace CoreCodeCamp.Data
                     Talks = g.ToList()
                   };
 
+      // split the slots into before/after lunch
       var results = new List<IEnumerable<ScheduleModel>>()
       {
         slots.Where(a => a.Time.TimeOfDay < TimeSpan.FromHours(12)).ToList(),

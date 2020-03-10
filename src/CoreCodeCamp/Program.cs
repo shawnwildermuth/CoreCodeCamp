@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,14 +21,22 @@ namespace CoreCodeCamp
         .UseStartup<Startup>()
         .Build();
 
-      //Seed(host).Wait();
+      var env = host.Services.GetService<IHostingEnvironment>();
+      if (env.IsDevelopment())
+      {
+        IConfiguration config = host.Services.GetService<IConfiguration>();
+        var shouldSeed = config.GetValue<bool>("Data:SeedDatabase");
+        if ( shouldSeed)
+        {
+          Seed(host).Wait();
+        }
+      }
 
       host.Run();
     }
 
     private static async Task Seed(IWebHost host)
     {
-      IConfiguration config = host.Services.GetService<IConfiguration>();
       IServiceScopeFactory scopeFactory = host.Services.GetService<IServiceScopeFactory>();
       using (var scope = scopeFactory.CreateScope())
       {

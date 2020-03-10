@@ -1,0 +1,4 @@
+Speaker_Id,Abstract,Audience,CodeUrl,Level,Prerequisites,PresentationUrl,SpeakerDeckUrl,SpeakerRateUrl,Title,Category,Room,StartTime
+123,Example abstract,Example audience,http://code.example.com,123,Prerequisites,http://presentation.example.com,http://deck.example.com,http://rate.example.com,Talk Title 1,Category,Example Room,11:00am
+123,Example abstract,Example audience,http://code.example.com,123,Prerequisites,http://presentation.example.com,http://deck.example.com,http://rate.example.com,Talk Title 2,Category,Example Room,2:00pm
+123,Example abstract,Example audience,http://code.example.com,123,Prerequisites,http://presentation.example.com,http://deck.example.com,http://rate.example.com,Talk Title 3,Category,Example Room,4:00pm

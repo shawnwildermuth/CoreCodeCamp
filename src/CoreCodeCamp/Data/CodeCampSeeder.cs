@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 using CoreCodeCamp.Data.Entities;
 using CoreCodeCamp.Services;
 using CsvHelper;
+using CsvHelper.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 
 namespace CoreCodeCamp.Data
 {
@@ -22,13 +24,13 @@ namespace CoreCodeCamp.Data
     private CodeCampContext _ctx;
     private RoleManager<IdentityRole> _roleManager;
     private UserManager<CodeCampUser> _userManager;
-    private IHostingEnvironment _env;
+    private IWebHostEnvironment _env;
 
     public CodeCampSeeder(CodeCampContext ctx,
       UserManager<CodeCampUser> userManager,
       RoleManager<IdentityRole> roleManager,
       IConfiguration config,
-      IHostingEnvironment env)
+      IWebHostEnvironment env)
     {
       _env = env;
       _ctx = ctx;
@@ -701,7 +703,7 @@ namespace CoreCodeCamp.Data
       var speakerFile = Path.Combine(_env.ContentRootPath, @"..\..\speakers.csv");
       if (File.Exists(speakerFile))
       {
-        using (var oldSpeakers = new CsvReader(File.OpenText(speakerFile)))
+        using (var oldSpeakers = new CsvReader(File.OpenText(speakerFile), CultureInfo.InvariantCulture))
         {
           if (oldSpeakers.Read())
           {
@@ -745,7 +747,7 @@ namespace CoreCodeCamp.Data
       var talkFile = Path.Combine(_env.ContentRootPath, @"..\..\talks.csv");
       if (File.Exists(talkFile))
       {
-        using (var oldTalks = new CsvReader(File.OpenText(talkFile)))
+        using (var oldTalks = new CsvReader(File.OpenText(talkFile), CultureInfo.InvariantCulture))
         {
           if (oldTalks.Read())
           {

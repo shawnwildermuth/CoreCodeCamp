@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
@@ -28,9 +29,9 @@ namespace CoreCodeCamp
   public class Startup
   {
     private const string IGNORE_STATUS_CODE_PAGES = "IgnoreStatusCodePages";
-    IHostingEnvironment _env;
+    IWebHostEnvironment _env;
 
-    public Startup(IHostingEnvironment env)
+    public Startup(IWebHostEnvironment env)
     {
       _env = env;
     }
@@ -63,13 +64,19 @@ namespace CoreCodeCamp
       svcs.AddTransient<CodeCampSeeder>();
       svcs.AddTransient<ViewRenderer>();
 
-
-
       svcs.AddAutoMapper(Assembly.GetEntryAssembly());
 
       // Configure Identity (Security)
-      svcs.AddIdentity<CodeCampUser, IdentityRole>(config =>
+      svcs.AddAuthentication(o =>
       {
+        o.DefaultScheme = IdentityConstants.ApplicationScheme;
+        o.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+      })
+        .AddIdentityCookies(o => { });
+
+      svcs.AddIdentityCore<CodeCampUser>(config =>
+      {
+        config.Stores.MaxLengthForKeys = 128;
         // If you change this, you need to change the regular expression in the Vue code too!
         config.Password.RequiredLength = 8;
         config.Password.RequireDigit = true;
@@ -77,34 +84,33 @@ namespace CoreCodeCamp
         config.Password.RequireUppercase = true;
         config.Password.RequireNonAlphanumeric = false;
         config.User.RequireUniqueEmail = true;
-        config.User.RequireUniqueEmail = true;
         config.SignIn.RequireConfirmedEmail = true;
         config.Lockout.MaxFailedAccessAttempts = 10;
       })
-          .AddEntityFrameworkStores<CodeCampContext>()
-          .AddDefaultTokenProviders();
+        .AddDefaultUI()
+        .AddRoles<IdentityRole>()
+        .AddEntityFrameworkStores<CodeCampContext>();
 
-      svcs.AddMvc(opt =>
+      svcs.AddControllersWithViews(opt =>
       {
         if (_env.IsProduction())
         {
           opt.Filters.Add(new RequireHttpsAttribute());
         }
-        opt.EnableEndpointRouting = false;
-      }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+      });
+      svcs.AddRazorPages();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app,
       ILoggerFactory loggerFactory,
       IConfiguration config,
-      IApplicationLifetime appLifetime,
+      IHostApplicationLifetime appLifetime,
       ILogger<Startup> logger)
     {
       if (_env.IsDevelopment() || config["SiteSettings:ShowErrors"].ToLower() == "true")
       {
         app.UseDeveloperExceptionPage();
-        app.UseDatabaseErrorPage();
         app.UseStatusCodePages();
       }
 
@@ -151,16 +157,24 @@ namespace CoreCodeCamp
       if (_env.IsDevelopment())
       {
         // For dev, just use Node Modules
-        app.UseNodeModules(_env);
+        app.UseNodeModules();
       }
 
-      app.UseAuthentication();
+      app.UseRouting();
 
-      app.UseMvc(CreateRoutes);
+      app.UseAuthentication();
+      app.UseAuthorization();
+
+      app.UseEndpoints(cfg =>
+      {
+        cfg.MapControllers();
+        CreateRoutes(cfg);
+        cfg.MapRazorPages();
+      });
 
     }
 
-    private void SetupLoggerly(ILoggerFactory loggerFactory, IApplicationLifetime appLifetime, IConfiguration config)
+    private void SetupLoggerly(ILoggerFactory loggerFactory, IHostApplicationLifetime appLifetime, IConfiguration config)
     {
       var logConfig = LogglyConfig.Instance;
 
@@ -194,16 +208,14 @@ namespace CoreCodeCamp
       appLifetime.ApplicationStopped.Register(Log.CloseAndFlush);
     }
 
-    void CreateRoutes(IRouteBuilder routes)
+    void CreateRoutes(IEndpointRouteBuilder bldr)
     {
-      routes.MapRoute(
-        name: "Events",
-        template: string.Concat("{moniker}/{controller=Root}/{action=Index}/{id?}")
+      bldr.MapControllerRoute("Events",
+        "{moniker}/{controller=Root}/{action=Index}/{id?}"
         );
 
-      routes.MapRoute(
-        name: "Default",
-        template: "{controller=Root}/{action=Index}/{id?}"
+      bldr.MapControllerRoute("Default",
+        "{controller=Root}/{action=Index}/{id?}"
         );
 
     }

@@ -25,7 +25,7 @@
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane fade in active" id="theEvent">
             @************************ EventInfoView *************************@
-            <form novalidate data-vv-scope="vEvent" @@submit.prevent="onValidateForm('vEvent')">
+            <form novalidate data-vv-scope="vEvent" v-on:submit.prevent="onValidateForm('vEvent')">
               <div class="well well-sm">
                 <div class="form-group" v-bind:class="{ error: errors.has('vEvent.name') }">
                   <label class="text-danger">Name *</label>
@@ -100,7 +100,7 @@
           </div>
           <div role="tabpanel" class="tab-pane fade" id="location">
             @************************ EventLocationView *************************@
-            <form novalidate data-vv-scope="vLocation" @@submit.prevent="onValidateForm('vLocation')">
+            <form novalidate data-vv-scope="vLocation" v-on:submit.prevent="onValidateForm('vLocation')">
               <div class="well well-sm" v-if="theEvent && theEvent.location">
                 <div class="form-group">
                   <label>Facility Name</label>

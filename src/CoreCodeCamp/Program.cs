@@ -20,15 +20,14 @@ namespace CoreCodeCamp
         .UseStartup<Startup>()
         .Build();
 
-      //Seed(host).Wait();
+      Seed(host).Wait();
 
       host.Run();
     }
 
     private static async Task Seed(IWebHost host)
     {
-      IConfiguration config = host.Services.GetService<IConfiguration>();
-      IServiceScopeFactory scopeFactory = host.Services.GetService<IServiceScopeFactory>();
+      var scopeFactory = host.Services.GetService<IServiceScopeFactory>();
       using (var scope = scopeFactory.CreateScope())
       {
         var initializer = scope.ServiceProvider.GetService<CodeCampSeeder>();

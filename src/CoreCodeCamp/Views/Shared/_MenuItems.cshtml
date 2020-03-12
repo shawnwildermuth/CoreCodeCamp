@@ -5,24 +5,26 @@
   var codeCampUser = await userMgr.GetUserAsync(User);
 }
 
-<li class="@Html.GetActiveMenuItem("Root", "Index")"><a asp-area="" asp-controller="Root" asp-action="Index" asp-route-moniker="@this.GetEventInfo().Moniker">Home</a></li>
+<li class="@Html.GetActiveMenuItem("Root", "Index") nav-item">
+  <a class="nav-link" asp-area="" asp-controller="Root" asp-action="Index" asp-route-moniker="@this.GetEventInfo().Moniker">Home</a>
+</li>
 @if (!string.IsNullOrWhiteSpace(this.GetEventInfo().RegistrationLink))
 {
-  <li><a class="@Html.GetActiveMenuItem("Root", "Register")" asp-action="Register" asp-controller="Root" asp-area="" asp-route-moniker="@this.GetEventInfo().Moniker">Register</a></li>
+  <li class="@Html.GetActiveMenuItem("Root", "Register") nav-item"><a class="nav-link" asp-action="Register" asp-controller="Root" asp-area="" asp-route-moniker="@this.GetEventInfo().Moniker">Register</a></li>
 }
 @if (this.GetEventInfo().CallForSpeakersClosed > DateTime.Today)
 {
-  <li class="@Html.GetActiveMenuItem("CallForSpeakers", "Index")"><a asp-area="" asp-controller="CallForSpeakers" asp-action="Index" asp-route-moniker="@this.GetEventInfo().Moniker">Speak</a></li>
+  <li class="@Html.GetActiveMenuItem("CallForSpeakers", "Index") nav-item"><a class="nav-link" asp-area="" asp-controller="CallForSpeakers" asp-action="Index" asp-route-moniker="@this.GetEventInfo().Moniker">Speak</a></li>
 }
-<li class="@Html.GetActiveMenuItem("Root", "Sponsors")"><a asp-area="" asp-controller="Root" asp-action="Sponsors" asp-route-moniker="@this.GetEventInfo().Moniker">Sponsors</a></li>
-<li class="@Html.GetActiveMenuItem("Root", "Speakers")"><a asp-area="" asp-controller="Root" asp-action="Speakers">Speakers</a></li>
-<li class="@Html.GetActiveMenuItem("Root", "Sessions")"><a asp-area="" asp-controller="Root" asp-action="Sessions" asp-route-moniker="@this.GetEventInfo().Moniker">Sessions</a></li>
-<li class="@Html.GetActiveMenuItem("Root", "Schedule")"><a asp-area="" asp-controller="Root" asp-action="Schedule" asp-route-moniker="@this.GetEventInfo().Moniker">Schedule</a></li>
+<li class="@Html.GetActiveMenuItem("Root", "Sponsors") nav-item"><a class="nav-link" asp-area="" asp-controller="Root" asp-action="Sponsors" asp-route-moniker="@this.GetEventInfo().Moniker">Sponsors</a></li>
+<li class="@Html.GetActiveMenuItem("Root", "Speakers") nav-item"><a class="nav-link" asp-area="" asp-controller="Root" asp-action="Speakers" asp-route-moniker="@this.GetEventInfo().Moniker">Speakers</a></li>
+<li class="@Html.GetActiveMenuItem("Root", "Sessions") nav-item"><a class="nav-link" asp-area="" asp-controller="Root" asp-action="Sessions" asp-route-moniker="@this.GetEventInfo().Moniker">Sessions</a></li>
+<li class="@Html.GetActiveMenuItem("Root", "Schedule") nav-item"><a class="nav-link" asp-area="" asp-controller="Root" asp-action="Schedule" asp-route-moniker="@this.GetEventInfo().Moniker">Schedule</a></li>
 @if (Model)
 {
-  <li class="@Html.GetActiveMenuItem("Root", "CodeOfConduct")"><a asp-area="" asp-controller="Root" asp-action="CodeOfConduct" asp-route-moniker="@this.GetEventInfo().Moniker">Code of Conduct</a></li>
+  <li class="@Html.GetActiveMenuItem("Root", "CodeOfConduct") nav-item"><a class="nav-link" asp-area="" asp-controller="Root" asp-action="CodeOfConduct" asp-route-moniker="@this.GetEventInfo().Moniker">Code of Conduct</a></li>
 }
 @if (codeCampUser != null && signInMgr.IsSignedIn(User) && await userMgr.IsInRoleAsync(codeCampUser, Consts.ADMINROLE))
 {
-  <li><a asp-area="Admin" asp-controller="Root" asp-action="Index">Admin</a></li>
+  <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="Root" asp-action="Index">Admin</a></li>
 }

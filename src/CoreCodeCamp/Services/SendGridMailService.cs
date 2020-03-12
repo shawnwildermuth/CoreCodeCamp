@@ -17,11 +17,11 @@ namespace CoreCodeCamp.Services
   public class SendGridMailService : IMailService
   {
     private IConfiguration _config;
-    private IHostingEnvironment _env;
+    private IWebHostEnvironment _env;
     private ILogger<SendGridMailService> _logger;
     private ViewRenderer _renderer;
 
-    public SendGridMailService(IHostingEnvironment env, 
+    public SendGridMailService(IWebHostEnvironment env, 
       IConfiguration config, 
       ILogger<SendGridMailService> logger,
       ViewRenderer renderer)

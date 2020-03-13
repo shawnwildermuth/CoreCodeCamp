@@ -25,7 +25,7 @@
   <ItemGroup>
     <None Include="node_modules/**" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.2" />
@@ -37,7 +37,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
     <PackageReference Include="OdeToCode.UseNodeModules" Version="3.0.0" />
-  
+
     <PackageReference Include="Sendgrid" Version="9.13.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
     <PackageReference Include="Serilog.Sinks.Loggly" Version="5.4.0" />
@@ -45,8 +45,13 @@
     <PackageReference Include="CsvHelper" Version="15.0.1" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0005" />
     <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
+
+    <PackageReference
+    Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation"
+    Version="3.1.0"
+    Condition="'$(Configuration)' == 'Debug'" />
   </ItemGroup>
-  
+
 
   <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
     <Exec Command="npm install" />

@@ -98,7 +98,16 @@ namespace CoreCodeCamp
           opt.Filters.Add(new RequireHttpsAttribute());
         }
       });
-      svcs.AddRazorPages();
+
+      if (_env.IsDevelopment())
+      {
+        svcs.AddRazorPages()
+        .AddRazorRuntimeCompilation();
+      }
+      else
+      {
+        svcs.AddRazorPages();
+      }
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

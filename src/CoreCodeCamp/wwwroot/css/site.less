@@ -29,10 +29,6 @@ p {
   }
 }
 
-p.lead {
-  text-align: center;
-}
-
 .form-control.ng-invalid, .form-control.ng-invalid:focus {
   border-color: @themeColor;
 }
@@ -191,7 +187,7 @@ footer {
 
 .navbar-toggle {
   margin-bottom: 0;
-  margin-right: 5px; 
+  margin-right: 5px;
   margin-top: 3px;
   padding: 0 10px;
 }
@@ -351,12 +347,27 @@ footer {
   }
 }
 
+.lead {
+  text-align:center;
+}
+
 body {
   -webkit-animation-delay: 0.1s;
   -webkit-animation-name: fontfix;
   -webkit-animation-duration: 0.1s;
   -webkit-animation-iteration-count: 1;
   -webkit-animation-timing-function: linear;
+}
+
+.footer-menu ul {
+  border-bottom: 0;
+  li {
+    margin-left: 0;
+
+    .nav-link {
+      padding: 0;
+    }
+  }
 }
 
 @-webkit-keyframes fontfix {
@@ -395,6 +406,6 @@ body {
 
 @media (max-width: 991px) {
   .speaker-image.larger {
-      max-height: 100px;
+    max-height: 100px;
   }
 }

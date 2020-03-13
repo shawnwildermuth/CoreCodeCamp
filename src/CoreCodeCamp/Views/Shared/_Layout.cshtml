@@ -98,7 +98,7 @@
   <footer>
     <div class="container">
       <div class="row">
-        <div class="col-sm-4 footer-about wow fadeInUp">
+        <div class="col-4 footer-about wow fadeInUp">
           <h3>Other Events</h3>
           @await Html.PartialAsync("_OtherEvents")
         </div>
@@ -108,7 +108,7 @@
           <p><i class="fa fa-map-marker"></i> @this.GetEventInfo().Location.GetOneLineAddress()</p>
           <p><i class="fa fa-envelope"></i> Email: <a href="mailto:@(this.GetEventInfo().ContactEmail)">@this.GetEventInfo().ContactEmail</a></p>
         </div>
-        <div class="col-sm-4 footer-social wow fadeInUp">
+        <div class="col-4 footer-social wow fadeInUp">
           <h3>We're Social</h3>
           <p>
             @if (!string.IsNullOrWhiteSpace(this.GetEventInfo().FacebookLink))
@@ -126,18 +126,19 @@
           </p>
         </div>
       </div>
-      <div class="row">
-        <div class="col-sm-2 footer-copyright">
+      <div class="row border-top-0">
+        <div class="col-3 footer-copyright border-top-0">
           &copy; <a asp-controller="Root" asp-action="Index" asp-route-moniker="@(this.GetEventInfo().Moniker)">Atlanta Code Camp</a>
         </div>
-        <div class="col-md-3 footer-copyright">
+        <div class="col-3 offset-6 footer-copyright text-right border-top-0">
           <p>Source code available on <a href="http://github.com/shawnwildermuth/corecodecamp">Github</a></p>
         </div>
-        <div class="col-sm-7 footer-menu">
-          <ul>
+        <div class="col-12 footer-menu border-top-0">
+          <ul class="navbar navbar-dark bg-transparent">
             @await Html.PartialAsync("_MenuItems", true)
           </ul>
         </div>
+
       </div>
     </div>
   </footer>

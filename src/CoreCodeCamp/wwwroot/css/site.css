@@ -17,9 +17,6 @@ p {
 .form-control.inline {
   display: inline;
 }
-p.lead {
-  text-align: center;
-}
 .form-control.ng-invalid,
 .form-control.ng-invalid:focus {
   border-color: #ce0000;
@@ -328,12 +325,24 @@ footer a:focus {
   line-height: normal;
   font-size: small;
 }
+.lead {
+  text-align: center;
+}
 body {
   -webkit-animation-delay: 0.1s;
   -webkit-animation-name: fontfix;
   -webkit-animation-duration: 0.1s;
   -webkit-animation-iteration-count: 1;
   -webkit-animation-timing-function: linear;
+}
+.footer-menu ul {
+  border-bottom: 0;
+}
+.footer-menu ul li {
+  margin-left: 0;
+}
+.footer-menu ul li .nav-link {
+  padding: 0;
 }
 @-webkit-keyframes fontfix {
   from {

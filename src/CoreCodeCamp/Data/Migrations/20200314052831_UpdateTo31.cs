@@ -2,7 +2,7 @@
 
 namespace CoreCodeCamp.Migrations
 {
-    public partial class AddLinkedinLink : Migration
+    public partial class UpdateTo31 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,6 +20,16 @@ namespace CoreCodeCamp.Migrations
 
             migrationBuilder.AddColumn<string>(
                 name: "LinkedinLink",
+                table: "CodeCampEvents",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "SessionizeEmbedId",
+                table: "CodeCampEvents",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "SessionizeId",
                 table: "CodeCampEvents",
                 nullable: true);
 
@@ -62,6 +72,14 @@ namespace CoreCodeCamp.Migrations
 
             migrationBuilder.DropColumn(
                 name: "LinkedinLink",
+                table: "CodeCampEvents");
+
+            migrationBuilder.DropColumn(
+                name: "SessionizeEmbedId",
+                table: "CodeCampEvents");
+
+            migrationBuilder.DropColumn(
+                name: "SessionizeId",
                 table: "CodeCampEvents");
 
             migrationBuilder.CreateIndex(

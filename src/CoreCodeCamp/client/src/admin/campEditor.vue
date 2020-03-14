@@ -100,33 +100,38 @@
                  v-validate="'url'" />
           <div class="help-block">{{ errors.first('vEvent.instagramLink') }}</div>
         </div>
-        <div class="form-group">
+        <div class="form-group" :class="{ error: errors.has('vEvent.linkedInLink') }">
+          <label>LinkedIn Link</label>
+          <input v-model="theEvent.linkedInLink"
+                 class="form-control"
+                 placeholder="Link to LinkedIn"
+                 name="linkedInLink"
+                 v-validate="'url'" />
+          <div class="help-block">{{ errors.first('vEvent.linkedInLink') }}</div>
+        </div>
+        <div class="form-group" :class="{ error: errors.has('vEvent.registrationLink') }">
           <label>EventBrite ID</label>
           <input v-model="theEvent.registrationLink"
                  class="form-control"
                  placeholder="Link to Meetup or EventBrite"
                  name="registrationLink" />
+          <div class="help-block">{{ errors.first('vEvent.registrationLink') }}</div>
         </div>
-        <div class="form-group">
-          <label>EventBrite ID</label>
-          <input v-model="theEvent.registrationLink"
-                 class="form-control"
-                 placeholder="Link to Meetup or EventBrite"
-                 name="registrationLink" />
-        </div>
-        <div class="form-group">
+        <div class="form-group" :class="{ error: errors.has('vEvent.sessionizeId') }">
           <label>Sessionize ID</label>
           <input v-model="theEvent.sessionizeId"
                  class="form-control"
-                 placeholder="Sessionize ID (e.g. atlanta-code-camp-2020)"
-                 name="sessionizeEmbedId" />
+                 placeholder="(e.g. atlanta-code-camp-2020)"
+                 name="sessionizeId" />
+          <div class="help-block">{{ errors.first('vEvent.sessionizeId') }}</div>
         </div>
-        <div class="form-group">
+        <div class="form-group" :class="{ error: errors.has('vEvent.sessionizeEmbedId') }">
           <label>Sessionize Embed Id</label>
           <input v-model="theEvent.sessionizeEmbedId"
                  class="form-control"
-                 placeholder="Sessionize Embed Id (e.g. 9342097a0s)"
+                 placeholder="(e.g. 9342097a0s)"
                  name="sessionizeEmbedId" />
+          <div class="help-block">{{ errors.first('vEvent.sessionizeEmbedId') }}</div>
         </div>
         <div class="form-group">
           <input type="button"

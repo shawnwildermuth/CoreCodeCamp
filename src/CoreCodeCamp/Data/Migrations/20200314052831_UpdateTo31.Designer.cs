@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreCodeCamp.Migrations
 {
     [DbContext(typeof(CodeCampContext))]
-    [Migration("20200314011317_AddCFSLink")]
-    partial class AddCFSLink
+    [Migration("20200314052831_UpdateTo31")]
+    partial class UpdateTo31
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -99,9 +99,6 @@ namespace CoreCodeCamp.Migrations
                     b.Property<DateTime>("CallForSpeakersClosed")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CallForSpeakersLink")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("CallForSpeakersOpened")
                         .HasColumnType("datetime2");
 
@@ -129,6 +126,9 @@ namespace CoreCodeCamp.Migrations
                     b.Property<bool>("IsPublic")
                         .HasColumnType("bit");
 
+                    b.Property<string>("LinkedinLink")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("LocationId")
                         .HasColumnType("int");
 
@@ -139,6 +139,12 @@ namespace CoreCodeCamp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RegistrationLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SessionizeEmbedId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SessionizeId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TwitterLink")

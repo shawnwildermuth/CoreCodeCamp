@@ -14,7 +14,7 @@
 }
 @if (this.GetEventInfo().CallForSpeakersClosed > DateTime.Today)
 {
-  <li class="@Html.GetActiveMenuItem("CallForSpeakers", "Index") nav-item"><a class="nav-link" asp-area="" asp-controller="CallForSpeakers" asp-action="Index" asp-route-moniker="@this.GetEventInfo().Moniker">Speak</a></li>
+  <li class="nav-item"><a class="nav-link" href="https://sessionize.com/atlanta-code-camp-2020/">Speak</a></li>
 }
 <li class="@Html.GetActiveMenuItem("Root", "Sponsors") nav-item"><a class="nav-link" asp-area="" asp-controller="Root" asp-action="Sponsors" asp-route-moniker="@this.GetEventInfo().Moniker">Sponsors</a></li>
 <li class="@Html.GetActiveMenuItem("Root", "Speakers") nav-item"><a class="nav-link" asp-area="" asp-controller="Root" asp-action="Speakers" asp-route-moniker="@this.GetEventInfo().Moniker">Speakers</a></li>

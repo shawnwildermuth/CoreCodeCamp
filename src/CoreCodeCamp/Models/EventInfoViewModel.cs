@@ -14,6 +14,8 @@ namespace CoreCodeCamp.Models
     public string TwitterLink { get; set; }
     public string InstagramLink { get; set; }
     public string RegistrationLink { get; set; }
+    public string SessionizeEmbedId { get; set; }
+    public string SessionizeId { get; set; }
 
     public DateTime CallForSpeakersOpened { get; set; }
     public DateTime CallForSpeakersClosed { get; set; }

@@ -8,6 +8,7 @@ using CoreCodeCamp.Data.Entities;
 using CoreCodeCamp.Models;
 using CoreCodeCamp.Models.Admin;
 using CoreCodeCamp.Services;
+using FluentValidation.AspNetCore;
 using Loggly;
 using Loggly.Config;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -97,7 +98,9 @@ namespace CoreCodeCamp
         {
           opt.Filters.Add(new RequireHttpsAttribute());
         }
-      });
+      })
+        .AddNewtonsoftJson()
+        .AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
 
       if (_env.IsDevelopment())
       {

@@ -3,8 +3,8 @@
     <table class="table table-condensed table-responsive table-striped">
       <thead>
         <tr>
-          <td class="col-md-10">Name</td>
-          <td class="col-md-2"></td>
+          <td class="col-10">Name</td>
+          <td class="col-2"></td>
         </tr>
       </thead>
       <tr v-for="room in rooms">

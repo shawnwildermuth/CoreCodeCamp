@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
   </environment>
   <environment names="Staging,Production">
-    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.4.0/css/bootstrap.min.css"
+    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/4.4.1/css/bootstrap.min.css"
           asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
           asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
     <link href="~/lib/font-awesome/css/font-awesome.min.css" asp-append-version="true" rel="stylesheet" />
@@ -57,24 +57,18 @@
   <div class="loader">
     <div class="loader-img"></div>
   </div>
-
-  <div class="navbar navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <i class="fa fa-bars"></i>
-        </button>
-        <a asp-area="" asp-controller="Root" asp-action="Index" asp-route-moniker="@Html.GetMoniker()" class="navbar-brand">@this.GetEventInfo().Name</a>
-      </div>
-      <div class="navbar-collapse collapse">
-        @await Html.PartialAsync("_LoginPartial")
-        <ul class="nav navbar-nav">
-          @await Html.PartialAsync("_MenuItems", false)
-        </ul>
-      </div>
-      <span  id="topBar"></span>
+  <div class="navbar navbar-expand-lg navbar-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a asp-area="" asp-controller="Root" asp-action="Index" asp-route-moniker="@Html.GetMoniker()" class="navbar-brand">@this.GetEventInfo().Name</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        @await Html.PartialAsync("_MenuItems", false)
+      </ul>
+      @await Html.PartialAsync("_LoginPartial")
     </div>
+    <span id="topBar"></span>
   </div>
 
   @if (IsSectionDefined("topSection"))
@@ -93,7 +87,7 @@
   {
     <div class="features-container section-container">
       <div class="container">
-        
+
         @RenderBody()
       </div>
     </div>
@@ -104,7 +98,7 @@
   <footer>
     <div class="container">
       <div class="row">
-        <div class="col-sm-4 footer-about wow fadeInUp">
+        <div class="col-4 footer-about wow fadeInUp">
           <h3>Other Events</h3>
           @await Html.PartialAsync("_OtherEvents")
         </div>
@@ -114,7 +108,7 @@
           <p><i class="fa fa-map-marker"></i> @this.GetEventInfo().Location.GetOneLineAddress()</p>
           <p><i class="fa fa-envelope"></i> Email: <a href="mailto:@(this.GetEventInfo().ContactEmail)">@this.GetEventInfo().ContactEmail</a></p>
         </div>
-        <div class="col-sm-4 footer-social wow fadeInUp">
+        <div class="col-4 footer-social wow fadeInUp">
           <h3>We're Social</h3>
           <p>
             @if (!string.IsNullOrWhiteSpace(this.GetEventInfo().FacebookLink))
@@ -136,22 +130,22 @@
           </p>
         </div>
       </div>
-      <div class="row">
-        <div class="col-sm-2 footer-copyright">
+      <div class="row border-top-0">
+        <div class="col-3 footer-copyright border-top-0">
           &copy; <a asp-controller="Root" asp-action="Index" asp-route-moniker="@(this.GetEventInfo().Moniker)">Atlanta Code Camp</a>
         </div>
-        <div class="col-md-3 footer-copyright">
+        <div class="col-3 offset-6 footer-copyright text-right border-top-0">
           <p>Source code available on <a href="http://github.com/shawnwildermuth/corecodecamp">Github</a></p>
         </div>
-        <div class="col-sm-7 footer-menu">
-          <ul>
+        <div class="col-12 footer-menu border-top-0">
+          <ul class="navbar navbar-dark bg-transparent">
             @await Html.PartialAsync("_MenuItems", true)
           </ul>
         </div>
+
       </div>
     </div>
   </footer>
-
   <environment names="Development">
     <script src="~/node_modules/jquery/dist/jquery.js"></script>
     <script src="~/node_modules/bootstrap/dist/js/bootstrap.js"></script>
@@ -180,12 +174,12 @@
             asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
     </script>
 
-    <script src="~/lib/jquery-backstretch/jquery.backstretch.min.js" asp-append-version="true" ></script>
-    <script src="~/lib/wowjs/wow.min.js" asp-append-version="true" ></script>
-    <script src="~/lib/retina.js/retina.js" asp-append-version="true" ></script>
-    <script src="~/lib/jquery-waypoints/waypoints.min.js" asp-append-version="true" ></script>
+    <script src="~/lib/jquery-backstretch/jquery.backstretch.min.js" asp-append-version="true"></script>
+    <script src="~/lib/wowjs/wow.min.js" asp-append-version="true"></script>
+    <script src="~/lib/retina.js/retina.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-waypoints/waypoints.min.js" asp-append-version="true"></script>
 
-    <script src="~/template/js/scripts.js" asp-append-version="true" ></script>
+    <script src="~/template/js/scripts.js" asp-append-version="true"></script>
 
     <!--[if lt IE 10]>
         <script src="~/template/js/placeholder.js"></script>

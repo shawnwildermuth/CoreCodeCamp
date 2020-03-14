@@ -87,6 +87,10 @@
                       <label>EventBrite ID</label>
                       <input v-model="theEvent.registrationLink" class="form-control" placeholder="Link to Meetup or EventBrite" name="registrationLink" />
                     </div>
+                    <div class="form-group">
+                      <label>Call For Speaker Link (Sessionize)</label>
+                      <input v-model="theEvent.CallForSpeakersLink" class="form-control" placeholder="Link to Sessionize" name="callForSpeakersLink" />
+                    </div>
                   </div>
                   <div class="form-group">
                     <input type="button" class="btn btn-success btn-lg" value="Save" v-bind:disabled="errors.any('vEvent')" @@click="onSaveEvent()" />

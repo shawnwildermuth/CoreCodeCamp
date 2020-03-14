@@ -5,7 +5,7 @@
   ViewData["TopSectionClass"] = "top-content";
 }
 @section topSection {
-  <div class="col-sm-8 col-sm-offset-2 text">
+  <div class="col-sm-8 offset-sm-2 text">
     @if (this.GetEventInfo().EventDate.ToUniversalTime().Date > DateTime.Today.AddDays(-1))
     {
       <h1 class="wow fadeInLeftBig"><strong>@this.GetEventInfo().Name</strong> is coming @this.GetEventInfo().EventDate.ToUniversalTime().Date.ToString("D")</h1>
@@ -57,40 +57,40 @@
   </div>
 }
 <div class="row">
-  <div class="col-sm-12 features section-description wow fadeIn">
+  <div class="col-12 features section-description wow fadeIn">
     <h2>Why Attend the Code Camp?</h2>
     <div class="divider-1 wow fadeInUp"><span></span></div>
   </div>
 </div>
 <div class="row">
-  <div class="col-sm-4 features-box wow fadeInUp">
+  <div class="col-4 features-box wow fadeInUp">
     <div class="features-box-icon"><i class="fa fa-group"></i></div>
     <h3>Learn From The Best</h3>
     <p>Come hear from the best national and local speakers, including Microsoft MVPs, RDs, and open source advocates!</p>
   </div>
-  <div class="col-sm-4 features-box wow fadeInDown">
+  <div class="col-4 features-box wow fadeInDown">
     <div class="features-box-icon"><i class="fa fa-bolt"></i></div>
     <h3>Improve Your Skillset</h3>
     <p>Become a better developer by learning from our six tracks of talks.</p>
   </div>
-  <div class="col-sm-4 features-box wow fadeInUp">
+  <div class="col-4 features-box wow fadeInUp">
     <div class="features-box-icon"><i class="fa fa-cloud"></i></div>
     <h3>Network</h3>
     <p>With developers, designers, and companies all attending, it is your chance to meet the best people in the community all at once.</p>
   </div>
 </div>
 <div class="row">
-  <div class="col-sm-4 features-box wow fadeInUp">
+  <div class="col-4 features-box wow fadeInUp">
     <div class="features-box-icon"><i class="fa fa-laptop"></i></div>
     <h3>Jobs</h3>
     <p>Some of the best local companies come to this event looking to fill their most important roles. </p>
   </div>
-  <div class="col-sm-4 features-box wow fadeInDown">
+  <div class="col-4 features-box wow fadeInDown">
     <div class="features-box-icon"><i class="fa fa-code"></i></div>
     <h3>Hacking Lab</h3>
     <p>For the first time this year, we'll have an open space for hacking code with other developers and speakers.</p>
   </div>
-  <div class="col-sm-4 features-box wow fadeInUp">
+  <div class="col-4 features-box wow fadeInUp">
     <div class="features-box-icon"><i class="fa fa-tag"></i></div>
     <h3>Prizes</h3>
     <p>Like our past ten code camps, we'll have great prizes for our 'end of event' spectacular.</p>

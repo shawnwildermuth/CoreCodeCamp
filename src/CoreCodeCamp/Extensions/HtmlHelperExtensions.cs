@@ -18,7 +18,9 @@ namespace CoreCodeCamp.Extensions
 
     public static HtmlString GetActiveMenuItem<T>(this IHtmlHelper<T> html, string controller, string action)
     {
-      if (html.ViewContext.RouteData.Values["controller"].Equals(controller) && 
+      if (html.ViewContext.RouteData.Values.ContainsKey("controller") &&
+        html.ViewContext.RouteData.Values.ContainsKey("action") && 
+        html.ViewContext.RouteData.Values["controller"].Equals(controller) && 
         html.ViewContext.RouteData.Values["action"].Equals(action) &&
         html.ViewContext.RouteData.Values["area"] == null)
       {

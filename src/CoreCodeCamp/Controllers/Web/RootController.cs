@@ -17,7 +17,7 @@ namespace CoreCodeCamp.Controllers.Web
 {
   public class RootController : MonikerControllerBase
   {
-    public RootController(ICodeCampRepository repo, ILogger<RootController> logger, IMapper mapper, IHostingEnvironment env) 
+    public RootController(ICodeCampRepository repo, ILogger<RootController> logger, IMapper mapper, IWebHostEnvironment env) 
       : base(repo, logger, mapper)
     {
       _env = env;
@@ -33,7 +33,7 @@ namespace CoreCodeCamp.Controllers.Web
               "Silver",
               "Swag",
               "Other"};
-    private readonly IHostingEnvironment _env;
+    private readonly IWebHostEnvironment _env;
 
     public IActionResult Index(string moniker)
     {

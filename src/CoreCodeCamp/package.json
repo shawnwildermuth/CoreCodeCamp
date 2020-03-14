@@ -3,7 +3,8 @@
   "name": "asp.net",
   "private": true,
   "dependencies": {
-    "bootstrap": "3.4.1",
+    "bootstrap": "4.4.1",
+    "popper.js": "^1.16.0",
     "font-awesome": "v4.7.0",
     "jquery": "2.2.4",
     "jquery-backstretch": "2.1.17",
@@ -11,7 +12,7 @@
     "jquery-validation": "1.14.0",
     "jquery-validation-unobtrusive": "3.2.6",
     "jquery-waypoints": "2.0.5",
-    "lodash": "^4.17.13",
+    "lodash": "4.17.15",
     "moment": "^2.24.0",
     "retina.js": "1.1.0",
     "typicons.font": "2.0.9",

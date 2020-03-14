@@ -21,23 +21,14 @@ namespace CoreCodeCamp
         .UseStartup<Startup>()
         .Build();
 
-      var env = host.Services.GetService<IHostingEnvironment>();
-      if (env.IsDevelopment())
-      {
-        IConfiguration config = host.Services.GetService<IConfiguration>();
-        var shouldSeed = config.GetValue<bool>("Data:SeedDatabase");
-        if ( shouldSeed)
-        {
-          Seed(host).Wait();
-        }
-      }
+      Seed(host).Wait();
 
       host.Run();
     }
 
     private static async Task Seed(IWebHost host)
     {
-      IServiceScopeFactory scopeFactory = host.Services.GetService<IServiceScopeFactory>();
+      var scopeFactory = host.Services.GetService<IServiceScopeFactory>();
       using (var scope = scopeFactory.CreateScope())
       {
         var initializer = scope.ServiceProvider.GetService<CodeCampSeeder>();

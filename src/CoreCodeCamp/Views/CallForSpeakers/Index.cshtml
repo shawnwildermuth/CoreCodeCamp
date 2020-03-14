@@ -5,7 +5,7 @@
 }
 @section topSection
 {
-  <div class="col-sm-6 col-sm-offset-3 text">
+  <div class="col-6 offset-3 text">
     <h2 class="wow fadeInLeft">Call for Speakers</h2>
     <hr class="wow fadeInLeft" />
     <div class="description wow fadeInLeft">
@@ -17,17 +17,24 @@
       </p>
       @if ((this.GetEventInfo().CallForSpeakersOpened <= DateTime.Today && this.GetEventInfo().CallForSpeakersClosed > DateTime.Today))
       {
-      <a asp-action="Speaker" asp-controller="CallForSpeakers" class="btn btn-lg btn-success">Apply to Speak</a>
+        if (string.IsNullOrWhiteSpace(this.GetEventInfo().SessionizeId))
+        {
+          <a asp-action="Speaker" asp-controller="CallForSpeakers" class="btn btn-lg btn-success">Apply to Speak</a>
+        }
+        else
+        {
+          <a href="https://sessionize.com/@(this.GetEventInfo().SessionizeId)/" class="btn btn-lg btn-success">Apply to Speak</a>
+        }
       }
       else if (this.GetEventInfo().CallForSpeakersOpened > DateTime.Today)
       {
-      <h4>Opening Soon!</h4>
-      <p>Please visit this page again when the call for speakers opens up on <strong>@this.GetEventInfo().CallForSpeakersOpened.ToString("D")</strong>.</p>
+        <h4>Opening Soon!</h4>
+        <p>Please visit this page again when the call for speakers opens up on <strong>@this.GetEventInfo().CallForSpeakersOpened.ToString("D")</strong>.</p>
       }
       else
       {
-      <h4>Call for Speakers is Now Closed!</h4>
-      <p>Thanks for your interest in speaking at the @this.GetEventInfo().Name. The Call For Speakers is now closed. If you submitted a talk, you should hear from us very shortly. To see the sessions that were selected, please visit the Sessions Page.</p>
+        <h4>Call for Speakers is Now Closed!</h4>
+        <p>Thanks for your interest in speaking at the @this.GetEventInfo().Name. The Call For Speakers is now closed. If you submitted a talk, you should hear from us very shortly. To see the sessions that were selected, please visit the Sessions Page.</p>
       }
     </div>
   </div>

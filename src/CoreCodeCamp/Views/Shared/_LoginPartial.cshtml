@@ -9,25 +9,29 @@
 @if (SignInManager.IsSignedIn(User))
 {
   var userName = (await UserManager.FindByNameAsync(UserManager.GetUserName(User)))?.Name;
-  <ul class="nav navbar-nav navbar-right auth-nav">
+  <ul class="navbar-nav my-2 my-lg-0">
     @if (Repository.GetSpeakerForCurrentUser(this.GetEventInfo().Moniker, User.Identity.Name) != null)
     {
-      <li>
-        <a asp-area="" asp-controller="CallForSpeakers" asp-action="Speaker" asp-route-moniker="@this.GetEventInfo().Moniker" title="Your Talks">Your Talks</a>
+      <li class="nav-item">
+        <a class="nav-link" asp-area="" asp-controller="CallForSpeakers" asp-action="Speaker" asp-route-moniker="@this.GetEventInfo().Moniker" title="Your Talks">Your Talks</a>
       </li>
     }
-    <li>
-      <a asp-area="" asp-controller="Manage" asp-action="Index" asp-route-moniker="" title="Manage">Your Acct</a>
+    <li class="nav-item">
+      <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" asp-route-moniker="" title="Manage">Your Acct</a>
     </li>
-    <li>
-      <a asp-area="" asp-controller="Account" asp-action="Logoff" asp-route-moniker="">Logoff</a>
+    <li class="nav-item">
+      <a class="nav-link" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" asp-route-moniker="">Logoff</a>
     </li>
   </ul>
 }
 else
 {
-  <ul class="nav navbar-nav navbar-right auth-nav">
-    <li><a asp-area="" asp-controller="Account" asp-action="Join" asp-route-moniker="">Join</a></li>
-    <li><a asp-area="" asp-controller="Account" asp-action="Login" asp-route-moniker="">Log in</a></li>
+  <ul class="navbar-nav  my-2 my-lg-0">
+    <li class="nav-item">
+      <a class="nav-link" asp-area="Identity" asp-page="/Account/Register" asp-route-moniker="">Join</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" asp-area="Identity" asp-page="/Account/Login" asp-route-moniker="">Log in</a>
+    </li>
   </ul>
 }

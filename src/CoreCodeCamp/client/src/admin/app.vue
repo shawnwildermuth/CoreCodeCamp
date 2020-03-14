@@ -13,23 +13,23 @@
       </select>
     </div>
     <ul class="nav nav-tabs" role="tabpanel" aria-label="Tabs">
-      <li>
-        <router-link :to="{ name: 'admin' }">Camp Info</router-link>
+      <li class="nav-item">
+        <router-link :to="{ name: 'admin' }" class="nav-link">Camp Info</router-link>
       </li>
-      <li>
-        <router-link :to="{ name: 'users' }">Users</router-link>
+      <li class="nav-item">
+        <router-link :to="{ name: 'users' }" class="nav-link">Users</router-link>
       </li>
-      <li>
-        <router-link :to="{ name: 'talks' }">Talks</router-link>
+      <!--<li class="nav-item">
+        <router-link :to="{ name: 'talks' }" class="nav-link">Talks</router-link>
       </li>
-      <li>
-        <router-link :to="{ name: 'scheduleSetup' }">Rooms and Timeslots</router-link>
+      <li class="nav-item">
+        <router-link :to="{ name: 'scheduleSetup' }" class="nav-link">Rooms and Timeslots</router-link>
       </li>
-      <li>
-        <router-link :to="{ name: 'schedule' }">Talk Scheduling</router-link>
-      </li>
-      <li>
-        <router-link :to="{ name: 'sponsors' }">Sponsors</router-link>
+      <li class="nav-item">
+        <router-link :to="{ name: 'schedule' }" class="nav-link">Talk Scheduling</router-link>
+      </li>-->
+      <li class="nav-item">
+        <router-link :to="{ name: 'sponsors' }" class="nav-link">Sponsors</router-link>
       </li>
     </ul>
     <div class="panel panel-default">

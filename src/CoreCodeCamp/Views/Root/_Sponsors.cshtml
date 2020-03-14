@@ -1,17 +1,19 @@
 ﻿@model IEnumerable<Sponsor>
 <div class="container">
-  <div class="row">
+  <div class="row  d-block">
     @foreach (var s in Model.Where(s => s.Paid))
     {
-      <div class="col-md-4 xspnr-box  wow fadeInLeft">
+      <div class="col-4 xspnr-box wow fadeInLeft">
         <div class="xspnr-box-logo"><a href="@s.Link" target="_blank"><img src="@s.ImageUrl" alt="@s.Name" class="thumbnail" /></a></div>
         <div class="xspnr-box-level">@s.SponsorLevel Sponsor</div>
       </div>
     }
   </div>
-  <div class="row">
-    <h3>Want to Sponsor the <strong>@this.GetEventInfo().Name</strong>?</h3>
-    <p class="lead">Interested in helping us bring this event to the Atlanta Metro Area? Become a sponsor today:</p>
-    <a asp-controller="Root" asp-action="Sponsoring" asp-route-moniker="@this.GetEventInfo().Moniker" class="btn btn-lg btn-success">Become a Sponsor</a>
+  <div class="row  d-block">
+    <h3 class="text-center">Want to Sponsor the <strong>@this.GetEventInfo().Name</strong>?</h3>
+    <p class="lead text-center">
+      Interested in helping us bring this event to the Atlanta Metro Area? Become a sponsor today:
+    </p>
+    <div class="text-center"><a asp-controller="Root" asp-action="Sponsoring" asp-route-moniker="@this.GetEventInfo().Moniker" class="btn btn-lg btn-success">Become a Sponsor</a></div>
   </div>
 </div>

@@ -20,11 +20,11 @@ namespace CoreCodeCamp.Controllers.Api
   [ApiController]
   public class ImageController : Controller
   {
-    private IHostingEnvironment _env;
+    private IWebHostEnvironment _env;
     private ILogger<ImageController> _logger;
     private readonly IImageStorageService _imageService;
 
-    public ImageController(IHostingEnvironment env, ILogger<ImageController> logger, IImageStorageService imageService)
+    public ImageController(IWebHostEnvironment env, ILogger<ImageController> logger, IImageStorageService imageService)
     {
       _env = env;
       _logger = logger;

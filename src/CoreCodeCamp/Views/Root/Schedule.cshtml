@@ -20,137 +20,155 @@
   </script>
 }
 <div class="row">
-  @if (favs.Count() > 0)
+  @if (!string.IsNullOrEmpty(this.GetEventInfo().SessionizeEmbedId))
   {
-  <div class="col-lg-2">
     <div class="row">
-      <h3>Your Favorites</h3>
-      <div class="text-left">
-        @foreach (var fav in favs)
-          {
-        <div class="well well-sm text-sm col-md-5 col-md-offset-1 col-lg-12 favorite-box">
-          <span class="delete-star pull-right" data-id="@fav.Id" title="Remove Favorite"><i class="fa fa-close"></i></span>
-          <div><strong><a href="Speakers/@fav.Speaker.Slug">@fav.Title</a></strong></div>
-          <div>@fav.Speaker.Name</div>
-          @if (fav.Room != null)
-              {
-          <div class="text-sm">Room: @fav.Room.Name</div>
-              }
-          @if (fav.TimeSlot != null)
-              {
-          <div class="text-sm">Time: @fav.TimeSlot.Time</div>
-              }
-        </div>
-          }
-      </div>
+      <div class="col-11 offset-1 col-md-12"><h2>Schedule</h2></div>
+      <script type="text/javascript" src="https://sessionize.com/api/v2/@(this.GetEventInfo().SessionizeEmbedId)/view/GridSmart"></script>
     </div>
-  </div>
   }
-  <div class="col-md-12 col-lg-@(favs.Count() > 0 ? "10" : "12")">
-    @if ((slots != null && slots[0].Count() > 0 && slots[1].Count() > 0) || isAdmin)
+  else
+  {
+    @if (favs.Count() > 0)
     {
-    <div class="row">
-      <div class="col-lg-11 col-lg-offset-1 col-md-12 "><h3>Schedule</h3></div>
-      <div class="col-lg-1">
-        <p>7:45am-<span class="visible-lg visible-xl"> </span>8:30am</p>
-      </div>
-      <div class="panel col-lg-11 col-md-12 panel-info">
-        <h4>Registration and Breakfast</h4>
-        <div><a href="/img/@(this.GetEventInfo().Moniker)/maps/campus.jpg" target="_blank">Building 840</a></div>
-      </div>
-      <div class="col-lg-1">
-        <p>8:30am-<span class="visible-lg visible-xl"> </span>9:30am</p>
-      </div>
-      <div class="panel col-lg-11 col-md-12 panel-success">
-        <h4>Introduction and Keynote</h4>
-        <p>
-          <img src="/img/2019/keynote-speaker.jpg" style="max-width: 150px; margin-bottom: 20px;" class="img-thumbnail img-circle img-responsive pull-right" /><strong>Rie Shewbart Irish</strong> (Sr Program Manager at Microsoft)
-          <br /><strong>Coding for Diversity & Inclusion</strong>
-        </p>
-        <p>Computers can't be biased right? It's simply ones and zeros, just lines of code. People can be biased and they're putting that bias into their code.  Learn how to identify bias when it seeps in.  </p>
-        <div><a href="/img/@(this.GetEventInfo().Moniker)/maps/campus.jpg" target="_blank">Room 202 (Auditorium)</a></div>
-      </div>
-
-      @foreach (var slot in slots[0])
-    {
-      <div class="col-lg-1 @(slot.Time.TimeOfDay == pickedTime.TimeOfDay ? "current-time" : "")">
-        <p>@slot.Time.ToString("hh:mmtt").ToLower()-<span class="visible-lg visible-xl"> </span>@slot.Time.AddHours(1).ToString("hh:mmtt").ToLower()</p>
-      </div>
-      <div class="col-lg-11 col-md-12 ">
+      <div class="col-2">
         <div class="row">
-          @foreach (var talk in slot.Talks)
-    {
-          @await Html.PartialAsync("_ScheduleItem", talk)
-    }
-        </div>
-      </div>
-    }
-
-      <div class="col-lg-1">
-        <p>12:00pm-<span class="visible-lg visible-xl"> </span>1:00pm</p>
-      </div>
-      <div class="panel col-lg-11 panel-success">
-        <h4>Lunch</h4>
-        <div><a href="/img/@(this.GetEventInfo().Moniker)/maps/campus.jpg" target="_blank">Building 840</a></div>
-      </div>
-
-      @foreach (var slot in slots[1])
-    {
-      <div class="col-lg-1 @(slot.Time.TimeOfDay == pickedTime.TimeOfDay ? "current-time" : "")">
-        <p>@slot.Time.ToString("hh:mmtt").ToLower()-<span class="visible-lg visible-xl"> </span>@slot.Time.AddHours(1).ToString("hh:mmtt").ToLower()</p>
-      </div>
-      <div class="col-lg-11">
-        <div class="row">
-          @foreach (var talk in slot.Talks)
-    {
-          @await Html.PartialAsync("_ScheduleItem", talk)
-    }
-        </div>
-      </div>
-    }
-
-      <div class="col-lg-1">
-        <p>5:00pm-<span class="visible-lg visible-xl"> </span>5:30pm</p>
-      </div>
-      <div class="panel col-lg-11 panel-success">
-        <h4>Wrap-up and Giveaways</h4>
-        <div><a href="/img/@(this.GetEventInfo().Moniker)/maps/campus.jpg" target="_blank">202 (Auditorium)</a></div>
-      </div>
-
-      @*<div class="col-lg-1">
-          <p>5:30pm-<span class="visible-lg visible-xl"> </span>8:30pm</p>
-        </div>
-        <div class="panel col-lg-11 panel-success">
-          <h4>Attendee Party</h4>
-          <p>
-            <a href="https://magenic.com/"><img src="~/img/2017/sponsors/magenic.png" alt="Magenic" class="img-responsive img-thumbnail pull-right" /></a>Don't forget
-            to come to our after party at <a href="http://www.daveandbusters.com/marietta">Dave and Busters in Marietta</a>! Come eat, play pool, beat a video game, and maybe even some bowling. Thank our sponsor, Magenic for this great event!
-          </p>
-          <address class="text-left">
-            <a href="http://www.daveandbusters.com/marietta">Dave and Busters</a><br/>
-            2215 D&B Drive<br />
-            Marietta, GA 30067<br />
-            <a href="https://www.google.com/maps?q=from++to+2215%20D&B%20Drive,%20Marietta,%20Georgia,%2030067">Directions</a>
-          </address>
-        </div>*@
-    </div>
-    <div class="row">
-      <div class="schedule-item-legend col-md-4 col-md-offset-4">
-        <div class="text-center">Category Legend</div>
-        <div class="row">
-          @foreach (var cat in Model.Item4)
-        {
-          <div class="legend schedule-item-@(cat.Replace(" ", "-").ToLower()) ">
-            @cat
+          <h3>Your Favorites</h3>
+          <div class="text-left">
+            @foreach (var fav in favs)
+            {
+              <div class="card text-sm col-md-5 col-md-offset-1 col-12 favorite-box">
+                <span class="delete-star pull-right" data-id="@fav.Id" title="Remove Favorite"><i class="fa fa-close"></i></span>
+                <div>
+                  <strong>
+                    <a href="Speakers/@fav.Speaker.Slug">
+                      @fav.Title
+                    </a>
+                  </strong>
+                </div>
+                <div> @fav.Speaker.Name </div>
+                @if (fav.Room != null)
+                {
+                  <div class="text-sm">Room: @fav.Room.Name</div>
+                }
+                @if (fav.TimeSlot != null)
+                {
+                  <div class="text-sm">
+                    Time: @fav.TimeSlot.Time
+                  </div>
+                }
+              </div>
+            }
           </div>
-        }
         </div>
       </div>
+    }
+    <div class="col-md-12 col-@(favs.Count() > 0 ? "10" : "12")">
+      @if ((slots != null && slots[0].Count() > 0 && slots[1].Count() > 0) || isAdmin)
+      {
+        <div class="row">
+          <div class="col-11 offset-1 col-md-12"><h3>Schedule</h3></div>
+          <div class="col-1">
+            <p>7:45am-<span class="visible-lg visible-xl"> </span>8:30am</p>
+          </div>
+          <div class="panel col-11 col-md-12 panel-info">
+            <h4>Registration and Breakfast</h4>
+            <div><a href="/img/@(this.GetEventInfo().Moniker)/maps/campus.jpg" target="_blank">Building 840</a></div>
+          </div>
+          <div class="col-1">
+            <p>8:30am-<span class="visible-lg visible-xl"> </span>9:30am</p>
+          </div>
+          <div class="panel col-11 col-md-12 panel-success">
+            <h4>Introduction and Keynote</h4>
+            <p>
+              <img src="/img/2019/keynote-speaker.jpg" style="max-width: 150px; margin-bottom: 20px;" class="img-thumbnail img-circle img-responsive pull-right" /><strong>Rie Shewbart Irish</strong>(Sr Program Manager at Microsoft)
+              <br /><strong>Coding for Diversity & Inclusion</strong>
+            </p>
+            <p>Computers can't be biased right? It's simply ones and zeros, just lines of code.People can be biased and they're putting that bias into their code.  Learn how to identify bias when it seeps in.  </p>
+            <div><a href="/img/@(this.GetEventInfo().Moniker)/maps/campus.jpg" target="_blank"> Room 202 (Auditorium)</a></div>
+          </div>
+
+          @foreach (var slot in slots[0])
+          {
+            <div class="col-1 @(slot.Time.TimeOfDay == pickedTime.TimeOfDay ? "current-time" : "")">
+              <p>@slot.Time.ToString("hh:mmtt").ToLower()-<span class="visible-lg visible-xl"> </span>@slot.Time.AddHours(1).ToString("hh:mmtt").ToLower()</p>
+            </div>
+            <div class="col-11 col-md-12 ">
+              <div class="row">
+                @foreach (var talk in slot.Talks)
+                {
+                  @await Html.PartialAsync("_ScheduleItem", talk)
+                }
+              </div>
+            </div>
+          }
+
+          <div class="col-1">
+            <p>12:00pm-<span class="visible-lg visible-xl"> </span>1:00pm</p>
+          </div>
+          <div class="panel col-11 panel-success">
+            <h4>Lunch</h4>
+            <div><a href="/img/@(this.GetEventInfo().Moniker)/maps/campus.jpg" target="_blank">Building 840</a></div>
+          </div>
+
+          @foreach (var slot in slots[1])
+          {
+            <div class="col-1 @(slot.Time.TimeOfDay == pickedTime.TimeOfDay ? "current-time" : "")">
+              <p>@slot.Time.ToString("hh:mmtt").ToLower()-<span class="visible-lg visible-xl"> </span>@slot.Time.AddHours(1).ToString("hh:mmtt").ToLower()</p>
+            </div>
+            <div class="col-11">
+              <div class="row">
+                @foreach (var talk in slot.Talks)
+                {
+                  @await Html.PartialAsync("_ScheduleItem", talk)
+                }
+              </div>
+            </div>
+          }
+
+          <div class="col-1">
+            <p>5:00pm-<span class="visible-lg visible-xl"> </span>5:30pm</p>
+          </div>
+          <div class="panel col-11 panel-success">
+            <h4>Wrap-up and Giveaways</h4>
+            <div><a href="/img/@(this.GetEventInfo().Moniker)/maps/campus.jpg" target="_blank">202 (Auditorium)</a></div>
+          </div>
+
+          @*<div class="col-1">
+              <p>5:30pm-<span class="visible-lg visible-xl"> </span>8:30pm</p>
+            </div>
+            <div class="panel col-11 panel-success">
+              <h4>Attendee Party</h4>
+              <p>
+                <a href="https://magenic.com/"><img src="~/img/2017/sponsors/magenic.png" alt="Magenic" class="img-responsive img-thumbnail pull-right" /></a>Don't forget
+                to come to our after party at <a href="http://www.daveandbusters.com/marietta">Dave and Busters in Marietta</a>! Come eat, play pool, beat a video game, and maybe even some bowling. Thank our sponsor, Magenic for this great event!
+              </p>
+              <address class="text-left">
+                <a href="http://www.daveandbusters.com/marietta">Dave and Busters</a><br/>
+                2215 D&B Drive<br />
+                Marietta, GA 30067<br />
+                <a href="https://www.google.com/maps?q=from++to+2215%20D&B%20Drive,%20Marietta,%20Georgia,%2030067">Directions</a>
+              </address>
+            </div>*@
+        </div>
+        <div class="row">
+          <div class="schedule-item-legend col-md-4 col-md-offset-4">
+            <div class="text-center">Category Legend</div>
+            <div class="row">
+              @foreach (var cat in Model.Item4)
+              {
+                <div class="legend schedule-item-@(cat.Replace(" ", "-").ToLower()) ">
+                  @cat
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+      else
+      {
+        <p class="lead">Full Schedule Coming Soon</p>
+      }
     </div>
-    }
-    else
-    {
-    <p class="lead">Full Schedule Coming Soon</p>
-    }
-  </div>
+  }
 </div>

@@ -4,14 +4,16 @@ using CoreCodeCamp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CoreCodeCamp.Migrations
 {
     [DbContext(typeof(CodeCampContext))]
-    partial class CodeCampContextModelSnapshot : ModelSnapshot
+    [Migration("20200314011317_AddCFSLink")]
+    partial class AddCFSLink
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,6 +99,9 @@ namespace CoreCodeCamp.Migrations
                     b.Property<DateTime>("CallForSpeakersClosed")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CallForSpeakersLink")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CallForSpeakersOpened")
                         .HasColumnType("datetime2");
 
@@ -134,12 +139,6 @@ namespace CoreCodeCamp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RegistrationLink")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SessionizeEmbedId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SessionizeId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TwitterLink")

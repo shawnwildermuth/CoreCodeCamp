@@ -92,13 +92,7 @@ namespace CoreCodeCamp
         .AddRoles<IdentityRole>()
         .AddEntityFrameworkStores<CodeCampContext>();
 
-      svcs.AddControllersWithViews(opt =>
-      {
-        if (_env.IsProduction())
-        {
-          opt.Filters.Add(new RequireHttpsAttribute());
-        }
-      })
+      svcs.AddControllersWithViews()
         .AddNewtonsoftJson()
         .AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
 
@@ -128,6 +122,7 @@ namespace CoreCodeCamp
 
       if (_env.IsProduction())
       {
+        app.UseHttpsRedirection();
         app.UseStatusCodePages(new StatusCodePagesOptions()
         {
           HandleAsync = ctx =>

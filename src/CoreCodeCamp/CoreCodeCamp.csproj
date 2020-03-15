@@ -9,6 +9,8 @@
     <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>latest</TypeScriptToolsVersion>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <AssemblyVersion>3.1.104.0</AssemblyVersion>
+    <Version>3.1.104</Version>
   </PropertyGroup>
 
   <ItemGroup>

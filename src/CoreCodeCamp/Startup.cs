@@ -122,7 +122,7 @@ namespace CoreCodeCamp
 
       if (_env.IsProduction())
       {
-        app.UseHttpsRedirection();
+        //app.UseHttpsRedirection();
         app.UseStatusCodePages(new StatusCodePagesOptions()
         {
           HandleAsync = ctx =>

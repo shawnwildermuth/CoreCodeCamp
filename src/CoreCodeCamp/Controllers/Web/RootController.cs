@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
+using TimeZoneConverter;
 
 namespace CoreCodeCamp.Controllers.Web
 {
@@ -134,7 +135,7 @@ namespace CoreCodeCamp.Controllers.Web
 
       if (slots.Count() > 0)
       {
-        var easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+        var easternZone = TZConvert.GetTimeZoneInfo("Eastern Standard Time");
         var eventTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
 
         if (eventTime.Date == this._theEvent.EventDate)

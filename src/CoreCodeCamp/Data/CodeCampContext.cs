@@ -40,7 +40,9 @@ namespace CoreCodeCamp.Data
     {
       base.OnConfiguring(optionsBuilder);
 
-      optionsBuilder.UseSqlServer(_config["Data:DbCodeCamp"]);
+      var connString = _config["Data:DbCodeCamp"];
+
+      optionsBuilder.UseSqlServer(connString);
     }
   }
 }

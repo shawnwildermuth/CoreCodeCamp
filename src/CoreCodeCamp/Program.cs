@@ -21,7 +21,7 @@ namespace CoreCodeCamp
         .UseStartup<Startup>()
         .Build();
 
-      Seed(host).Wait();
+      //Seed(host).Wait();
 
       host.Run();
     }

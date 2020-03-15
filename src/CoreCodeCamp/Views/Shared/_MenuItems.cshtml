@@ -12,9 +12,16 @@
 {
   <li class="@Html.GetActiveMenuItem("Root", "Register") nav-item"><a class="nav-link" asp-action="Register" asp-controller="Root" asp-area="" asp-route-moniker="@this.GetEventInfo().Moniker">Register</a></li>
 }
-@if (this.GetEventInfo().CallForSpeakersClosed > DateTime.Today)
+@if (this.GetEventInfo().CallForSpeakersOpened < DateTime.Today && this.GetEventInfo().CallForSpeakersClosed > DateTime.Today)
 {
-  <li class="nav-item"><a class="nav-link" href="https://sessionize.com/atlanta-code-camp-2020/">Speak</a></li>
+  if (!string.IsNullOrWhiteSpace(this.GetEventInfo().SessionizeId))
+  {
+    <li class="nav-item"><a class="nav-link" href="https://sessionize.com/@(this.GetEventInfo().SessionizeId)/">Speak</a></li>
+  }
+  else
+  {
+    <li class="@Html.GetActiveMenuItem("Root", "Speak") nav-item"><a class="nav-link" asp-area="" asp-controller="CallForSpeakers" asp-action="Index" asp-route-moniker="@this.GetEventInfo().Moniker">Speak</a></li>
+  }
 }
 <li class="@Html.GetActiveMenuItem("Root", "Sponsors") nav-item"><a class="nav-link" asp-area="" asp-controller="Root" asp-action="Sponsors" asp-route-moniker="@this.GetEventInfo().Moniker">Sponsors</a></li>
 <li class="@Html.GetActiveMenuItem("Root", "Speakers") nav-item"><a class="nav-link" asp-area="" asp-controller="Root" asp-action="Speakers" asp-route-moniker="@this.GetEventInfo().Moniker">Speakers</a></li>

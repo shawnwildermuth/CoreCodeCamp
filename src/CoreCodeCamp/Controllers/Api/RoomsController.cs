@@ -27,9 +27,9 @@ namespace CoreCodeCamp.Controllers.Api
     }
 
     [HttpGet()]
-    public IActionResult Get(string moniker)
+    public async Task<IActionResult> Get(string moniker)
     {
-      return Ok(_repo.GetRooms(moniker));
+      return Ok(await _repo.GetRoomsAsync(moniker));
     }
 
     [HttpPost()]
@@ -39,7 +39,7 @@ namespace CoreCodeCamp.Controllers.Api
       {
         try
         {
-          var eventInfo = _repo.GetEventInfo(moniker);
+          var eventInfo = await _repo.GetEventInfoAsync(moniker);
           if (eventInfo != null)
           {
             model.Event = eventInfo;
@@ -63,7 +63,7 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        var room = _repo.GetRoom(moniker, id);
+        var room = await _repo.GetRoomAsync(moniker, id);
         if (room.Id != id || string.IsNullOrWhiteSpace(model.Name)) return BadRequest();
         room.Name = model.Name;
         await _repo.SaveChangesAsync();
@@ -82,7 +82,7 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        var room = _repo.GetRoom(moniker, id);
+        var room = await _repo.GetRoomAsync(moniker, id);
         _repo.Delete(room);
         await _repo.SaveChangesAsync();
 

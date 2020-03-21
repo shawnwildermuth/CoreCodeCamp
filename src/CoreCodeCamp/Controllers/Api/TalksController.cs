@@ -41,14 +41,14 @@ namespace CoreCodeCamp.Controllers.Api
 
     [HttpGet("{moniker}/api/talks")]
     [AllowAnonymous]
-    public IActionResult Get(string moniker)
+    public async Task<IActionResult> Get(string moniker)
     {
       try
       {
-        var talks = _mapper.Map<IEnumerable<TalkViewModel>>(_repo.GetTalks(moniker));
+        var talks = _mapper.Map<IEnumerable<TalkViewModel>>(await _repo.GetTalksAsync(moniker));
 
         // Update Vote Counts
-        var counts = _repo.GetTalkCounts(moniker);
+        var counts = await _repo.GetTalkCountsAsync(moniker);
         foreach (var t in talks)
         {
           var result = counts.Where(c => c.Item1.Id == t.Id).FirstOrDefault();
@@ -69,11 +69,11 @@ namespace CoreCodeCamp.Controllers.Api
     }
 
     [HttpGet("{moniker}/api/talks/me")]
-    public IActionResult GetMyTalks(string moniker)
+    public async Task<IActionResult> GetMyTalks(string moniker)
     {
       try
       {
-        var speaker = _repo.GetSpeakerForCurrentUser(moniker, User.Identity.Name);
+        var speaker = await _repo.GetSpeakerForCurrentUserAsync(moniker, User.Identity.Name);
         if (speaker != null && speaker.Talks != null)
         {
           return Ok(_mapper.Map<IEnumerable<TalkViewModel>>(speaker.Talks));
@@ -91,11 +91,11 @@ namespace CoreCodeCamp.Controllers.Api
 
     [HttpGet("{moniker}/api/talks/{id}")]
     [AllowAnonymous]
-    public IActionResult Get(string moniker, int id)
+    public async Task<IActionResult> Get(string moniker, int id)
     {
       try
       {
-        return Ok(_mapper.Map<TalkViewModel>(_repo.GetTalk(id)));
+        return Ok(_mapper.Map<TalkViewModel>(await _repo.GetTalkAsync(id)));
       }
       catch (Exception ex)
       {
@@ -110,7 +110,7 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        var talk = _repo.GetTalk(id);
+        var talk = await _repo.GetTalkAsync(id);
         if (talk.Speaker.Event.Moniker != moniker) return BadRequest("Bad Event for this Talk");
 
         talk.Approved = !talk.Approved;
@@ -151,7 +151,7 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        var talk = _repo.GetTalk(id);
+        var talk = await _repo.GetTalkAsync(id);
         if (talk.Speaker.Event.Moniker != moniker) return BadRequest("Bad Event for this Talk");
 
         talk.TimeSlot = null;
@@ -172,11 +172,11 @@ namespace CoreCodeCamp.Controllers.Api
 
     [HttpGet("{moniker}/api/speakers/{id:int}/talks")]
     [AllowAnonymous]
-    public IActionResult GetSpeakerTalks(string moniker, int id)
+    public async Task<IActionResult> GetSpeakerTalks(string moniker, int id)
     {
       try
       {
-        var speaker = _repo.GetSpeaker(id);
+        var speaker = await _repo.GetSpeakerAsync(id);
         foreach (var t in speaker.Talks) t.Speaker = null; // Trim Speaker when returning just the talks
 
         return Ok(_mapper.Map<IEnumerable<TalkViewModel>>(speaker.Talks));
@@ -194,7 +194,7 @@ namespace CoreCodeCamp.Controllers.Api
     {
       if (ModelState.IsValid)
       {
-        return await UpsertTalk(_repo.GetSpeaker(id), moniker, vm);
+        return await UpsertTalk(await _repo.GetSpeakerAsync(id), moniker, vm);
       }
       return BadRequest("Couldn't Save");
     }
@@ -233,7 +233,7 @@ namespace CoreCodeCamp.Controllers.Api
     {
       if (ModelState.IsValid)
       {
-        return await UpsertTalk(_repo.GetSpeakerForCurrentUser(moniker, User.Identity.Name), moniker, vm);
+        return await UpsertTalk(await _repo.GetSpeakerForCurrentUserAsync(moniker, User.Identity.Name), moniker, vm);
       }
       return BadRequest("Couldn't Save");
     }
@@ -244,8 +244,8 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        var talk = _repo.GetTalk(id);
-        var room = _repo.GetRooms(moniker).Where(r => r.Name == model.Room).FirstOrDefault();
+        var talk = await _repo.GetTalkAsync(id);
+        var room = (await _repo.GetRoomsAsync(moniker)).Where(r => r.Name == model.Room).FirstOrDefault();
         if (room == null || talk == null) return NotFound("Cannot find talk.");
         talk.Room = room;
 
@@ -266,8 +266,8 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        var talk = _repo.GetTalk(id);
-        var time = _repo.GetTimeSlots(moniker).Where(r => r.Time == model.Time).FirstOrDefault();
+        var talk = await _repo.GetTalkAsync(id);
+        var time = (await _repo.GetTimeSlotsAsync(moniker)).Where(r => r.Time == model.Time).FirstOrDefault();
         if (time == null || talk == null) return NotFound("Cannot find talk.");
         talk.TimeSlot = time;
 
@@ -288,8 +288,8 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        var talk = _repo.GetTalk(id);
-        var track = _repo.GetTracks(moniker).Where(r => r.Name == model.Track).FirstOrDefault();
+        var talk = await _repo.GetTalkAsync(id);
+        var track = (await _repo.GetTracksAsync(moniker)).Where(r => r.Name == model.Track).FirstOrDefault();
         if (track == null || talk == null) return NotFound("Cannot find talk.");
         talk.Track = track;
 
@@ -311,7 +311,7 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        var talk = _repo.GetTalk(id);
+        var talk = await _repo.GetTalkAsync(id);
         if (talk != null)
         {
           _repo.Delete(talk);

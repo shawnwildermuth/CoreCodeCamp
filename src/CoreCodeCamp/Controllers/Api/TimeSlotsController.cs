@@ -27,9 +27,9 @@ namespace CoreCodeCamp.Controllers.Api
     }
 
     [HttpGet()]
-    public IActionResult Get(string moniker)
+    public async Task<IActionResult> Get(string moniker)
     {
-      return Ok(_repo.GetTimeSlots(moniker));
+      return Ok(await _repo.GetTimeSlotsAsync(moniker));
     }
 
     [HttpPost()]
@@ -39,7 +39,7 @@ namespace CoreCodeCamp.Controllers.Api
       {
         try
         {
-          var eventInfo = _repo.GetEventInfo(moniker);
+          var eventInfo = await _repo.GetEventInfoAsync(moniker);
           if (eventInfo != null)
           {
             model.Event = eventInfo;
@@ -66,10 +66,10 @@ namespace CoreCodeCamp.Controllers.Api
       {
         try
         {
-          var eventInfo = _repo.GetEventInfo(moniker);
+          var eventInfo = await _repo.GetEventInfoAsync(moniker);
           if (eventInfo != null)
           {
-            var slot = _repo.GetTimeSlot(moniker, id);
+            var slot = await _repo.GetTimeSlotAsync(moniker, id);
             if (slot == null || slot.Id != id) return BadRequest();
 
             slot.Time = model.Time.ToLocalTime();
@@ -93,7 +93,7 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        var timeSlot = _repo.GetTimeSlot(moniker, id);
+        var timeSlot = await _repo.GetTimeSlotAsync(moniker, id);
         _repo.Delete(timeSlot);
         await _repo.SaveChangesAsync();
 

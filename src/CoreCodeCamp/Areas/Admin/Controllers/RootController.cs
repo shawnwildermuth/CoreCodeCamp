@@ -24,9 +24,9 @@ namespace CoreCodeCamp.Areas.Admin.Controllers
     }
 
     [HttpGet("[area]")]
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-      return View(_repo.GetAllEventInfo());
+      return View(await _repo.GetAllEventInfoAsync());
     }
 
     [HttpGet("[area]/users")]
@@ -54,9 +54,11 @@ namespace CoreCodeCamp.Areas.Admin.Controllers
     }
 
     [HttpGet("{moniker}/[area]/speakerlist")]
-    public FileContentResult SpeakerList(string moniker)
+    public async Task<FileContentResult> SpeakerList(string moniker)
     {
-      var speakers = _repo.GetSpeakers(moniker).Where(s => s.Talks.Count(t => t.Approved) > 0).ToList();
+      var speakers = (await _repo.GetSpeakersAsync(moniker))
+        .Where(s => s.Talks.Count(t => t.Approved) > 0)
+        .ToList();
 
       var csv = new StringBuilder();
       csv.AppendLine("\"Name\",\"Email\",\"CompanyName\",\"PhoneNumber\",\"TwitterHandle\",\"TShirtSize\"");
@@ -75,9 +77,9 @@ namespace CoreCodeCamp.Areas.Admin.Controllers
     }
 
     [HttpGet("{moniker}/[area]/submissionlist")]
-    public FileContentResult SubmissionList(string moniker)
+    public async Task<FileContentResult> SubmissionList(string moniker)
     {
-      var talks = _repo.GetTalks(moniker).ToList();
+      var talks = (await _repo.GetTalksAsync(moniker)).ToList();
 
       var csv = new StringBuilder();
       csv.AppendLine(@"""Title"",""SpeakerName"",""Email"", ""SpeakerCompanyName"",""SpeakerPhoneNumber"",""SpeakerTwitterHandle"",""SpeakerTitle"",""SpeakerWebsite"",""SpeakerBlog"",""TShirtSize"",""Audience"",""Category"",""Level"",""Prerequisites"",""Approved"",""Abstract""");

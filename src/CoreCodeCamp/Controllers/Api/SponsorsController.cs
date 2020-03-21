@@ -32,11 +32,11 @@ namespace CoreCodeCamp.Controllers.Api
 
     [HttpGet("")]
     [AllowAnonymous]
-    public IActionResult GetSponsors(string moniker)
+    public async Task<IActionResult> GetSponsors(string moniker)
     {
       try
       {
-        return Ok(_mapper.Map<IEnumerable<SponsorViewModel>>(_repo.GetSponsors(moniker)));
+        return Ok(_mapper.Map<IEnumerable<SponsorViewModel>>(await _repo.GetSponsorsAsync(moniker)));
       }
       catch (Exception ex)
       {
@@ -52,12 +52,12 @@ namespace CoreCodeCamp.Controllers.Api
       {
         try
         {
-          var sponsor = _repo.GetSponsor(vm.Id);
+          var sponsor = await _repo.GetSponsorAsync(vm.Id);
 
           if (sponsor == null) // new
           {
             sponsor = _mapper.Map<Sponsor>(vm);
-            var eventInfo = _repo.GetEventInfo(moniker);
+            var eventInfo = await _repo.GetEventInfoAsync(moniker);
             sponsor.Event = eventInfo;
             _repo.AddOrUpdate(sponsor);
 
@@ -89,7 +89,7 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        var sponsor = _repo.GetSponsor(id);
+        var sponsor = await _repo.GetSponsorAsync(id);
         if (sponsor == null) return NotFound();
 
         sponsor.Paid = !sponsor.Paid;
@@ -110,7 +110,7 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        var sponsor = _repo.GetSponsor(id);
+        var sponsor = await _repo.GetSponsorAsync(id);
         if (sponsor == null) return NotFound();
 
         _repo.Delete(sponsor);

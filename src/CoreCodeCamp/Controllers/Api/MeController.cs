@@ -29,9 +29,9 @@ namespace CoreCodeCamp.Controllers.Api
     }
 
     [HttpGet("favorites")]
-    public IActionResult GetFavorites(string moniker)
+    public async Task<IActionResult> GetFavorites(string moniker)
     {
-      var favs = _repo.GetUserWithFavoriteTalksForEvent(User.Identity.Name, moniker);
+      var favs = await _repo.GetUserWithFavoriteTalksForEventAsync(User.Identity.Name, moniker);
       return Ok(_mapper.Map<IEnumerable<FavoriteTalkViewModel>>(favs));
     }
 
@@ -40,7 +40,7 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        var state = _repo.ToggleTalkForUser(moniker, User.Identity.Name, talkId);
+        var state = await _repo.ToggleTalkForUserAsync(moniker, User.Identity.Name, talkId);
         await _repo.SaveChangesAsync();
         return Ok(state);
       }

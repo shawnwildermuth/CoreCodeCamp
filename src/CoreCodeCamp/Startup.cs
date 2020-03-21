@@ -64,6 +64,8 @@ namespace CoreCodeCamp
       svcs.AddScoped<ICodeCampRepository, CodeCampRepository>();
       svcs.AddTransient<CodeCampSeeder>();
       svcs.AddTransient<ViewRenderer>();
+      svcs.AddMemoryCache();
+      svcs.AddScoped<SessionizeDataCache>();
 
       svcs.AddAutoMapper(Assembly.GetEntryAssembly());
 

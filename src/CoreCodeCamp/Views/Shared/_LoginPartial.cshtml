@@ -10,7 +10,7 @@
 {
   var userName = (await UserManager.FindByNameAsync(UserManager.GetUserName(User)))?.Name;
   <ul class="navbar-nav my-2 my-lg-0">
-    @if (Repository.GetSpeakerForCurrentUser(this.GetEventInfo().Moniker, User.Identity.Name) != null)
+    @if (await Repository.GetSpeakerForCurrentUserAsync(this.GetEventInfo().Moniker, User.Identity.Name) != null)
     {
       <li class="nav-item">
         <a class="nav-link" asp-area="" asp-controller="CallForSpeakers" asp-action="Speaker" asp-route-moniker="@this.GetEventInfo().Moniker" title="Your Talks">Your Talks</a>

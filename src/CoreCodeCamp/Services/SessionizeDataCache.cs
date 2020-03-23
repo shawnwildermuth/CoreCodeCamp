@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CoreCodeCamp.Data.Entities;
-using CoreCodeCamp.Data.Sessionize;
+using Sessionize = CoreCodeCamp.Data.Sessionize;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using System;
@@ -39,15 +39,14 @@ namespace CoreCodeCamp.Services
     }
 
 
-    async Task<SessionizeResults> GetSessionizeResults(string embedId)
+    async Task<Sessionize.SessionizeResult> GetSessionizeResults(string embedId)
     {
-      SessionizeResults results;
+      Sessionize.SessionizeResult results;
       if (!_cache.TryGetValue(embedId, out results))
       {
-        var test = "l9c4tvg5";
-        var url = $"https://sessionize.com/api/v2/{test}/view/All";
+        var url = $"https://sessionize.com/api/v2/{embedId}/view/All";
         var json = await Client.GetStringAsync(url);
-        results = JsonConvert.DeserializeObject<SessionizeResults>(json);
+        results = Sessionize.SessionizeResult.FromJson(json);
 
         _cache.Set(embedId, results, DateTimeOffset.Now.AddMinutes(5));
       }
@@ -60,7 +59,7 @@ namespace CoreCodeCamp.Services
       var results = await GetSessionizeResults(embedId);
       if (results != null)
       {
-        return _mapper.Map<Speaker[]>(results.Speakers);
+        return results.ConvertToSpeakers(_mapper);
       }
 
       throw new InvalidOperationException("Failed to find speakers");

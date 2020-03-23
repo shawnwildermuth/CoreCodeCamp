@@ -15,13 +15,11 @@ namespace CoreCodeCamp.Data
   {
     private CodeCampContext _ctx;
     private readonly IMapper _mapper;
-    private readonly SessionizeDataCache _dataCache;
 
-    public CodeCampRepository(CodeCampContext ctx, IMapper mapper, SessionizeDataCache dataCache)
+    public CodeCampRepository(CodeCampContext ctx, IMapper mapper)
     {
       _ctx = ctx;
       _mapper = mapper;
-      _dataCache = dataCache;
     }
 
     public void AddOrUpdate(object entity)
@@ -101,28 +99,15 @@ namespace CoreCodeCamp.Data
 
     public async Task<IEnumerable<Speaker>> GetSpeakersAsync(string moniker)
     {
-      var sessionizeApiKey = await _ctx.CodeCampEvents
-        .Where(e => e.Moniker == moniker && !string.IsNullOrWhiteSpace(e.SessionizeEmbedId))
-        .Select(c => c.SessionizeEmbedId)
-        .FirstOrDefaultAsync();
-
-      if (sessionizeApiKey != null)
-      {
-        var speakers = await _dataCache.GetSpeakersAsync(sessionizeApiKey);
-        return speakers;
-      }
-      else
-      {
-        return await _ctx.Speakers
-          .Include(s => s.Talks)
-          .ThenInclude(t => t.Track)
-          .Include(s => s.Talks)
-          .ThenInclude(t => t.TimeSlot)
-          .Include(s => s.Talks)
-          .ThenInclude(t => t.Room)
-          .Where(s => s.Event.Moniker == moniker)
-          .ToListAsync();
-      }
+      return await _ctx.Speakers
+        .Include(s => s.Talks)
+        .ThenInclude(t => t.Track)
+        .Include(s => s.Talks)
+        .ThenInclude(t => t.TimeSlot)
+        .Include(s => s.Talks)
+        .ThenInclude(t => t.Room)
+        .Where(s => s.Event.Moniker == moniker)
+        .ToListAsync();
     }
 
     public async Task<Sponsor> GetSponsorAsync(int id)

@@ -15,32 +15,39 @@
         </p>
         @if (string.IsNullOrWhiteSpace(this.GetEventInfo().RegistrationLink))
         {
-        <a class="btn btn-lg btn-success disabled">Coming Soon</a>
+          <a class="btn btn-lg btn-success disabled">Coming Soon</a>
         }
         else
         {
-        <a asp-action="Register" asp-controller="Root" asp-area="" class="btn btn-lg btn-success">Register for @this.GetEventInfo().Name</a>
+          <a asp-action="Register" asp-controller="Root" asp-area="" class="btn btn-lg btn-success">Register for @this.GetEventInfo().Name</a>
         }
         @if (this.GetEventInfo().CallForSpeakersOpened <= DateTime.Today && this.GetEventInfo().CallForSpeakersClosed >= DateTime.Today)
         {
-        <div class="vertical-spacer">&nbsp;</div>
-        <div>
-          <p class="lead">The call for speakers is open until @(this.GetEventInfo().CallForSpeakersClosed.ToLongDateString()) <br />Think you have a great talk to share with the community? Sign up here:</p>
-          <a asp-action="Index" asp-controller="CallForSpeakers" class="btn btn-lg btn-primary">Call for Speakers</a>
-        </div>
+          <div class="vertical-spacer">&nbsp;</div>
+          <div>
+            <p class="lead">The call for speakers is open until @(this.GetEventInfo().CallForSpeakersClosed.ToLongDateString()) <br />Think you have a great talk to share with the community? Sign up here:</p>
+            @if (!string.IsNullOrWhiteSpace(this.GetEventInfo().SessionizeId))
+            {
+              <a class="btn btn-lg btn-primary" href="https://sessionize.com/@(this.GetEventInfo().SessionizeId)/">Call for Speakers</a>
+            }
+            else
+            {
+              <a asp-action="Index" asp-controller="CallForSpeakers" class="btn btn-lg btn-primary">Call for Speakers</a>
+            }
+          </div>
         }
         @if (ViewBag.HasSpeaker == true)
         {
-        <div class="row inner-box thick-space wow fadeInLeftBig">
-          <h2 class="col-md-12">Keynote Speaker Announced!</h2>
-          <div class="col-md-9 ">
-            <p class="lead">
-              Rie Shewbart Irish (Sr Program Manager at Microsoft) is going to kick off the conference as our Keynote Speaker. The topic will be:
-            </p>
-            <h4>Coding for Diversity & Inclusion</h4>
+          <div class="row inner-box thick-space wow fadeInLeftBig">
+            <h2 class="col-md-12">Keynote Speaker Announced!</h2>
+            <div class="col-md-9 ">
+              <p class="lead">
+                Rie Shewbart Irish (Sr Program Manager at Microsoft) is going to kick off the conference as our Keynote Speaker. The topic will be:
+              </p>
+              <h4>Coding for Diversity & Inclusion</h4>
+            </div>
+            <img src="~/img/2019/keynote-speaker.jpg" alt-="Rie Shewbart Irish" class="img-responsive img-circle col-md-3" />
           </div>
-          <img src="~/img/2019/keynote-speaker.jpg" alt-="Rie Shewbart Irish" class="img-responsive img-circle col-md-3" />
-        </div>
 
         }
       </div>

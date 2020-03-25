@@ -38,11 +38,11 @@ namespace CoreCodeCamp.Controllers.Api
     }
 
     [HttpGet("")]
-    public ActionResult<IEnumerable<Speaker>> Get(string moniker)
+    public async Task<ActionResult<IEnumerable<Speaker>>> Get(string moniker)
     {
       try
       {
-        return Ok(_mapper.Map<IEnumerable<SpeakerViewModel>>(_repo.GetSpeakers(moniker)));
+        return Ok(_mapper.Map<IEnumerable<SpeakerViewModel>>(await _repo.GetSpeakersAsync(moniker)));
       }
       catch (Exception ex)
       {
@@ -54,11 +54,11 @@ namespace CoreCodeCamp.Controllers.Api
 
     [HttpGet("me")]
     [Authorize]
-    public ActionResult<SpeakerViewModel> GetCurrent(string moniker)
+    public async Task<ActionResult<SpeakerViewModel>> GetCurrent(string moniker)
     {
       try
       {
-        var speaker = _repo.GetSpeakerForCurrentUser(moniker, User.Identity.Name);
+        var speaker = await _repo.GetSpeakerForCurrentUserAsync(moniker, User.Identity.Name);
         if (speaker == null)
         {
           speaker = new Speaker()
@@ -78,11 +78,11 @@ namespace CoreCodeCamp.Controllers.Api
     }
 
     [HttpGet("{id:int}")]
-    public IActionResult Get(string moniker, int id)
+    public async Task<IActionResult> Get(string moniker, int id)
     {
       try
       {
-        return Ok(_mapper.Map<SpeakerViewModel>(_repo.GetSpeaker(id)));
+        return Ok(_mapper.Map<SpeakerViewModel>(await _repo.GetSpeakerAsync(id)));
       }
       catch (Exception ex)
       {
@@ -96,14 +96,14 @@ namespace CoreCodeCamp.Controllers.Api
     [Authorize]
     public async Task<IActionResult> UpsertMySpeaker(string moniker, [FromBody]SpeakerViewModel model)
     {
-      return await UpsertSpeaker(model, _repo.GetSpeakerForCurrentUser(moniker, User.Identity.Name), moniker, User.Identity.Name);
+      return await UpsertSpeaker(model, await _repo.GetSpeakerForCurrentUserAsync(moniker, User.Identity.Name), moniker, User.Identity.Name);
     }
 
     [HttpPost("")]
     [Authorize]
     public async Task<IActionResult> UpsertSpeaker(string moniker, [FromBody]SpeakerViewModel model)
     {
-      return await UpsertSpeaker(model, _repo.GetSpeakerByName(moniker, model.Name), moniker, User.Identity.Name);
+      return await UpsertSpeaker(model, await _repo.GetSpeakerByNameAsync(moniker, model.Name), moniker, User.Identity.Name);
     }
 
     async Task<IActionResult> UpsertSpeaker(SpeakerViewModel model, Speaker speaker, string moniker, string userName)
@@ -116,7 +116,7 @@ namespace CoreCodeCamp.Controllers.Api
           {
             speaker = _mapper.Map<Speaker>(model);
             speaker.UserName = userName;
-            speaker.Event = _repo.GetEventInfo(moniker);
+            speaker.Event = await _repo.GetEventInfoAsync(moniker);
 
             // Send confirmation email on new speaker
             var user = await _userMgr.FindByNameAsync(userName);

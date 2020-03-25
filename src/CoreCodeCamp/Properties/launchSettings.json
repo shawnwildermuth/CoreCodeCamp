@@ -11,6 +11,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
+      "launchUrl": "2020/api/speakers",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

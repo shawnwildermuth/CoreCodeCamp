@@ -27,9 +27,9 @@ namespace CoreCodeCamp.Controllers.Api
     }
 
     [HttpGet()]
-    public IActionResult Get(string moniker)
+    public async Task<IActionResult> Get(string moniker)
     {
-      return Ok(_repo.GetTracks(moniker));
+      return Ok(await _repo.GetTracksAsync(moniker));
     }
 
     [HttpPost()]
@@ -39,7 +39,7 @@ namespace CoreCodeCamp.Controllers.Api
       {
         try
         {
-          var eventInfo = _repo.GetEventInfo(moniker);
+          var eventInfo = await _repo.GetEventInfoAsync(moniker);
           if (eventInfo != null)
           {
             model.Event = eventInfo;
@@ -65,7 +65,7 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        var track = _repo.GetTrack(moniker, id);
+        var track = await _repo.GetTrackAsync(moniker, id);
         _repo.Delete(track);
         await _repo.SaveChangesAsync();
 

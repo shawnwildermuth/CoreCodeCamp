@@ -9,22 +9,15 @@
   </div>
 </div>
 <div class="row">
-  @if (!string.IsNullOrWhiteSpace(this.GetEventInfo().SessionizeEmbedId))
+  @if (Model == null || Model.Count() == 0)
   {
-    <script type="text/javascript" src="https://sessionize.com/api/v2/@(this.GetEventInfo().SessionizeEmbedId)/view/Sessions"></script>
+    <p class="lead">Once the sessions are finalized, they will appear here!</p>
   }
   else
   {
-    @if (Model == null || Model.Count() == 0)
+    foreach (var talk in Model)
     {
-      <p class="lead">Once the sessions are finalized, they will appear here!</p>
-    }
-    else
-    {
-      foreach (var talk in Model)
-      {
-        <partial name="_Session" model="Tuple.Create(talk, false)" />
-      }
+      <partial name="_Session" model="Tuple.Create(talk, false)" />
     }
   }
 </div>

@@ -8,37 +8,37 @@ namespace CoreCodeCamp.Data
 {
   public interface ICodeCampRepository
   {
-    IEnumerable<CodeCampUser> GetUsers();
-    IEnumerable<Talk> GetUserWithFavoriteTalksForEvent(string name, string moniker);
+    Task<IEnumerable<CodeCampUser>> GetUsersAsync();
+    Task<IEnumerable<Talk>> GetUserWithFavoriteTalksForEventAsync(string name, string moniker);
 
-    IEnumerable<EventInfo> GetAllEventInfo();
-    EventInfo GetEventInfo(string moniker);
-    EventInfo GetCurrentEvent();
+    Task<IEnumerable<EventInfo>> GetAllEventInfoAsync();
+    Task<EventInfo> GetEventInfoAsync(string moniker);
+    Task<EventInfo> GetCurrentEventAsync();
 
-    IEnumerable<Sponsor> GetSponsors(string moniker);
-    Sponsor GetSponsor(int id);
+    Task<IEnumerable<Sponsor>> GetSponsorsAsync(string moniker);
+    Task<Sponsor> GetSponsorAsync(int id);
 
-    IEnumerable<Speaker> GetSpeakers(string moniker);
-    Speaker GetSpeakerForCurrentUser(string moniker, string name);
-    Speaker MigrateSpeakerForCurrentUser(string moniker, CodeCampUser user);
-    Speaker GetSpeaker(int id);
-    Speaker GetSpeakerByName(string moniker, string name);
+    Task<IEnumerable<Speaker>> GetSpeakersAsync(string moniker);
+    Task<Speaker> GetSpeakerForCurrentUserAsync(string moniker, string name);
+    Task<Speaker> MigrateSpeakerForCurrentUserAsync(string moniker, CodeCampUser user);
+    Task<Speaker> GetSpeakerAsync(int id);
+    Task<Speaker> GetSpeakerByNameAsync(string moniker, string name);
 
-    IEnumerable<Room> GetRooms(string moniker);
-    Room GetRoom(string moniker, int id);
+    Task<IEnumerable<Room>> GetRoomsAsync(string moniker);
+    Task<Room> GetRoomAsync(string moniker, int id);
 
-    IEnumerable<Tuple<Talk, int>> GetTalkCounts(string moniker);
+    Task<IEnumerable<Tuple<Talk, int>>> GetTalkCountsAsync(string moniker);
 
-    IEnumerable<Track> GetTracks(string moniker);
-    Track GetTrack(string moniker, int id);
+    Task<IEnumerable<Track>> GetTracksAsync(string moniker);
+    Task<Track> GetTrackAsync(string moniker, int id);
 
-    IEnumerable<TimeSlot> GetTimeSlots(string moniker);
-    TimeSlot GetTimeSlot(string moniker, int id);
+    Task<IEnumerable<TimeSlot>> GetTimeSlotsAsync(string moniker);
+    Task<TimeSlot> GetTimeSlotAsync(string moniker, int id);
 
-    IEnumerable<Talk> GetTalks(string moniker);
-    Talk GetTalk(int id);
-    bool ToggleTalkForUser(string moniker, string userName, int talkId);
-    List<IEnumerable<ScheduleModel>> GetTalksInSlots(string moniker);
+    Task<IEnumerable<Talk>> GetTalksAsync(string moniker);
+    Task<Talk> GetTalkAsync(int id);
+    Task<bool> ToggleTalkForUserAsync(string moniker, string userName, int talkId);
+    Task<List<IEnumerable<ScheduleModel>>> GetTalksInSlotsAsync(string moniker);
 
     void AddOrUpdate(object entity);
     void Delete(object entity);

@@ -36,10 +36,10 @@ namespace CoreCodeCamp.Controllers.Web
               "Other"};
     private readonly IWebHostEnvironment _env;
 
-    public IActionResult Index(string moniker)
+    public async Task<IActionResult> Index(string moniker)
     {
 
-      var sponsors = _repo.GetSponsors(moniker)
+      var sponsors = (await _repo.GetSponsorsAsync(moniker))
                   .OrderBy(s => _levels.IndexOf(s.SponsorLevel))
                  .ThenBy(s => Guid.NewGuid())
                  .ToList();
@@ -58,9 +58,9 @@ namespace CoreCodeCamp.Controllers.Web
     }
 
     [HttpGet("{moniker}/Sponsors")]
-    public IActionResult Sponsors(string moniker)
+    public async Task<IActionResult> Sponsors(string moniker)
     {
-      var sponsors = _repo.GetSponsors(moniker)
+      var sponsors = (await _repo.GetSponsorsAsync(moniker))
                   .OrderBy(s => _levels.IndexOf(s.SponsorLevel))
                  .ThenBy(s => Guid.NewGuid())
                  .ToList();
@@ -69,18 +69,18 @@ namespace CoreCodeCamp.Controllers.Web
     }
 
     [HttpGet("{moniker}/Speakers")]
-    public IActionResult Speakers(string moniker)
+    public async Task<IActionResult> Speakers(string moniker)
     {
-      var speakers = _repo.GetSpeakers(moniker).Where(s => s.Talks.Any(t => t.Approved)).OrderBy(s => s.Name).ToList();
+      var speakers = (await _repo.GetSpeakersAsync(moniker)).Where(s => s.Talks.Any(t => t.Approved)).OrderBy(s => s.Name).ToList();
 
       return View(speakers);
     }
 
     [HttpGet("{moniker}/Speakers/{id}", Name = "SpeakerTalkPage")]
-    public IActionResult Speaker(string moniker, string id)
+    public async Task<IActionResult> Speaker(string moniker, string id)
     {
 
-      var speaker = _repo.GetSpeakerByName(moniker, id);
+      var speaker = await _repo.GetSpeakerByNameAsync(moniker, id);
 
       if (!User.IsInRole(Consts.ADMINROLE))
       {
@@ -92,7 +92,7 @@ namespace CoreCodeCamp.Controllers.Web
 
       if (User.Identity.IsAuthenticated)
       {
-        var favs = _repo.GetUserWithFavoriteTalksForEvent(User.Identity.Name, moniker);
+        var favs = await _repo.GetUserWithFavoriteTalksForEventAsync(User.Identity.Name, moniker);
         foreach (var talk in vm.Talks)
         {
           talk.Favorite = favs.Any(f => f.Id == talk.Id);
@@ -103,14 +103,14 @@ namespace CoreCodeCamp.Controllers.Web
     }
 
     [HttpGet("{moniker}/Sessions")]
-    public IActionResult Sessions(string moniker)
+    public async Task<IActionResult> Sessions(string moniker)
     {
-      var talks = _repo.GetTalks(moniker).Where(t => t.Approved).ToList();
+      var talks = (await _repo.GetTalksAsync(moniker)).Where(t => t.Approved).ToList();
       var sessions = _mapper.Map<List<TalkViewModel>>(talks);
 
       if (User.Identity.IsAuthenticated)
       {
-        var favs = _repo.GetUserWithFavoriteTalksForEvent(User.Identity.Name, moniker);
+        var favs = await _repo.GetUserWithFavoriteTalksForEventAsync(User.Identity.Name, moniker);
         sessions.ForEach(t => t.Favorite = favs.Any(f => f.Id == t.Id));
       }
 
@@ -118,11 +118,11 @@ namespace CoreCodeCamp.Controllers.Web
     }
 
     [HttpGet("{moniker}/Schedule")]
-    public IActionResult Schedule(string moniker)
+    public async Task<IActionResult> Schedule(string moniker)
     {
-      var favorites = _repo.GetUserWithFavoriteTalksForEvent(User.Identity.Name, moniker);
+      var favorites = await _repo.GetUserWithFavoriteTalksForEventAsync(User.Identity.Name, moniker);
 
-      var slots = _repo.GetTalksInSlots(moniker);
+      var slots = await _repo.GetTalksInSlotsAsync(moniker);
 
       var categories = slots.SelectMany(s => s.ToList())
       .SelectMany(s => s.Talks)

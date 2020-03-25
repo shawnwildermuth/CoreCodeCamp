@@ -30,9 +30,9 @@ namespace CoreCodeCamp.Controllers.Web
 
     [AllowAnonymous]
     [HttpGet("")]
-    public IActionResult Index(string moniker)
+    public async Task<IActionResult> Index(string moniker)
     {
-      var speaker = _repo.GetSpeakerForCurrentUser(moniker, User.Identity.Name);
+      var speaker = await _repo.GetSpeakerForCurrentUserAsync(moniker, User.Identity.Name);
       if (speaker != null) return RedirectToAction("Speaker");  
       return View();
     }
@@ -40,11 +40,11 @@ namespace CoreCodeCamp.Controllers.Web
     [HttpGet("Speaker")]
     public async Task<IActionResult> Speaker(string moniker)
     {
-      var speaker = _repo.GetSpeakerForCurrentUser(moniker, User.Identity.Name);
+      var speaker = await _repo.GetSpeakerForCurrentUserAsync(moniker, User.Identity.Name);
       if (speaker == null)
       {
         var user = await _userMgr.GetUserAsync(User);
-        speaker = _repo.MigrateSpeakerForCurrentUser(moniker, user);
+        speaker = await _repo.MigrateSpeakerForCurrentUserAsync(moniker, user);
         if (speaker != null) await _repo.SaveChangesAsync();
       }
       return View();

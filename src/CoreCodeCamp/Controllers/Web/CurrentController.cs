@@ -20,9 +20,9 @@ namespace CoreCodeCamp.Controllers.Web
     }
 
     [HttpGet("")]
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-      var currentEvent = _repo.GetCurrentEvent();
+      var currentEvent = await _repo.GetCurrentEventAsync();
 
       return RedirectToAction("Index", "Root", new { moniker = currentEvent.Moniker });
     }

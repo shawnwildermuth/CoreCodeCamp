@@ -42,7 +42,7 @@ namespace CoreCodeCamp.Controllers.Api
     [HttpGet("")]
     public async Task<IActionResult> Get()
     {
-      var users = _repo.GetUsers().Where(u => u.UserName != User.Identity.Name); // Don't include the current user
+      var users = (await _repo.GetUsersAsync()).Where(u => u.UserName != User.Identity.Name); // Don't include the current user
       var vms = _mapper.Map<IEnumerable<CodeCampUserViewModel>>(users);
 
       for (var x = 0; x < users.Count(); ++x)

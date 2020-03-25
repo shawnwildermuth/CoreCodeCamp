@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
+using CoreCodeCamp.Authentication;
 using CoreCodeCamp.Data;
 using CoreCodeCamp.Data.Entities;
 using CoreCodeCamp.Models;
@@ -64,15 +65,16 @@ namespace CoreCodeCamp
       svcs.AddScoped<ICodeCampRepository, CodeCampRepository>();
       svcs.AddTransient<CodeCampSeeder>();
       svcs.AddTransient<ViewRenderer>();
-
+      svcs.AddTransient<CoreCodeCampTokenFactory>();
       svcs.AddAutoMapper(Assembly.GetEntryAssembly());
 
       // Configure Identity (Security)
       svcs.AddAuthentication(o =>
       {
         o.DefaultScheme = IdentityConstants.ApplicationScheme;
-        o.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+        o.DefaultSignInScheme = IdentityConstants.ApplicationScheme;
       })
+        .AddCoreCodeCampBearerToken()
         .AddIdentityCookies(o => { });
 
       svcs.AddIdentityCore<CodeCampUser>(config =>

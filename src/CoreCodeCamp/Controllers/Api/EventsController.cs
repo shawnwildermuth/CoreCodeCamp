@@ -31,11 +31,11 @@ namespace CoreCodeCamp.Controllers.Api
 
     [HttpGet("")]
     [AllowAnonymous]
-    public IActionResult GetEvents()
+    public async Task<IActionResult> GetEvents()
     {
       try
       {
-        var events = _repo.GetAllEventInfo()
+        var events = (await _repo.GetAllEventInfoAsync())
           .OrderByDescending(e => e.Moniker)
           .ToArray();
 
@@ -51,11 +51,11 @@ namespace CoreCodeCamp.Controllers.Api
 
     [HttpGet("{moniker}")]
     [AllowAnonymous]
-    public IActionResult GetEvent(string moniker)
+    public async Task<IActionResult> GetEvent(string moniker)
     {
       try
       {
-        var info = _repo.GetAllEventInfo()
+        var info = (await _repo.GetAllEventInfoAsync())
           .Where(e => e.Moniker == moniker)
           .FirstOrDefault();
 
@@ -76,7 +76,7 @@ namespace CoreCodeCamp.Controllers.Api
       {
 
           if (moniker != vm.Moniker) return BadRequest("Wrong Event with Moniker");
-          var info = _repo.GetEventInfo(vm.Moniker);
+          var info = await _repo.GetEventInfoAsync(vm.Moniker);
           if (info != null)
           {
             return BadRequest("Cannot add duplicate moniker");
@@ -109,7 +109,7 @@ namespace CoreCodeCamp.Controllers.Api
         if (ModelState.IsValid)
         {
           if (moniker != vm.Moniker) return BadRequest("Wrong Event with Moniker");
-          var info = _repo.GetEventInfo(moniker);
+          var info = await _repo.GetEventInfoAsync(moniker);
           if (info == null)
           {
             return BadRequest("Cannot add update new event");
@@ -139,7 +139,7 @@ namespace CoreCodeCamp.Controllers.Api
     {
       try
       {
-        var info = _repo.GetEventInfo(moniker);
+        var info = await _repo.GetEventInfoAsync(moniker);
         if (info == null)
         {
           return BadRequest("Cannot update a location on a missing event");

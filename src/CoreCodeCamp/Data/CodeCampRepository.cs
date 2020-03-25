@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CoreCodeCamp.Data.Entities;
 using CoreCodeCamp.Models;
+using CoreCodeCamp.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoreCodeCamp.Data
@@ -46,33 +47,33 @@ namespace CoreCodeCamp.Data
       _ctx.Remove(entity);
     }
 
-    public IEnumerable<EventInfo> GetAllEventInfo()
+    public async Task<IEnumerable<EventInfo>> GetAllEventInfoAsync()
     {
-      return _ctx.CodeCampEvents
+      return await _ctx.CodeCampEvents
         .Include(e => e.Location)
         .OrderByDescending(e => e.EventDate)
-        .ToList();
+        .ToListAsync();
     }
 
-    public EventInfo GetCurrentEvent()
+    public async Task<EventInfo> GetCurrentEventAsync()
     {
-      return _ctx.CodeCampEvents
+      return await _ctx.CodeCampEvents
         .Include(e => e.Location)
         .OrderByDescending(e => e.EventDate)
-        .FirstOrDefault();
+        .FirstOrDefaultAsync();
     }
 
-    public EventInfo GetEventInfo(string moniker)
+    public async Task<EventInfo> GetEventInfoAsync(string moniker)
     {
-      return _ctx.CodeCampEvents
+      return await _ctx.CodeCampEvents
         .Include(e => e.Location)
         .Where(e => e.Moniker == moniker)
-        .FirstOrDefault();
+        .FirstOrDefaultAsync();
     }
 
-    public Speaker GetSpeakerForCurrentUser(string moniker, string userName)
+    public async Task<Speaker> GetSpeakerForCurrentUserAsync(string moniker, string userName)
     {
-      return _ctx.Speakers
+      return await _ctx.Speakers
         .Include(s => s.Talks)
         .ThenInclude(t => t.Track)
         .Include(s => s.Talks)
@@ -80,12 +81,12 @@ namespace CoreCodeCamp.Data
         .Include(s => s.Talks)
         .ThenInclude(t => t.Room)
         .Where(s => s.UserName == userName && s.Event.Moniker == moniker)
-        .FirstOrDefault();
+        .FirstOrDefaultAsync();
     }
 
-    public Speaker GetSpeaker(int id)
+    public async Task<Speaker> GetSpeakerAsync(int id)
     {
-      return _ctx.Speakers
+      return await _ctx.Speakers
         .Include(s => s.Talks)
         .ThenInclude(t => t.Track)
         .Include(s => s.Talks)
@@ -93,12 +94,12 @@ namespace CoreCodeCamp.Data
         .Include(s => s.Talks)
         .ThenInclude(t => t.Room)
         .Where(s => s.Id == id)
-        .FirstOrDefault();
+        .FirstOrDefaultAsync();
     }
 
-    public IEnumerable<Speaker> GetSpeakers(string moniker)
+    public async Task<IEnumerable<Speaker>> GetSpeakersAsync(string moniker)
     {
-      return _ctx.Speakers
+      return await _ctx.Speakers
         .Include(s => s.Talks)
         .ThenInclude(t => t.Track)
         .Include(s => s.Talks)
@@ -106,15 +107,17 @@ namespace CoreCodeCamp.Data
         .Include(s => s.Talks)
         .ThenInclude(t => t.Room)
         .Where(s => s.Event.Moniker == moniker)
-        .ToList();
+        .ToListAsync();
     }
 
-    public Sponsor GetSponsor(int id)
+    public async Task<Sponsor> GetSponsorAsync(int id)
     {
-      return _ctx.Sponsors.Where(s => s.Id == id).FirstOrDefault();
+      return await _ctx.Sponsors
+        .Where(s => s.Id == id)
+        .FirstOrDefaultAsync();
     }
 
-    public IEnumerable<Sponsor> GetSponsors(string moniker)
+    public async Task<IEnumerable<Sponsor>> GetSponsorsAsync(string moniker)
     {
       var sponsorOrder = new List<string> {
         "Platinum",
@@ -128,67 +131,67 @@ namespace CoreCodeCamp.Data
         "Other"
       };
 
-      return _ctx.Sponsors
+      return (await _ctx.Sponsors
         .Where(e => e.Event.Moniker == moniker)
         .OrderBy(s => Guid.NewGuid())
-        .ToList()
+        .ToListAsync())
         .OrderBy(s => sponsorOrder.IndexOf(s.SponsorLevel))
         .ToList();
     }
 
-    public IEnumerable<Talk> GetTalks(string moniker)
+    public async Task<IEnumerable<Talk>> GetTalksAsync(string moniker)
     {
-      return _ctx.Talks
+      return await _ctx.Talks
         .Include(t => t.Room)
         .Include(t => t.TimeSlot)
         .Include(t => t.Track)
         .Include(t => t.Speaker.Event)
         .Where(t => t.Speaker.Event.Moniker == moniker)
         .OrderBy(t => t.Title)
-        .ToList();
+        .ToListAsync();
     }
 
-    public IEnumerable<Tuple<Talk, int>> GetTalkCounts(string moniker)
+    public async Task<IEnumerable<Tuple<Talk, int>>> GetTalkCountsAsync(string moniker)
     {
-      return _ctx.FavoriteTalks
+      return (await _ctx.FavoriteTalks
         .Include(c => c.Talk.Speaker.Event)
         .Where(f => f.Talk.Speaker.Event.Moniker == moniker)
-        .ToList()
+        .ToListAsync())
         .GroupBy(f => f.Talk)
         .Select(f => Tuple.Create(f.Key, f.Count()))
         .ToList();
     }
 
-    public Talk GetTalk(int id)
+    public async Task<Talk> GetTalkAsync(int id)
     {
-      return _ctx.Talks
+      return await _ctx.Talks
         .Include(t => t.Room)
         .Include(t => t.TimeSlot)
         .Include(t => t.Track)
         .Include(t => t.Speaker.Event)
         .Where(t => t.Id == id)
-        .FirstOrDefault();
+        .FirstOrDefaultAsync();
     }
 
-    public IEnumerable<CodeCampUser> GetUsers()
+    public async Task<IEnumerable<CodeCampUser>> GetUsersAsync()
     {
-      return _ctx.Users
+      return await _ctx.Users
         .OrderBy(u => u.UserName)
-        .ToList();
+        .ToListAsync();
     }
 
-    public Task<int> SaveChangesAsync()
+    public async Task<int> SaveChangesAsync()
     {
-      return _ctx.SaveChangesAsync();
+      return await _ctx.SaveChangesAsync();
     }
 
-    public bool ToggleTalkForUser(string moniker, string userName, int talkId)
+    public async Task<bool> ToggleTalkForUserAsync(string moniker, string userName, int talkId)
     {
-      var user = _ctx.Users
+      var user = await _ctx.Users
         .Include(u => u.FavoriteTalks)
         .ThenInclude(f => f.Talk.Speaker.Event)
         .Where(u => u.UserName == userName)
-        .First();
+        .FirstAsync();
 
       var fav = user.FavoriteTalks.Where(t => t.Talk.Id == talkId && t.Talk.Speaker.Event.Moniker == moniker).FirstOrDefault();
       if (fav == null)
@@ -196,7 +199,7 @@ namespace CoreCodeCamp.Data
         fav = new FavoriteTalk()
         {
           User = user,
-          Talk = _ctx.Talks.Where(t => t.Id == talkId).First()
+          Talk = await _ctx.Talks.Where(t => t.Id == talkId).FirstAsync()
         };
         user.FavoriteTalks.Add(fav);
         return true;
@@ -208,10 +211,10 @@ namespace CoreCodeCamp.Data
       }
     }
 
-    public Speaker GetSpeakerByName(string moniker, string name)
+    public async Task<Speaker> GetSpeakerByNameAsync(string moniker, string name)
     {
       var transformName = name.Replace("-", " ").ToLower();
-      return _ctx.Speakers
+      return await _ctx.Speakers
         .Include(s => s.Talks)
         .ThenInclude(t => t.Track)
         .Include(s => s.Talks)
@@ -221,12 +224,12 @@ namespace CoreCodeCamp.Data
         .Include(s => s.Event)
         .ThenInclude(e => e.Location)
         .Where(s => s.Name.ToLower() == transformName && s.Event.Moniker == moniker)
-        .FirstOrDefault();
+        .FirstOrDefaultAsync();
     }
 
-    public IEnumerable<Talk> GetUserWithFavoriteTalksForEvent(string name, string moniker)
+    public async Task<IEnumerable<Talk>> GetUserWithFavoriteTalksForEventAsync(string name, string moniker)
     {
-      var user = _ctx.Users
+      var user = await _ctx.Users
         .Include(u => u.FavoriteTalks)
         .ThenInclude(f => f.Talk.Speaker)
         .ThenInclude(s => s.Event)
@@ -235,7 +238,7 @@ namespace CoreCodeCamp.Data
         .Include(u => u.FavoriteTalks)
         .ThenInclude(f => f.Talk.TimeSlot)
         .Where(u => u.UserName == name)
-        .FirstOrDefault();
+        .FirstOrDefaultAsync();
 
       if (user == null) return new List<Talk>();
 
@@ -246,42 +249,54 @@ namespace CoreCodeCamp.Data
         .ToList();
     }
 
-    public IEnumerable<Room> GetRooms(string moniker)
+    public async Task<IEnumerable<Room>> GetRoomsAsync(string moniker)
     {
-      return _ctx.Rooms.Where(r => r.Event.Moniker == moniker).OrderBy(r => r.Name).ToList();
+      return await _ctx.Rooms
+        .Where(r => r.Event.Moniker == moniker)
+        .OrderBy(r => r.Name)
+        .ToListAsync();
     }
 
-    public IEnumerable<Track> GetTracks(string moniker)
+    public async Task<IEnumerable<Track>> GetTracksAsync(string moniker)
     {
-      return _ctx.Tracks.Where(r => r.Event.Moniker == moniker).OrderBy(r => r.Name).ToList();
+      return await _ctx.Tracks
+        .Where(r => r.Event.Moniker == moniker)
+        .OrderBy(r => r.Name)
+        .ToListAsync();
     }
 
-    public IEnumerable<TimeSlot> GetTimeSlots(string moniker)
+    public async Task<IEnumerable<TimeSlot>> GetTimeSlotsAsync(string moniker)
     {
-      return _ctx.TimeSlots
+      return await _ctx.TimeSlots
         .Where(r => r.Event.Moniker == moniker)
         .OrderBy(r => r.Time)
-        .ToList();
+        .ToListAsync();
     }
 
-    public Room GetRoom(string moniker, int id)
+    public async Task<Room> GetRoomAsync(string moniker, int id)
     {
-      return _ctx.Rooms.Where(r => r.Id == id).FirstOrDefault();
+      return await _ctx.Rooms
+        .Where(r => r.Id == id)
+        .FirstOrDefaultAsync();
     }
 
-    public Track GetTrack(string moniker, int id)
+    public async Task<Track> GetTrackAsync(string moniker, int id)
     {
-      return _ctx.Tracks.Where(r => r.Id == id).FirstOrDefault();
+      return await _ctx.Tracks
+        .Where(r => r.Id == id)
+        .FirstOrDefaultAsync();
     }
 
-    public TimeSlot GetTimeSlot(string moniker, int id)
+    public async Task<TimeSlot> GetTimeSlotAsync(string moniker, int id)
     {
-      return _ctx.TimeSlots.Where(r => r.Id == id).FirstOrDefault();
+      return await _ctx.TimeSlots
+        .Where(r => r.Id == id)
+        .FirstOrDefaultAsync();
     }
 
-    public List<IEnumerable<ScheduleModel>> GetTalksInSlots(string moniker)
+    public async Task<List<IEnumerable<ScheduleModel>>> GetTalksInSlotsAsync(string moniker)
     {
-      var talks = GetTalks(moniker).ToList();
+      var talks = (await GetTalksAsync(moniker)).ToList();
 
       var slots = from t in talks
                   where t.TimeSlot != null && t.Room != null && t.Approved
@@ -303,9 +318,9 @@ namespace CoreCodeCamp.Data
       return results;
     }
 
-    public Speaker MigrateSpeakerForCurrentUser(string moniker, CodeCampUser user)
+    public async Task<Speaker> MigrateSpeakerForCurrentUserAsync(string moniker, CodeCampUser user)
     {
-      var speaker = GetSpeakerForCurrentUser(moniker, user.UserName);
+      var speaker = await GetSpeakerForCurrentUserAsync(moniker, user.UserName);
       if (speaker != null) return speaker; // Failsafe
 
       // Test for user name otherwise use slug for older speakers
@@ -322,7 +337,7 @@ namespace CoreCodeCamp.Data
       speaker = new Speaker();
       _mapper.Map(oldSpeaker, speaker);
 
-      var currentEvent = GetEventInfo(moniker);
+      var currentEvent = await GetEventInfoAsync(moniker);
       speaker.Event = currentEvent;
       speaker.UserName = user.UserName;
 

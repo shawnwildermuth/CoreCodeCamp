@@ -1,7 +1,27 @@
-﻿@{
-    ViewData["Title"] = "Sponsor Us";
+﻿@using System.IO
+@using Microsoft.AspNetCore.Hosting
+@using Microsoft.AspNetCore.Mvc.ViewEngines
+@inject IWebHostEnvironment environment
+@inject ICompositeViewEngine engine
+@{
+  ViewData["Title"] = "Sponsor Us";
 }
 <div class="row text-left">
-  @await Html.PartialAsync($"_Sponsoring{Html.GetMoniker()}")
-  <p class="lead">You can get the complete Sponsorship Packet in PDF form here: <a href="/downloads/@Html.GetMoniker()/sponsorship-packet.pdf" target="_blank">Sponsorship Packet</a></p>
+  <div class="col-12">
+    @if (Html.HasView($"_Sponsoring{Html.GetMoniker()}", engine))
+    {
+      @await Html.PartialAsync($"_Sponsoring{Html.GetMoniker()}")
+    }
+    else
+    {
+      <h4 class="text-center">Sponsorship Packet Coming Soon!</h4>
+    }
+    @{
+      var filename = System.IO.Path.Combine(environment.WebRootPath, "downloads", Html.GetMoniker().Value, "sponsorship-packet.pdf");
+    }
+  </div>
+  @if (File.Exists(filename))
+  {
+    <p class="lead">You can get the complete Sponsorship Packet in PDF form here: <a href="/downloads/@Html.GetMoniker()/sponsorship-packet.pdf" target="_blank">Sponsorship Packet</a></p>
+  }
 </div>

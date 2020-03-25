@@ -72,7 +72,7 @@ namespace CoreCodeCamp
       svcs.AddAuthentication(o =>
       {
         o.DefaultScheme = IdentityConstants.ApplicationScheme;
-        o.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+        o.DefaultSignInScheme = IdentityConstants.ApplicationScheme;
       })
         .AddCoreCodeCampBearerToken()
         .AddIdentityCookies(o => { });

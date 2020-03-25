@@ -10,8 +10,7 @@ namespace CoreCodeCamp.Authentication
 {
   public static class CoreCampAuthSchemes
   {
-    public static readonly string AnyAuthScheme = string.Join(",", 
-      CookieAuthenticationDefaults.AuthenticationScheme, 
-      JwtBearerDefaults.AuthenticationScheme);
+    // HACK
+    public const string AnyAuthScheme = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme;
   }
 }

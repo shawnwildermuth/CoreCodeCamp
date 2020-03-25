@@ -19,7 +19,7 @@ using Microsoft.Extensions.Logging;
 namespace CoreCodeCamp.Controllers.Api
 {
   [Route("{moniker}/api/me")]
-  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+  [Authorize(AuthenticationSchemes = CoreCampAuthSchemes.AnyAuthScheme)]
   [ApiController]
   public class MeController : Controller
   {

@@ -11,7 +11,15 @@
 <div class="row">
   @if (Model == null || Model.Count() == 0)
   {
-    <p class="lead">Once the sessions are finalized, they will appear here!</p>
+    var info = this.GetEventInfo();
+    @if (info.CallForSpeakersOpened <= DateTime.Today && info.CallForSpeakersClosed >= DateTime.Today)
+    {
+      <p class="lead">Once the sessions are finalized, they will appear here!</p>
+    }
+    else
+    {
+      <script type="text/javascript" src="https://sessionize.com/api/v2/@(info.SessionizeEmbedId)/view/Sessions"></script>
+    }
   }
   else
   {

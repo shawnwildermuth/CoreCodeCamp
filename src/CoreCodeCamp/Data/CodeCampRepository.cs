@@ -8,17 +8,20 @@ using CoreCodeCamp.Data.Entities;
 using CoreCodeCamp.Models;
 using CoreCodeCamp.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace CoreCodeCamp.Data
 {
   public class CodeCampRepository : ICodeCampRepository
   {
     private CodeCampContext _ctx;
+    private readonly IConfiguration _config;
     private readonly IMapper _mapper;
 
-    public CodeCampRepository(CodeCampContext ctx, IMapper mapper)
+    public CodeCampRepository(CodeCampContext ctx, IConfiguration config, IMapper mapper)
     {
       _ctx = ctx;
+      _config = config;
       _mapper = mapper;
     }
 
@@ -57,18 +60,34 @@ namespace CoreCodeCamp.Data
 
     public async Task<EventInfo> GetCurrentEventAsync()
     {
-      return await _ctx.CodeCampEvents
+      var camp = await _ctx.CodeCampEvents
         .Include(e => e.Location)
         .OrderByDescending(e => e.EventDate)
         .FirstOrDefaultAsync();
+
+      if (_config["Data:ShowTestSessionize"] == "true")
+      {
+        camp.SessionizeId = "testconf-2020";
+        camp.SessionizeEmbedId = "ncg7gdmg";
+      }
+
+      return camp;
+
     }
 
     public async Task<EventInfo> GetEventInfoAsync(string moniker)
     {
-      return await _ctx.CodeCampEvents
+      var camp = await _ctx.CodeCampEvents
         .Include(e => e.Location)
         .Where(e => e.Moniker == moniker)
         .FirstOrDefaultAsync();
+
+      if (_config.GetValue<bool>("Data:ShowTestSessionize") == true) {
+        camp.SessionizeId = "testconf-2020";
+        camp.SessionizeEmbedId = "ncg7gdmg";
+      }
+
+      return camp;
     }
 
     public async Task<Speaker> GetSpeakerForCurrentUserAsync(string moniker, string userName)

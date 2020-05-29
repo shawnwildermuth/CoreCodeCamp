@@ -6,7 +6,22 @@
 }
 @section topSection {
   <div class="col-sm-8 offset-sm-2 text">
-    @if (this.GetEventInfo().EventDate.ToUniversalTime().Date > DateTime.Today.AddDays(-1))
+    @if (this.GetEventInfo().Moniker == "2020")
+    {
+      <h1 class="wow fadeInLeftBig"><strong>@this.GetEventInfo().Name</strong> is cancelled.</h1>
+      <div class="description wow fadeInLeftBig">
+        <p class="lead">
+          Due to an abudance of caution, we've decided to cancel this year's event. Like most large
+          gatherings, we didn't think it would be in the best interest in the Atlanta developer community
+          to hold the event this year.
+        </p>
+        <p class="lead">
+          We hope you and your families are safe in this time of crisis. Keep well and we look forward
+          to holding the event next year.
+        </p>
+      </div>
+    }
+    else if (this.GetEventInfo().EventDate.ToUniversalTime().Date > DateTime.Today.AddDays(-1))
     {
       <h1 class="wow fadeInLeftBig"><strong>@this.GetEventInfo().Name</strong> is coming @this.GetEventInfo().EventDate.ToUniversalTime().Date.ToString("D")</h1>
       <div class="description wow fadeInLeftBig">

@@ -165,6 +165,7 @@ namespace CoreCodeCamp
 
       if (_env.IsDevelopment())
       {
+        logger.LogWarning("Running in Development Mode. Should never happen in production!");
         // For dev, just use Node Modules
         app.UseNodeModules();
       }

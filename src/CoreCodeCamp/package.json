@@ -3,10 +3,10 @@
   "name": "asp.net",
   "private": true,
   "dependencies": {
-    "bootstrap": "4.4.1",
-    "popper.js": "^1.16.0",
+    "bootstrap": "4.5.0",
+    "popper.js": "1.16.1",
     "font-awesome": "v4.7.0",
-    "jquery": "2.2.4",
+    "jquery": "3.5.1",
     "jquery-backstretch": "2.1.17",
     "jquery-ui-dist": "1.12.1",
     "jquery-validation": "1.14.0",

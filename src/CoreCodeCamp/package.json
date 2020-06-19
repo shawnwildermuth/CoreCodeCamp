@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "gulp": "4.0.2",
+    "minimist": ">=1.2.3",
     "gulp-bower-files": "~0.2.7",
     "gulp-concat": "~2.6.0",
     "gulp-rename": "^1.2.3",

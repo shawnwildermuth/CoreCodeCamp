@@ -144,7 +144,7 @@ App_Data/*.ldf
 project.lock.json
 bower_components/
 node_modules/
-**/wwwroot/lib/
+#**/wwwroot/lib/
 **/wwwroot/img/media/
 .settings
 **/PublishProfiles/

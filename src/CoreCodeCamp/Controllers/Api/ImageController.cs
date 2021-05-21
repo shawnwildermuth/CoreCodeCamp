@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,7 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
+using WilderMinds.AzureImageService;
 
 namespace CoreCodeCamp.Controllers.Api
 {
@@ -67,9 +68,9 @@ namespace CoreCodeCamp.Controllers.Api
       {
         // Write It
         newStream.Position = 0;
-        var imageUrl = await _imageService.StoreImage(path, newStream.ToArray());
+        var result = await _imageService.StoreImage(path, newStream.ToArray());
 
-        return Created(imageUrl, new { succeeded = true });
+        return Created(result.ImageUrl, new { succeeded = result.Success });
       }
 
     }
@@ -83,13 +84,13 @@ namespace CoreCodeCamp.Controllers.Api
         var options = new ResizeOptions()
         {
           Mode = ResizeMode.Pad,
-          Size = new SixLabors.Primitives.Size(size.Width, size.Height)
+          Size = new Size(size.Width, size.Height)
         };
 
         // Load, resize, set the format, and quality and save an image.
         image.Mutate(x => x
           .Resize(options)
-          .BackgroundColor(new SixLabors.ImageSharp.PixelFormats.Rgba32(255, 255, 255, 255)));
+          .BackgroundColor(new Rgba32(255, 255, 255, 255)));
 
         image.Save(outStream, new JpegEncoder() { Quality = 70 });
 

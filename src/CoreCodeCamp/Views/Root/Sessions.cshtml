@@ -16,9 +16,13 @@
     {
       <p class="lead">Once the sessions are finalized, they will appear here!</p>
     }
-    else
+    else if (!string.IsNullOrWhiteSpace(info.SessionizeEmbedId))
     {
       <script type="text/javascript" src="https://sessionize.com/api/v2/@(info.SessionizeEmbedId)/view/Sessions"></script>
+    }
+    else
+    {
+      <p class="lead">Once the sessions are finalized, they will appear here!</p>
     }
   }
   else

@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CoreCodeCamp.Data;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace CoreCodeCamp
 {
@@ -21,9 +14,15 @@ namespace CoreCodeCamp
         .UseStartup<Startup>()
         .Build();
 
-      //Seed(host).Wait();
+      if (args?.Length == 1 && args[0].ToLower() == "/seed")
+      {
+        Seed(host).Wait();
 
-      host.Run();
+      }
+      else
+      {
+        host.Run();
+      }
     }
 
     private static async Task Seed(IWebHost host)

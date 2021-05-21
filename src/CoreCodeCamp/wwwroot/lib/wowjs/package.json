@@ -1,0 +1,40 @@
+{
+  "name"            : "wowjs",
+  "title"           : "WOW",
+  "version"         : "1.1.3",
+  "description" : "",
+  "keywords": [],
+  "homepage"        : "",
+  "author"          : {
+    "name"  : "Matthieu Aussaguel",
+    "email" : "matthieu.aussaguel@gmail.com",
+    "url"   : "http://mynameismatthieu.com/"
+  },
+  "main": "./dist/wow.js",
+  "repository" : {
+    "type" : "git",
+    "url"  : "git://github.com/matthieua/WOW.git"
+  },
+  "bugs" : {
+    "url" : "https://github.com/matthieua/WOW/issues"
+  },
+  "licenses": [{
+    "type": "GPLv3",
+    "url": "http://mynameismatthieu.com/WOW"
+  }],
+  "dependencies": {
+    "animate.css": "latest"
+  },
+  "devDependencies" : {
+    "grunt"                : "latest",
+    "grunt-cli"            : "latest",
+    "grunt-contrib-watch"  : "latest",
+    "grunt-contrib-coffee" : "latest",
+    "grunt-contrib-jasmine": "latest",
+    "grunt-contrib-uglify" : "latest",
+    "grunt-growl"          : "latest"
+  },
+  "scripts": {
+    "test": "grunt travis"
+  }
+}

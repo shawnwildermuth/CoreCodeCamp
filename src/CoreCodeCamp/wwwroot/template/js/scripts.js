@@ -22,9 +22,15 @@ jQuery(document).ready(function () {
     scroll_to($(this), $('nav').outerHeight());
   });
   // toggle "navbar-no-bg" class
-  $('.top-content .text').waypoint(function () {
-    $('nav').toggleClass('navbar-no-bg');
-  });
+  var $top = $('.top-content .text');
+  if ($top.length) {
+    var waypoint = new Waypoint({
+      element: $top[0],
+      handler: function () {
+        $('nav').toggleClass('navbar-no-bg');
+      }
+    });
+  } else console.log("No top-content")
 
   /*
       Background slideshow

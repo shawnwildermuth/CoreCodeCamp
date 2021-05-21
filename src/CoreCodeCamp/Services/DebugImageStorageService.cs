@@ -1,39 +1,20 @@
-﻿//#define USE_FILE_SYSTEM 
-using Microsoft.AspNetCore.Hosting;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.IO;
 using System.Threading.Tasks;
+using WilderMinds.AzureImageService;
 
 namespace CoreCodeCamp.Services
 {
   public class DebugImageStorageService : IImageStorageService
   {
 
-#if USE_FILE_SYSTEM
-    private readonly IHostingEnvironment _env;
-    public DebugImageStorageService(IHostingEnvironment env)
+    public Task<ImageResponse> StoreImage(string storageImagePath, Stream imageStream)
     {
-      _env = env;
+      return Task.FromResult(new ImageResponse() { Success = true, ImageUrl = "https://wilderminds.com/images/logo_800x250_bktrans.png", ImageChanged = false });
     }
-#endif
 
-    public async Task<string> StoreImage(string filename, byte[] image)
+    public Task<ImageResponse> StoreImage(string storeImagePath, byte[] imageData)
     {
-#if USE_FILE_SYSTEM
-      var path = Path.Combine(_env.WebRootPath, filename);
-      using (var file = new FileStream(path, FileMode.Create))
-      {
-        await file.WriteAsync(image);
-        await file.FlushAsync();
-        file.Close();
-        return Path.Combine("/", filename);
-      }
-#else
-      return await Task.FromResult("https://wilderminds.com/images/logo_800x250_bktrans.png");
-#endif
+      return StoreImage(storeImagePath, new MemoryStream(imageData));
     }
   }
 }

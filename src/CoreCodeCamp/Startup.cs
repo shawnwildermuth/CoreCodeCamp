@@ -25,6 +25,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
+using WilderMinds.AzureImageService;
 
 namespace CoreCodeCamp
 {
@@ -32,10 +33,12 @@ namespace CoreCodeCamp
   {
     private const string IGNORE_STATUS_CODE_PAGES = "IgnoreStatusCodePages";
     IWebHostEnvironment _env;
+    private readonly IConfiguration _config;
 
-    public Startup(IWebHostEnvironment env)
+    public Startup(IWebHostEnvironment env, IConfiguration config)
     {
       _env = env;
+      _config = config;
     }
 
 
@@ -53,12 +56,16 @@ namespace CoreCodeCamp
 
       if (_env.IsProduction() || _env.IsStaging())
       {
-        svcs.AddTransient<IImageStorageService, ImageStorageService>();
+        svcs.AddImageStorageService(
+          _config["BlobService.Account"],
+          _config["BlobService.Key"],
+          _config["BlobService.StorageUrl"]);
       }
       else
       {
         svcs.AddTransient<IImageStorageService, DebugImageStorageService>();
       }
+
 
       // Add framework services.
       svcs.AddDbContext<CodeCampContext>();
@@ -101,7 +108,7 @@ namespace CoreCodeCamp
       if (_env.IsDevelopment())
       {
         svcs.AddRazorPages()
-        .AddRazorRuntimeCompilation();
+          .AddRazorRuntimeCompilation();
       }
       else
       {
@@ -124,7 +131,6 @@ namespace CoreCodeCamp
 
       if (_env.IsProduction())
       {
-        //app.UseHttpsRedirection();
         app.UseStatusCodePages(new StatusCodePagesOptions()
         {
           HandleAsync = ctx =>
@@ -162,13 +168,6 @@ namespace CoreCodeCamp
           }
         }
       });
-
-      if (_env.IsDevelopment())
-      {
-        logger.LogWarning("Running in Development Mode. Should never happen in production!");
-        // For dev, just use Node Modules
-        app.UseNodeModules();
-      }
 
       app.UseRouting();
 

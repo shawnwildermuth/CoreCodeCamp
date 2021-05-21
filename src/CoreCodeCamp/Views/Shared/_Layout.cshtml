@@ -10,9 +10,9 @@
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,100,300,500">
 
   <environment names="Development">
-    <link href="~/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/node_modules/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="~/node_modules/typicons.font/src/font/typicons.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/lib/typicons.font/src/font/typicons.css" rel="stylesheet" />
 
     <link href="~/template/css/animate.css" rel="stylesheet">
     <link href="~/template/css/style.css" rel="stylesheet">
@@ -147,13 +147,13 @@
     </div>
   </footer>
   <environment names="Development">
-    <script src="~/node_modules/jquery/dist/jquery.js"></script>
-    <script src="~/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
 
-    <script src="~/node_modules/jquery-backstretch/jquery.backstretch.js"></script>
-    <script src="~/node_modules/wowjs/dist/wow.js"></script>
-    <script src="~/node_modules/retina.js/src/retina.js"></script>
-    <script src="~/node_modules/jquery-waypoints/waypoints.js"></script>
+    <script src="~/lib/jquery-backstretch/jquery.backstretch.js"></script>
+    <script src="~/lib/wowjs/dist/wow.js"></script>
+    <script src="~/lib/retina.js/src/retina.js"></script>
+    <script src="~/lib/waypoints/lib/noframework.waypoints.js"></script>
 
     <script src="~/template/js/scripts.js"></script>
 
@@ -165,25 +165,25 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
   </environment>
   <environment names="Staging,Production">
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.5.1.min.js"
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js"
             asp-fallback-src="~/lib/jquery/jquery.min.js"
             asp-fallback-test="window.jQuery">
     </script>
     <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/4.5.0/bootstrap.min.js"
-            asp-fallback-src="~/lib/bootstrap/js/bootstrap.min.js"
+            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
             asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
     </script>
 
     <script src="~/lib/jquery-backstretch/jquery.backstretch.min.js" asp-append-version="true"></script>
-    <script src="~/lib/wowjs/wow.min.js" asp-append-version="true"></script>
-    <script src="~/lib/retina.js/retina.js" asp-append-version="true"></script>
-    <script src="~/lib/jquery-waypoints/waypoints.min.js" asp-append-version="true"></script>
+    <script src="~/lib/wowjs/dist/wow.min.js" asp-append-version="true"></script>
+    <script src="~/lib/retina.js/src/retina.js" asp-append-version="true"></script>
+    <script src="~/lib/waypoints/lib/noframework.waypoints.min.js" asp-append-version="true"></script>
 
     <script src="~/template/js/scripts.js" asp-append-version="true"></script>
 
     <!--[if lt IE 10]>
-        <script src="~/template/js/placeholder.js"></script>
-    <![endif]-->
+      <script src="~/template/js/placeholder.js"></script>
+  <![endif]-->
 
     <script src="~/js/site.min.js" asp-append-version="true"></script>
   </environment>

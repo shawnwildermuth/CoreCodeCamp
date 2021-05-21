@@ -5,17 +5,17 @@ module.exports = {
   runtimeCompiler: true,
   productionSourceMap: false,
   pages: {
-    join: {
-      entry: "src/join.js",
-      filenameHashing: false
-    },
+    //join: {
+    //  entry: "src/join.js",
+    //  filenameHashing: false
+    //},
     admin: { 
       entry: "src/admin/index.js",
       filenameHashing: false
     },
-    callforspeakers: {
-      entry: "src/callForSpeakers/index.js",
-      filenameHashing: false
-    }
+  //  callforspeakers: {
+  //    entry: "src/callForSpeakers/index.js",
+  //    filenameHashing: false
+  //  }
   }
 }

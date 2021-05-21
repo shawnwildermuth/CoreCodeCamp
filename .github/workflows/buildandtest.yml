@@ -16,7 +16,26 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.101
+        dotnet-version: 5.0.203
     - name: Build with dotnet
       working-directory: ./src
       run: dotnet build --configuration Release
+
+
+    - name: Docker Login
+      uses: Azure/docker-login@v1
+      with:
+        # Container registry username
+        username: ${{ secrets.DOCKER_USER_NAME }} 
+        # Container registry password
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        # Container registry server url
+        login-server: https://wmcontainers.azurecr.io
+
+    - name: Building Docker Image
+      working-directory: ./src/CoreCodeCamp
+      run: docker build .. -f ./Dockerfile -t wmcontainers.azurecr.io/atlcc:test
+
+    - name: Push the Image
+      working-directory: ./src/CoreCodeCamp 
+      run: docker push wmcontainers.azurecr.io/atlcc:test

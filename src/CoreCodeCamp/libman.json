@@ -1,0 +1,115 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "unpkg",
+      "library": "jquery@3.6.0",
+      "destination": "wwwroot/lib/jquery/",
+      "files": [
+        "dist/jquery.js",
+        "dist/jquery.min.js",
+        "dist/jquery.min.map",
+        "dist/jquery.slim.js",
+        "dist/jquery.slim.min.js",
+        "dist/jquery.slim.min.map"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "jquery-ui@1.12.1",
+      "destination": "wwwroot/lib/jquery-ui/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "jquery-backstretch@2.1.18",
+      "destination": "wwwroot/lib/jquery-backstretch/",
+      "files": [
+        "jquery.backstretch.js",
+        "jquery.backstretch.min.js"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "jquery-validation@1.19.3",
+      "destination": "wwwroot/lib/jquery-validation/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "jquery-validation-unobtrusive@3.2.12",
+      "destination": "wwwroot/lib/jquery-validation-unobtrusive/",
+      "files": [
+        "dist/jquery.validate.unobtrusive.js",
+        "dist/jquery.validate.unobtrusive.min.js"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "bootstrap@4.5.0",
+      "destination": "wwwroot/lib/bootstrap/",
+      "files": [
+        "dist/css/bootstrap.css",
+        "dist/css/bootstrap.css.map",
+        "dist/css/bootstrap.min.css",
+        "dist/css/bootstrap.min.css.map",
+        "dist/js/bootstrap.bundle.js",
+        "dist/js/bootstrap.bundle.js.map",
+        "dist/js/bootstrap.bundle.min.js",
+        "dist/js/bootstrap.bundle.min.js.map"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "wowjs@1.1.3",
+      "destination": "wwwroot/lib/wowjs/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "retina.js@1.1.0",
+      "destination": "wwwroot/lib/retina.js/",
+      "files": [
+        "src/retina.js",
+        "src/retina.less"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "typicons.font@2.1.2",
+      "destination": "wwwroot/lib/typicons.font/",
+      "files": [
+        "src/font/typicons.css",
+        "src/font/typicons.json",
+        "src/font/typicons.svg",
+        "src/font/typicons.ttf",
+        "src/font/typicons.woff",
+        "src/font/typicons.woff2",
+        "src/font/typicons.eot"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "font-awesome@4.7.0",
+      "destination": "wwwroot/lib/font-awesome/",
+      "files": [
+        "css/font-awesome.css",
+        "css/font-awesome.css.map",
+        "css/font-awesome.min.css",
+        "fonts/fontawesome-webfont.eot",
+        "fonts/fontawesome-webfont.svg",
+        "fonts/fontawesome-webfont.ttf",
+        "fonts/fontawesome-webfont.woff",
+        "fonts/fontawesome-webfont.woff2",
+        "fonts/FontAwesome.otf"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "waypoints@4.0.1",
+      "destination": "wwwroot/lib/waypoints/",
+      "files": [
+        "lib/noframework.waypoints.js",
+        "lib/noframework.waypoints.min.js"
+      ]
+    }
+  ]
+}

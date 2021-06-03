@@ -34,7 +34,7 @@
         }
         else
         {
-          <a asp-action="Register" asp-controller="Root" asp-area="" class="btn btn-lg btn-success">Register for @this.GetEventInfo().Name</a>
+          <a asp-action="Register" asp-controller="Root" asp-area="" asp-route-moniker="@this.GetEventInfo().Moniker" class="btn btn-lg btn-success">Register for @this.GetEventInfo().Name</a>
         }
         @if (this.GetEventInfo().CallForSpeakersOpened <= DateTime.Today && this.GetEventInfo().CallForSpeakersClosed >= DateTime.Today)
         {

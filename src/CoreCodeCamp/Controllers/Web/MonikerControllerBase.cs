@@ -28,10 +28,8 @@ namespace CoreCodeCamp.Controllers.Web
       _mapper = mapper;
     }
 
-    public async override void OnActionExecuting(ActionExecutingContext context)
+    public async override Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-      base.OnActionExecuting(context);
-
       using (var scope = this.HttpContext.RequestServices.CreateScope())
       {
         var repo = scope.ServiceProvider.GetService<ICodeCampRepository>();
@@ -62,9 +60,10 @@ namespace CoreCodeCamp.Controllers.Web
       if (_theEvent == null) context.HttpContext.Response.Redirect("/");
       else context.HttpContext.Items[Consts.EVENT_INFO_ITEM] = _theEvent;
 
-
+      await base.OnActionExecutionAsync(context, next);
+      
+      return;
     }
-
 
   }
 }

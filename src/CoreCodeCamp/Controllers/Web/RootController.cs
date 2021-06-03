@@ -157,8 +157,6 @@ namespace CoreCodeCamp.Controllers.Web
     [HttpGet("{moniker}/Register")]
     public IActionResult Register(string moniker)
     {
-      if (this._theEvent == null || string.IsNullOrWhiteSpace(this._theEvent.RegistrationLink)) return RedirectToAction("Index");
-
       return View();
     }
 

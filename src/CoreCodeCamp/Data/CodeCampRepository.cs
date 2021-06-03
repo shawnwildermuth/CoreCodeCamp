@@ -77,10 +77,10 @@ namespace CoreCodeCamp.Data
 
     public async Task<EventInfo> GetEventInfoAsync(string moniker)
     {
-      var camp = await _ctx.CodeCampEvents
+      EventInfo camp = await _ctx.CodeCampEvents
         .Include(e => e.Location)
         .Where(e => e.Moniker == moniker)
-        .FirstOrDefaultAsync();
+        .FirstAsync();
 
       if (_config.GetValue<bool>("Data:ShowTestSessionize") == true) {
         camp.SessionizeId = "testconf-2020";

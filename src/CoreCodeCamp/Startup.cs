@@ -152,6 +152,7 @@ namespace CoreCodeCamp
         });
 
         app.UseExceptionHandler("/Error/Exception");
+        app.UseHttpsRedirection();
 
         SetupLoggerly(loggerFactory, appLifetime, config);
 

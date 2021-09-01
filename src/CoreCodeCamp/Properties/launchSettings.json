@@ -13,7 +13,7 @@
       "launchBrowser": true,
       "launchUrl": "2021",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "_ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "CoreCodeCamp": {

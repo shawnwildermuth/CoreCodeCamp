@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>@ViewData["Title"] - @this.GetEventInfo().Name</title>
+  <title>@ViewData["Title"] - @(this.GetEventInfo()?.Name ?? "Atlanta Code Camp")</title>
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,100,300,500">
 
@@ -61,7 +61,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a asp-area="" asp-controller="Root" asp-action="Index" asp-route-moniker="@Html.GetMoniker()" class="navbar-brand">@this.GetEventInfo().Name</a>
+    <a asp-area="" asp-controller="Root" asp-action="Index" asp-route-moniker="@Html.GetMoniker()" class="navbar-brand">@(this.GetEventInfo()?.Name ?? "Atlanta Code Camp")</a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         @await Html.PartialAsync("_MenuItems", false)
@@ -103,27 +103,27 @@
           @await Html.PartialAsync("_OtherEvents")
         </div>
         <div class="col-sm-4 footer-contact-info wow fadeInDown">
-          <h3>@this.GetEventInfo().Name</h3>
-          <p>@this.GetEventInfo().Location.Facility</p>
-          <p><i class="fa fa-map-marker"></i> @this.GetEventInfo().Location.GetOneLineAddress()</p>
-          <p><i class="fa fa-envelope"></i> Email: <a href="mailto:@(this.GetEventInfo().ContactEmail)">@this.GetEventInfo().ContactEmail</a></p>
+          <h3>@this.GetEventInfo()?.Name</h3>
+          <p>@this.GetEventInfo()?.Location?.Facility</p>
+          <p><i class="fa fa-map-marker"></i> @this.GetEventInfo()?.Location?.GetOneLineAddress()</p>
+          <p><i class="fa fa-envelope"></i> Email: <a href="mailto:@(this.GetEventInfo()?.ContactEmail)">@this.GetEventInfo()?.ContactEmail</a></p>
         </div>
         <div class="col-4 footer-social wow fadeInUp">
           <h3>We're Social</h3>
           <p>
-            @if (!string.IsNullOrWhiteSpace(this.GetEventInfo().FacebookLink))
+            @if (!string.IsNullOrWhiteSpace(this.GetEventInfo()?.FacebookLink))
             {
-              <a href="@this.GetEventInfo().FacebookLink"><i class="fa fa-facebook"></i></a>
+              <a href="@this.GetEventInfo()?.FacebookLink"><i class="fa fa-facebook"></i></a>
             }
-            @if (!string.IsNullOrWhiteSpace(this.GetEventInfo().TwitterLink))
+            @if (!string.IsNullOrWhiteSpace(this.GetEventInfo()?.TwitterLink))
             {
               <a href="@this.GetEventInfo().TwitterLink"><i class="fa fa-twitter"></i></a>
             }
-            @if (!string.IsNullOrWhiteSpace(this.GetEventInfo().InstagramLink))
+            @if (!string.IsNullOrWhiteSpace(this.GetEventInfo()?.InstagramLink))
             {
               <a href="@this.GetEventInfo().InstagramLink"><i class="fa fa-instagram"></i></a>
             }
-            @if (!string.IsNullOrWhiteSpace(this.GetEventInfo().LinkedinLink))
+            @if (!string.IsNullOrWhiteSpace(this.GetEventInfo()?.LinkedinLink))
             {
                 <a href="@this.GetEventInfo().LinkedinLink"><i class="fa fa-linkedin"></i></a>
             }
@@ -132,7 +132,7 @@
       </div>
       <div class="row border-top-0">
         <div class="col-3 footer-copyright border-top-0">
-          &copy; <a asp-controller="Root" asp-action="Index" asp-route-moniker="@(this.GetEventInfo().Moniker)">Atlanta Code Camp</a>
+          &copy; <a asp-controller="Root" asp-action="Index" asp-route-moniker="@(this.GetEventInfo()?.Moniker)">Atlanta Code Camp</a>
         </div>
         <div class="col-3 offset-6 footer-copyright text-right border-top-0">
           <p>Source code available on <a href="http://github.com/shawnwildermuth/corecodecamp">Github</a></p>

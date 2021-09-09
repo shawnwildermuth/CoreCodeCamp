@@ -25,7 +25,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
-using WilderMinds.AzureImageService;
+using WilderMinds.AzureImageStorageService;
 
 namespace CoreCodeCamp
 {
@@ -56,14 +56,16 @@ namespace CoreCodeCamp
 
       if (_env.IsProduction() || _env.IsStaging())
       {
-        svcs.AddImageStorageService(
-          _config["BlobService.Account"],
-          _config["BlobService.Key"],
-          _config["BlobService.StorageUrl"]);
+        var svcConfig = _config.GetSection("BlobService");
+        var acct = svcConfig["Account"];
+        var key = svcConfig["Key"];
+        var url = svcConfig["StorageUrl"];
+
+        svcs.AddAzureImageStorageService(acct, key, url);
       }
       else
       {
-        svcs.AddTransient<IImageStorageService, DebugImageStorageService>();
+        svcs.AddTransient<IAzureImageStorageService, DebugImageStorageService>();
       }
 
 

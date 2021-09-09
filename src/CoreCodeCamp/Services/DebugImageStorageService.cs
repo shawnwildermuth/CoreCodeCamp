@@ -1,20 +1,20 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using WilderMinds.AzureImageService;
+using WilderMinds.AzureImageStorageService;
 
 namespace CoreCodeCamp.Services
 {
-  public class DebugImageStorageService : IImageStorageService
+  public class DebugImageStorageService : IAzureImageStorageService
   {
 
-    public Task<ImageResponse> StoreImage(string storageImagePath, Stream imageStream)
+    public Task<ImageResponse> StoreImage(string container, string storageImagePath, Stream imageStream)
     {
       return Task.FromResult(new ImageResponse() { Success = true, ImageUrl = "https://wilderminds.com/images/logo_800x250_bktrans.png", ImageChanged = false });
     }
 
-    public Task<ImageResponse> StoreImage(string storeImagePath, byte[] imageData)
+    public Task<ImageResponse> StoreImage(string container, string storeImagePath, byte[] imageData)
     {
-      return StoreImage(storeImagePath, new MemoryStream(imageData));
+      return StoreImage(container, storeImagePath, new MemoryStream(imageData));
     }
   }
 }

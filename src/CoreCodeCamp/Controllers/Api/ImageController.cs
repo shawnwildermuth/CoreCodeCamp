@@ -13,7 +13,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using WilderMinds.AzureImageService;
+using WilderMinds.AzureImageStorageService;
 
 namespace CoreCodeCamp.Controllers.Api
 {
@@ -23,9 +23,9 @@ namespace CoreCodeCamp.Controllers.Api
   {
     private IWebHostEnvironment _env;
     private ILogger<ImageController> _logger;
-    private readonly IImageStorageService _imageService;
+    private readonly IAzureImageStorageService _imageService;
 
-    public ImageController(IWebHostEnvironment env, ILogger<ImageController> logger, IImageStorageService imageService)
+    public ImageController(IWebHostEnvironment env, ILogger<ImageController> logger, IAzureImageStorageService imageService)
     {
       _env = env;
       _logger = logger;
@@ -68,9 +68,16 @@ namespace CoreCodeCamp.Controllers.Api
       {
         // Write It
         newStream.Position = 0;
-        var result = await _imageService.StoreImage(path, newStream.ToArray());
+        var result = await _imageService.StoreImage("acc", path, newStream.ToArray());
 
-        return Created(result.ImageUrl, new { succeeded = result.Success });
+        if (result.Success)
+        {
+          return Created(result.ImageUrl, new { succeeded = result.Success });
+        }
+        else
+        {
+          return BadRequest(result.Exception.Message);
+        }
       }
 
     }

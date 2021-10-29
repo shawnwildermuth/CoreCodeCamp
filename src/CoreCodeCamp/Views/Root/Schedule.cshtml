@@ -1,24 +1,24 @@
-@model Tuple<List<IEnumerable<ScheduleModel>>, IEnumerable<Talk>, DateTime, List<string>>
-@inject UserManager<CodeCampUser> userMgr
-@inject SignInManager<CodeCampUser> signInMgr
-@{
-  var codeCampUser = await userMgr.GetUserAsync(User);
-  ViewData["Title"] = "Schedule";
+@*@model Tuple<List<IEnumerable<ScheduleModel>>, IEnumerable<Talk>, DateTime, List<string>>
+  @inject UserManager<CodeCampUser> userMgr
+  @inject SignInManager<CodeCampUser> signInMgr
+  @{
+    var codeCampUser = await userMgr.GetUserAsync(User);
+    ViewData["Title"] = "Schedule";
 
-  var slots = Model.Item1;
-  var favs = Model.Item2;
-  var pickedTime = Model.Item3;
+    var slots = Model.Item1;
+    var favs = Model.Item2;
+    var pickedTime = Model.Item3;
 
-  var isAdmin = (codeCampUser != null && signInMgr.IsSignedIn(User) && await userMgr.IsInRoleAsync(codeCampUser, Consts.ADMINROLE));
-}
-@section Scripts {
-  <script>
-    (function ($) {
-      var timeBlock = $('.current-time');
-      if (timeBlock.length > 0) window.scrollTo(0, timeBlock.offset().top - 50);
-    })(jQuery);
-  </script>
-}
+    var isAdmin = (codeCampUser != null && signInMgr.IsSignedIn(User) && await userMgr.IsInRoleAsync(codeCampUser, Consts.ADMINROLE));
+  }
+  @section Scripts {
+    <script>
+      (function ($) {
+        var timeBlock = $('.current-time');
+        if (timeBlock.length > 0) window.scrollTo(0, timeBlock.offset().top - 50);
+      })(jQuery);
+    </script>
+  }*@
 <div class="row">
   <script type="text/javascript" src="https://sessionize.com/api/v2/@(this.GetEventInfo().SessionizeEmbedId)/view/GridSmart"></script>
 </div>

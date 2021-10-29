@@ -120,38 +120,43 @@ namespace CoreCodeCamp.Controllers.Web
     [HttpGet("{moniker}/Schedule")]
     public async Task<IActionResult> Schedule(string moniker)
     {
-      var favorites = await _repo.GetUserWithFavoriteTalksForEventAsync(User.Identity.Name, moniker);
-
-      var slots = await _repo.GetTalksInSlotsAsync(moniker);
-
-      var categories = slots.SelectMany(s => s.ToList())
-      .SelectMany(s => s.Talks)
-      .Select(t => t.Category)
-      .OrderBy(t => t)
-      .Distinct()
-      .ToList();
-
-      DateTime pickedSlot = DateTime.MinValue;
-
-      if (slots.Count() > 0)
+      if (string.IsNullOrWhiteSpace(this._theEvent.SessionizeId))
       {
-        var easternZone = TZConvert.GetTimeZoneInfo("Eastern Standard Time");
-        var eventTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
+        var favorites = await _repo.GetUserWithFavoriteTalksForEventAsync(User.Identity.Name, moniker);
 
-        if (eventTime.Date == this._theEvent.EventDate)
+        var slots = await _repo.GetTalksInSlotsAsync(moniker);
+
+        var categories = slots.SelectMany(s => s.ToList())
+        .SelectMany(s => s.Talks)
+        .Select(t => t.Category)
+        .OrderBy(t => t)
+        .Distinct()
+        .ToList();
+
+        DateTime pickedSlot = DateTime.MinValue;
+
+        if (slots.Count() > 0)
         {
-          pickedSlot = slots[0].First().Time;
+          var easternZone = TZConvert.GetTimeZoneInfo("Eastern Standard Time");
+          var eventTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
 
-          foreach (var slot in slots)
+          if (eventTime.Date == this._theEvent.EventDate)
           {
-            if (slot.First().Time > eventTime)
+            pickedSlot = slots[0].First().Time;
+
+            foreach (var slot in slots)
             {
-              pickedSlot = slot.First().Time;
+              if (slot.First().Time > eventTime)
+              {
+                pickedSlot = slot.First().Time;
+              }
             }
           }
         }
+        return View(Tuple.Create(slots, favorites, pickedSlot, categories));
       }
-      return View(Tuple.Create(slots, favorites, pickedSlot, categories));
+
+      return View();
     }
 
     [HttpGet("{moniker}/Register")]

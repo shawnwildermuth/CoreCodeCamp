@@ -125,6 +125,14 @@ namespace CoreCodeCamp
       IHostApplicationLifetime appLifetime,
       ILogger<Startup> logger)
     {
+      var url = _config["SiteSettings:Redirect"];
+      if (url is not null) {
+        app.Run(ctx => {
+          ctx.Response.Redirect(url, true);
+          return Task.CompletedTask;
+        });
+      }
+
       if (_env.IsDevelopment() || config["SiteSettings:ShowErrors"].ToLower() == "true")
       {
         app.UseDeveloperExceptionPage();

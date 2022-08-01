@@ -1,5 +1,6 @@
 {
-  "navigationFallback": {
+  "routes": {
+    "route": "/*",
     "redirect": "/",
     "exclude": ["/*.{png,jpg,gif,css}"]
   }

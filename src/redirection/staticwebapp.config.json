@@ -1,7 +1,9 @@
 {
-  "routes": {
-    "route": "/*",
-    "redirect": "/",
-    "exclude": ["/*.{png,jpg,gif,css}"]
-  }
+  "routes": [
+    {
+      "route": "/*",
+      "redirect": "/",
+      "exclude": ["/*.{png,jpg,gif,css}"]
+    }
+  ]
 }

@@ -1,9 +1,13 @@
 {
   "routes": [
     {
+      "route": "/*.{png,jpg,gif,css}"
+
+    },
+    {
       "route": "/*",
-      "redirect": "/",
-      "exclude": ["/*.{png,jpg,gif,css}"]
+      "redirect": "https://www.atldevcon.com",
+      "statusCode": 301,
     }
   ]
 }
